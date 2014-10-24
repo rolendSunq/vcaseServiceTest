@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
 <!DOCTYPE html>
-<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml">
+<html lang="ko">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=euc-kr" />
 	<meta http-equiv="Cache-Control" content="no-cache" />

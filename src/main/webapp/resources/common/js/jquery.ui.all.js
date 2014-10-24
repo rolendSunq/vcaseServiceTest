@@ -178,7 +178,6 @@ $.ui.mouse = {
 		this.started = false;
 	},
 	
-	// TODO: make sure destroying one instance of mouse doesn't mess with
 	// other instances of mouse
 	mouseDestroy: function() {
 		this.element.unbind('.'+this.widgetName);
@@ -1489,7 +1488,7 @@ $.widget("ui.resizable", $.extend({}, $.ui.mouse, {
 		
 		if(o.helper) {
 			var pr = o.proportionallyResize, ista = pr && (/textarea/i).test(pr.get(0).nodeName), 
-						soffseth = ista && $.ui.hasScroll(pr.get(0), 'left') /* TODO - jump height */ ? 0 : self.sizeDiff.height,
+						soffseth = ista && $.ui.hasScroll(pr.get(0), 'left') ? 0 : self.sizeDiff.height,
 							soffsetw = ista ? 0 : self.sizeDiff.width;
 			
 			var s = { width: (self.size.width - soffsetw), height: (self.size.height - soffseth) },
@@ -1783,7 +1782,7 @@ $.ui.plugin.add("resizable", "animate", {
 		var o = ui.options, self = $(this).data("resizable");
 		
 		var pr = o.proportionallyResize, ista = pr && (/textarea/i).test(pr.get(0).nodeName), 
-						soffseth = ista && $.ui.hasScroll(pr.get(0), 'left') /* TODO - jump height */ ? 0 : self.sizeDiff.height,
+						soffseth = ista && $.ui.hasScroll(pr.get(0), 'left') ? 0 : self.sizeDiff.height,
 							soffsetw = ista ? 0 : self.sizeDiff.width;
 		
 		var style = { width: (self.size.width - soffsetw), height: (self.size.height - soffseth) },
@@ -7522,7 +7521,6 @@ $.ui.tabs.defaults = {
 	event: 'click',
 	disabled: [],
 	cookie: null, // e.g. { expires: 7, path: '/', domain: 'jquery.com', secure: true }
-	// TODO history: false,
 
 	// Ajax
 	spinner: 'Loading&#8230;',

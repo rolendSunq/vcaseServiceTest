@@ -234,11 +234,12 @@
 	                <div class="popular_movie">
 	                	<h2>Popular Movie<span>Popular on Hankookrire movie</span></h2>
 	                    <ul class="thumbnail">
+	                    	<c:forEach var="popularObject" items="${list }" end="4" varStatus="status">
 	                    	<li class="mr24">
 	                        	<a href="#">
 	                            	<span>
-	                                	<img src="./resources/images/common/thumbnail.jpg" alt="" />
-	                                    <span class="video-time">7:04</span>
+	                                	<img src="${popularObject.thumb_url }" alt="" />
+	                                    <span class="video-time">${popularObject.duration }</span>
 	                                    <span class="admin_icon"><img src="./resources/images/common/icon_admin.png" alt="admin" /></span>
 	                                </span>
 	                            </a>
@@ -248,6 +249,8 @@
 	                            <span class="f_left">2014-07-15</span>
 	                            <span class="f_right mr5"><a class="download_btn" href="#"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
 	                        </li>
+	                        </c:forEach>
+	                        <!-- 
 	                        <li class="mr24">
 	                        	<a href="#">
 	                            	<span>
@@ -301,6 +304,7 @@
 	                            <span class="f_left">2014-07-15</span>
 	                            <span class="f_right mr5"><a class="download_btn" href="#"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
 	                        </li>
+	                         -->
 	                    </ul>
 	                </div>
 	                <!-- //popular movie -->
