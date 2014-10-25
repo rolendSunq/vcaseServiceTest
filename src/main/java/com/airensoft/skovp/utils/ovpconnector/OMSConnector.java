@@ -96,7 +96,17 @@ public class OMSConnector extends HttpConnectable {
 
 		return requestAPI();
 	}
-
+	
+	// 단일 컨텐츠 정보 조회
+	public OMSConnectorResponse requestPlayerInfo(int contentId, boolean withExtra, boolean withStaticUrl) {
+		setProtocol("http");
+		setMethod("GET");
+		addURIParam(OMSConfig.OVP_CONTENT_LIST + "/" + contentId);
+		addParam("with_extra", withExtra);
+		addParam("with_static_url", withStaticUrl);
+		return requestAPI();
+	}
+	
 	@Override
 	public void clear() {
 		super.clear();

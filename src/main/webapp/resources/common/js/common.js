@@ -103,7 +103,12 @@
 	});
 	
 	$(document).ready(function(){
-		$('.download_btn').click(function(){
+		$('a[class="download_btn"]').click(function(){
+			var contentId = $(this).attr('data-contentId');
+			$('.mb5').text('ID : ' + contentId);
+			$.getJSON('contentInfo', {"contentId":contentId}, function(data){
+				console.log("data: ", data);
+			});
 			$('.dow_layer').show();
 			$('.dow_layer_close').click(function(){
 				$('.dow_layer').hide();

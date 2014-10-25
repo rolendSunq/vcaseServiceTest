@@ -173,7 +173,7 @@
 	            	<!-- Updated Movie -->
 	            	<div class="latest mlr56">
 	            		<h2>Updated Movie</h2>
-	                	<div class="latest_movie">
+	                	<div class="latest_movie" id="latestMovie">
 	                    	<!-- 불러오는 주소 끝에 ;wmode=transparent [ex)  src="http://www.youtube.com/abc;wmode=transparent"]-->
 	                    	<!-- 동영상 플레이 -->
 	                    	<!-- <iframe width="520" height="292" src="http://www.youtube.com/embed/KravbQxXB7k?list=PLYkzrxbCq4D0jSb71h5RO2FVznuIf7YtN;wmode=transparent" frameborder="0" allowfullscreen></iframe> -->
@@ -187,7 +187,7 @@
 	                    </div>
 	                    <div class="latest_info">
 	                        <h3>${oneStreamPlay.title }</h3>
-	                        <p>${oneStreamPlay.duration }  / ${oneStreamPlay.mod_Date }</p>
+	                        <p>${oneStreamPlay.duration }  / ${oneStreamPlay.reg_date}</p>
 	                        <ul class="latest_info_con">
 		                        <li><span>Category&nbsp;&gt;&nbsp;</span>Product Movie</li>
 	                            <li><span>ID&nbsp;:&nbsp;</span>${oneStreamPlay.content_id }</li><!-- 어떤 종류의 아이디를 명시하지 않아서 컨텐츠 ID로 표시함 -->
@@ -204,7 +204,7 @@
 	                        		<c:when test="${status.count == 1 }"></c:when>
 	                        		<c:when test="${status.count != 4 }">
 	                        	<li class="mr22" id="content_item" data-content-id="${object.content_id}" data-content-thumb = "${object.thumb_url}" data-content-title="${object.title}">
-	                            	<a href="#">
+	                            	<a>
 	                                	<span>
 	                                		<img width="153px" height="85" src="${object.thumb_url}" alt="" />
 	                                    	<span class="video-time">${object.duration}</span>
@@ -214,7 +214,7 @@
 	                        		</c:when>
 	                        		<c:otherwise>
 	                            <li id="content_item" data-content-id="${object.content_id}" data-content-thumb = "${object.thumb_url}" data-content-title="${object.title}">
-	                            	<a href="#">
+	                            	<a>
 	                                	<span>
 	                                    	<img width="153px" height="85" src="${object.thumb_url}" alt="" />
 	                                        <span class="video-time">${object.duration}</span>
@@ -235,20 +235,54 @@
 	                	<h2>Popular Movie<span>Popular on Hankookrire movie</span></h2>
 	                    <ul class="thumbnail">
 	                    	<c:forEach var="popularObject" items="${list }" end="4" varStatus="status">
+	                    	<c:choose>
+	                    		<c:when test="${status.count < 4}">
 	                    	<li class="mr24">
 	                        	<a href="#">
 	                            	<span>
-	                                	<img src="${popularObject.thumb_url }" alt="" />
+	                                	<img width="196px" height="110px" src="${popularObject.thumb_url }" alt="" />
 	                                    <span class="video-time">${popularObject.duration }</span>
 	                                    <span class="admin_icon"><img src="./resources/images/common/icon_admin.png" alt="admin" /></span>
+	                                </span>
+	                            </a>
+	                            <span>Corporation</span>
+	                            <h3><a href="#">${popularObject.title }</a></h3>
+	                            <span>2,384,880 views</span>
+	                            <span class="f_left">2014-07-15</span>
+	                            <span class="f_right mr5"><a class="download_btn" data-contentId="${popularObject.content_id }" href="#"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
+	                        </li>
+	                    		</c:when>
+	                    		<c:when test="${status.count == 4 }">
+	                        <li class="mr23">
+	                        	<a href="#">
+	                            	<span>
+	                                	<img width="196px" height="110px" src="${popularObject.thumb_url }" alt="" />
+	                                    <span class="video-time">${popularObject.duration }</span>
+	                                </span>
+	                            </a>
+	                            <span>Corporation</span>
+	                            <h3><a href="#">${popularObject.title }</a></h3>
+	                            <span>2,384,880 views</span>
+	                            <span class="f_left">2014-07-15</span>
+	                            <span class="f_right mr5"><a class="download_btn" data-contentId="${popularObject.content_id }" href="#"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
+	                        </li>
+	                    		</c:when>
+	                    		<c:otherwise>
+	                    	<li>
+	                        	<a href="#">
+	                            	<span>
+	                                	<img width="196px" height="110px" src="${popularObject.thumb_url }" alt="" />
+	                                    <span class="video-time">${popularObject.duration }</span>
 	                                </span>
 	                            </a>
 	                            <span>Corporation</span>
 	                            <h3><a href="#">RA33_Dynapro HP2_Motion Graphic(ENG)</a></h3>
 	                            <span>2,384,880 views</span>
 	                            <span class="f_left">2014-07-15</span>
-	                            <span class="f_right mr5"><a class="download_btn" href="#"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
+	                            <span class="f_right mr5"><a class="download_btn" data-contentId="${popularObject.content_id }" href="#"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
 	                        </li>
+	                    		</c:otherwise>
+	                    	</c:choose>
 	                        </c:forEach>
 	                        <!-- 
 	                        <li class="mr24">
@@ -279,19 +313,6 @@
 	                            <span class="f_right mr5"><a class="download_btn" href="#"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
 	                        </li>
 	                        <li class="mr23">
-	                        	<a href="#">
-	                            	<span>
-	                                	<img src="./resources/images/common/thumbnail.jpg" alt="" />
-	                                    <span class="video-time">7:04</span>
-	                                </span>
-	                            </a>
-	                            <span>Corporation</span>
-	                            <h3><a href="#">RA33_Dynapro HP2_Motion Graphic(ENG)</a></h3>
-	                            <span>2,384,880 views</span>
-	                            <span class="f_left">2014-07-15</span>
-	                            <span class="f_right mr5"><a class="download_btn" href="#"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
-	                        </li>
-	                        <li>
 	                        	<a href="#">
 	                            	<span>
 	                                	<img src="./resources/images/common/thumbnail.jpg" alt="" />
@@ -445,9 +466,21 @@
 	    <script type="text/javascript" src="./resources/common/js/common.js"></script>
 	    <script type="text/javascript">
 	    	$(document).ready(function(){
-	    		var playUrl = encodeURIComponent('${streamingUrl}');
-	    		var url = "apiUrl=http://api.vcase.myskcdn.com&amp;mediaUrl=" + playUrl+ "&amp;title=${oneStreamPlay.title}&amp;thumbUrl=${oneStreamPlay.thumb_url}&amp;pid=${player_id}&amp;autoPlay=false";
-	    		$('#stramUrl').val(url);
+	    		$("#latestMovie").empty();
+				$("#latestMovie").append(
+					"<object data=\"http://vcase.myskcdn.com/static/ovp/ovp.swf\" name=\"ovp\" id=\"ovp\" type=\"application/x-shockwave-flash\" align=\"middle\" width=\"520\" height=\"292\" >" +
+						"<param value=\"high\" name=\"quality\">" + 
+						"<param value=\"#000000\" name=\"bgcolor\">" +
+						"<param value=\"always\" name=\"allowscriptaccess\">" +
+						"<param value=\"true\" name=\"allowfullscreen\">" +
+						"<param value=\"apiUrl=http://api.vcase.myskcdn.com" + 
+									"&mediaUrl=" + encodeURIComponent("${streamingUrl}") +
+									"&title=${oneStreamPlay.title}" +
+									"&thumbUrl=" + encodeURIComponent("${oneStreamPlay.thumb_url}") +
+									"&pid=${player_id}" +
+									"&autoPlay=false\" name=\"flashvars\">"+
+					"</object>"
+				);
 	    	});
 	    </script>
 	</body>

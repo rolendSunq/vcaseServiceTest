@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.airensoft.skovp.utils.common.UnitUtils;
@@ -70,7 +71,7 @@ public class HomeController {
 					if (trscdState.equals("cmplt")) {
 						Integer jobProfileId = trscdElement.getAsJsonObject().get("job_profile_id").getAsInt();
 						
-						if (jobProfileId.equals(com.airensoft.skovp.utils.ovpconnector.OMSConfig.getJobProfileId())) {
+						if (jobProfileId.equals(OMSConfig.getJobProfileId())) {
 
 							//재생시간
 							long duration = trscdElement.getAsJsonObject().get("duration").getAsLong();
@@ -80,9 +81,9 @@ public class HomeController {
 							long file_size = trscdElement.getAsJsonObject().get("file_size").getAsLong();
 							map.put("file_size", UnitUtils.humanReadableByteCount(file_size, false));
 
-							// 미디어 수정시간
-							int mod_date = trscdElement.getAsJsonObject().get("mod_date").getAsInt();
-							map.put("mod_date", DateUtils.TimestamptToString(mod_date));
+							// 미디어 등록 일자
+							int reg_date = trscdElement.getAsJsonObject().get("reg_date").getAsInt();
+							map.put("mod_date", DateUtils.TimestamptToString(reg_date));
 
 							// 미디어 ID
 							int content_id = trscdElement.getAsJsonObject().get("content_id").getAsInt();
@@ -126,6 +127,12 @@ public class HomeController {
 		return getStreamPlayUrl(content_id, "streaming_url", true);
 	}
 	
+	@RequestMapping(value = "contentInfo")
+	//@ResponseBody
+	public void getFileInfo(@RequestParam("contentId") int contentId) {
+		System.out.println(getInfo(contentId));
+	}
+	
 	private String getStreamPlayUrl(int contentId, String variableUrlName, boolean isToJson) {
 		omsConnector.clear();
 		Map<String, String> map = new HashMap<String, String>();
@@ -135,6 +142,15 @@ public class HomeController {
 		map.put(variableUrlName, playStreamingUrl);
 		
 		return (isToJson == true ) ? new Gson().toJson(map) : playStreamingUrl;
+	}
+	
+	private String getInfo(int contentId) {
+		omsConnector.clear();
+		omsResponder = omsConnector.requestPlayerInfo(contentId, false, true);
+		Gson gson = new Gson();
+		gson.toJson(omsResponder);
+		
+		return gson.toString();
 	}
 	
 }
