@@ -9,14 +9,11 @@
 		<meta http-equiv="Expires" content="0" />
 		<meta http-equiv="Pragma" content="no-cache" />
 		<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-	
 		<title>한국타이어</title>
 		<link rel="Stylesheet" type="text/css" href="./resources/common/css/common.css" />
-		
 	</head>
 	<body>
 		<div class="wrapper">
-	        
 	        <!-- my movie -->
 	        <div class="my_movie">
 	        	<div class="my_movie_off">
@@ -51,13 +48,10 @@
 	            </div>
 	        </div>
 	        <!-- //my movie -->
-	        
 			<!-- header_wrap -->
 			<div class="header_wrap">
-	
 				<!-- header -->
 				<div id="header">
-	
 					<!-- header_top -->
 					<div class="header_top"> 
 						<h1>

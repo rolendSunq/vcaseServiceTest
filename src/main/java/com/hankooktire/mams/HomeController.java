@@ -23,6 +23,7 @@ import com.airensoft.skovp.utils.time.DateUtils;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 
 /**
  * Handles requests for the application home page.
@@ -128,7 +129,7 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value = "contentInfo")
-	//@ResponseBody
+	@ResponseBody
 	public void getFileInfo(@RequestParam("contentId") int contentId) {
 		System.out.println(getInfo(contentId));
 	}
@@ -147,10 +148,10 @@ public class HomeController {
 	private String getInfo(int contentId) {
 		omsConnector.clear();
 		omsResponder = omsConnector.requestPlayerInfo(contentId, false, true);
-		Gson gson = new Gson();
-		gson.toJson(omsResponder);
-		
-		return gson.toString();
+		JsonElement resultElement = omsResponder.getRootDataElement();
+		//resultElement.
+		JsonObject object = resultElement.getAsJsonObject().get("content").getAsJsonObject();
+		return object.toString();
 	}
 	
 }
