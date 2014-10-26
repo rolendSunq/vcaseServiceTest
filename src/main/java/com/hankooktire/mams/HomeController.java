@@ -130,8 +130,15 @@ public class HomeController {
 	
 	@RequestMapping(value = "contentInfo")
 	@ResponseBody
-	public void getFileInfo(@RequestParam("contentId") int contentId) {
-		System.out.println(getInfo(contentId));
+	public String getFileInfo(@RequestParam("contentId") int contentId) {
+		JsonObject result = getInfo(contentId);
+		String mediaType = result.get("media_type").getAsString();
+		long fileSize = result.get("file_size").getAsLong();
+		String convertFileSize = UnitUtils.humanReadableByteCount(fileSize, false);
+		System.out.println(result.toString());
+		System.out.println("media type: " + mediaType);
+		System.out.println("file size: " + convertFileSize);
+		return result.toString();
 	}
 	
 	private String getStreamPlayUrl(int contentId, String variableUrlName, boolean isToJson) {
@@ -145,13 +152,13 @@ public class HomeController {
 		return (isToJson == true ) ? new Gson().toJson(map) : playStreamingUrl;
 	}
 	
-	private String getInfo(int contentId) {
+	private JsonObject getInfo(int contentId) {
 		omsConnector.clear();
 		omsResponder = omsConnector.requestPlayerInfo(contentId, false, true);
 		JsonElement resultElement = omsResponder.getRootDataElement();
 		//resultElement.
 		JsonObject object = resultElement.getAsJsonObject().get("content").getAsJsonObject();
-		return object.toString();
+		return object;
 	}
 	
 }
