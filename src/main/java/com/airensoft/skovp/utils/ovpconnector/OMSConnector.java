@@ -37,7 +37,7 @@ public class OMSConnector extends HttpConnectable {
 	 * 컨텐츠 목록 조회
 	 */
 	public OMSConnectorResponse RequestContentList(String media_type, String file_type, String state, String search_type, String search, Integer search_start_date, Integer search_end_date,
-			Integer page, Integer page_size, String sort, String order, boolean with_extra) {
+			Integer page, Integer page_size, String sort, String order, boolean with_extra, boolean with_static_url) {
 		setProtocol("http");
 		setMethod("GET");
 		addURIParam(OMSConfig.OVP_CONTENT_LIST);
@@ -54,6 +54,7 @@ public class OMSConnector extends HttpConnectable {
 		addParam("sort", sort);
 		addParam("order", order);
 		addParam("with_extra", with_extra);
+		addParam("with_static_url", with_static_url);
 
 		return requestAPI();
 	}
@@ -104,6 +105,16 @@ public class OMSConnector extends HttpConnectable {
 		addURIParam(OMSConfig.OVP_CONTENT_LIST + "/" + contentId);
 		addParam("with_extra", withExtra);
 		addParam("with_static_url", withStaticUrl);
+		return requestAPI();
+	}
+	
+	// 메타 태그 정보 수정
+	public OMSConnectorResponse requestMetaInfoEdit(int contentId, String countTag) {
+		setProtocol("http");
+		setMethod("POST");
+		addURIParam(OMSConfig.OVP_CONTENT_LIST + "/" + contentId);
+		addParam("tags", countTag);
+		
 		return requestAPI();
 	}
 	

@@ -107,7 +107,22 @@
 			var contentId = $(this).attr('data-contentId');
 			$('.mb5').text('ID : ' + contentId);
 			$.getJSON('contentInfo', {"contentId":contentId}, function(data){
-				console.log("data: ", data);
+				var decodeFileName = decodeURIComponent(data.fileName);
+				var fileName = decodeFileName.replace(/\+/g, ' ');
+				
+				var aTag = $('<a>').attr('href', data.downloadUrl).append('<img src="./resources/images/common/icon_mp4.png" alt="download"/>' + fileName).append('</a>');
+				var ddTag = $('<dd>').append(aTag).append('</dd>');
+				$("#downloadUrl").after(ddTag);
+				$("#contentType").text('Contents Type : ' + data.mediaType);
+				$("#size").text('Size : ' + data.size);
+				$("#videoFormat").text('Video Format : ' + data.videoFormat);
+				$("#videoCodec").text('Video Codec : ' + data.videoCodec);
+				$("#videoBps").text('Video bps : ' + data.videoBps);
+				$("#videoFps").text('Video fps : ' + data.videoFps);
+				$("#audioCodec").text('Audio Codec : ' + data.audioCodec);
+				$("#audioBps").text('Audio bps : ' + data.audioBps);
+				$("#channel").text('Audio channel : ' + data.audioChannel);
+				$("#hz").text('Audio Hz : ' + data.audioHz);
 			});
 			$('.dow_layer').show();
 			$('.dow_layer_close').click(function(){

@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<% request.setCharacterEncoding("utf-8"); %>
+<% response.setContentType("text/html; charset=utf-8"); %>
 <!DOCTYPE html>
 <html lang="ko">
 	<head>
@@ -180,14 +182,14 @@
 							</object>
 	                    </div>
 	                    <div class="latest_info">
-	                        <h3>${oneStreamPlay.title }</h3>
-	                        <p>${oneStreamPlay.duration }  / ${oneStreamPlay.reg_date}</p>
+	                        <h3 id="playTitle">${oneStreamPlay.title }</h3>
+	                        <p id="playTimeDate">${oneStreamPlay.duration }  /  ${oneStreamPlay.reg_date}</p>
 	                        <ul class="latest_info_con">
 		                        <li><span>Category&nbsp;&gt;&nbsp;</span>Product Movie</li>
-	                            <li><span>ID&nbsp;:&nbsp;</span>${oneStreamPlay.content_id }</li><!-- 어떤 종류의 아이디를 명시하지 않아서 컨텐츠 ID로 표시함 -->
-	                            <li><span>Region&nbsp;:&nbsp;</span>U.S.A</li>
-	                            <li><span>Tag&nbsp;:&nbsp;</span>Tire,  Dynapro HP2, RA33</li>
-	                            <li><span>Copy Video URL&nbsp;:&nbsp;</span>http://www.youtube.com/watch?v=N10WS9epgCo&amp;list=PLYkzrxbCq4D0jSb71h5RO2FVznuIf7YtN&amp;feature=player_detailpage</li>
+	                            <li><span>ID&nbsp;:&nbsp;</span><span id="playContentId">${oneStreamPlay.content_id }</span></li><!-- 어떤 종류의 아이디를 명시하지 않아서 컨텐츠 ID로 표시함 -->
+	                            <li id="playNation"><span>Region&nbsp;:&nbsp;</span>U.S.A</li>
+	                            <li id="playTag"><span>Tag&nbsp;:&nbsp;</span>Tire,  Dynapro HP2, RA33</li>
+	                            <li id="playVideoUrl"><span>Copy Video URL&nbsp;:&nbsp;</span>http://www.youtube.com/watch?v=N10WS9epgCo&amp;list=PLYkzrxbCq4D0jSb71h5RO2FVznuIf7YtN&amp;feature=player_detailpage</li>
 	                        </ul>
 	                        <hr />
 	                        
@@ -197,7 +199,7 @@
 	                        		<c:choose>
 	                        		<c:when test="${status.count == 1 }"></c:when>
 	                        		<c:when test="${status.count != 4 }">
-	                        	<li class="mr22" id="content_item" data-content-id="${object.content_id}" data-content-thumb = "${object.thumb_url}" data-content-title="${object.title}">
+	                        	<li class="mr22" id="content_item" data-content-id="${object.content_id}" data-content-thumb = "${object.thumb_url}" data-content-title="${object.title}" data-content-regDate="${object.reg_date }" data-content-duration="${object.duration }">
 	                            	<a>
 	                                	<span>
 	                                		<img width="153px" height="85" src="${object.thumb_url}" alt="" />
@@ -207,7 +209,7 @@
 	                            </li>
 	                        		</c:when>
 	                        		<c:otherwise>
-	                            <li id="content_item" data-content-id="${object.content_id}" data-content-thumb = "${object.thumb_url}" data-content-title="${object.title}">
+	                            <li id="content_item" data-content-id="${object.content_id}" data-content-thumb = "${object.thumb_url}" data-content-title="${object.title}" data-content-regDate="${object.reg_date }" data-content-duration="${object.duration }">
 	                            	<a>
 	                                	<span>
 	                                    	<img width="153px" height="85" src="${object.thumb_url}" alt="" />
@@ -270,7 +272,7 @@
 	                                </span>
 	                            </a>
 	                            <span>Corporation</span>
-	                            <h3><a href="#">RA33_Dynapro HP2_Motion Graphic(ENG)</a></h3>
+	                            <h3><a href="#">${popularObject.title }</a></h3>
 	                            <span>2,384,880 views</span>
 	                            <span class="f_left">2014-07-15</span>
 	                            <span class="f_right mr5"><a class="download_btn" data-contentId="${popularObject.content_id }" href="#"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
@@ -425,28 +427,34 @@
 	                </ul>
 	                <hr />
 	                <dl class="download">
-	                	<dt>DOWNLOAD</dt>
-	                    <dd><a href="#"><img src="./resources/images/common/icon_mov.png" alt="download" />RA33_Dynapro HP2_Motion Graphic(ENG).mov</a></dd>
+	                	<dt id="downloadUrl">DOWNLOAD</dt>
+	                	<!-- 
+	                    <dd>
+	                    	<a href="#">
+	                    		<img src="./resources/images/common/icon_mov.png" alt="download" />RA33_Dynapro HP2_Motion Graphic(ENG).mov
+	                    	</a>
+	                    </dd>
 	                    <dd><a href="#"><img src="./resources/images/common/icon_wmv.png" alt="download" />RA33_Dynapro HP2_Motion Graphic(ENG).wmv</a></dd>
 	                    <dd><a href="#"><img src="./resources/images/common/icon_mp4.png" alt="download" />RA33_Dynapro HP2_Motion Graphic(ENG).mp4</a></dd>
 	                    <dd><a href="#"><img src="./resources/images/common/icon_mpeg.png" alt="download" />RA33_Dynapro HP2_Motion Graphic(ENG).mpeg</a></dd>
 	                    <dd><a href="#"><img src="./resources/images/common/icon_avi.png" alt="download" />RA33_Dynapro HP2_Motion Graphic(ENG).avi</a></dd>
 	                    <dd><a href="#"><img src="./resources/images/common/icon_flv.png" alt="download" />RA33_Dynapro HP2_Motion Graphic(ENG).flv</a></dd>
+	                	 -->
 	                </dl>
 	                <hr />
 	                <dl class="file_info">
 	                	<dt>fILE INFO</dt>
-	                    <dd>Contents Type : Video</dd>
+	                    <dd id="contentType">Contents Type : Video</dd>
 	                    <dd>Scale : the base rate</dd>
-	                    <dd>Size : 1280x720 HD 408MB</dd>
-	                    <dd>Video Format : MP4</dd>
-	                    <dd>Video Codec : h264</dd>
-	                    <dd>Video bps : 256478</dd>
-	                    <dd>Video fps : 29</dd>
-	                    <dd>Audio Codec : aac</dd>
-	                    <dd>Audio bps :235478</dd>
-	                    <dd>Audio channel : 2</dd>
-	                    <dd>Audio Hz : 44100</dd>
+	                    <dd id="size">Size : 1280x720 HD 408MB</dd>
+	                    <dd id="videoFormat">Video Format : MP4</dd>
+	                    <dd id="videoCodec">Video Codec : h264</dd>
+	                    <dd id="videoBps">Video bps : 256478</dd>
+	                    <dd id="videoFps">Video fps : 29</dd>
+	                    <dd id="audioCodec">Audio Codec : aac</dd>
+	                    <dd id="audioBps">Audio bps : 235478</dd>
+	                    <dd id="channel">Audio channel : 2</dd>
+	                    <dd id="hz">Audio Hz : 44100</dd>
 	                </dl>
 	                <a class="dow_layer_close" href="#">close</a>
 	            </div>
@@ -472,9 +480,48 @@
 									"&title=${oneStreamPlay.title}" +
 									"&thumbUrl=" + encodeURIComponent("${oneStreamPlay.thumb_url}") +
 									"&pid=${player_id}" +
-									"&autoPlay=false\" name=\"flashvars\">"+
+									"&autoPlay=true\" name=\"flashvars\">"+
 					"</object>"
 				);
+				$('li[id="content_item"]').hover(function() {
+					$(this).mouseenter(function(){
+						$(this).css('cursor', 'pointer');
+					});
+					$(this).mouseleave(function(){
+						$(this).css('cursor', 'default');
+					});
+				});
+				
+				$('li[id="content_item"]').click(function(){
+					var thisElement = $(this);
+					var content_Id = $(this).attr('data-content-id');
+					var contentThumbUrl = $(this).attr('data-content-thumb');
+					$.getJSON('content/player/' + content_Id, null, function(data){
+						var streamingUrl = data.streaming_url;
+						var title = thisElement.attr('data-content-title');
+						$('#playTitle').text(thisElement.attr('data-content-title'));
+						$('#playTimeDate').text(thisElement.attr('data-content-duration') + '  /  ' + thisElement.attr('data-content-regDate'));
+						$('#playContentId').text(thisElement.attr('data-content-id'));
+						$("#latestMovie").empty();
+						$("#latestMovie").append(
+							"<object data=\"http://vcase.myskcdn.com/static/ovp/ovp.swf\" name=\"ovp\" id=\"ovp\" type=\"application/x-shockwave-flash\" align=\"middle\" width=\"520\" height=\"292\" >" +
+								"<param value=\"high\" name=\"quality\">" + 
+								"<param value=\"#000000\" name=\"bgcolor\">" +
+								"<param value=\"always\" name=\"allowscriptaccess\">" +
+								"<param value=\"true\" name=\"allowfullscreen\">" +
+								"<param value=\"apiUrl=http://api.vcase.myskcdn.com" + 
+											"&mediaUrl=" + encodeURIComponent(streamingUrl) +
+											"&title=" + title +
+											"&thumbUrl=" + encodeURIComponent(contentThumbUrl) +
+											"&pid=${player_id}" +
+											"&autoPlay=true\" name=\"flashvars\">"+
+							"</object>"
+						);
+					});
+					$.getJSON('viewsCount', {"content_Id":content_Id}, function(data){
+						console.log("data: ", data);
+					});
+				});
 	    	});
 	    </script>
 	</body>
