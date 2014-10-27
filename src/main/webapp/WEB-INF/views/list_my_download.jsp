@@ -1,14 +1,14 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml">
+<html lang="ko">
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=euc-kr" />
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<meta http-equiv="Cache-Control" content="no-cache" />
 	<meta http-equiv="Expires" content="0" />
 	<meta http-equiv="Pragma" content="no-cache" />
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
 
-	<title>«—±π≈∏¿ÃæÓ</title>
+	<title>ÌïúÍµ≠ÌÉÄÏù¥Ïñ¥</title>
 	<link rel="Stylesheet" type="text/css" href="./resources/common/css/common.css" />
 	<script type="text/javascript" src="./resources/common/js/jquery-1.11.1.min.js"></script>
 	<script type="text/javascript" src="./resources/common/js/jquery.ui.all.js"></script>
@@ -21,7 +21,7 @@
     	<!-- my movie -->
         <div class="my_movie">
         	<div class="my_movie_off">
-            	<a href="#">my movie ∆‰¿Ã¡ˆ ø≠±‚m</a>
+            	<a href="#">my movie ÌéòÏù¥ÏßÄ Ïó¥Í∏∞m</a>
             </div>
         	<div class="my_movie_on">
             	<div class="my_movie_bg">
@@ -35,16 +35,16 @@
                         <div class="my_movie_wh">
                         	<dl>
                             	<dt>Watch History</dt>
-                                <dd><a href="#"><img width="25px" height="14px" src="./images/common/thumbnail.jpg" alt="" />The UEFA Europa League 12-13 ...</a></dd>
-                                <dd><a href="#"><img width="25px" height="14px" src="images/common/thumbnail.jpg" alt="" />Eins mit der Stra©¨e - Hankook Reifen ...</a></dd>
-                                <dd><a href="#"><img width="25px" height="14px" src="images/common/thumbnail.jpg" alt="" />SIENTE LA CONEXION - NEUMATI...</a></dd>
-                                <dd><a href="#"><img width="25px" height="14px" src="images/common/thumbnail.jpg" alt="" />Be One with it" (20'', English, 2013)...</a></dd>
-                                <dd><a href="#"><img width="25px" height="14px" src="images/common/thumbnail.jpg" alt="" />Ne faites qu'un avec vos pneus...</a></dd>
+                                <dd><a href="#"><img width="25px" height="14px" src="./resources/images/common/thumbnail.jpg" alt="" />The UEFA Europa League 12-13 ...</a></dd>
+                                <dd><a href="#"><img width="25px" height="14px" src="./resources/images/common/thumbnail.jpg" alt="" />Eins mit der Stra√üe - Hankook Reifen ...</a></dd>
+                                <dd><a href="#"><img width="25px" height="14px" src="./resources/images/common/thumbnail.jpg" alt="" />SIENTE LA CONEXION - NEUMATI...</a></dd>
+                                <dd><a href="#"><img width="25px" height="14px" src="./resources/images/common/thumbnail.jpg" alt="" />Be One with it" (20'', English, 2013)...</a></dd>
+                                <dd><a href="#"><img width="25px" height="14px" src="./resources/images/common/thumbnail.jpg" alt="" />Ne faites qu'un avec vos pneus...</a></dd>
                             </dl>
                         </div>
                         <div class="my_movie_db">
-                        	<a class="dow" href="">DOWNLOAD<span>5</span></a>
-                            <a class="book" href="">BOOKMARK<span>32</span></a>
+                        	<a class="dow" href="download">DOWNLOAD<span>5</span></a>
+                            <a class="book" href="bookmark">BOOKMARK<span>32</span></a>
                         </div>
                     </div>
                 	<div class="mm_footer">Copyright 2014 Hankook Tire Co., Ltd.  All rights Reserved. HANKOOK</div>
@@ -63,14 +63,14 @@
 				<div class="header_top">
 					<h1>
 						<a href="#">
-							<img src="images/common/img_logo.png" alt="Hankook - driving emotion" />
-							<img src="images/common/img_logo2.png" alt="Digital Library MAMs" />
+							<img id="hankookHome" src="./resources/images/common/img_logo.png" alt="Hankook - driving emotion" />
+							<img id="mamsHome" src="./resources/images/common/img_logo2.png" alt="Digital Library MAMs" />
 						</a>
 					</h1>
 					<div class="util_navi">
 						<ul>
-							<li class="util1"><a href="#">µøøµªÛ</a></li>
-							<li class="util2"><a href="#">»®</a></li>
+							<li class="util1"><a href="#">ÎèôÏòÅÏÉÅ</a></li>
+							<li class="util2"><a href="#">Ìôà</a></li>
 						</ul>
 					</div>
 					<p>This is operated by hankook tire in the digital library movie </p>
@@ -81,16 +81,16 @@
 				<div class="header_bottom">
 					<div class="header_search">
 						<form class="search_form">
-							<label for="search" class="hide">æ∆¿Ãµ</label>
+							<label for="search" class="hide">ÏïÑÏù¥Îîî</label>
 							<input id="search" name="mb_id" type="text" class="search_go" />
 							<button class="search_btn">search</button>
 						</form>
 					</div>
 					<div class="personal_menu">
 						<ul>
-							<li class="p_menu1"><a href="#">º≥¡§</a></li>
-							<li class="p_menu2"><a href="#">æ˜∑ŒµÂ</a></li>
-							<li class="p_menu3"><a href="#">∑Œ±◊æ∆øÙ</a></li>
+							<li class="p_menu1"><a href="#">ÏÑ§Ï†ï</a></li>
+							<li class="p_menu2"><a href="#">ÏóÖÎ°úÎìú</a></li>
+							<li class="p_menu3"><a href="#">Î°úÍ∑∏ÏïÑÏõÉ</a></li>
 						</ul>
 					</div>
 				</div>
@@ -176,14 +176,14 @@
 					<div class="search">
 						<label for="search_word">
 							Search within<input type="text" id="search_word" />
-							<a href="#" class="btn_search">√£±‚</a>
+							<a href="#" class="btn_search">Ï∞æÍ∏∞</a>
 						</label>
 					</div>
 					<div class="list_top">
 						<ul class="sort_count">
-							<li class="list20"><a href="#">20∞≥æø ∫∏±‚</a></li>
-							<li class="list15"><a href="#">15∞≥æø ∫∏±‚</a></li>
-							<li class="list10"><a href="#">10∞≥æø ∫∏±‚</a></li>
+							<li class="list20"><a href="#">20Í∞úÏî© Î≥¥Í∏∞</a></li>
+							<li class="list15"><a href="#">15Í∞úÏî© Î≥¥Í∏∞</a></li>
+							<li class="list10"><a href="#">10Í∞úÏî© Î≥¥Í∏∞</a></li>
 						</ul>
 						<div class="list_top_right">
 							<div class="by first">
@@ -191,7 +191,7 @@
 								<div class="drop_menu">
 									<a href="#">Region</a>
 									<input class="hide" type="text" value="" />
-									<!-- li æ»¿« a ≈¬±◊∏¶ ≈¨∏Ø«œ∏È input ≈¬±◊ æ»¿« valueø° «ÿ¥Á ∞™¿Ã µÈæÓ∞°µµ∑œ ∞≥πﬂ«ÿ¡÷Ω√∏È µÀ¥œ¥Ÿ. -->
+									<!-- li ÏïàÏùò a ÌÉúÍ∑∏Î•º ÌÅ¥Î¶≠ÌïòÎ©¥ input ÌÉúÍ∑∏ ÏïàÏùò valueÏóê Ìï¥Îãπ Í∞íÏù¥ Îì§Ïñ¥Í∞ÄÎèÑÎ°ù Í∞úÎ∞úÌï¥Ï£ºÏãúÎ©¥ Îê©ÎãàÎã§. -->
 									<ul>
 										<li><a href="#">region</a></li>
 										<li><a href="#">Contents</a></li>
@@ -219,21 +219,21 @@
 						<li class="mr24">
 							<a href="#">
 								<span>
-									<img src="images/common/thumbnail.jpg" alt="" />
+									<img src="./resources/images/common/thumbnail.jpg" alt="" />
 									<span class="video-time">7:04</span>
-									<span class="admin_icon"><img src="images/common/icon_admin.png" alt="admin" /></span>
+									<span class="admin_icon"><img src="./resources/images/common/icon_admin.png" alt="admin" /></span>
 								</span>
 							</a>
 							<span>Corporation</span>
 							<h3><a href="#">RA33_Dynapro HP2_Motion Graphic(ENG)</a></h3>
 							<span>2,384,880 views</span>
 							<span class="f_left"><input type="checkbox" />2014-07-15</span>
-							<span class="f_right mr5"><a class="download_btn" href="#"><img src="images/common/dow_icon.png" alt="download" /></a></span>
+							<span class="f_right mr5"><a class="download_btn" href="#"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
 						</li>
 						<li class="mr24">
 							<a href="#">
 								<span>
-									<img src="images/common/thumbnail.jpg" alt="" />
+									<img src="./resources/images/common/thumbnail.jpg" alt="" />
 									<span class="video-time">7:04</span>
 								</span>
 							</a>
@@ -241,26 +241,26 @@
 							<h3><a href="#">RA33_Dynapro HP2_Motion Graphic(ENG)</a></h3>
 							<span>2,384,880 views</span>
 							<span class="f_left"><input type="checkbox" />2014-07-15</span>
-							<span class="f_right mr5"><a class="download_btn" href="#"><img src="images/common/dow_icon.png" alt="download" /></a></span>
+							<span class="f_right mr5"><a class="download_btn" href="#"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
 						</li>
 						<li class="mr24">
 							<a href="#">
 								<span>
-									<img src="images/common/thumbnail.jpg" alt="" />
+									<img src="./resources/images/common/thumbnail.jpg" alt="" />
 									<span class="video-time">7:04</span>
-									<span class="admin_icon"><img src="images/common/icon_admin.png" alt="admin" /></span>
+									<span class="admin_icon"><img src="./resources/images/common/icon_admin.png" alt="admin" /></span>
 								</span>
 							</a>
 							<span>Corporation</span>
 							<h3><a href="#">RA33_Dynapro HP2_Motion Graphic(ENG)</a></h3>
 							<span>2,384,880 views</span>
 							<span class="f_left"><input type="checkbox" />2014-07-15</span>
-							<span class="f_right mr5"><a class="download_btn" href="#"><img src="images/common/dow_icon.png" alt="download" /></a></span>
+							<span class="f_right mr5"><a class="download_btn" href="#"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
 						</li>
 						<li class="mr23">
 							<a href="#">
 								<span>
-									<img src="images/common/thumbnail.jpg" alt="" />
+									<img src="./resources/images/common/thumbnail.jpg" alt="" />
 									<span class="video-time">7:04</span>
 								</span>
 							</a>
@@ -268,12 +268,12 @@
 							<h3><a href="#">RA33_Dynapro HP2_Motion Graphic(ENG)</a></h3>
 							<span>2,384,880 views</span>
 							<span class="f_left"><input type="checkbox" />2014-07-15</span>
-							<span class="f_right mr5"><a class="download_btn" href="#"><img src="images/common/dow_icon.png" alt="download" /></a></span>
+							<span class="f_right mr5"><a class="download_btn" href="#"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
 						</li>
 						<li>
 							<a href="#">
 								<span>
-									<img src="images/common/thumbnail.jpg" alt="" />
+									<img src="./resources/images/common/thumbnail.jpg" alt="" />
 									<span class="video-time">7:04</span>
 								</span>
 							</a>
@@ -281,26 +281,26 @@
 							<h3><a href="#">RA33_Dynapro HP2_Motion Graphic(ENG)</a></h3>
 							<span>2,384,880 views</span>
 							<span class="f_left"><input type="checkbox" />2014-07-15</span>
-							<span class="f_right mr5"><a class="download_btn" href="#"><img src="images/common/dow_icon.png" alt="download" /></a></span>
+							<span class="f_right mr5"><a class="download_btn" href="#"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
 						</li>
 						<li class="mr24">
 							<a href="#">
 								<span>
-									<img src="images/common/thumbnail.jpg" alt="" />
+									<img src="./resources/images/common/thumbnail.jpg" alt="" />
 									<span class="video-time">7:04</span>
-									<span class="admin_icon"><img src="images/common/icon_admin.png" alt="admin" /></span>
+									<span class="admin_icon"><img src="./resources/images/common/icon_admin.png" alt="admin" /></span>
 								</span>
 							</a>
 							<span>Corporation</span>
 							<h3><a href="#">RA33_Dynapro HP2_Motion Graphic(ENG)</a></h3>
 							<span>2,384,880 views</span>
 							<span class="f_left"><input type="checkbox" />2014-07-15</span>
-							<span class="f_right mr5"><a class="download_btn" href="#"><img src="images/common/dow_icon.png" alt="download" /></a></span>
+							<span class="f_right mr5"><a class="download_btn" href="#"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
 						</li>
 						<li class="mr24">
 							<a href="#">
 								<span>
-									<img src="images/common/thumbnail.jpg" alt="" />
+									<img src="./resources/images/common/thumbnail.jpg" alt="" />
 									<span class="video-time">7:04</span>
 								</span>
 							</a>
@@ -308,26 +308,26 @@
 							<h3><a href="#">RA33_Dynapro HP2_Motion Graphic(ENG)</a></h3>
 							<span>2,384,880 views</span>
 							<span class="f_left"><input type="checkbox" />2014-07-15</span>
-							<span class="f_right mr5"><a class="download_btn" href="#"><img src="images/common/dow_icon.png" alt="download" /></a></span>
+							<span class="f_right mr5"><a class="download_btn" href="#"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
 						</li>
 						<li class="mr24">
 							<a href="#">
 								<span>
-									<img src="images/common/thumbnail.jpg" alt="" />
+									<img src="./resources/images/common/thumbnail.jpg" alt="" />
 									<span class="video-time">7:04</span>
-									<span class="admin_icon"><img src="images/common/icon_admin.png" alt="admin" /></span>
+									<span class="admin_icon"><img src="./resources/images/common/icon_admin.png" alt="admin" /></span>
 								</span>
 							</a>
 							<span>Corporation</span>
 							<h3><a href="#">RA33_Dynapro HP2_Motion Graphic(ENG)</a></h3>
 							<span>2,384,880 views</span>
 							<span class="f_left"><input type="checkbox" />2014-07-15</span>
-							<span class="f_right mr5"><a class="download_btn" href="#"><img src="images/common/dow_icon.png" alt="download" /></a></span>
+							<span class="f_right mr5"><a class="download_btn" href="#"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
 						</li>
 						<li class="mr23">
 							<a href="#">
 								<span>
-									<img src="images/common/thumbnail.jpg" alt="" />
+									<img src="./resources/images/common/thumbnail.jpg" alt="" />
 									<span class="video-time">7:04</span>
 								</span>
 							</a>
@@ -335,12 +335,12 @@
 							<h3><a href="#">RA33_Dynapro HP2_Motion Graphic(ENG)</a></h3>
 							<span>2,384,880 views</span>
 							<span class="f_left"><input type="checkbox" />2014-07-15</span>
-							<span class="f_right mr5"><a class="download_btn" href="#"><img src="images/common/dow_icon.png" alt="download" /></a></span>
+							<span class="f_right mr5"><a class="download_btn" href="#"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
 						</li>
 						<li>
 							<a href="#">
 								<span>
-									<img src="images/common/thumbnail.jpg" alt="" />
+									<img src="./resources/images/common/thumbnail.jpg" alt="" />
 									<span class="video-time">7:04</span>
 								</span>
 							</a>
@@ -348,26 +348,26 @@
 							<h3><a href="#">RA33_Dynapro HP2_Motion Graphic(ENG)</a></h3>
 							<span>2,384,880 views</span>
 							<span class="f_left"><input type="checkbox" />2014-07-15</span>
-							<span class="f_right mr5"><a class="download_btn" href="#"><img src="images/common/dow_icon.png" alt="download" /></a></span>
+							<span class="f_right mr5"><a class="download_btn" href="#"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
 						</li>
 						<li class="mr24">
 							<a href="#">
 								<span>
-									<img src="images/common/thumbnail.jpg" alt="" />
+									<img src="./resources/images/common/thumbnail.jpg" alt="" />
 									<span class="video-time">7:04</span>
-									<span class="admin_icon"><img src="images/common/icon_admin.png" alt="admin" /></span>
+									<span class="admin_icon"><img src="./resources/images/common/icon_admin.png" alt="admin" /></span>
 								</span>
 							</a>
 							<span>Corporation</span>
 							<h3><a href="#">RA33_Dynapro HP2_Motion Graphic(ENG)</a></h3>
 							<span>2,384,880 views</span>
 							<span class="f_left"><input type="checkbox" />2014-07-15</span>
-							<span class="f_right mr5"><a class="download_btn" href="#"><img src="images/common/dow_icon.png" alt="download" /></a></span>
+							<span class="f_right mr5"><a class="download_btn" href="#"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
 						</li>
 						<li class="mr24">
 							<a href="#">
 								<span>
-									<img src="images/common/thumbnail.jpg" alt="" />
+									<img src="./resources/images/common/thumbnail.jpg" alt="" />
 									<span class="video-time">7:04</span>
 								</span>
 							</a>
@@ -375,26 +375,26 @@
 							<h3><a href="#">RA33_Dynapro HP2_Motion Graphic(ENG)</a></h3>
 							<span>2,384,880 views</span>
 							<span class="f_left"><input type="checkbox" />2014-07-15</span>
-							<span class="f_right mr5"><a class="download_btn" href="#"><img src="images/common/dow_icon.png" alt="download" /></a></span>
+							<span class="f_right mr5"><a class="download_btn" href="#"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
 						</li>
 						<li class="mr24">
 							<a href="#">
 								<span>
-									<img src="images/common/thumbnail.jpg" alt="" />
+									<img src="./resources/images/common/thumbnail.jpg" alt="" />
 									<span class="video-time">7:04</span>
-									<span class="admin_icon"><img src="images/common/icon_admin.png" alt="admin" /></span>
+									<span class="admin_icon"><img src="./resources/images/common/icon_admin.png" alt="admin" /></span>
 								</span>
 							</a>
 							<span>Corporation</span>
 							<h3><a href="#">RA33_Dynapro HP2_Motion Graphic(ENG)</a></h3>
 							<span>2,384,880 views</span>
 							<span class="f_left"><input type="checkbox" />2014-07-15</span>
-							<span class="f_right mr5"><a class="download_btn" href="#"><img src="images/common/dow_icon.png" alt="download" /></a></span>
+							<span class="f_right mr5"><a class="download_btn" href="#"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
 						</li>
 						<li class="mr23">
 							<a href="#">
 								<span>
-									<img src="images/common/thumbnail.jpg" alt="" />
+									<img src="./resources/images/common/thumbnail.jpg" alt="" />
 									<span class="video-time">7:04</span>
 								</span>
 							</a>
@@ -402,12 +402,12 @@
 							<h3><a href="#">RA33_Dynapro HP2_Motion Graphic(ENG)</a></h3>
 							<span>2,384,880 views</span>
 							<span class="f_left"><input type="checkbox" />2014-07-15</span>
-							<span class="f_right mr5"><a class="download_btn" href="#"><img src="images/common/dow_icon.png" alt="download" /></a></span>
+							<span class="f_right mr5"><a class="download_btn" href="#"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
 						</li>
 						<li>
 							<a href="#">
 								<span>
-									<img src="images/common/thumbnail.jpg" alt="" />
+									<img src="./resources/images/common/thumbnail.jpg" alt="" />
 									<span class="video-time">7:04</span>
 								</span>
 							</a>
@@ -415,26 +415,26 @@
 							<h3><a href="#">RA33_Dynapro HP2_Motion Graphic(ENG)</a></h3>
 							<span>2,384,880 views</span>
 							<span class="f_left"><input type="checkbox" />2014-07-15</span>
-							<span class="f_right mr5"><a class="download_btn" href="#"><img src="images/common/dow_icon.png" alt="download" /></a></span>
+							<span class="f_right mr5"><a class="download_btn" href="#"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
 						</li>
 						<li class="mr24">
 							<a href="#">
 								<span>
-									<img src="images/common/thumbnail.jpg" alt="" />
+									<img src="./resources/images/common/thumbnail.jpg" alt="" />
 									<span class="video-time">7:04</span>
-									<span class="admin_icon"><img src="images/common/icon_admin.png" alt="admin" /></span>
+									<span class="admin_icon"><img src="./resources/images/common/icon_admin.png" alt="admin" /></span>
 								</span>
 							</a>
 							<span>Corporation</span>
 							<h3><a href="#">RA33_Dynapro HP2_Motion Graphic(ENG)</a></h3>
 							<span>2,384,880 views</span>
 							<span class="f_left"><input type="checkbox" />2014-07-15</span>
-							<span class="f_right mr5"><a class="download_btn" href="#"><img src="images/common/dow_icon.png" alt="download" /></a></span>
+							<span class="f_right mr5"><a class="download_btn" href="#"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
 						</li>
 						<li class="mr24">
 							<a href="#">
 								<span>
-									<img src="images/common/thumbnail.jpg" alt="" />
+									<img src="./resources/images/common/thumbnail.jpg" alt="" />
 									<span class="video-time">7:04</span>
 								</span>
 							</a>
@@ -442,26 +442,26 @@
 							<h3><a href="#">RA33_Dynapro HP2_Motion Graphic(ENG)</a></h3>
 							<span>2,384,880 views</span>
 							<span class="f_left"><input type="checkbox" />2014-07-15</span>
-							<span class="f_right mr5"><a class="download_btn" href="#"><img src="images/common/dow_icon.png" alt="download" /></a></span>
+							<span class="f_right mr5"><a class="download_btn" href="#"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
 						</li>
 						<li class="mr24">
 							<a href="#">
 								<span>
-									<img src="images/common/thumbnail.jpg" alt="" />
+									<img src="./resources/images/common/thumbnail.jpg" alt="" />
 									<span class="video-time">7:04</span>
-									<span class="admin_icon"><img src="images/common/icon_admin.png" alt="admin" /></span>
+									<span class="admin_icon"><img src="./resources/images/common/icon_admin.png" alt="admin" /></span>
 								</span>
 							</a>
 							<span>Corporation</span>
 							<h3><a href="#">RA33_Dynapro HP2_Motion Graphic(ENG)</a></h3>
 							<span>2,384,880 views</span>
 							<span class="f_left"><input type="checkbox" />2014-07-15</span>
-							<span class="f_right mr5"><a class="download_btn" href="#"><img src="images/common/dow_icon.png" alt="download" /></a></span>
+							<span class="f_right mr5"><a class="download_btn" href="#"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
 						</li>
 						<li class="mr23">
 							<a href="#">
 								<span>
-									<img src="images/common/thumbnail.jpg" alt="" />
+									<img src="./resources/images/common/thumbnail.jpg" alt="" />
 									<span class="video-time">7:04</span>
 								</span>
 							</a>
@@ -469,12 +469,12 @@
 							<h3><a href="#">RA33_Dynapro HP2_Motion Graphic(ENG)</a></h3>
 							<span>2,384,880 views</span>
 							<span class="f_left"><input type="checkbox" />2014-07-15</span>
-							<span class="f_right mr5"><a class="download_btn" href="#"><img src="images/common/dow_icon.png" alt="download" /></a></span>
+							<span class="f_right mr5"><a class="download_btn" href="#"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
 						</li>
 						<li>
 							<a href="#">
 								<span>
-									<img src="images/common/thumbnail.jpg" alt="" />
+									<img src="./resources/images/common/thumbnail.jpg" alt="" />
 									<span class="video-time">7:04</span>
 								</span>
 							</a>
@@ -482,7 +482,7 @@
 							<h3><a href="#">RA33_Dynapro HP2_Motion Graphic(ENG)</a></h3>
 							<span>2,384,880 views</span>
 							<span class="f_left"><input type="checkbox" />2014-07-15</span>
-							<span class="f_right mr5"><a class="download_btn" href="#"><img src="images/common/dow_icon.png" alt="download" /></a></span>
+							<span class="f_right mr5"><a class="download_btn" href="#"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
 						</li>
 					</ul>
 					<div class="list_bottom">
@@ -515,7 +515,7 @@
 
 			<!-- footer -->
 			<div id="footer">
-				<h2><img src="images/common/img_logo_bottom.gif" alt="Hankook - driving emotion" /></h2>
+				<h2><img src="./resources/images/common/img_logo_bottom.gif" alt="Hankook - driving emotion" /></h2>
 				<div class="footer_navi">
 					<ul>
 						<li><a href="#">Digital library</a></li>
@@ -523,7 +523,7 @@
 						<li><a href="#">Hankooktire Global Site</a></li>
 					</ul>
 					<p class="copyright">
-						Copyright ®œ Hankook Tire. All Rights Reserved.
+						Copyright ‚ìí Hankook Tire. All Rights Reserved.
 					</p>
 				</div>
 			</div>
@@ -541,12 +541,12 @@
 				<hr />
 				<dl class="download">
 					<dt>DOWNLOAD</dt>
-					<dd><a href="#"><img src="images/common/icon_mov.png" alt="download" />RA33_Dynapro HP2_Motion Graphic(ENG).mov</a></dd>
-					<dd><a href="#"><img src="images/common/icon_wmv.png" alt="download" />RA33_Dynapro HP2_Motion Graphic(ENG).wmv</a></dd>
-					<dd><a href="#"><img src="images/common/icon_mp4.png" alt="download" />RA33_Dynapro HP2_Motion Graphic(ENG).mp4</a></dd>
-					<dd><a href="#"><img src="images/common/icon_mpeg.png" alt="download" />RA33_Dynapro HP2_Motion Graphic(ENG).mpeg</a></dd>
-					<dd><a href="#"><img src="images/common/icon_avi.png" alt="download" />RA33_Dynapro HP2_Motion Graphic(ENG).avi</a></dd>
-					<dd><a href="#"><img src="images/common/icon_flv.png" alt="download" />RA33_Dynapro HP2_Motion Graphic(ENG).flv</a></dd>
+					<dd><a href="#"><img src="./resources/images/common/icon_mov.png" alt="download" />RA33_Dynapro HP2_Motion Graphic(ENG).mov</a></dd>
+					<dd><a href="#"><img src="./resources/images/common/icon_wmv.png" alt="download" />RA33_Dynapro HP2_Motion Graphic(ENG).wmv</a></dd>
+					<dd><a href="#"><img src="./resources/images/common/icon_mp4.png" alt="download" />RA33_Dynapro HP2_Motion Graphic(ENG).mp4</a></dd>
+					<dd><a href="#"><img src="./resources/images/common/icon_mpeg.png" alt="download" />RA33_Dynapro HP2_Motion Graphic(ENG).mpeg</a></dd>
+					<dd><a href="#"><img src="./resources/images/common/icon_avi.png" alt="download" />RA33_Dynapro HP2_Motion Graphic(ENG).avi</a></dd>
+					<dd><a href="#"><img src="./resources/images/common/icon_flv.png" alt="download" />RA33_Dynapro HP2_Motion Graphic(ENG).flv</a></dd>
 				</dl>
 				<hr />
 				<dl class="file_info">

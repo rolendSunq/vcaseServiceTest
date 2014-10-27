@@ -192,6 +192,7 @@ public class HomeController {
 		return new Gson().toJson(map);
 	}
 	
+	//
 	@RequestMapping(value = "viewsCount")
 	@ResponseBody
 	public String setTagCount(@RequestParam("content_Id") int content_Id) {
@@ -202,6 +203,30 @@ public class HomeController {
 		omsResponder = omsConnector.requestMetaInfoEdit(content_Id, countTag);
 		System.out.println(omsResponder.toString());
 		return omsResponder.toString();
+	}
+	
+	// detail 페이지 이동
+	@RequestMapping(value = "detail") 
+	public String moveDetailView(Model model) {
+		return "detail";
+	}
+	
+	// bookmark 페이지 이동
+	@RequestMapping(value = "bookmark")
+	public String moveBookmarkView(Model model) {
+		return "list_my_bookmark";
+	}
+	
+	// download 페이지 이동
+	@RequestMapping(value = "download")
+	public String moveDownloadView(Model model) {
+		return "list_my_download";
+	}
+	
+	// listDetail 페이지 이동
+	@RequestMapping(value = "listDetail")
+	public String moveListDetailView(Model model) {
+		return "list";
 	}
 	
 	private String getStreamPlayUrl(int contentId, String variableUrlName, boolean isToJson) {

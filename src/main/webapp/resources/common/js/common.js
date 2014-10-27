@@ -192,6 +192,10 @@
 		//my movie setting
 		$('.my_movie').set_my_movie();
 		//my movie setting end
+		
+		$('#mamsHome').click(function() {
+			$(location).attr('href', '/mams');
+		});
 	});
 
 	$.fn.set_my_movie = function () {

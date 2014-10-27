@@ -41,8 +41,8 @@
 	                            </dl>
 	                        </div>
 	                        <div class="my_movie_db">
-	                        	<a class="dow" href="">DOWNLOAD<span>5</span></a>
-	                            <a class="book" href="">BOOKMARK<span>32</span></a>
+	                        	<a class="dow" href="download">DOWNLOAD<span>5</span></a>
+	                            <a class="book" href="bookmark">BOOKMARK<span>32</span></a>
 	                        </div>
 	                    </div>
 	                	<div class="mm_footer">Copyright 2014 Hankook Tire Co., Ltd.  All rights Reserved. HANKOOK</div>
@@ -58,8 +58,8 @@
 					<div class="header_top"> 
 						<h1>
 							<a href="#">
-								<img src="./resources/images/common/img_logo.png" alt="Hankook - driving emotion" />
-								<img src="./resources/images/common/img_logo2.png" alt="Digital Library MAMs" />
+								<img id="hankookHome" src="./resources/images/common/img_logo.png" alt="Hankook - driving emotion" />
+								<img id="mamsHome" src="./resources/images/common/img_logo2.png" alt="Digital Library MAMs" />
 							</a>
 						</h1>
 						<div class="util_navi">
@@ -330,17 +330,20 @@
 	                <div class="category">
 	                    <h2 class="mlr56">Corporation<span>Ventus, Optimo, Dynapro, WinterTire Concept movie</span></h2>
 	                    <ul class="category_slide">
+	                    	<c:forEach var="corporation" items="${list }" end="10" varStatus="status">
 	                        <li class="slide">
-	                            <a href="#">
+	                            <a href="detail">
 	                            	<span>
-	                                	<img src="./resources/images/common/thumbnail.jpg" alt="" />
-	                                    <span class="video-time">7:01</span>
+	                                	<img width="196px" height="110px" src="${corporation.thumb_url }" alt="" />
+	                                    <span class="video-time">${corporation.duration }</span>
 	                                </span>
 	                            </a>
-	                            <h3><a href="#">RA33_Dynapro HP2_Motion Graphic(ENG)</a></h3>
-	                            <span class="f_left">2014-07-15</span>
-	                            <span class="f_right mr5"><a class="download_btn" href="#"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
+	                            <h3><a href="#">${corporation.title }</a></h3>
+	                            <span class="f_left">${corporation.reg_date }</span>
+	                            <span class="f_right mr5"><a class="download_btn" data-contentId="${corporation.content_id }" href="#"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
 	                        </li>
+	                        </c:forEach>
+	                        <!-- 
 	                        <li class="slide">
 	                            <a href="#">
 	                            	<span>
@@ -386,6 +389,7 @@
 	                            <span class="f_left">2014-07-15</span>
 	                            <span class="f_right mr5"><a class="download_btn" href="#"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
 	                        </li>
+	                         -->
 	                    </ul>
 	                </div>
 	                <!-- //category -->
@@ -483,15 +487,7 @@
 									"&autoPlay=true\" name=\"flashvars\">"+
 					"</object>"
 				);
-				$('li[id="content_item"]').hover(function() {
-					$(this).mouseenter(function(){
-						$(this).css('cursor', 'pointer');
-					});
-					$(this).mouseleave(function(){
-						$(this).css('cursor', 'default');
-					});
-				});
-				
+				/*
 				$('li[id="content_item"]').click(function(){
 					var thisElement = $(this);
 					var content_Id = $(this).attr('data-content-id');
@@ -522,6 +518,7 @@
 						console.log("data: ", data);
 					});
 				});
+				*/
 	    	});
 	    </script>
 	</body>

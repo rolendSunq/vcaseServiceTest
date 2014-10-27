@@ -1,19 +1,15 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=euc-kr" />
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<meta http-equiv="Cache-Control" content="no-cache" />
 	<meta http-equiv="Expires" content="0" />
 	<meta http-equiv="Pragma" content="no-cache" />
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
 
-	<title>«—±π≈∏¿ÃæÓ</title>
-	<link rel="Stylesheet" type="text/css" href="common/css/common.css" />
-	<script type="text/javascript" src="common/js/jquery-1.11.1.min.js"></script>
-	<script type="text/javascript" src="common/js/jquery.ui.all.js"></script>
-    <script type="text/javascript" src="common/js/common.js"></script>
-    <script type="text/javascript" src="common/js/jquery.bxslider.min.js"></script>
+	<title>ÌïúÍµ≠ÌÉÄÏù¥Ïñ¥</title>
+	<link rel="Stylesheet" type="text/css" href="./resources/common/css/common.css" />
 </head>
 <body>
 	<div class="wrapper">
@@ -21,7 +17,7 @@
     	<!-- my movie -->
         <div class="my_movie">
         	<div class="my_movie_off">
-            	<a href="#">my movie ∆‰¿Ã¡ˆ ø≠±‚m</a>
+            	<a href="#">my movie ÌéòÏù¥ÏßÄ Ïó¥Í∏∞m</a>
             </div>
         	<div class="my_movie_on">
             	<div class="my_movie_bg">
@@ -35,16 +31,16 @@
                         <div class="my_movie_wh">
                         	<dl>
                             	<dt>Watch History</dt>
-                                <dd><a href="#"><img width="25px" height="14px" src="images/common/thumbnail.jpg" alt="" />The UEFA Europa League 12-13 ...</a></dd>
-                                <dd><a href="#"><img width="25px" height="14px" src="images/common/thumbnail.jpg" alt="" />Eins mit der Stra©¨e - Hankook Reifen ...</a></dd>
-                                <dd><a href="#"><img width="25px" height="14px" src="images/common/thumbnail.jpg" alt="" />SIENTE LA CONEXION - NEUMATI...</a></dd>
-                                <dd><a href="#"><img width="25px" height="14px" src="images/common/thumbnail.jpg" alt="" />Be One with it" (20'', English, 2013)...</a></dd>
-                                <dd><a href="#"><img width="25px" height="14px" src="images/common/thumbnail.jpg" alt="" />Ne faites qu'un avec vos pneus...</a></dd>
+                                <dd><a href="#"><img width="25px" height="14px" src="./resources/images/common/thumbnail.jpg" alt="" />The UEFA Europa League 12-13 ...</a></dd>
+                                <dd><a href="#"><img width="25px" height="14px" src="./resources/images/common/thumbnail.jpg" alt="" />Eins mit der Stra√üe - Hankook Reifen ...</a></dd>
+                                <dd><a href="#"><img width="25px" height="14px" src="./resources/images/common/thumbnail.jpg" alt="" />SIENTE LA CONEXION - NEUMATI...</a></dd>
+                                <dd><a href="#"><img width="25px" height="14px" src="./resources/images/common/thumbnail.jpg" alt="" />Be One with it" (20'', English, 2013)...</a></dd>
+                                <dd><a href="#"><img width="25px" height="14px" src="./resources/images/common/thumbnail.jpg" alt="" />Ne faites qu'un avec vos pneus...</a></dd>
                             </dl>
                         </div>
                         <div class="my_movie_db">
-                        	<a class="dow" href="">DOWNLOAD<span>5</span></a>
-                            <a class="book" href="">BOOKMARK<span>32</span></a>
+                        	<a class="dow" href="download">DOWNLOAD<span>5</span></a>
+                            <a class="book" href="bookmark">BOOKMARK<span>32</span></a>
                         </div>
                     </div>
                 	<div class="mm_footer">Copyright 2014 Hankook Tire Co., Ltd.  All rights Reserved. HANKOOK</div>
@@ -63,14 +59,14 @@
 				<div class="header_top">
 					<h1>
 						<a href="#">
-							<img src="images/common/img_logo.png" alt="Hankook - driving emotion" />
-							<img src="images/common/img_logo2.png" alt="Digital Library MAMs" />
+							<img id="hankookHome" src="./resources/images/common/img_logo.png" alt="Hankook - driving emotion" />
+							<img id="mamsHome" src="./resources/images/common/img_logo2.png" alt="Digital Library MAMs" />
 						</a>
 					</h1>
 					<div class="util_navi">
 						<ul>
-							<li class="util1"><a href="#">µøøµªÛ</a></li>
-							<li class="util2"><a href="#">»®</a></li>
+							<li class="util1"><a href="#">ÎèôÏòÅÏÉÅ</a></li>
+							<li class="util2"><a href="#">Ìôà</a></li>
 						</ul>
 					</div>
 					<p>This is operated by hankook tire in the digital library movie </p>
@@ -81,16 +77,16 @@
 				<div class="header_bottom">
 					<div class="header_search">
                     	<form class="search_form">
-                    		<label for="search" class="hide">æ∆¿Ãµ</label>
+                    		<label for="search" class="hide">ÏïÑÏù¥Îîî</label>
 							<input id="search" name="mb_id" type="text" class="search_go" />
                             <button class="search_btn">search</button>
                         </form>
                     </div>
 					<div class="personal_menu">
 						<ul>
-							<li class="p_menu1"><a href="#">º≥¡§</a></li>
-							<li class="p_menu2"><a href="#">æ˜∑ŒµÂ</a></li>
-							<li class="p_menu3"><a href="#">∑Œ±◊æ∆øÙ</a></li>
+							<li class="p_menu1"><a href="#">ÏÑ§Ï†ï</a></li>
+							<li class="p_menu2"><a href="#">ÏóÖÎ°úÎìú</a></li>
+							<li class="p_menu3"><a href="#">Î°úÍ∑∏ÏïÑÏõÉ</a></li>
 						</ul>
 					</div>
 				</div>
@@ -172,15 +168,15 @@
 			<div id="content">
             	<div class="detail mlr56">
                 	<div class="detail_left">
-                    	<h2>Corporation<a class="f_right" href="#"><img src="images/common/detai_list.png" alt="List" /></a></h2>
+                    	<h2>Corporation<a class="f_right" href="#"><img src="./resources/images/common/detai_list.png" alt="List" /></a></h2>
                         <div class="detail_movie">
-                        	<!-- ∫“∑Øø¿¥¬ ¡÷º“ ≥°ø° ;wmode=transparent [ex)  src="http://www.youtube.com/abc;wmode=transparent"]-->
+                        	<!-- Î∂àÎü¨Ïò§Îäî Ï£ºÏÜå ÎÅùÏóê ;wmode=transparent [ex)  src="http://www.youtube.com/abc;wmode=transparent"]-->
                     		<iframe width="800" height="480" src="http://www.youtube.com/embed/KravbQxXB7k?list=PLYkzrxbCq4D0jSb71h5RO2FVznuIf7YtN;wmode=transparent" frameborder="0" allowfullscreen></iframe>
                         </div>
                         <div class="datail_title">
                         	<h3>HK_Product Movie_RA33_Dynapro HP2_Motion Graphic(ENG)</h3>
                             <p>00:21  / 2014. 8. 5 pm 3:28:14 </p>
-                            <span class="admin_icon"><img src="images/common/icon_admin.png" alt="admin" /></span>
+                            <span class="admin_icon"><img src="./resources/images/common/icon_admin.png" alt="admin" /></span>
                         </div>
                         <div class="datail_info">
                         	<ul>
@@ -205,12 +201,12 @@
                         </div>
                         <div class="d_download">
                         	<ul class="download_movie">
-                            	<li><a href="#"><img src="images/common/icon_mov.png" alt="download" />RA33_Dynapro HP2_Motion Graphic(ENG).mov</a></li>
-                                <li><a href="#"><img src="images/common/icon_wmv.png" alt="download" />RA33_Dynapro HP2_Motion Graphic(ENG).wmv</a></li>
-                                <li><a href="#"><img src="images/common/icon_mp4.png" alt="download" />RA33_Dynapro HP2_Motion Graphic(ENG).mp4</a></li>
-                                <li><a href="#"><img src="images/common/icon_mpeg.png" alt="download" />RA33_Dynapro HP2_Motion Graphic(ENG).mpeg</a></li>
-                                <li><a href="#"><img src="images/common/icon_avi.png" alt="download" />RA33_Dynapro HP2_Motion Graphic(ENG).avi</a></li>
-                                <li><a href="#"><img src="images/common/icon_flv.png" alt="download" />RA33_Dynapro HP2_Motion Graphic(ENG).flv</a></li>
+                            	<li><a href="#"><img src="./resources/images/common/icon_mov.png" alt="download" />RA33_Dynapro HP2_Motion Graphic(ENG).mov</a></li>
+                                <li><a href="#"><img src="./resources/images/common/icon_wmv.png" alt="download" />RA33_Dynapro HP2_Motion Graphic(ENG).wmv</a></li>
+                                <li><a href="#"><img src="./resources/images/common/icon_mp4.png" alt="download" />RA33_Dynapro HP2_Motion Graphic(ENG).mp4</a></li>
+                                <li><a href="#"><img src="./resources/images/common/icon_mpeg.png" alt="download" />RA33_Dynapro HP2_Motion Graphic(ENG).mpeg</a></li>
+                                <li><a href="#"><img src="./resources/images/common/icon_avi.png" alt="download" />RA33_Dynapro HP2_Motion Graphic(ENG).avi</a></li>
+                                <li><a href="#"><img src="./resources/images/common/icon_flv.png" alt="download" />RA33_Dynapro HP2_Motion Graphic(ENG).flv</a></li>
                             </ul>
                             <hr />
                             <span class="download_info_title">File info</span>
@@ -250,7 +246,7 @@
                                 <li class="share_menu05 eng"><a href="#">pinterest</a></li>
                             </ul>
                         </div>
-                        <a class="btn_list" href="#return false;">List</a>
+                        <a class="btn_list" href="listDetail">List</a>
                     </div>
                     <div class="detail_right">
                     	<div class="dr_title"><p>Corporation</p><span>more 26 videos</span></div>
@@ -258,7 +254,7 @@
                             <li class="slide">
                                 <a href="#">
                                     <div class="d_slide_img">
-                                        <img src="images/common/thumbnail.jpg" alt="" />
+                                        <img src="./resources/images/common/thumbnail.jpg" alt="" />
                                         <span class="on"></span><!--  -->
                                     </div>
                                     <div class="d_slide_info">
@@ -270,7 +266,7 @@
                             <li class="slide">
                                 <a href="#">
                                     <div class="d_slide_img">
-                                        <img src="images/common/thumbnail.jpg" alt="" />
+                                        <img src="./resources/images/common/thumbnail.jpg" alt="" />
                                     </div>
                                     <div class="d_slide_info">
                                         <h3>RA33 Dynapro HP2 Motion Graphic (ENG)...</h3>
@@ -281,7 +277,7 @@
                             <li class="slide">
                                 <a href="#">
                                     <div class="d_slide_img">
-                                        <img src="images/common/thumbnail.jpg" alt="" />
+                                        <img src="./resources/images/common/thumbnail.jpg" alt="" />
                                     </div>
                                     <div class="d_slide_info">
                                         <h3>RA33 Dynapro HP2 Motion Graphic (ENG)...</h3>
@@ -292,7 +288,7 @@
                             <li class="slide">
                                 <a href="#">
                                     <div class="d_slide_img">
-                                        <img src="images/common/thumbnail.jpg" alt="" />
+                                        <img src="./resources/images/common/thumbnail.jpg" alt="" />
                                     </div>
                                     <div class="d_slide_info">
                                         <h3>RA33 Dynapro HP2 Motion Graphic (ENG)...</h3>
@@ -303,7 +299,7 @@
                             <li class="slide">
                                 <a href="#">
                                     <div class="d_slide_img">
-                                        <img src="images/common/thumbnail.jpg" alt="" />
+                                        <img src="./resources/images/common/thumbnail.jpg" alt="" />
                                     </div>
                                     <div class="d_slide_info">
                                         <h3>RA33 Dynapro HP2 Motion Graphic (ENG)...</h3>
@@ -314,7 +310,7 @@
                             <li class="slide">
                                 <a href="#">
                                     <div class="d_slide_img">
-                                        <img src="images/common/thumbnail.jpg" alt="" />
+                                        <img src="./resources/images/common/thumbnail.jpg" alt="" />
                                     </div>
                                     <div class="d_slide_info">
                                         <h3>RA33 Dynapro HP2 Motion Graphic (ENG)...</h3>
@@ -325,7 +321,7 @@
                             <li class="slide">
                                 <a href="#">
                                     <div class="d_slide_img">
-                                        <img src="images/common/thumbnail.jpg" alt="" />
+                                        <img src="./resources/images/common/thumbnail.jpg" alt="" />
                                     </div>
                                     <div class="d_slide_info">
                                         <h3>RA33 Dynapro HP2 Motion Graphic (ENG)...</h3>
@@ -336,7 +332,7 @@
                             <li class="slide">
                                 <a href="#">
                                     <div class="d_slide_img">
-                                        <img src="images/common/thumbnail.jpg" alt="" />
+                                        <img src="./resources/images/common/thumbnail.jpg" alt="" />
                                     </div>
                                     <div class="d_slide_info">
                                         <h3>RA33 Dynapro HP2 Motion Graphic (ENG)...</h3>
@@ -347,7 +343,7 @@
                             <li class="slide">
                                 <a href="#">
                                     <div class="d_slide_img">
-                                        <img src="images/common/thumbnail.jpg" alt="" />
+                                        <img src="./resources/images/common/thumbnail.jpg" alt="" />
                                     </div>
                                     <div class="d_slide_info">
                                         <h3>RA33 Dynapro HP2 Motion Graphic (ENG)...</h3>
@@ -358,7 +354,7 @@
                             <li class="slide">
                                 <a href="#">
                                     <div class="d_slide_img">
-                                        <img src="images/common/thumbnail.jpg" alt="" />
+                                        <img src="./resources/images/common/thumbnail.jpg" alt="" />
                                     </div>
                                     <div class="d_slide_info">
                                         <h3>RA33 Dynapro HP2 Motion Graphic (ENG)...</h3>
@@ -369,7 +365,7 @@
                             <li class="slide">
                                 <a href="#">
                                     <div class="d_slide_img">
-                                        <img src="images/common/thumbnail.jpg" alt="" />
+                                        <img src="./resources/images/common/thumbnail.jpg" alt="" />
                                     </div>
                                     <div class="d_slide_info">
                                         <h3>RA33 Dynapro HP2 Motion Graphic (ENG)...</h3>
@@ -384,7 +380,7 @@
                             	<li>
                                     <a href="#">
                                         <div class="rm_img">
-                                            <img src="images/common/thumbnail.jpg" alt="" />
+                                            <img src="./resources/images/common/thumbnail.jpg" alt="" />
                                         </div>
                                         <div class="rm_info">
                                             <h3>RA33 Dynapro HP2 Motion Graphic (ENG)...</h3>
@@ -395,7 +391,7 @@
                                 <li>
                                     <a href="#">
                                         <div class="rm_img">
-                                            <img src="images/common/thumbnail.jpg" alt="" />
+                                            <img src="./resources/images/common/thumbnail.jpg" alt="" />
                                         </div>
                                         <div class="rm_info">
                                             <h3>RA33 Dynapro HP2 Motion Graphic (ENG)...</h3>
@@ -406,7 +402,7 @@
                                 <li>
                                     <a href="#">
                                         <div class="rm_img">
-                                            <img src="images/common/thumbnail.jpg" alt="" />
+                                            <img src="./resources/images/common/thumbnail.jpg" alt="" />
                                         </div>
                                         <div class="rm_info">
                                             <h3>RA33 Dynapro HP2 Motion Graphic (ENG)...</h3>
@@ -417,7 +413,7 @@
                                 <li>
                                     <a href="#">
                                         <div class="rm_img">
-                                            <img src="images/common/thumbnail.jpg" alt="" />
+                                            <img src="./resources/images/common/thumbnail.jpg" alt="" />
                                         </div>
                                         <div class="rm_info">
                                             <h3>RA33 Dynapro HP2 Motion Graphic (ENG)...</h3>
@@ -428,7 +424,7 @@
                                 <li>
                                     <a href="#">
                                         <div class="rm_img">
-                                            <img src="images/common/thumbnail.jpg" alt="" />
+                                            <img src="./resources/images/common/thumbnail.jpg" alt="" />
                                         </div>
                                         <div class="rm_info">
                                             <h3>RA33 Dynapro HP2 Motion Graphic (ENG)...</h3>
@@ -439,7 +435,7 @@
                                 <li>
                                     <a href="#">
                                         <div class="rm_img">
-                                            <img src="images/common/thumbnail.jpg" alt="" />
+                                            <img src="./resources/images/common/thumbnail.jpg" alt="" />
                                         </div>
                                         <div class="rm_info">
                                             <h3>RA33 Dynapro HP2 Motion Graphic (ENG)...</h3>
@@ -459,7 +455,7 @@
 
 			<!-- footer -->
 			<div id="footer">
-				<h2><img src="images/common/img_logo_bottom.gif" alt="Hankook - driving emotion" /></h2>
+				<h2><img src="./resources/images/common/img_logo_bottom.gif" alt="Hankook - driving emotion" /></h2>
 				<div class="footer_navi">
 					<ul>
 						<li><a href="#">Digital library</a></li>
@@ -467,7 +463,7 @@
 						<li><a href="#">Hankooktire Global Site</a></li>
 					</ul>
 					<p class="copyright">
-						Copyright ®œ Hankook Tire. All Rights Reserved.
+						Copyright ‚ìí Hankook Tire. All Rights Reserved.
 					</p>
 				</div>
 			</div>
@@ -486,12 +482,12 @@
                 <hr />
                 <dl class="download">
                 	<dt>DOWNLOAD</dt>
-                    <dd><a href="#"><img src="images/common/icon_mov.png" alt="download" />RA33_Dynapro HP2_Motion Graphic(ENG).mov</a></dd>
-                    <dd><a href="#"><img src="images/common/icon_wmv.png" alt="download" />RA33_Dynapro HP2_Motion Graphic(ENG).wmv</a></dd>
-                    <dd><a href="#"><img src="images/common/icon_mp4.png" alt="download" />RA33_Dynapro HP2_Motion Graphic(ENG).mp4</a></dd>
-                    <dd><a href="#"><img src="images/common/icon_mpeg.png" alt="download" />RA33_Dynapro HP2_Motion Graphic(ENG).mpeg</a></dd>
-                    <dd><a href="#"><img src="images/common/icon_avi.png" alt="download" />RA33_Dynapro HP2_Motion Graphic(ENG).avi</a></dd>
-                    <dd><a href="#"><img src="images/common/icon_flv.png" alt="download" />RA33_Dynapro HP2_Motion Graphic(ENG).flv</a></dd>
+                    <dd><a href="#"><img src="./resources/images/common/icon_mov.png" alt="download" />RA33_Dynapro HP2_Motion Graphic(ENG).mov</a></dd>
+                    <dd><a href="#"><img src="./resources/images/common/icon_wmv.png" alt="download" />RA33_Dynapro HP2_Motion Graphic(ENG).wmv</a></dd>
+                    <dd><a href="#"><img src="./resources/images/common/icon_mp4.png" alt="download" />RA33_Dynapro HP2_Motion Graphic(ENG).mp4</a></dd>
+                    <dd><a href="#"><img src="./resources/images/common/icon_mpeg.png" alt="download" />RA33_Dynapro HP2_Motion Graphic(ENG).mpeg</a></dd>
+                    <dd><a href="#"><img src="./resources/images/common/icon_avi.png" alt="download" />RA33_Dynapro HP2_Motion Graphic(ENG).avi</a></dd>
+                    <dd><a href="#"><img src="./resources/images/common/icon_flv.png" alt="download" />RA33_Dynapro HP2_Motion Graphic(ENG).flv</a></dd>
                 </dl>
                 <hr />
                 <dl class="file_info">
@@ -513,5 +509,28 @@
         </div>
         <!-- //download layer -->
 	</div>
+	<script type="text/javascript" src="./resources/common/js/jquery-1.11.1.min.js"></script>
+	<script type="text/javascript" src="./resources/common/js/jquery.ui.all.js"></script>
+    <script type="text/javascript" src="./resources/common/js/jquery.bxslider.min.js"></script>
+    <script type="text/javascript" src="./resources/common/js/common.js"></script>
+    <script type="text/javascript">
+    	$(document).ready(function() {
+    		$("#detail_movie").empty();
+			$("#detail_movie").append(
+				"<object data=\"http://vcase.myskcdn.com/static/ovp/ovp.swf\" name=\"ovp\" id=\"ovp\" type=\"application/x-shockwave-flash\" align=\"middle\" width=\"520\" height=\"292\" >" +
+					"<param value=\"high\" name=\"quality\">" + 
+					"<param value=\"#000000\" name=\"bgcolor\">" +
+					"<param value=\"always\" name=\"allowscriptaccess\">" +
+					"<param value=\"true\" name=\"allowfullscreen\">" +
+					"<param value=\"apiUrl=http://api.vcase.myskcdn.com" + 
+								"&mediaUrl=" + encodeURIComponent("${streamingUrl}") +
+								"&title=${oneStreamPlay.title}" +
+								"&thumbUrl=" + encodeURIComponent("${oneStreamPlay.thumb_url}") +
+								"&pid=${player_id}" +
+								"&autoPlay=true\" name=\"flashvars\">"+
+				"</object>"
+			);
+    	})
+    </script>
 </body>
 </html>
