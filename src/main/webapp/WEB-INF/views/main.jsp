@@ -19,13 +19,13 @@
 	        <!-- my movie -->
 	        <div class="my_movie">
 	        	<div class="my_movie_off">
-	            	<a href="#">my movie 페이지 열기m</a>
+	            	<a id="myMovies">my movie 페이지 열기m</a>
 	            </div>
 	        	<div class="my_movie_on">
 	            	<div class="my_movie_bg">
 	                	<div class="my_movie_con">
 	                    	<div class="my_movie_close">
-	                    		<a href="#">close</a>
+	                    		<a>close</a>
 	                        </div>
 	                        <div class="my_movie_user">
 	                        	<span>Hi! jihong Min</span>
@@ -33,16 +33,16 @@
 	                        <div class="my_movie_wh">
 	                        	<dl>
 	                            	<dt>Watch History</dt>
-	                                <dd><a href="#"><img width="25px" height="14px" src="./resources/images/common/thumbnail.jpg" alt="" />The UEFA Europa League 12-13 ...</a></dd>
-	                                <dd><a href="#"><img width="25px" height="14px" src="./resources/images/common/thumbnail.jpg" alt="" />Eins mit der Straße - Hankook Reifen ...</a></dd>
-	                                <dd><a href="#"><img width="25px" height="14px" src="./resources/images/common/thumbnail.jpg" alt="" />SIENTE LA CONEXION - NEUMATI...</a></dd>
-	                                <dd><a href="#"><img width="25px" height="14px" src="./resources/images/common/thumbnail.jpg" alt="" />Be One with it" (20'', English, 2013)...</a></dd>
-	                                <dd><a href="#"><img width="25px" height="14px" src="./resources/images/common/thumbnail.jpg" alt="" />Ne faites qu'un avec vos pneus...</a></dd>
+	                                <dd><a><img width="25px" height="14px" src="./resources/images/common/thumbnail.jpg" alt="" />The UEFA Europa League 12-13 ...</a></dd>
+	                                <dd><a><img width="25px" height="14px" src="./resources/images/common/thumbnail.jpg" alt="" />Eins mit der Straße - Hankook Reifen ...</a></dd>
+	                                <dd><a><img width="25px" height="14px" src="./resources/images/common/thumbnail.jpg" alt="" />SIENTE LA CONEXION - NEUMATI...</a></dd>
+	                                <dd><a><img width="25px" height="14px" src="./resources/images/common/thumbnail.jpg" alt="" />Be One with it" (20'', English, 2013)...</a></dd>
+	                                <dd><a><img width="25px" height="14px" src="./resources/images/common/thumbnail.jpg" alt="" />Ne faites qu'un avec vos pneus...</a></dd>
 	                            </dl>
 	                        </div>
 	                        <div class="my_movie_db">
-	                        	<a class="dow" href="download">DOWNLOAD<span>5</span></a>
-	                            <a class="book" href="bookmark">BOOKMARK<span>32</span></a>
+	                        	<a class="dow" id="mamsDownload">DOWNLOAD<span id="downloadCnt">0</span></a>
+	                            <a class="book" id="mamsBookmark">BOOKMARK<span id="bookmarkCnt">0</span></a>
 	                        </div>
 	                    </div>
 	                	<div class="mm_footer">Copyright 2014 Hankook Tire Co., Ltd.  All rights Reserved. HANKOOK</div>
@@ -57,15 +57,15 @@
 					<!-- header_top -->
 					<div class="header_top"> 
 						<h1>
-							<a href="#">
+							<a>
 								<img id="hankookHome" src="./resources/images/common/img_logo.png" alt="Hankook - driving emotion" />
 								<img id="mamsHome" src="./resources/images/common/img_logo2.png" alt="Digital Library MAMs" />
 							</a>
 						</h1>
 						<div class="util_navi">
 							<ul>
-								<li class="util1"><a href="#">동영상</a></li>
-								<li class="util2"><a href="#">홈</a></li>
+								<li class="util1"><a>동영상</a></li>
+								<li class="util2"><a>홈</a></li>
 							</ul>
 						</div>
 						<p>This is operated by hankook tire in the digital library movie </p>
@@ -83,9 +83,9 @@
 	                    </div>
 						<div class="personal_menu">
 							<ul>
-								<li class="p_menu1"><a href="#">설정</a></li>
-								<li class="p_menu2"><a href="#">업로드</a></li>
-								<li class="p_menu3"><a href="#">로그아웃</a></li>
+								<li class="p_menu1"><a>설정</a></li>
+								<li class="p_menu2"><a>업로드</a></li>
+								<li class="p_menu3"><a>로그아웃</a></li>
 							</ul>
 						</div>
 					</div>
@@ -94,62 +94,50 @@
 					<div id="gnb">
 						<ul>
 							<li class="first menu menu1">
-	                        	<a class="" href="#">Corporation</a>
+	                        	<a class="">Corporation</a>
 	                            <div>
 	                                <ul class="depth2">
-	                                    <li><a href="#">Video</a></li>
-	                                    <li><a href="#">Image</a></li>
-	                                    <li><a href="#">Other</a></li>
+	                                    <li><a>Video</a></li>
 	                                </ul>
 	                            </div>
 	                        </li>
 							<li class="menu menu2">
-	                        	<a class="" href="#">Advertisements</a>
+	                        	<a class="">Advertisements</a>
 	                            <div>
 	                                <ul class="depth2">
-	                                    <li><a href="#">Video</a></li>
-	                                    <li><a href="#">Image</a></li>
-	                                    <li><a href="#">Other</a></li>
+	                                    <li><a>Video</a></li>
 	                                </ul>
 	                            </div>
 	                        </li>
 							<li class="menu menu3">
-	                        	<a class="" href="#">Products</a>
+	                        	<a class="">Products</a>
 	                            <div>
 	                                <ul class="depth2">
-	                                    <li><a href="#">Video</a></li>
-	                                    <li><a href="#">Image</a></li>
-	                                    <li><a href="#">Other</a></li>
+	                                    <li><a>Video</a></li>
 	                                </ul>
 	                            </div>
 	                        </li>
 							<li class="menu menu4">
-	                        	<a class="" href="#">Motorsports</a>
+	                        	<a class="">Motorsports</a>
 	                            <div>
 	                                <ul class="depth2">
-	                                    <li><a href="#">Video</a></li>
-	                                    <li><a href="#">Image</a></li>
-	                                    <li><a href="#">Other</a></li>
+	                                    <li><a>Video</a></li>
 	                                </ul>
 	                            </div>
 	                        </li>
 							<li class="menu menu5">
-	                        	<a class="" href="#">Events</a>
+	                        	<a class="">Events</a>
 	                            <div>
 	                                <ul class="depth2">
-	                                    <li><a href="#">Video</a></li>
-	                                    <li><a href="#">Image</a></li>
-	                                    <li><a href="#">Other</a></li>
+	                                    <li><a>Video</a></li>
 	                                </ul>
 	                            </div>
 	                        </li>
 							<li class="last menu menu6">
-	                        	<a class="" href="#">Others</a>
+	                        	<a class="">Others</a>
 	                            <div>
 	                                <ul class="depth2">
-	                                    <li><a href="#">Video</a></li>
-	                                    <li><a href="#">Image</a></li>
-	                                    <li><a href="#">Other</a></li>
+	                                    <li><a>Video</a></li>
 	                                </ul>
 	                            </div>
 	                        </li>
@@ -234,7 +222,7 @@
 	                    	<c:choose>
 	                    		<c:when test="${status.count < 4}">
 	                    	<li class="mr24">
-	                        	<a href="#">
+	                        	<a>
 	                            	<span>
 	                                	<img width="196px" height="110px" src="${popularObject.thumb_url }" alt="" />
 	                                    <span class="video-time">${popularObject.duration }</span>
@@ -242,86 +230,44 @@
 	                                </span>
 	                            </a>
 	                            <span>Corporation</span>
-	                            <h3><a href="#">${popularObject.title }</a></h3>
+	                            <h3><a>${popularObject.title }</a></h3>
 	                            <span>2,384,880 views</span>
 	                            <span class="f_left">2014-07-15</span>
-	                            <span class="f_right mr5"><a class="download_btn" data-contentId="${popularObject.content_id }" href="#"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
+	                            <span class="f_right mr5"><a class="download_btn" data-contentId="${popularObject.content_id }"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
 	                        </li>
 	                    		</c:when>
 	                    		<c:when test="${status.count == 4 }">
 	                        <li class="mr23">
-	                        	<a href="#">
+	                        	<a>
 	                            	<span>
 	                                	<img width="196px" height="110px" src="${popularObject.thumb_url }" alt="" />
 	                                    <span class="video-time">${popularObject.duration }</span>
 	                                </span>
 	                            </a>
 	                            <span>Corporation</span>
-	                            <h3><a href="#">${popularObject.title }</a></h3>
+	                            <h3><a>${popularObject.title }</a></h3>
 	                            <span>2,384,880 views</span>
 	                            <span class="f_left">2014-07-15</span>
-	                            <span class="f_right mr5"><a class="download_btn" data-contentId="${popularObject.content_id }" href="#"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
+	                            <span class="f_right mr5"><a class="download_btn" data-contentId="${popularObject.content_id }"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
 	                        </li>
 	                    		</c:when>
 	                    		<c:otherwise>
 	                    	<li>
-	                        	<a href="#">
+	                        	<a>
 	                            	<span>
 	                                	<img width="196px" height="110px" src="${popularObject.thumb_url }" alt="" />
 	                                    <span class="video-time">${popularObject.duration }</span>
 	                                </span>
 	                            </a>
 	                            <span>Corporation</span>
-	                            <h3><a href="#">${popularObject.title }</a></h3>
+	                            <h3><a>${popularObject.title }</a></h3>
 	                            <span>2,384,880 views</span>
 	                            <span class="f_left">2014-07-15</span>
-	                            <span class="f_right mr5"><a class="download_btn" data-contentId="${popularObject.content_id }" href="#"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
+	                            <span class="f_right mr5"><a class="download_btn" data-contentId="${popularObject.content_id }"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
 	                        </li>
 	                    		</c:otherwise>
 	                    	</c:choose>
 	                        </c:forEach>
-	                        <!-- 
-	                        <li class="mr24">
-	                        	<a href="#">
-	                            	<span>
-	                                	<img src="./resources/images/common/thumbnail.jpg" alt="" />
-	                                    <span class="video-time">7:04</span>
-	                                </span>
-	                            </a>
-	                            <span>Corporation</span>
-	                            <h3><a href="#">RA33_Dynapro HP2_Motion Graphic(ENG)</a></h3>
-	                            <span>2,384,880 views</span>
-	                            <span class="f_left">2014-07-15</span>
-	                            <span class="f_right mr5"><a class="download_btn" href="#"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
-	                        </li>
-	                        <li class="mr24">
-	                        	<a href="#">
-	                            	<span>
-	                                	<img src="./resources/images/common/thumbnail.jpg" alt="" />
-	                                    <span class="video-time">7:04</span>
-	                                    <span class="admin_icon"><img src="./resources/images/common/icon_admin.png" alt="admin" /></span>
-	                                </span>
-	                            </a>
-	                            <span>Corporation</span>
-	                            <h3><a href="#">RA33_Dynapro HP2_Motion Graphic(ENG)</a></h3>
-	                            <span>2,384,880 views</span>
-	                            <span class="f_left">2014-07-15</span>
-	                            <span class="f_right mr5"><a class="download_btn" href="#"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
-	                        </li>
-	                        <li class="mr23">
-	                        	<a href="#">
-	                            	<span>
-	                                	<img src="./resources/images/common/thumbnail.jpg" alt="" />
-	                                    <span class="video-time">7:04</span>
-	                                </span>
-	                            </a>
-	                            <span>Corporation</span>
-	                            <h3><a href="#">RA33_Dynapro HP2_Motion Graphic(ENG)</a></h3>
-	                            <span>2,384,880 views</span>
-	                            <span class="f_left">2014-07-15</span>
-	                            <span class="f_right mr5"><a class="download_btn" href="#"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
-	                        </li>
-	                         -->
 	                    </ul>
 	                </div>
 	                <!-- //popular movie -->
@@ -331,71 +277,24 @@
 	                    <h2 class="mlr56">Corporation<span>Ventus, Optimo, Dynapro, WinterTire Concept movie</span></h2>
 	                    <ul class="category_slide">
 	                    	<c:forEach var="corporation" items="${list }" end="10" varStatus="status">
-	                        <li class="slide">
-	                            <a href="detail">
+	                        <li class="slide" data-contentId="${corporation.content_id }" data-thumbUrl="${corporation.thumb_url }">
+	                            <a>
 	                            	<span>
 	                                	<img width="196px" height="110px" src="${corporation.thumb_url }" alt="" />
 	                                    <span class="video-time">${corporation.duration }</span>
 	                                </span>
 	                            </a>
-	                            <h3><a href="#">${corporation.title }</a></h3>
+	                            <h3><a>${corporation.title }</a></h3>
 	                            <span class="f_left">${corporation.reg_date }</span>
-	                            <span class="f_right mr5"><a class="download_btn" data-contentId="${corporation.content_id }" href="#"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
+	                            <span class="f_right mr5"><a class="download_btn" data-contentId="${corporation.content_id }"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
 	                        </li>
 	                        </c:forEach>
-	                        <!-- 
-	                        <li class="slide">
-	                            <a href="#">
-	                            	<span>
-	                                	<img src="./resources/images/common/thumbnail.jpg" alt="" />
-	                                    <span class="video-time">7:02</span>
-	                                </span>
-	                            </a>
-	                            <h3><a href="#">RA33_Dynapro HP2_Motion Graphic(ENG)</a></h3>
-	                            <span class="f_left">2014-07-15</span>
-	                            <span class="f_right mr5"><a class="download_btn" href="#"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
-	                        </li>
-	                        <li class="slide">
-	                            <a href="#">
-	                            	<span>
-	                                	<img src="./resources/images/common/thumbnail.jpg" alt="" />
-	                                    <span class="video-time">7:03</span>
-	                                    <span class="admin_icon"><img src="./resources/images/common/icon_admin.png" alt="admin" /></span>
-	                                </span>
-	                            </a>
-	                            <h3><a href="#">RA33_Dynapro HP2_Motion Graphic(ENG)</a></h3>
-	                            <span class="f_left">2014-07-15</span>
-	                            <span class="f_right mr5"><a class="download_btn" href="#"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
-	                        </li>
-	                        <li class="slide">
-	                            <a href="#">
-	                            	<span>
-	                                	<img src="./resources/images/common/thumbnail.jpg" alt="" />
-	                                    <span class="video-time">7:04</span>
-	                                </span>
-	                            </a>
-	                            <h3><a href="#">RA33_Dynapro HP2_Motion Graphic(ENG)</a></h3>
-	                            <span class="f_left">2014-07-15</span>
-	                            <span class="f_right mr5"><a class="download_btn" href="#"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
-	                        </li>
-	                        <li class="slide">
-	                            <a href="#">
-	                            	<span>
-	                                	<img src="./resources/images/common/thumbnail.jpg" alt="" />
-	                                    <span class="video-time">7:05</span>
-	                                </span>
-	                            </a>
-	                            <h3><a href="#">RA33_Dynapro HP2_Motion Graphic(ENG)</a></h3>
-	                            <span class="f_left">2014-07-15</span>
-	                            <span class="f_right mr5"><a class="download_btn" href="#"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
-	                        </li>
-	                         -->
 	                    </ul>
 	                </div>
 	                <!-- //category -->
 	                
 	                <!-- more btn -->
-	                <a class="more_btn" href="#">MORE</a>
+	                <a class="more_btn">MORE</a>
 	                <!-- /more btn -->
 				</div>
 			</div>
@@ -408,9 +307,9 @@
 					<h2><img src="./resources/images/common/img_logo_bottom.gif" alt="Hankook - driving emotion" /></h2>
 					<div class="footer_navi">
 						<ul>
-							<li><a href="#">Digital library</a></li>
-							<li><a href="#">Digital library lite</a></li>
-							<li><a href="#">Hankooktire Global Site</a></li>
+							<li><a>Digital library</a></li>
+							<li><a>Digital library lite</a></li>
+							<li><a>Hankooktire Global Site</a></li>
 						</ul>
 						<p class="copyright">
 							Copyright ⓒ Hankook Tire. All Rights Reserved.
@@ -434,15 +333,15 @@
 	                	<dt id="downloadUrl">DOWNLOAD</dt>
 	                	<!-- 
 	                    <dd>
-	                    	<a href="#">
+	                    	<a>
 	                    		<img src="./resources/images/common/icon_mov.png" alt="download" />RA33_Dynapro HP2_Motion Graphic(ENG).mov
 	                    	</a>
 	                    </dd>
-	                    <dd><a href="#"><img src="./resources/images/common/icon_wmv.png" alt="download" />RA33_Dynapro HP2_Motion Graphic(ENG).wmv</a></dd>
-	                    <dd><a href="#"><img src="./resources/images/common/icon_mp4.png" alt="download" />RA33_Dynapro HP2_Motion Graphic(ENG).mp4</a></dd>
-	                    <dd><a href="#"><img src="./resources/images/common/icon_mpeg.png" alt="download" />RA33_Dynapro HP2_Motion Graphic(ENG).mpeg</a></dd>
-	                    <dd><a href="#"><img src="./resources/images/common/icon_avi.png" alt="download" />RA33_Dynapro HP2_Motion Graphic(ENG).avi</a></dd>
-	                    <dd><a href="#"><img src="./resources/images/common/icon_flv.png" alt="download" />RA33_Dynapro HP2_Motion Graphic(ENG).flv</a></dd>
+	                    <dd><a><img src="./resources/images/common/icon_wmv.png" alt="download" />RA33_Dynapro HP2_Motion Graphic(ENG).wmv</a></dd>
+	                    <dd><a><img src="./resources/images/common/icon_mp4.png" alt="download" />RA33_Dynapro HP2_Motion Graphic(ENG).mp4</a></dd>
+	                    <dd><a><img src="./resources/images/common/icon_mpeg.png" alt="download" />RA33_Dynapro HP2_Motion Graphic(ENG).mpeg</a></dd>
+	                    <dd><a><img src="./resources/images/common/icon_avi.png" alt="download" />RA33_Dynapro HP2_Motion Graphic(ENG).avi</a></dd>
+	                    <dd><a><img src="./resources/images/common/icon_flv.png" alt="download" />RA33_Dynapro HP2_Motion Graphic(ENG).flv</a></dd>
 	                	 -->
 	                </dl>
 	                <hr />
@@ -460,7 +359,7 @@
 	                    <dd id="channel">Audio channel : 2</dd>
 	                    <dd id="hz">Audio Hz : 44100</dd>
 	                </dl>
-	                <a class="dow_layer_close" href="#">close</a>
+	                <a class="dow_layer_close">close</a>
 	            </div>
 	        </div>
 	        <!-- //download layer -->
@@ -469,9 +368,19 @@
 		<script type="text/javascript" src="./resources/common/js/jquery-1.11.1.min.js"></script>
 		<script type="text/javascript" src="./resources/common/js/jquery.ui.all.js"></script>
 	    <script type="text/javascript" src="./resources/common/js/jquery.bxslider.min.js"></script>
+	    <script type="text/javascript" src="./resources/common/js/jquery.cookies.2.2.0.min.js"></script>
 	    <script type="text/javascript" src="./resources/common/js/common.js"></script>
 	    <script type="text/javascript">
+	    	
 	    	$(document).ready(function(){
+	    		var myStorage = {
+					myDownload:[],
+					myBookmark:[],
+					myHistory:[]
+				};
+	    		
+				//myStorage = JSON.parse(data);
+				
 	    		$("#latestMovie").empty();
 				$("#latestMovie").append(
 					"<object data=\"http://vcase.myskcdn.com/static/ovp/ovp.swf\" name=\"ovp\" id=\"ovp\" type=\"application/x-shockwave-flash\" align=\"middle\" width=\"520\" height=\"292\" >" +
@@ -487,38 +396,75 @@
 									"&autoPlay=true\" name=\"flashvars\">"+
 					"</object>"
 				);
-				/*
-				$('li[id="content_item"]').click(function(){
-					var thisElement = $(this);
-					var content_Id = $(this).attr('data-content-id');
-					var contentThumbUrl = $(this).attr('data-content-thumb');
-					$.getJSON('content/player/' + content_Id, null, function(data){
-						var streamingUrl = data.streaming_url;
-						var title = thisElement.attr('data-content-title');
-						$('#playTitle').text(thisElement.attr('data-content-title'));
-						$('#playTimeDate').text(thisElement.attr('data-content-duration') + '  /  ' + thisElement.attr('data-content-regDate'));
-						$('#playContentId').text(thisElement.attr('data-content-id'));
-						$("#latestMovie").empty();
-						$("#latestMovie").append(
-							"<object data=\"http://vcase.myskcdn.com/static/ovp/ovp.swf\" name=\"ovp\" id=\"ovp\" type=\"application/x-shockwave-flash\" align=\"middle\" width=\"520\" height=\"292\" >" +
-								"<param value=\"high\" name=\"quality\">" + 
-								"<param value=\"#000000\" name=\"bgcolor\">" +
-								"<param value=\"always\" name=\"allowscriptaccess\">" +
-								"<param value=\"true\" name=\"allowfullscreen\">" +
-								"<param value=\"apiUrl=http://api.vcase.myskcdn.com" + 
-											"&mediaUrl=" + encodeURIComponent(streamingUrl) +
-											"&title=" + title +
-											"&thumbUrl=" + encodeURIComponent(contentThumbUrl) +
-											"&pid=${player_id}" +
-											"&autoPlay=true\" name=\"flashvars\">"+
-							"</object>"
-						);
-					});
-					$.getJSON('viewsCount', {"content_Id":content_Id}, function(data){
-						console.log("data: ", data);
+				
+				$('a[class="download_btn"]').click(function(){
+					var contentId = $(this).attr('data-contentId');
+					$('.mb5').text('ID : ' + contentId);
+					$.getJSON('contentInfo', {"contentId":contentId}, function(data){
+						var decodeFileName = decodeURIComponent(data.fileName);
+						var fileName = decodeFileName.replace(/\+/g, ' ');
+						
+						var aTag = $('<a>').attr('href', data.downloadUrl).append('<img src="./resources/images/common/icon_mp4.png" alt="download"/>' + fileName).append('</a>');
+						var ddTag = $('<dd>').append(aTag).append('</dd>');
+						$("#downloadUrl").after(ddTag);
+						$("#contentType").text('Contents Type : ' + data.mediaType);
+						$("#size").text('Size : ' + data.size);
+						$("#videoFormat").text('Video Format : ' + data.videoFormat);
+						$("#videoCodec").text('Video Codec : ' + data.videoCodec);
+						$("#videoBps").text('Video bps : ' + data.videoBps);
+						$("#videoFps").text('Video fps : ' + data.videoFps);
+						$("#audioCodec").text('Audio Codec : ' + data.audioCodec);
+						$("#audioBps").text('Audio bps : ' + data.audioBps);
+						$("#channel").text('Audio channel : ' + data.audioChannel);
+						$("#hz").text('Audio Hz : ' + data.audioHz);
 					});
 				});
-				*/
+				$('a[id="mamsBookmark"]').click(function() {
+					var jsonResult 	= JSON.stringify(myStorage);
+					var hiddenInp 	= null;
+					hiddenInp = $('<input>').attr({'type':'hidden', 'name':'bookmarkInfo', 'value':jsonResult});
+					$('<form>').attr({'method':'POST','action':'moveMyBookmark'}).append(hiddenInp).append('</form>').appendTo('body').submit();
+				});
+				
+				$('#mamsDownload').click(function() {
+					var downCnt   = myStorage.myDownload.length;
+					var downList  = JSON.stringify(myStorage.myDownload);
+					var hiddenInp = $('<input>').attr({'type':'hidden','name':'downCnt','value':downCnt});
+					var hiddenDwn = $('<input>').attr({'type':'hidden','name':'myDownload','value':downList});
+					$('<form>').attr({'method':'POST','action':'mamsDownload'}).append(hiddenInp).append(hiddenDwn).append('</form>').appendTo('body').submit();
+				});
+				
+				$('li[class="slide"]').click(function() {
+					var contentId = $(this).attr('data-contentId');
+					var thumbUrl = $(this).attr('data-thumbUrl');
+					var hiddenCon = $('<input>').attr({'type':'hidden','name':'content_id','value':contentId});
+					var hiddenTmb = $('<input>').attr({'type':'hidden','name':'thumbUrl','value':thumbUrl});
+					$('<form>').attr({'method':'POST','action':'detail'}).append(hiddenCon).append(hiddenTmb).appendTo('body').submit();
+				});
+				
+				$('#myMovies').click(function() {
+					var downLength = myStorage.myDownload.length;
+					var bookLength = myStorage.myBookmark.length;
+					$('#downloadCnt').text(downLength);
+					$('#bookmarkCnt').text(bookLength);
+				});
+				
+				$('a[class="download_btn"]').click(function() {
+					var valid = 0;
+					var download = myStorage.myDownload;
+					var content_id = $(this).attr('data-contentId');
+					var downLength = download.length;
+					for (var i = 0; i < myStorage.myDownload.length; i++) {
+						if (download[i] == content_id) {
+							valid = valid + 1;
+						}
+					}
+					if (valid == 0) {
+						download.push(content_id);
+					}
+					downLength = myStorage.myDownload.length;
+					$('#downloadCnt').text(downLength);
+				});
 	    	});
 	    </script>
 	</body>

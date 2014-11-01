@@ -12,8 +12,9 @@
 	<link rel="Stylesheet" type="text/css" href="./resources/common/css/common.css" />
 	<script type="text/javascript" src="./resources/common/js/jquery-1.11.1.min.js"></script>
 	<script type="text/javascript" src="./resources/common/js/jquery.ui.all.js"></script>
-	<script type="text/javascript" src="./resources/common/js/common.js"></script>
 	<script type="text/javascript" src="./resources/common/js/jquery.bxslider.min.js"></script>
+	<script type="text/javascript" src="./resources/common/js/jquery.cookies.2.2.0.min.js"></script>
+	<script type="text/javascript" src="./resources/common/js/common.js"></script>
 </head>
 <body>
 	<div class="wrapper">
@@ -233,7 +234,7 @@
 						<li class="mr24">
 							<a href="#">
 								<span>
-									<img src="images/common/thumbnail.jpg" alt="" />
+									<img src="./resources/images/common/thumbnail.jpg" alt="" />
 									<span class="video-time">7:04</span>
 								</span>
 							</a>
@@ -248,7 +249,7 @@
 								<span>
 									<img src="./resources/images/common/thumbnail.jpg" alt="" />
 									<span class="video-time">7:04</span>
-									<span class="admin_icon"><img src="images/common/icon_admin.png" alt="admin" /></span>
+									<span class="admin_icon"><img src="./resources/images/common/icon_admin.png" alt="admin" /></span>
 								</span>
 							</a>
 							<span>Corporation</span>
@@ -260,7 +261,7 @@
 						<li class="mr23">
 							<a href="#">
 								<span>
-									<img src="images/common/thumbnail.jpg" alt="" />
+									<img src="./resources/images/common/thumbnail.jpg" alt="" />
 									<span class="video-time">7:04</span>
 								</span>
 							</a>
@@ -273,7 +274,7 @@
 						<li>
 							<a href="#">
 								<span>
-									<img src="images/common/thumbnail.jpg" alt="" />
+									<img src="./resources/images/common/thumbnail.jpg" alt="" />
 									<span class="video-time">7:04</span>
 								</span>
 							</a>
@@ -327,7 +328,7 @@
 						<li class="mr23">
 							<a href="#">
 								<span>
-									<img src="images/common/thumbnail.jpg" alt="" />
+									<img src="./resources/images/common/thumbnail.jpg" alt="" />
 									<span class="video-time">7:04</span>
 								</span>
 							</a>
@@ -335,7 +336,7 @@
 							<h3><a href="#">RA33_Dynapro HP2_Motion Graphic(ENG)</a></h3>
 							<span>2,384,880 views</span>
 							<span class="f_left">2014-07-15</span>
-							<span class="f_right mr5"><a class="download_btn" href="#"><img src="images/common/dow_icon.png" alt="download" /></a></span>
+							<span class="f_right mr5"><a class="download_btn" href="#"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
 						</li>
 						<li>
 							<a href="#">
@@ -353,16 +354,16 @@
 						<li class="mr24">
 							<a href="#">
 								<span>
-									<img src="images/common/thumbnail.jpg" alt="" />
+									<img src="./resources/images/common/thumbnail.jpg" alt="" />
 									<span class="video-time">7:04</span>
-									<span class="admin_icon"><img src="images/common/icon_admin.png" alt="admin" /></span>
+									<span class="admin_icon"><img src="./resources/images/common/icon_admin.png" alt="admin" /></span>
 								</span>
 							</a>
 							<span>Corporation</span>
 							<h3><a href="#">RA33_Dynapro HP2_Motion Graphic(ENG)</a></h3>
 							<span>2,384,880 views</span>
 							<span class="f_left">2014-07-15</span>
-							<span class="f_right mr5"><a class="download_btn" href="#"><img src="images/common/dow_icon.png" alt="download" /></a></span>
+							<span class="f_right mr5"><a class="download_btn" href="#"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
 						</li>
 						<li class="mr24">
 							<a href="#">
@@ -375,7 +376,7 @@
 							<h3><a href="#">RA33_Dynapro HP2_Motion Graphic(ENG)</a></h3>
 							<span>2,384,880 views</span>
 							<span class="f_left">2014-07-15</span>
-							<span class="f_right mr5"><a class="download_btn" href="#"><img src="images/common/dow_icon.png" alt="download" /></a></span>
+							<span class="f_right mr5"><a class="download_btn" href="#"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
 						</li>
 						<li class="mr24">
 							<a href="#">
@@ -394,7 +395,7 @@
 						<li class="mr23">
 							<a href="#">
 								<span>
-									<img src="images/common/thumbnail.jpg" alt="" />
+									<img src="./resources/images/common/thumbnail.jpg" alt="" />
 									<span class="video-time">7:04</span>
 								</span>
 							</a>
@@ -402,7 +403,7 @@
 							<h3><a href="#">RA33_Dynapro HP2_Motion Graphic(ENG)</a></h3>
 							<span>2,384,880 views</span>
 							<span class="f_left">2014-07-15</span>
-							<span class="f_right mr5"><a class="download_btn" href="#"><img src="images/common/dow_icon.png" alt="download" /></a></span>
+							<span class="f_right mr5"><a class="download_btn" href="#"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
 						</li>
 						<li>
 							<a href="#">
@@ -415,12 +416,12 @@
 							<h3><a href="#">RA33_Dynapro HP2_Motion Graphic(ENG)</a></h3>
 							<span>2,384,880 views</span>
 							<span class="f_left">2014-07-15</span>
-							<span class="f_right mr5"><a class="download_btn" href="#"><img src="images/common/dow_icon.png" alt="download" /></a></span>
+							<span class="f_right mr5"><a class="download_btn" href="#"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
 						</li>
 						<li class="mr24">
 							<a href="#">
 								<span>
-									<img src="images/common/thumbnail.jpg" alt="" />
+									<img src="./resources/images/common/thumbnail.jpg" alt="" />
 									<span class="video-time">7:04</span>
 									<span class="admin_icon"><img src="./resources/images/common/icon_admin.png" alt="admin" /></span>
 								</span>
