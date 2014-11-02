@@ -165,7 +165,6 @@ public class HomeController {
 		String[] historyList = new Gson().fromJson(contentIdList, String[].class);
 		List<String> orignList = getOrignList(historyList);
 		List<Object> myHistory = getList(orignList, true);
-		System.out.println(myHistory.toString());
 		return new Gson().toJson(myHistory);
 	}
 	
