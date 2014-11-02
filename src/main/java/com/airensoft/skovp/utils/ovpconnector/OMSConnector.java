@@ -178,7 +178,6 @@ public class OMSConnector extends HttpConnectable {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
 		return response;
 	}
 
