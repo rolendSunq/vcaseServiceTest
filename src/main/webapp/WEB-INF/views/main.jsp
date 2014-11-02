@@ -352,6 +352,11 @@
 					myBookmark:[],
 					myHistory:[]
 				};
+	    		
+				if ($.cookies.get('mamsCookie') == 'undefined' || $.cookies.get('mamsCookie') == null) {
+					var jsonData = JSON.stringify(myStorage);
+					$.cookies.set('mamsCookie', jsonData, cookieOption);
+				}
 				
 	    		if ($.cookies.get('mamsCookie') != null || $.cookies.get('mamsCookie') != 'undefined') {
 	    			var i 			= 0;
@@ -362,6 +367,7 @@
 	    			var aEle		= null;
 	    			var ddEle		= null;
 	    			var mamsCook 	= $.cookies.get('mamsCookie');
+	    			console.log('mamsCookie: ', mamsCook != null);
 	    			var contentIdList = JSON.stringify(mamsCook.myHistory);
 		    		$.getJSON('mamsHistoryList', {'contentIdList':contentIdList}, function(data) {
 		    			for (i; i < data.length; i = i + 1) {
@@ -460,10 +466,11 @@
 				
 				$('a[class="download_btn"]').click(function() {
 					var valid = 0;
-					var download = myStorage.myDownload;
+					var cookData = $.cookies.get('mamsCookie');
+					var download = cookData.myDownload;
 					var content_id = $(this).attr('data-contentId');
 					var downLength = download.length;
-					for (var i = 0; i < myStorage.myDownload.length; i++) {
+					for (var i = 0; i < downLength; i = i + 1) {
 						if (download[i] == content_id) {
 							valid = valid + 1;
 						}
@@ -471,11 +478,12 @@
 					if (valid == 0) {
 						download.push(content_id);
 					}
-					downLength = myStorage.myDownload.length;
+					downLength = cookData.myDownload.length;
 					$('#downloadCnt').text(downLength);
+					$.cookies.set('mamsCookie', JSON.stringify(cookData));
 				});
 				
-				$('a[id="hisAtag"]').click(function() {
+				$(document).on('click', '#hisAtag', function() {
 					alert();
 					/*
 					var contentId = $(this).attr('data-contentId');
