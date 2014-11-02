@@ -99,7 +99,6 @@ public class HomeController {
 							int thumbnailMediaId = element.getAsJsonObject().get("extra").getAsJsonObject().get("thumbnails").getAsJsonArray().get(1).getAsJsonObject().get("content_id").getAsInt();
 							omsConnector.clear();
 							omsResponder = omsConnector.RequestPulbishDownloadContent(thumbnailMediaId);
-
 							String thumb_url = omsResponder.getRootDataElement().getAsJsonObject().get("url").getAsString();
 							map.put("thumb_url", thumb_url);
 
