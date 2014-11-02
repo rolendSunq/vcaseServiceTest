@@ -31,14 +31,9 @@
 	                        	<span>Hi! jihong Min</span>
 	                        </div>
 	                        <div class="my_movie_wh">
-	                        	<dl>
-	                            	<dt>Watch History</dt>
-	                                <dd><a><img width="25px" height="14px" src="./resources/images/common/thumbnail.jpg" alt="" />The UEFA Europa League 12-13 ...</a></dd>
-	                                <dd><a><img width="25px" height="14px" src="./resources/images/common/thumbnail.jpg" alt="" />Eins mit der Straße - Hankook Reifen ...</a></dd>
-	                                <dd><a><img width="25px" height="14px" src="./resources/images/common/thumbnail.jpg" alt="" />SIENTE LA CONEXION - NEUMATI...</a></dd>
-	                                <dd><a><img width="25px" height="14px" src="./resources/images/common/thumbnail.jpg" alt="" />Be One with it" (20'', English, 2013)...</a></dd>
-	                                <dd><a><img width="25px" height="14px" src="./resources/images/common/thumbnail.jpg" alt="" />Ne faites qu'un avec vos pneus...</a></dd>
-	                            </dl>
+	                        	<dl id="hislst">
+		                        	<dt>Watch History</dt>
+	                        	</dl>
 	                        </div>
 	                        <div class="my_movie_db">
 	                        	<a class="dow" id="mamsDownload">DOWNLOAD<span id="downloadCnt">0</span></a>
@@ -373,14 +368,48 @@
 	    <script type="text/javascript">
 	    	
 	    	$(document).ready(function(){
+	    		var date = new Date();
+	    		var currentYear = date.getFullYear();
+	    		var cookieOption = {
+				    domain: '',
+				    path: '/',
+				    expiresAt: new Date( currentYear + 1, 1, 1 ),
+				    secure: false
+	    		};
+	    		
 	    		var myStorage = {
 					myDownload:[],
 					myBookmark:[],
 					myHistory:[]
 				};
-	    		
-				//myStorage = JSON.parse(data);
 				
+	    		if ($.cookies.get('mamsCookie') != null || $.cookies.get('mamsCookie') != 'undefined') {
+	    			var i 			= 0;
+	    			var contentId 	= null;
+	    			var title 		= null;
+	    			var thumbUrl 	= null;
+	    			var streamingUrl= null;
+	    			var aEle		= null;
+	    			var ddEle		= null;
+	    			var mamsCook 	= $.cookies.get('mamsCookie');
+	    			var contentIdList = JSON.stringify(mamsCook.myHistory);
+		    		$.getJSON('mamsHistoryList', {'contentIdList':contentIdList}, function(data) {
+		    			for (i; i < data.length; i = i + 1) {
+		    				contentId 	= data[i].content_id;
+		    				title 		= decodeURI(data[i].title);
+		    				title = title.replace(/\+/gi, ' ');
+		    				thumbUrl 	= data[i].thumb_url;
+		    				steamingUrl = data[i].streaming_url;
+		    				if (title.length > 23) {
+		    					title = title.substring(0, 20) + '...';
+		    				}
+			    			aEle = $('<a id="hisAtag"></a>').append('<img width="25px" height="14px" src=' + thumbUrl + '>' + title);
+							ddEle = $('<dd></dd>').append(aEle);
+							$('#hislst').append(ddEle);
+		    			}
+		    		});
+	    		}
+	    		
 	    		$("#latestMovie").empty();
 				$("#latestMovie").append(
 					"<object data=\"http://vcase.myskcdn.com/static/ovp/ovp.swf\" name=\"ovp\" id=\"ovp\" type=\"application/x-shockwave-flash\" align=\"middle\" width=\"520\" height=\"292\" >" +
@@ -419,6 +448,7 @@
 						$("#hz").text('Audio Hz : ' + data.audioHz);
 					});
 				});
+				
 				$('a[id="mamsBookmark"]').click(function() {
 					var jsonResult 	= JSON.stringify(myStorage);
 					var hiddenInp 	= null;
@@ -435,16 +465,25 @@
 				});
 				
 				$('li[class="slide"]').click(function() {
+					var jsonData = null;
 					var contentId = $(this).attr('data-contentId');
 					var thumbUrl = $(this).attr('data-thumbUrl');
 					var hiddenCon = $('<input>').attr({'type':'hidden','name':'content_id','value':contentId});
 					var hiddenTmb = $('<input>').attr({'type':'hidden','name':'thumbUrl','value':thumbUrl});
+					myStorage.myHistory.push(contentId);
+					jsonData = JSON.stringify(myStorage);
+					if ($.cookies.get('mamsCookie') == 'undefined' || $.cookies.get('mamsCookie') == null) {
+						$.cookies.set('mamsCookie', jsonData, cookieOption);
+					} else {
+						$.cookies.set('mamsCookie', jsonData);
+					}
 					$('<form>').attr({'method':'POST','action':'detail'}).append(hiddenCon).append(hiddenTmb).appendTo('body').submit();
 				});
 				
 				$('#myMovies').click(function() {
-					var downLength = myStorage.myDownload.length;
-					var bookLength = myStorage.myBookmark.length;
+					var cookieData = $.cookies.get('mamsCookie');
+					var downLength = cookieData.myDownload.length;
+					var bookLength = cookieData.myBookmark.length;
 					$('#downloadCnt').text(downLength);
 					$('#bookmarkCnt').text(bookLength);
 				});
@@ -464,6 +503,15 @@
 					}
 					downLength = myStorage.myDownload.length;
 					$('#downloadCnt').text(downLength);
+				});
+				
+				$('a[id="hisAtag"]').click(function() {
+					alert();
+					/*
+					var contentId = $(this).attr('data-contentId');
+					var thumbUrl = $(this).attr('data-thumbUrl');
+					console.log('contentId', contentId, 'thumbUrl', thumbUrl);
+					*/
 				});
 	    	});
 	    </script>

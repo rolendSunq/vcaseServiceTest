@@ -427,6 +427,7 @@
 	<script type="text/javascript" src="./resources/common/js/jquery-1.11.1.min.js"></script>
 	<script type="text/javascript" src="./resources/common/js/jquery.ui.all.js"></script>
     <script type="text/javascript" src="./resources/common/js/jquery.bxslider.min.js"></script>
+    <script type="text/javascript" src="./resources/common/js/jquery.cookies.2.2.0.min.js"></script>
     <script type="text/javascript" src="./resources/common/js/common.js"></script>
     <script type="text/javascript">
     	$(document).ready(function() {

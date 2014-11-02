@@ -104,8 +104,7 @@ public class HomeController {
 							map.put("thumb_url", thumb_url);
 
 							// streaming Url : streaming_url에 사용됨 (with_static_url) 인자에 true값을 넣어야 데이터가 생성
-							/*
-							JsonObject staticUrlObject = trscdElement.getAsJsonObject().get("static_url").getAsJsonObject();
+							/*JsonObject staticUrlObject = trscdElement.getAsJsonObject().get("static_url").getAsJsonObject();
 							JsonArray streamingArray = staticUrlObject.getAsJsonObject().get("streaming").getAsJsonArray();
 							String streamingUrl = streamingArray.get(0).getAsJsonObject().get("url").getAsString();
 							System.out.println("streamingUrl: " + streamingUrl);*/
@@ -160,6 +159,17 @@ public class HomeController {
 		return omsResponder.toString();
 	}
 	
+	// history List를 가져온다.
+	@RequestMapping(value = "mamsHistoryList")
+	@ResponseBody
+	public String getHistoryList(@RequestParam("contentIdList") String contentIdList) {
+		String[] historyList = new Gson().fromJson(contentIdList, String[].class);
+		List<String> orignList = getOrignList(historyList);
+		List<Object> myHistory = getList(orignList, true);
+		System.out.println(myHistory.toString());
+		return new Gson().toJson(myHistory);
+	}
+	
 	// detail 페이지 이동
 	@RequestMapping(value = "detail") 
 	public String moveDetailView(@RequestParam("content_id") int content_id, @RequestParam("thumbUrl") String thumbUrl, Model model) {
@@ -202,7 +212,6 @@ public class HomeController {
 		String[] download = new Gson().fromJson(downloadList, String[].class);
 		List<String> orignList = getOrignList(download);
 		List<Object> list = getList(orignList);
-		System.out.println(list.toString());
 		model.addAttribute("downCount", myData);
 		model.addAttribute("list", list);
 		return "list_my_download";
@@ -392,7 +401,6 @@ public class HomeController {
 			omsResponder = omsConnector.RequestContentList("video", "orign", null, "content_id", trscdList.get(i), null, null, null, null, "reg_date", null, true, true);
 			JsonElement resultElement = omsResponder.getRootDataElement();
 			JsonArray contentJsonArray = resultElement.getAsJsonObject().get("content").getAsJsonArray();
-			System.out.println(contentJsonArray.toString());
 			for (int j = 0; j < contentJsonArray.getAsJsonArray().size(); j++) {
 				JsonObject jsonElement = contentJsonArray.get(j).getAsJsonObject();
 				int content_id = jsonElement.getAsJsonObject().get("content_id").getAsInt();
@@ -426,6 +434,82 @@ public class HomeController {
 				String streamingUrl = getStreamPlayUrl(content_id);
 				map.put("content_id", content_id);
 				map.put("title", title);
+				map.put("reg_date", DateUtils.TimestamptToString(reg_date));
+				map.put("thumb_url", thumb_url);
+				map.put("duration", DateHelper.getHourString(duration) + ":" + DateHelper.getMinuteString(duration) + ":" + DateHelper.getSecondString(duration));
+				map.put("size", sb.toString());
+				map.put("container", container);
+				map.put("mediaType", media_type);
+				map.put("videoFormat", videoFormat);
+				map.put("videoCodec", videoCodec);
+				map.put("videoBps", videoBps);
+				map.put("videoFps", videoFps);
+				map.put("audioBps", audioBps);
+				map.put("audioCodec", audioCodec);
+				map.put("audioChannel", audioChannel);
+				map.put("audioHz", audioHz);
+				map.put("fileName", fileName);
+				map.put("downloadUrl", downloadUrl);
+				map.put("streamingUrl", streamingUrl);
+			}
+			content.add(map);
+		}
+		return content;
+	}
+	
+	// 검색 페이지 리스트 항목 추출 옵션으로 다양한 검색을 할 수 있다.
+	private List<Object> getList(List<String> trscdList, boolean isAjaxCall) {
+		List<Object> content = new ArrayList<Object>();
+		StringBuffer sb = new StringBuffer();
+		for (int i = 0; i < trscdList.size(); i++) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			omsConnector.clear();
+			// RequestContentList args: String media_type, String file_type, String state, String search_type, String search, Integer search_start_date, Integer search_end_date, Integer page, Integer page_size, String sort, String order, boolean with_extra	
+			omsResponder = omsConnector.RequestContentList("video", "orign", null, "content_id", trscdList.get(i), null, null, null, null, "reg_date", null, true, true);
+			JsonElement resultElement = omsResponder.getRootDataElement();
+			JsonArray contentJsonArray = resultElement.getAsJsonObject().get("content").getAsJsonArray();
+			for (int j = 0; j < contentJsonArray.getAsJsonArray().size(); j++) {
+				JsonObject jsonElement = contentJsonArray.get(j).getAsJsonObject();
+				int content_id = jsonElement.getAsJsonObject().get("content_id").getAsInt();
+				String title = jsonElement.getAsJsonObject().get("title").getAsString();
+				String encodeTitleName = null;
+				//한글로 된 파일 이름은 정상적으로 출력되지 않아서 인코딩을 한다.
+				if (isAjaxCall == true) {
+					try {
+						encodeTitleName = URLEncoder.encode(title, "UTF-8");
+					} catch (UnsupportedEncodingException e) {
+						e.printStackTrace();
+					}
+				}
+				int reg_date = jsonElement.getAsJsonObject().get("reg_date").getAsInt();
+				long duration = jsonElement.getAsJsonObject().get("duration").getAsLong();
+				long file_size = jsonElement.getAsJsonObject().get("file_size").getAsLong();
+				int thumbnailMediaId = jsonElement.getAsJsonObject().get("extra").getAsJsonObject().getAsJsonObject().get("thumbnails").getAsJsonArray().get(1).getAsJsonObject().get("content_id").getAsInt();
+				omsConnector.clear();
+				omsResponder = omsConnector.RequestPulbishDownloadContent(thumbnailMediaId);
+				String thumb_url = omsResponder.getRootDataElement().getAsJsonObject().get("url").getAsString();
+				String media_type = jsonElement.getAsJsonObject().get("media_type").getAsString();
+				String convertFileSize = UnitUtils.humanReadableByteCount(file_size, false);
+				String width = jsonElement.getAsJsonObject().get("width").getAsString();
+				String height = jsonElement.getAsJsonObject().get("height").getAsString();
+				sb.append(width + "x" + height);
+				sb.append("  " + convertFileSize);
+				String container = jsonElement.getAsJsonObject().get("container").getAsString();
+				String videoFormat = jsonElement.getAsJsonObject().get("container").getAsString();
+				String videoCodec = jsonElement.getAsJsonObject().get("video_codec").getAsString();
+				long videoBitrate = jsonElement.getAsJsonObject().get("video_bitrate").getAsLong();
+				String videoBps = UnitUtils.humanReadableByteCount(videoBitrate, false);
+				String videoFps = jsonElement.getAsJsonObject().get("video_framerate").getAsString();
+				String audioBps = jsonElement.getAsJsonObject().get("audio_bitrate").getAsString();
+				String audioCodec = jsonElement.getAsJsonObject().get("audio_codec").getAsString();
+				String audioChannel = jsonElement.getAsJsonObject().get("audio_channel").getAsString();
+				String audioHz = jsonElement.getAsJsonObject().get("audio_samplerate").getAsString();
+				String fileName = jsonElement.getAsJsonObject().get("file_name").getAsString();
+				JsonObject staticObject = jsonElement.getAsJsonObject().get("static_url").getAsJsonObject();
+				String downloadUrl = staticObject.getAsJsonObject().get("download_url").getAsString();
+				String streamingUrl = getStreamPlayUrl(content_id);
+				map.put("content_id", content_id);
+				map.put("title", encodeTitleName);
 				map.put("reg_date", DateUtils.TimestamptToString(reg_date));
 				map.put("thumb_url", thumb_url);
 				map.put("duration", DateHelper.getHourString(duration) + ":" + DateHelper.getMinuteString(duration) + ":" + DateHelper.getSecondString(duration));
