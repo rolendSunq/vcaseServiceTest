@@ -170,14 +170,15 @@ public class HomeController {
 	
 	// detail 페이지 이동
 	@RequestMapping(value = "detail") 
-	public String moveDetailView(@RequestParam("content_id") int content_id, @RequestParam("thumbUrl") String thumbUrl, Model model) {
+	public String moveDetailView(HttpServletRequest request, @RequestParam("content_id") int content_id, @RequestParam("thumbUrl") String thumbUrl, Model model) {
+		String historyList = (String)request.getParameter("historyList");
 		JsonObject result = getInfo(content_id);
 		// auto Streaming Play Info
 		Map<String, String> map = getPlayContentInfo(result, false);
 		// 좌측 컨텐츠 thumb nail 컨텐츠 리스트
 		List<Object> list = getThumbNailList();
 		
-		String[] trscdlst = new String[]{String.valueOf(content_id)};
+		String[] trscdlst = new Gson().fromJson(historyList, String[].class);
 		// history list
 		List<String> historylst = getOrignList(trscdlst);
 		List<Object> history = getList(historylst);
@@ -218,9 +219,13 @@ public class HomeController {
 
 	// list 페이지 이동
 	@RequestMapping(value = "listDetail")
-	public String moveListDetailView(Model model) {
+	public String moveListDetailView(@RequestParam("historyList") String historyList, Model model) {
+		String[] trscdlst = new Gson().fromJson(historyList, String[].class);
+		List<String> historylst = getOrignList(trscdlst);
+		List<Object> history = getList(historylst);
 		List<Object> thumbNailList = getThumbNailList();
 		model.addAttribute("list", thumbNailList);
+		model.addAttribute("history", history);
 		return "list";
 	}
 	
@@ -392,7 +397,7 @@ public class HomeController {
 	private List<Object> getList(List<String> trscdList) {
 		List<Object> content = new ArrayList<Object>();
 		StringBuffer sb = new StringBuffer();
-		for (int i = 0; i < trscdList.size(); i++) {
+		for (int i = trscdList.size() - 1; -1 < i; i--) {
 			Map<String, Object> map = new HashMap<String, Object>();
 			omsConnector.clear();
 			// RequestContentList args: String media_type, String file_type, String state, String search_type, String search, Integer search_start_date, Integer search_end_date, Integer page, Integer page_size, String sort, String order, boolean with_extra	
@@ -533,15 +538,17 @@ public class HomeController {
 
 	private List<String> getOrignList(String[] trscdList){
 		List<String> result = new ArrayList<String>();
-		for (int i = 0; i < trscdList.length; i++) {
-			omsConnector.clear();
-			// RequestContentList args: String media_type, String file_type, String state, String search_type, String search, Integer search_start_date, Integer search_end_date, Integer page, Integer page_size, String sort, String order, boolean with_extra	
-			omsResponder = omsConnector.RequestContentList("video", "trscd", null, "content_id", trscdList[i], null, null, null, null, "reg_date", null, false, false);
-			JsonElement resultElement = omsResponder.getRootDataElement();
-			JsonArray contentJsonArray = resultElement.getAsJsonObject().get("content").getAsJsonArray();
-			for (JsonElement jsonElement : contentJsonArray) {
-				String upper_content_id = jsonElement.getAsJsonObject().get("upper_content_id").getAsString();
-				result.add(upper_content_id);
+		if (trscdList != null) {
+			for (int i = 0; i < trscdList.length; i++) {
+				omsConnector.clear();
+				// RequestContentList args: String media_type, String file_type, String state, String search_type, String search, Integer search_start_date, Integer search_end_date, Integer page, Integer page_size, String sort, String order, boolean with_extra	
+				omsResponder = omsConnector.RequestContentList("video", "trscd", null, "content_id", trscdList[i], null, null, null, null, "reg_date", null, false, false);
+				JsonElement resultElement = omsResponder.getRootDataElement();
+				JsonArray contentJsonArray = resultElement.getAsJsonObject().get("content").getAsJsonArray();
+				for (JsonElement jsonElement : contentJsonArray) {
+					String upper_content_id = jsonElement.getAsJsonObject().get("upper_content_id").getAsString();
+					result.add(upper_content_id);
+				}
 			}
 		}
 		return result;

@@ -122,18 +122,7 @@
 	            	<!-- Updated Movie -->
 	            	<div class="latest mlr56">
 	            		<h2>Updated Movie</h2>
-	                	<div class="latest_movie" id="latestMovie">
-	                    	<!-- 불러오는 주소 끝에 ;wmode=transparent [ex)  src="http://www.youtube.com/abc;wmode=transparent"]-->
-	                    	<!-- 동영상 플레이 -->
-	                    	<!-- <iframe width="520" height="292" src="http://www.youtube.com/embed/KravbQxXB7k?list=PLYkzrxbCq4D0jSb71h5RO2FVznuIf7YtN;wmode=transparent" frameborder="0" allowfullscreen></iframe> -->
-	                    	<object data="http://vcase.myskcdn.com/static/ovp/ovp.swf" name="ovp" id="ovp" type="application/x-shockwave-flash" align="middle" width="520" height="292" >
-								<param value="high" name="quality">
-								<param value="#000000" name="bgcolor">
-								<param value="always" name="allowscriptaccess">
-								<param value="true" name="allowfullscreen">
-								<param id="streamUrl" value="" name="flashvars">
-							</object>
-	                    </div>
+	                	<div class="latest_movie" id="latestMovie"></div>
 	                    <div class="latest_info">
 	                        <h3 id="playTitle">${oneStreamPlay.title }</h3>
 	                        <p id="playTimeDate">${oneStreamPlay.duration }  /  ${oneStreamPlay.reg_date}</p>
@@ -340,10 +329,11 @@
 	    	$(document).ready(function(){
 	    		var date = new Date();
 	    		var currentYear = date.getFullYear();
+	    		var expireDate = new Date(currentYear + 1, 1, 1);
 	    		var cookieOption = {
 				    domain: '',
 				    path: '/',
-				    expiresAt: new Date( currentYear + 1, 1, 1 ),
+				    expiresAt: expireDate.toGMTString(),
 				    secure: false
 	    		};
 	    		
@@ -367,7 +357,6 @@
 	    			var aEle		= null;
 	    			var ddEle		= null;
 	    			var mamsCook 	= $.cookies.get('mamsCookie');
-	    			console.log('mamsCookie: ', mamsCook != null);
 	    			var contentIdList = JSON.stringify(mamsCook.myHistory);
 		    		$.getJSON('mamsHistoryList', {'contentIdList':contentIdList}, function(data) {
 		    			for (i; i < data.length; i = i + 1) {
@@ -375,11 +364,11 @@
 		    				title 		= decodeURI(data[i].title);
 		    				title = title.replace(/\+/gi, ' ');
 		    				thumbUrl 	= data[i].thumb_url;
-		    				steamingUrl = data[i].streaming_url;
+		    				streamingUrl = data[i].streamingUrl;
 		    				if (title.length > 23) {
 		    					title = title.substring(0, 20) + '...';
 		    				}
-			    			aEle = $('<a id="hisAtag"></a>').append('<img width="25px" height="14px" src=' + thumbUrl + '>' + title);
+			    			aEle = $('<a id="hisAtag" data-contentId=' + contentId + ' data-thumbUrl=' + thumbUrl + ' data-streamingUrl=' + streamingUrl + '></a>').append('<img width="25px" height="14px" src=' + thumbUrl + '>' + title);
 							ddEle = $('<dd></dd>').append(aEle);
 							$('#hislst').append(ddEle);
 		    			}
@@ -441,19 +430,29 @@
 				});
 				
 				$('li[class="slide"]').click(function() {
-					var jsonData = null;
-					var contentId = $(this).attr('data-contentId');
-					var thumbUrl = $(this).attr('data-thumbUrl');
-					var hiddenCon = $('<input>').attr({'type':'hidden','name':'content_id','value':contentId});
-					var hiddenTmb = $('<input>').attr({'type':'hidden','name':'thumbUrl','value':thumbUrl});
-					myStorage.myHistory.push(contentId);
-					jsonData = JSON.stringify(myStorage);
-					if ($.cookies.get('mamsCookie') == 'undefined' || $.cookies.get('mamsCookie') == null) {
-						$.cookies.set('mamsCookie', jsonData, cookieOption);
-					} else {
-						$.cookies.set('mamsCookie', jsonData);
+					var valid		= 0;
+					var mamCook		= null;
+					var jsonData 	= null;
+					var hiddenCon	= null;
+					var hiddenTmb	= null;
+					var hiddenHis	= null;
+					var contentId 	= $(this).attr('data-contentId');
+					var thumbUrl 	= $(this).attr('data-thumbUrl');
+					mamCook = $.cookies.get('mamsCookie');
+					for (var i = 0; i < mamCook.myHistory.length; i = i + 1) {
+						if (mamCook.myHistory[i] == contentId) {
+							valid = valid + 1;
+						}
 					}
-					$('<form>').attr({'method':'POST','action':'detail'}).append(hiddenCon).append(hiddenTmb).appendTo('body').submit();
+					if (valid == 0) {
+						mamCook.myHistory.push(contentId);
+					}
+					jsonData = JSON.stringify(mamCook);
+					$.cookies.set('mamsCookie', jsonData);
+					hiddenCon 	= $('<input>').attr({'type':'hidden','name':'content_id','value':contentId});
+					hiddenTmb 	= $('<input>').attr({'type':'hidden','name':'thumbUrl','value':thumbUrl});
+					hiddenHis	= $('<input>').attr({'type':'hidden','name':'historyList','value':JSON.stringify(mamCook.myHistory)});
+					$('<form>').attr({'method':'POST','action':'detail'}).append(hiddenCon).append(hiddenTmb).append(hiddenHis).appendTo('body').submit();
 				});
 				
 				$('#myMovies').click(function() {
@@ -484,13 +483,23 @@
 				});
 				
 				$(document).on('click', '#hisAtag', function() {
-					alert();
-					/*
-					var contentId = $(this).attr('data-contentId');
-					var thumbUrl = $(this).attr('data-thumbUrl');
-					console.log('contentId', contentId, 'thumbUrl', thumbUrl);
-					*/
+					var contentId 	= $(this).attr('data-contentId');
+					var thumbUrl 	= $(this).attr('data-thumbUrl');
+					var streamingUrl= $(this).attr('data-streamingUrl');
+					var formEle = $('<form></form>').attr({'method':'post','action':'detail'});
+					var hiddenCon 	= $('<input>').attr({'type':'hidden','name':'content_id','value':contentId});
+					var hiddenTum 	= $('<input>').attr({'type':'hidden','name':'thumbUrl','value':thumbUrl});
+					$(formEle).append(hiddenCon).append(hiddenTum).appendTo('body').submit();
 				});
+				
+				$(document).on("mouseover", "#hisAtag", function(e) {
+				    $(this).css('cursor', 'pointer');
+				});
+
+				$(document).on("mouseleave", "#hisAtag", function(e) {
+				    $(this).css('cursor', 'default');
+				});
+				
 	    	});
 	    </script>
 	</body>

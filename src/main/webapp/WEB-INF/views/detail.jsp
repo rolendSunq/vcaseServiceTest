@@ -46,7 +46,7 @@
                             </dl>
                         </div>
                         <div class="my_movie_db">
-                        	<a class="dow" id="mamsMyDownload">DOWNLOAD<span>0</span></a>
+                        	<a class="dow" id="mamsMyDownload">DOWNLOAD<span id="downloadCnt">0</span></a>
                             <a class="book" id="mamsMyBookmark">BOOKMARK<span id="bookmarkCnt">0</span></a>
                         </div>
                     </div>
@@ -103,33 +103,21 @@
 					<ul>
 						<li class="first menu menu1">
                         	<a class="">Corporation</a>
-                            <div>
-                            </div>
                         </li>
 						<li class="menu menu2">
                         	<a class="">Advertisements</a>
-                            <div>
-                            </div>
                         </li>
 						<li class="menu menu3">
                         	<a class="">Products</a>
-                            <div>
-                            </div>
                         </li>
 						<li class="menu menu4">
                         	<a class="">Motorsports</a>
-                            <div>
-                            </div>
                         </li>
 						<li class="menu menu5">
                         	<a class="">Events</a>
-                            <div>
-                            </div>
                         </li>
 						<li class="last menu menu6">
                         	<a class="">Others</a>
-                            <div>
-                            </div>
                         </li>
 					</ul>
 				</div>
@@ -145,10 +133,8 @@
 			<div id="content">
             	<div class="detail mlr56">
                 	<div class="detail_left">
-                    	<h2>Corporation<a class="f_right" href= "listDetail"><img src="./resources/images/common/detai_list.png" alt="List" /></a></h2>
+                    	<h2>Corporation<a class="f_right" id= "goList"><img src="./resources/images/common/detai_list.png" alt="List" /></a></h2>
                         <div class="detail_movie">
-                        	<!-- 불러오는 주소 끝에 ;wmode=transparent [ex)  src="http://www.youtube.com/abc;wmode=transparent"]-->
-                    		<!-- <iframe width="800" height="480" src="http://www.youtube.com/embed/KravbQxXB7k?list=PLYkzrxbCq4D0jSb71h5RO2FVznuIf7YtN;wmode=transparent" frameborder="0" allowfullscreen></iframe> -->
                         </div>
                         <div class="datail_title">
                         	<h3>${oneStreamPlay["title"] }</h3>
@@ -237,7 +223,7 @@
                                 <li class="share_menu05 eng"><a>pinterest</a></li>
                             </ul>
                         </div>
-                        <a class="btn_list" href="listDetail">List</a>
+                        <a class="btn_list" id="goList">List</a>
                     </div>
                     <div class="detail_right">
                     	<div class="dr_title"><p>Corporation</p><span id="moreVideoMark">more ${totalCount - 1 } videos</span></div>
@@ -431,6 +417,27 @@
     <script type="text/javascript" src="./resources/common/js/common.js"></script>
     <script type="text/javascript">
     	$(document).ready(function() {
+    		var date = new Date();
+    		var currentYear = date.getFullYear();
+    		var expireDate = new Date(currentYear + 1, 1, 1);
+    		var cookieOption = {
+			    domain: '',
+			    path: '/',
+			    expiresAt: expireDate.toGMTString(),
+			    secure: false
+    		};
+    		
+    		var myStorage = {
+				myDownload:[],
+				myBookmark:[],
+				myHistory:[]
+			};
+    		
+			if ($.cookies.get('mamsCookie') == 'undefined' || $.cookies.get('mamsCookie') == null) {
+				var jsonData = JSON.stringify(myStorage);
+				$.cookies.set('mamsCookie', jsonData, cookieOption);
+			}
+			
     		$(".detail_movie").empty();
 			$(".detail_movie").append(
 				"<object data=\"http://vcase.myskcdn.com/static/ovp/ovp.swf\" name=\"ovp\" id=\"ovp\" type=\"application/x-shockwave-flash\" align=\"middle\" width=\"800\" height=\"480\" >" +
@@ -460,13 +467,25 @@
 			});
 			
 			$('a[id="corpSlide"]').click(function() {
-				var contentId = $(this).attr('data-contentId');
-				var thumbUrl = $(this).attr('data-thumbUrl');
-				var hiddenCon = null;
+				var valid 		= 0;
+				var contentId 	= $(this).attr('data-contentId');
+				var thumbUrl 	= $(this).attr('data-thumbUrl');
+				var mamCook 	= $.cookies.get('mamsCookie');
+				var hiddenCon 	= null;
 				var hiddenThumb = null;
+				for (var i = 0; i < mamCook.myHistory.length; i = i + 1) {
+					if (mamCook.myHistory[i] == contentId) {
+						valid = valid + 1;
+					}
+				}
+				if (valid == 0) {
+					mamCook.myHistory.push(contentId);
+				}
+				$.cookies.set('mamsCookie', JSON.stringify(mamCook));
 				hiddenCon = $('<input>').attr({'type':'hidden', 'name':'content_id', 'value':contentId});
 				hiddenThumb = $('<input>').attr({'type':'hidden', 'name':'thumbUrl', 'value':thumbUrl});
-				$('<form>').attr({'method':'POST', 'action':'detail'}).append(hiddenCon).append(hiddenThumb).append('</form>').submit();
+				hiddenHisli = $('<input>').attr({'type':'hidden','name':'historyList','value':JSON.stringify(mamCook.myHistory)});
+				$('<form>').attr({'method':'POST', 'action':'detail'}).append(hiddenCon).append(hiddenThumb).append(hiddenHisli).append('</form>').submit();
 			});
 			// 북마크 추가
 			$('#bookCook').click(function() {
@@ -502,7 +521,16 @@
 					"</object>"
 				);
 			});
-    	})
+			
+			// list.jsp 페이지 이동
+			$('#goList').click(function() {
+				var mamCook 	= null;
+				var hiddenHis 	= null;
+				mamCook = $.cookies.get('mamsCookie');
+				hiddenHis = $('<input>').attr({'type':'hidden','name':'historyList','value':JSON.stringify(mamCook.myHistory)});
+				$('<form></form>').attr({'method':'post','action':'listDetail'}).append(hiddenHis).appendTo('body').submit();
+			});
+    	});
     </script>
 </body>
 </html>

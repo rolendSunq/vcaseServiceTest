@@ -33,11 +33,16 @@
                         <div class="my_movie_wh">
                         	<dl>
                             	<dt>Watch History</dt>
-                                <dd><a ><img width="25px" height="14px" src="./resources/images/common/thumbnail.jpg" alt="" />The UEFA Europa League 12-13 ...</a></dd>
-                                <dd><a ><img width="25px" height="14px" src="./resources/images/common/thumbnail.jpg" alt="" />Eins mit der Straße - Hankook Reifen ...</a></dd>
-                                <dd><a ><img width="25px" height="14px" src="./resources/images/common/thumbnail.jpg" alt="" />SIENTE LA CONEXION - NEUMATI...</a></dd>
-                                <dd><a ><img width="25px" height="14px" src="./resources/images/common/thumbnail.jpg" alt="" />Be One with it" (20'', English, 2013)...</a></dd>
-                                <dd><a ><img width="25px" height="14px" src="./resources/images/common/thumbnail.jpg" alt="" />Ne faites qu'un avec vos pneus...</a></dd>
+                            	<c:forEach var="his" items="${history }" varStatus="status">
+                            	<c:choose>
+								<c:when test="${fn:length(his.title) > 21}">
+								<dd><a id="his" data-streamingUrl="${his.streamingUrl }" data-thumbUrl="${his.thumb_url }" data-title="${his.title }"><img width="25px" height="14px" src="${his.thumb_url }" alt="" />${fn:substring(his.title, 0, 21)}...</a></dd>
+								</c:when>
+								<c:otherwise>
+                                <dd><a><img width="25px" height="14px" src="${his.thumb_url }" alt="" />${his.title }</a></dd>
+								</c:otherwise>
+								</c:choose>
+                            	</c:forEach>
                             </dl>
                         </div>
                         <div class="my_movie_db">
