@@ -184,7 +184,14 @@
 	                                </span>
 	                            </a>
 	                            <span>Corporation</span>
-	                            <h3><a>${popularObject.title }</a></h3>
+	                            <c:choose>
+								<c:when test="${fn:length(popularObject.title) > 37}">
+								<h3><a>${fn:substring(popularObject.title, 0, 37)}...</a></h3>
+								</c:when>
+								<c:otherwise>
+								<h3><a>${popularObject.title}</a></h3>
+								</c:otherwise>
+								</c:choose>
 	                            <span>2,384,880 views</span>
 	                            <span class="f_left">2014-07-15</span>
 	                            <span class="f_right mr5"><a class="download_btn" data-contentId="${popularObject.content_id }"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
@@ -199,7 +206,14 @@
 	                                </span>
 	                            </a>
 	                            <span>Corporation</span>
-	                            <h3><a>${popularObject.title }</a></h3>
+	                            <c:choose>
+								<c:when test="${fn:length(popularObject.title) > 37}">
+								<h3><a>${fn:substring(popularObject.title, 0, 37)}...</a></h3>
+								</c:when>
+								<c:otherwise>
+								<h3><a>${popularObject.title}</a></h3>
+								</c:otherwise>
+								</c:choose>
 	                            <span>2,384,880 views</span>
 	                            <span class="f_left">2014-07-15</span>
 	                            <span class="f_right mr5"><a class="download_btn" data-contentId="${popularObject.content_id }"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
@@ -214,7 +228,14 @@
 	                                </span>
 	                            </a>
 	                            <span>Corporation</span>
-	                            <h3><a>${popularObject.title }</a></h3>
+	                            <c:choose>
+								<c:when test="${fn:length(popularObject.title) > 37}">
+								<h3><a>${fn:substring(popularObject.title, 0, 37)}...</a></h3>
+								</c:when>
+								<c:otherwise>
+								<h3><a>${popularObject.title}</a></h3>
+								</c:otherwise>
+								</c:choose>
 	                            <span>2,384,880 views</span>
 	                            <span class="f_left">2014-07-15</span>
 	                            <span class="f_right mr5"><a class="download_btn" data-contentId="${popularObject.content_id }"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
@@ -238,7 +259,15 @@
 	                                    <span class="video-time">${corporation.duration }</span>
 	                                </span>
 	                            </a>
-	                            <h3><a>${corporation.title }</a></h3>
+	                            <span>Corporation</span>
+	                            <c:choose>
+								<c:when test="${fn:length(corporation.title) > 37}">
+								<h3><a>${fn:substring(corporation.title, 0, 37)}...</a></h3>
+								</c:when>
+								<c:otherwise>
+								<h3><a>${corporation.title}</a></h3>
+								</c:otherwise>
+								</c:choose>
 	                            <span class="f_left">${corporation.reg_date }</span>
 	                            <span class="f_right mr5"><a class="download_btn" data-contentId="${corporation.content_id }"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
 	                        </li>
@@ -343,6 +372,23 @@
 					myHistory:[]
 				};
 	    		
+	    		var validCookieContent = {
+	    			isExistContentId:function(cookObject, contentID) {
+	    				var i		= 0;
+	    				var valid 	= 0;
+	    				for (i; i < cookObject.length; i = i + 1) {
+	    					if (cookObject[i] == contentID) {
+	    						valid = valid + 1;
+	    					}
+	    				}
+	    				if (valid == 0) {
+	    					return false;
+	    				} else {
+	    					return true;
+	    				}
+	    			}
+	    		};
+	    		
 				if ($.cookies.get('mamsCookie') == 'undefined' || $.cookies.get('mamsCookie') == null) {
 					var jsonData = JSON.stringify(myStorage);
 					$.cookies.set('mamsCookie', jsonData, cookieOption);
@@ -414,23 +460,30 @@
 					});
 				});
 				
+				// list_my_bookmark.jsp 페이지로 이동
 				$('a[id="mamsBookmark"]').click(function() {
-					var jsonResult 	= JSON.stringify(myStorage);
+					var mamCook 	= null;
 					var hiddenInp 	= null;
-					hiddenInp = $('<input>').attr({'type':'hidden', 'name':'bookmarkInfo', 'value':jsonResult});
-					$('<form>').attr({'method':'POST','action':'moveMyBookmark'}).append(hiddenInp).append('</form>').appendTo('body').submit();
+					var hiddenHis	= null;
+					mamCook = $.cookies.get('mamsCookie');
+					hiddenHis = $('<input>').attr({'type':'hidden', 'name':'historyList', 'value':JSON.stringify(mamCook.myHistory)});
+					hiddenInp = $('<input>').attr({'type':'hidden', 'name':'bookmarkInfo', 'value':JSON.stringify(mamCook.myBookmark)});
+					$('<form></form>').attr({'method':'POST','action':'moveMyBookmark'}).append(hiddenInp).append(hiddenHis).appendTo('body').submit();
 				});
 				
+				// list_my_download.jsp 페이지로 이동
 				$('#mamsDownload').click(function() {
-					var downCnt   = myStorage.myDownload.length;
-					var downList  = JSON.stringify(myStorage.myDownload);
-					var hiddenInp = $('<input>').attr({'type':'hidden','name':'downCnt','value':downCnt});
-					var hiddenDwn = $('<input>').attr({'type':'hidden','name':'myDownload','value':downList});
-					$('<form>').attr({'method':'POST','action':'mamsDownload'}).append(hiddenInp).append(hiddenDwn).append('</form>').appendTo('body').submit();
+					var mamCook		= null;
+					var hiddenDwn 	= null;
+					var hiddenHis	= null;
+					mamCook = $.cookies.get('mamsCookie');
+					hiddenDwn = $('<input>').attr({'type':'hidden','name':'historyList','value':JSON.stringify(mamCook.myHistory)});
+					hiddenHis = $('<input>').attr({'type':'hidden','name':'downloadList','value':JSON.stringify(mamCook.myDownload)});
+					$('<form></form>').attr({'method':'POST','action':'mamsDownload'}).append(hiddenHis).append(hiddenDwn).appendTo('body').submit();
 				});
 				
+				// -- 11/4 update
 				$('li[class="slide"]').click(function() {
-					var valid		= 0;
 					var mamCook		= null;
 					var jsonData 	= null;
 					var hiddenCon	= null;
@@ -439,12 +492,7 @@
 					var contentId 	= $(this).attr('data-contentId');
 					var thumbUrl 	= $(this).attr('data-thumbUrl');
 					mamCook = $.cookies.get('mamsCookie');
-					for (var i = 0; i < mamCook.myHistory.length; i = i + 1) {
-						if (mamCook.myHistory[i] == contentId) {
-							valid = valid + 1;
-						}
-					}
-					if (valid == 0) {
+					if (!validCookieContent.isExistContentId(mamCook.myHistory, contentId)) {
 						mamCook.myHistory.push(contentId);
 					}
 					jsonData = JSON.stringify(mamCook);
@@ -463,33 +511,17 @@
 					$('#bookmarkCnt').text(bookLength);
 				});
 				
-				$('a[class="download_btn"]').click(function() {
-					var valid = 0;
-					var cookData = $.cookies.get('mamsCookie');
-					var download = cookData.myDownload;
-					var content_id = $(this).attr('data-contentId');
-					var downLength = download.length;
-					for (var i = 0; i < downLength; i = i + 1) {
-						if (download[i] == content_id) {
-							valid = valid + 1;
-						}
-					}
-					if (valid == 0) {
-						download.push(content_id);
-					}
-					downLength = cookData.myDownload.length;
-					$('#downloadCnt').text(downLength);
-					$.cookies.set('mamsCookie', JSON.stringify(cookData));
-				});
-				
+				// history 목록중 하나를 선택하면 detail.jsp 페이지로 이동한다. -- 11/4 update
 				$(document).on('click', '#hisAtag', function() {
+					var mamCook		= null;
 					var contentId 	= $(this).attr('data-contentId');
 					var thumbUrl 	= $(this).attr('data-thumbUrl');
-					var streamingUrl= $(this).attr('data-streamingUrl');
-					var formEle = $('<form></form>').attr({'method':'post','action':'detail'});
+					mamCook = $.cookies.get('mamsCookie');
+					var formEle 	= $('<form></form>').attr({'method':'post','action':'detail'});
 					var hiddenCon 	= $('<input>').attr({'type':'hidden','name':'content_id','value':contentId});
 					var hiddenTum 	= $('<input>').attr({'type':'hidden','name':'thumbUrl','value':thumbUrl});
-					$(formEle).append(hiddenCon).append(hiddenTum).appendTo('body').submit();
+					var hiddenHis 	= $('<input>').attr({'type':'hidden','name':'historyList','value':JSON.stringify(mamCook.myHistory)});
+					$(formEle).append(hiddenCon).append(hiddenTum).append(hiddenHis).appendTo('body').submit();
 				});
 				
 				$(document).on("mouseover", "#hisAtag", function(e) {

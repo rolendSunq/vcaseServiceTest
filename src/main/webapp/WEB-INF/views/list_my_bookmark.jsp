@@ -33,11 +33,16 @@
                         <div class="my_movie_wh">
                         	<dl>
                             	<dt>Watch History</dt>
-                                <dd><a><img width="25px" height="14px" src="./resources/images/common/thumbnail.jpg" alt="" />The UEFA Europa League 12-13 ...</a></dd>
-                                <dd><a><img width="25px" height="14px" src="./resources/images/common/thumbnail.jpg" alt="" />Eins mit der Straße - Hankook Reifen ...</a></dd>
-                                <dd><a><img width="25px" height="14px" src="./resources/images/common/thumbnail.jpg" alt="" />SIENTE LA CONEXION - NEUMATI...</a></dd>
-                                <dd><a><img width="25px" height="14px" src="./resources/images/common/thumbnail.jpg" alt="" />Be One with it" (20'', English, 2013)...</a></dd>
-                                <dd><a><img width="25px" height="14px" src="./resources/images/common/thumbnail.jpg" alt="" />Ne faites qu'un avec vos pneus...</a></dd>
+                                <c:forEach var="his" items="${history }" varStatus="status">
+                            	<c:choose>
+								<c:when test="${fn:length(his.title) > 21}">
+								<dd><a id="his" data-streamingUrl="${his.streamingUrl }" data-thumbUrl="${his.thumb_url }" data-title="${his.title }"><img width="25px" height="14px" src="${his.thumb_url }" alt="" />${fn:substring(his.title, 0, 21)}...</a></dd>
+								</c:when>
+								<c:otherwise>
+                                <dd><a><img width="25px" height="14px" src="${his.thumb_url }" alt="" />${his.title }</a></dd>
+								</c:otherwise>
+								</c:choose>
+                            	</c:forEach>
                             </dl>
                         </div>
                         <div class="my_movie_db">
@@ -557,21 +562,44 @@
 	<script type="text/javascript" src="./resources/common/js/jquery.cookies.2.2.0.min.js"></script>
 	<script type="text/javascript" src="./resources/common/js/common.js"></script>
 	<script type="text/javascript">
-		function getBookMarkCount() {
-			var data = null;
-			var jsonOject = null;
-			var myCookie = null;
-			var result = null;
-			if (typeof($.cookies.get('mamsCookie')) != 'undefined' || $.cookies.get('mamsCookie') != '') {
-				result = $.cookies.get('mamsCookie');
-				$('#bookmarkCnt').text(result.bookmark.length);
-			} else {
-				$('#bookmarkCnt').text('0');
-			}
-		}
 		$(document).ready(function() {
-			getBookMarkCount();
-		
+			var date = new Date();
+    		var currentYear = date.getFullYear();
+    		var expireDate = new Date(currentYear + 1, 1, 1);
+    		var cookieOption = {
+			    domain: '',
+			    path: '/',
+			    expiresAt: expireDate.toGMTString(),
+			    secure: false
+    		};
+    		
+    		var myStorage = {
+				myDownload:[],
+				myBookmark:[],
+				myHistory:[]
+			};
+    		// -- 11/4 update
+    		var validCookieContent = {
+    			isExistContentId:function(cookObject, contentID) {
+    				var i		= 0;
+    				var valid 	= 0;
+    				for (i; i < cookObject.length; i = i + 1) {
+    					if (cookObject[i] == contentID) {
+    						valid = valid + 1;
+    					}
+    				}
+    				if (valid == 0) {
+    					return false;
+    				} else {
+    					return true;
+    				}
+    			}
+    		};
+    		
+			if ($.cookies.get('mamsCookie') == 'undefined' || $.cookies.get('mamsCookie') == null) {
+				var jsonData = JSON.stringify(myStorage);
+				$.cookies.set('mamsCookie', jsonData, cookieOption);
+			}		
 		});
 	</script>
 </body>

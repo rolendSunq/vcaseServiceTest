@@ -47,7 +47,7 @@
                         </div>
                         <div class="my_movie_db">
                         	<a class="dow" id="mamsMyDownload">DOWNLOAD<span id="downloadCnt">0</span></a>
-                            <a class="book" id="mamsMyBookmark">BOOKMARK<span id="bookmarkCnt">0</span></a>
+                            <a class="book" id="mamsBookmark">BOOKMARK<span id="bookmarkCnt">0</span></a>
                         </div>
                     </div>
                 	<div class="mm_footer">Copyright 2014 Hankook Tire Co., Ltd.  All rights Reserved. HANKOOK</div>
@@ -158,7 +158,7 @@
                             <a class="d_link03" id="bookCook">BOOKMARK</a>
                             <div class="bookmark_layer">
                             	<p>Added to Mypage_Bookmark</p>
-                                <a class="bookmark_my" id="mamsBookmark"  >GO TO MYPAGE</a>
+                                <a class="bookmark_my" id="mamsBookmark">GO TO MYPAGE</a>
                                 <a class="bookmark_close">close</a>
                             </div>
                         </div>
@@ -432,6 +432,23 @@
 				myBookmark:[],
 				myHistory:[]
 			};
+    		// -- 11/4 update
+    		var validCookieContent = {
+    			isExistContentId:function(cookObject, contentID) {
+    				var i		= 0;
+    				var valid 	= 0;
+    				for (i; i < cookObject.length; i = i + 1) {
+    					if (cookObject[i] == contentID) {
+    						valid = valid + 1;
+    					}
+    				}
+    				if (valid == 0) {
+    					return false;
+    				} else {
+    					return true;
+    				}
+    			}
+    		};
     		
 			if ($.cookies.get('mamsCookie') == 'undefined' || $.cookies.get('mamsCookie') == null) {
 				var jsonData = JSON.stringify(myStorage);
@@ -487,13 +504,20 @@
 				hiddenHisli = $('<input>').attr({'type':'hidden','name':'historyList','value':JSON.stringify(mamCook.myHistory)});
 				$('<form>').attr({'method':'POST', 'action':'detail'}).append(hiddenCon).append(hiddenThumb).append(hiddenHisli).append('</form>').submit();
 			});
+			
+			// list_my_bookmark.jsp 페이지로 이동 -- 11/4 update
+			$('a[id="mamsBookmark"]').click(function() {
+				var mamCook 	= null;
+				var hiddenInp 	= null;
+				var hiddenHis	= null;
+				mamCook = $.cookies.get('mamsCookie');
+				hiddenHis = $('<input>').attr({'type':'hidden', 'name':'historyList', 'value':JSON.stringify(mamCook.myHistory)});
+				hiddenInp = $('<input>').attr({'type':'hidden', 'name':'bookmarkInfo', 'value':JSON.stringify(mamCook.myBookmark)});
+				$('<form></form>').attr({'method':'POST','action':'moveMyBookmark'}).append(hiddenInp).append(hiddenHis).appendTo('body').submit();
+			});
+			
 			// 북마크 추가
 			$('#bookCook').click(function() {
-			});
-			$('a[id="mamsBookmark"]').click(function() {
-				var jsonResult = $.cookies.get('mamsCookie');
-				var bookmarkData = JSON.stringify(jsonResult.bookmark);
-				$('form').attr({'method':'POST','action':'moveMyBookmark?bookmarkInfo=' + bookmarkData.toString()}).submit();
 			});
 			
 			$('#mamsMyDownload').click(function() {

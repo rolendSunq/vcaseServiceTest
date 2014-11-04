@@ -195,23 +195,28 @@ public class HomeController {
 	
 	// bookmark 페이지 이동
 	@RequestMapping(value = "moveMyBookmark")
-	public String moveBookmarkView(@RequestParam("bookmarkInfo") String bookmarkInfo, Model model) {
+	public String moveBookmarkView(@RequestParam("bookmarkInfo") String bookmarkInfo, @RequestParam("historyList") String historyList, Model model) {
+		String[] myHistory = new Gson().fromJson(historyList, String[].class);
 		String[] bookmarkList = new Gson().fromJson(bookmarkInfo, String[].class);
 		List<String> orignalIds = getOrignList(bookmarkList);
+		List<String> orignalHis = getOrignList(myHistory);
 		List<Object> resultList = getList(orignalIds);
+		List<Object> resultHis = getList(orignalHis);
 		model.addAttribute("item", resultList);
+		model.addAttribute("history", resultHis);
 		return "list_my_bookmark";
 	}
 	
-	// download 페이지 이동
+	// list_my_download.jsp 페이지 이동
 	@RequestMapping(value = "mamsDownload")
-	public String moveDownloadView(HttpServletRequest request, Model model) {
-		String myData = (String)request.getParameter("downCnt");
-		String downloadList = (String)request.getParameter("myDownload");
-		String[] download = new Gson().fromJson(downloadList, String[].class);
-		List<String> orignList = getOrignList(download);
-		List<Object> list = getList(orignList);
-		model.addAttribute("downCount", myData);
+	public String moveDownloadView(@RequestParam("historyList") String historyList, @RequestParam("downloadList") String downloadList, Model model) {
+		String[] download = new Gson().fromJson(historyList, String[].class);
+		String[] myHistory= new Gson().fromJson(downloadList, String[].class);
+		List<String> orignHisList = getOrignList(download);
+		List<String> orignDownList = getOrignList(myHistory);
+		List<Object> hisList = getList(orignHisList);
+		List<Object> list = getList(orignDownList);
+		model.addAttribute("history", hisList);
 		model.addAttribute("list", list);
 		return "list_my_download";
 	}

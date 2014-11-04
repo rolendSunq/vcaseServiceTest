@@ -365,17 +365,7 @@
 	<script type="text/javascript" src="./resources/common/js/jquery.cookies.2.2.0.min.js"></script>
 	<script type="text/javascript" src="./resources/common/js/common.js"></script>
 	<script type="text/javascript">
-	function getBookMarkCount() {
-		var result = null;
-		if (typeof($.cookies.get('mamsCookie')) != 'undefined' || $.cookies.get('mamsCookie') != '') {
-			result = $.cookies.get('mamsCookie');
-			$('#bookmarkCnt').text(result.bookmark.length);
-		} else {
-			$('#bookmarkCnt').text('0');
-		}
-	}
 	$(document).ready(function() {
-		//getBookMarkCount();
 		$('a[id="detailView"]').click(function() {
 			var content_id  = null;
 			var thumb_url	= null;
@@ -385,7 +375,7 @@
 			thumb_url	= $(this).attr('data-thumbUrl');
 			hiddenCon 	= $('<input>').attr({'type':'hidden','name':'content_id','value':content_id});
 			hiddenThumb	= $('<input>').attr({'type':'hidden','name':'thumbUrl','value':thumb_url});
-			$('<form>').attr({'method':'post','action':'detail'}).append(hiddenCon).append(hiddenThumb).append('</form>').appendTo('body').submit();
+			$('<form>').attr({'method':'post','action':'detail.do'}).append(hiddenCon).append(hiddenThumb).append('</form>').appendTo('body').submit();
 		});
 	});
 	</script>
