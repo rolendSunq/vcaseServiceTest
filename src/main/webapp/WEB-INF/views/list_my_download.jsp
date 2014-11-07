@@ -46,8 +46,8 @@
                             </dl>
                         </div>
                         <div class="my_movie_db">
-                        	<a class="dow" id="download">DOWNLOAD<span id="downloadCnt">0</span></a>
-                            <a class="book" id="bookmark">BOOKMARK<span id="bookmarkCnt">0</span></a>
+                        	<a class="dow" id="mamsDownload">DOWNLOAD<span id="downloadCnt">0</span></a>
+                            <a class="book" id="mamsBookmark">BOOKMARK<span id="bookmarkCnt">0</span></a>
                         </div>
                     </div>
                 	<div class="mm_footer">Copyright 2014 Hankook Tire Co., Ltd.  All rights Reserved. HANKOOK</div>

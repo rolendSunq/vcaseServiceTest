@@ -19,7 +19,7 @@
     	<!-- my movie -->
         <div class="my_movie">
         	<div class="my_movie_off">
-            	<a>my movie 페이지 열기m</a>
+            	<a id="myMovies">my movie 페이지 열기m</a>
             </div>
         	<div class="my_movie_on">
             	<div class="my_movie_bg">
@@ -36,17 +36,25 @@
                             	<c:forEach var="his" items="${history }" varStatus="status">
                             	<c:choose>
 								<c:when test="${fn:length(his.title) > 21}">
-								<dd><a id="his" data-streamingUrl="${his.streamingUrl }" data-thumbUrl="${his.thumb_url }" data-title="${his.title }"><img width="25px" height="14px" src="${his.thumb_url }" alt="" />${fn:substring(his.title, 0, 21)}...</a></dd>
+								<dd>
+									<a id="his" data-contentId="${his.content_id }" data-streamingUrl="${his.streamingUrl }" data-thumbUrl="${his.thumb_url }">
+										<img width="25px" height="14px" src="${his.thumb_url }" alt="" />${fn:substring(his.title, 0, 21)}...
+									</a>
+								</dd>
 								</c:when>
 								<c:otherwise>
-                                <dd><a><img width="25px" height="14px" src="${his.thumb_url }" alt="" />${his.title }</a></dd>
+                                <dd>
+                                	<a id="his" data-contentId="${his.content_id }" data-streamingUrl="${his.streamingUrl }" data-thumbUrl="${his.thumb_url }">
+                                		<img width="25px" height="14px" src="${his.thumb_url }" alt="" />${his.title }
+                                	</a>
+                                </dd>
 								</c:otherwise>
 								</c:choose>
                             	</c:forEach>
                             </dl>
                         </div>
                         <div class="my_movie_db">
-                        	<a class="dow" id="mamsMyDownload">DOWNLOAD<span id="downloadCnt">0</span></a>
+                        	<a class="dow" id="mamsDownload">DOWNLOAD<span id="downloadCnt">0</span></a>
                             <a class="book" id="mamsBookmark">BOOKMARK<span id="bookmarkCnt">0</span></a>
                         </div>
                     </div>
@@ -153,7 +161,7 @@
                             </ul>
                         </div>
                         <div class="detail_link">
-                        	<a class="d_link01">DOWNLOAD</a>
+                        	<a class="d_link01" id="downloadBtn">DOWNLOAD</a>
                             <a class="d_link02">SHARE</a>
                             <a class="d_link03" id="bookCook">BOOKMARK</a>
                             <div class="bookmark_layer">
@@ -167,22 +175,22 @@
                         		<c:set var="fileName" value="${oneStreamPlay['fileName']}" />
                         		<c:set var="splitArr" value="${fn:split(fileName, '.') }" />
                         		<c:if test="${splitArr[1] == 'mov' }">
-                            	<li><a id="fileFormat"><img src="./resources/images/common/icon_mov.png" alt="download" />${oneStreamPlay['fileName']}</a></li>
+                            	<li><a id="getTheFile"><img src="./resources/images/common/icon_mov.png" alt="download" />${oneStreamPlay['fileName']}</a></li>
                         		</c:if>
                         		<c:if test="${splitArr[1] == 'wmv' }">
-                                <li><a id="fileFormat"><img src="./resources/images/common/icon_wmv.png" alt="download" />${oneStreamPlay['fileName']}</a></li>
+                                <li><a id="getTheFile"><img src="./resources/images/common/icon_wmv.png" alt="download" />${oneStreamPlay['fileName']}</a></li>
                         		</c:if>
                                 <c:if test="${splitArr[1] == 'mp4' }">
-                                <li><a id="fileFormat"><img src="./resources/images/common/icon_mp4.png" alt="download" />${oneStreamPlay['fileName']}</a></li>
+                                <li><a id="getTheFile"><img id="mp4Img" src="./resources/images/common/icon_mp4.png" alt="download" />${oneStreamPlay['fileName']}</a></li>
                         		</c:if>
                                 <c:if test="${splitArr[1] == 'mpeg' }">
-                                <li><a id="fileFormat"><img src="./resources/images/common/icon_mpeg.png" alt="download" />${oneStreamPlay['fileName']}</a></li>
+                                <li><a id="getTheFile"><img src="./resources/images/common/icon_mpeg.png" alt="download" />${oneStreamPlay['fileName']}</a></li>
                         		</c:if>
                                 <c:if test="${splitArr[1] == 'avi' }">
-                                <li><a id="fileFormat"><img src="./resources/images/common/icon_avi.png" alt="download" />${oneStreamPlay['fileName']}</a></li>
+                                <li><a id="getTheFile"><img src="./resources/images/common/icon_avi.png" alt="download" />${oneStreamPlay['fileName']}</a></li>
                         		</c:if>
                                 <c:if test="${splitArr[1] == 'flv' }">
-                                <li><a id="fileFormat"><img src="./resources/images/common/icon_flv.png" alt="download" />${oneStreamPlay['fileName']}</a></li>
+                                <li><a id="getTheFile"><img src="./resources/images/common/icon_flv.png" alt="download" />${oneStreamPlay['fileName']}</a></li>
                         		</c:if>
                             </ul>
                             <hr />
@@ -233,7 +241,7 @@
                         	<c:choose>
                         	<c:when test="${detailSlide.content_id == nowPlayContent_id }">
                             <li class="slide">
-                                <a  id="corpSlide"  data-contentId="${detailSlide.content_id }" data-thumbUrl="${detailSlide.thumb_url }">
+                                <a id="corpSlide"  data-contentId="${detailSlide.content_id }" data-thumbUrl="${detailSlide.thumb_url }">
                                     <div class="d_slide_img">
                                         <img src="${detailSlide.thumb_url }" alt="" />
                                         <span class="on"></span>
@@ -417,44 +425,6 @@
     <script type="text/javascript" src="./resources/common/js/common.js"></script>
     <script type="text/javascript">
     	$(document).ready(function() {
-    		var date = new Date();
-    		var currentYear = date.getFullYear();
-    		var expireDate = new Date(currentYear + 1, 1, 1);
-    		var cookieOption = {
-			    domain: '',
-			    path: '/',
-			    expiresAt: expireDate.toGMTString(),
-			    secure: false
-    		};
-    		
-    		var myStorage = {
-				myDownload:[],
-				myBookmark:[],
-				myHistory:[]
-			};
-    		// -- 11/4 update
-    		var validCookieContent = {
-    			isExistContentId:function(cookObject, contentID) {
-    				var i		= 0;
-    				var valid 	= 0;
-    				for (i; i < cookObject.length; i = i + 1) {
-    					if (cookObject[i] == contentID) {
-    						valid = valid + 1;
-    					}
-    				}
-    				if (valid == 0) {
-    					return false;
-    				} else {
-    					return true;
-    				}
-    			}
-    		};
-    		
-			if ($.cookies.get('mamsCookie') == 'undefined' || $.cookies.get('mamsCookie') == null) {
-				var jsonData = JSON.stringify(myStorage);
-				$.cookies.set('mamsCookie', jsonData, cookieOption);
-			}
-			
     		$(".detail_movie").empty();
 			$(".detail_movie").append(
 				"<object data=\"http://vcase.myskcdn.com/static/ovp/ovp.swf\" name=\"ovp\" id=\"ovp\" type=\"application/x-shockwave-flash\" align=\"middle\" width=\"800\" height=\"480\" >" +
@@ -470,7 +440,9 @@
 						"&autoPlay=true\" name=\"flashvars\">"+
 				"</object>"
 			);
-			$('a[id="fileFormat"]').click(function() {
+			
+			$('#downloadBtn').click(function() {
+				$('#getTheFile').attr({'href':'${oneStreamPlay["downloadUrl"]}'});
 				$('#mediaType').text('${oneStreamPlay["mediaType"]}');
 				$('#contentSize').text('${oneStreamPlay["size"]}');
 				$('#videoFormat').text('${oneStreamPlay["videoFormat"]}');
@@ -483,71 +455,41 @@
 				$('#audioHz').text('${oneStreamPlay["audioHz"]}');
 			});
 			
+			// 우측 사이드 thumb nail 을 클릭하면 해당 컨텐츠 실행
 			$('a[id="corpSlide"]').click(function() {
-				var valid 		= 0;
-				var contentId 	= $(this).attr('data-contentId');
-				var thumbUrl 	= $(this).attr('data-thumbUrl');
-				var mamCook 	= $.cookies.get('mamsCookie');
+				var contentId 	= null;
+				var thumbUrl 	= null;
+				var mamCook		= null;
 				var hiddenCon 	= null;
 				var hiddenThumb = null;
-				for (var i = 0; i < mamCook.myHistory.length; i = i + 1) {
-					if (mamCook.myHistory[i] == contentId) {
-						valid = valid + 1;
-					}
-				}
-				if (valid == 0) {
+				mamCook 	= $.cookies.get('mamsCookie');
+				contentId 	= $(this).attr('data-contentId');
+				thumbUrl 	= $(this).attr('data-thumbUrl');
+				if (!validCookieContent.isExistContentId(mamCook.myHistory, contentId)) {
 					mamCook.myHistory.push(contentId);
+					$.cookies.set('mamsCookie', JSON.stringify(mamCook));
 				}
-				$.cookies.set('mamsCookie', JSON.stringify(mamCook));
 				hiddenCon = $('<input>').attr({'type':'hidden', 'name':'content_id', 'value':contentId});
 				hiddenThumb = $('<input>').attr({'type':'hidden', 'name':'thumbUrl', 'value':thumbUrl});
 				hiddenHisli = $('<input>').attr({'type':'hidden','name':'historyList','value':JSON.stringify(mamCook.myHistory)});
-				$('<form>').attr({'method':'POST', 'action':'detail'}).append(hiddenCon).append(hiddenThumb).append(hiddenHisli).append('</form>').submit();
-			});
-			
-			// list_my_bookmark.jsp 페이지로 이동 -- 11/4 update
-			$('a[id="mamsBookmark"]').click(function() {
-				var mamCook 	= null;
-				var hiddenInp 	= null;
-				var hiddenHis	= null;
-				mamCook = $.cookies.get('mamsCookie');
-				hiddenHis = $('<input>').attr({'type':'hidden', 'name':'historyList', 'value':JSON.stringify(mamCook.myHistory)});
-				hiddenInp = $('<input>').attr({'type':'hidden', 'name':'bookmarkInfo', 'value':JSON.stringify(mamCook.myBookmark)});
-				$('<form></form>').attr({'method':'POST','action':'moveMyBookmark'}).append(hiddenInp).append(hiddenHis).appendTo('body').submit();
+				$('<form></form>').attr({'method':'POST', 'action':'detail'}).append(hiddenCon).append(hiddenThumb).append(hiddenHisli).submit();
 			});
 			
 			// 북마크 추가
 			$('#bookCook').click(function() {
-			});
-			
-			$('#mamsMyDownload').click(function() {
-				$('<form>').attr({'method':'post','action':'mamsDownload'}).append('</form>').appendTo('body').submit();
-			});
-			
-			$('a[id="his"]').click(function(){
-				var streamingUrl = $(this).attr('data-streamingUrl');
-				console.log('streamingUrl: ', streamingUrl);
-				var thumbUrl = $(this).attr('data-thumbUrl');
-				var title = $(this).attr('data-title');
-				$(".detail_movie").empty();
-				$(".detail_movie").append(
-					"<object data=\"http://vcase.myskcdn.com/static/ovp/ovp.swf\" name=\"ovp\" id=\"ovp\" type=\"application/x-shockwave-flash\" align=\"middle\" width=\"800\" height=\"480\" >" +
-					"<param value=\"high\" name=\"quality\">" + 
-					"<param value=\"#000000\" name=\"bgcolor\">" +
-					"<param value=\"always\" name=\"allowscriptaccess\">" +
-					"<param value=\"true\" name=\"allowfullscreen\">" +
-					"<param value=\"apiUrl=http://api.vcase.myskcdn.com" + 
-							"&mediaUrl=" + encodeURIComponent(streamingUrl) +
-							"&title=" + title +
-							"&thumbUrl=" + encodeURIComponent(thumbUrl) +
-							"&pid=${player_id}" +
-							"&autoPlay=true\" name=\"flashvars\">"+
-					"</object>"
-				);
+				 var mamCook 	= null;
+				 var contentId 	= null;
+				 mamCook = $.cookies.get('mamsCookie');
+				 contentId = '${oneStreamPlay["content_id"]}';
+				 if (!validCookieContent.isExistContentId(mamCook.myBookmark, contentId)) {
+					 mamCook.myBookmark.push(contentId);
+					 $.cookies.set('mamsCookie', JSON.stringify(mamCook));
+				 }
+				 $('#bookmarkCnt').text(mamCook.myBookmark.length);
 			});
 			
 			// list.jsp 페이지 이동
-			$('#goList').click(function() {
+			$('a[id="goList"]').click(function() {
 				var mamCook 	= null;
 				var hiddenHis 	= null;
 				mamCook = $.cookies.get('mamsCookie');

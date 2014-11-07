@@ -19,7 +19,7 @@
     	<!-- my movie -->
         <div class="my_movie">
         	<div class="my_movie_off">
-            	<a >my movie 페이지 열기m</a>
+            	<a id="myMovies">my movie 페이지 열기m</a>
             </div>
         	<div class="my_movie_on">
             	<div class="my_movie_bg">
@@ -46,8 +46,8 @@
                             </dl>
                         </div>
                         <div class="my_movie_db">
-                        	<a class="dow" href="download">DOWNLOAD<span>0</span></a>
-                            <a class="book" href="bookmark">BOOKMARK<span id="bookmarkCnt">0</span></a>
+                        	<a class="dow" id="mamsDownload">DOWNLOAD<span id="downloadCnt">0</span></a>
+                            <a class="book" id="mamsBookmark">BOOKMARK<span id="bookmarkCnt">0</span></a>
                         </div>
                     </div>
                 	<div class="mm_footer">Copyright 2014 Hankook Tire Co., Ltd.  All rights Reserved. HANKOOK</div>
@@ -103,51 +103,21 @@
 					<ul>
 						<li class="first menu menu1">
 							<a class="" >Corporation</a>
-							<div>
-								<ul class="depth2">
-									<li><a >Video</a></li>
-								</ul>
-							</div>
 						</li>
 						<li class="menu menu2">
 							<a class="" >Advertisements</a>
-							<div>
-								<ul class="depth2">
-									<li><a >Video</a></li>
-								</ul>
-							</div>
 						</li>
 						<li class="menu menu3">
 							<a class="" >Products</a>
-							<div>
-								<ul class="depth2">
-									<li><a >Video</a></li>
-								</ul>
-							</div>
 						</li>
 						<li class="menu menu4">
 							<a class="" >Motorsports</a>
-							<div>
-								<ul class="depth2">
-									<li><a >Video</a></li>
-								</ul>
-							</div>
 						</li>
 						<li class="menu menu5">
 							<a class="" >Events</a>
-							<div>
-								<ul class="depth2">
-									<li><a >Video</a></li>
-								</ul>
-							</div>
 						</li>
 						<li class="last menu menu6">
 							<a class="" >Others</a>
-							<div>
-								<ul class="depth2">
-									<li><a >Video</a></li>
-								</ul>
-							</div>
 						</li>
 					</ul>
 				</div>
@@ -230,7 +200,7 @@
 							</c:choose>
 							<span>2,384,880 views</span>
 							<span class="f_left">${content.reg_date }</span>
-							<span class="f_right mr5"><a class="download_btn" ><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
+							<span class="f_right mr5"><a class="download_btn" data-contentId="${content.content_id }"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
 						</li>
 						</c:when>
 						<c:when test="${status.count % 5 == 4 }">
@@ -252,7 +222,7 @@
 							</c:choose>
 							<span>2,384,880 views</span>
 							<span class="f_left">${content.reg_date }</span>
-							<span class="f_right mr5"><a class="download_btn" ><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
+							<span class="f_right mr5"><a class="download_btn" data-contentId="${content.content_id }"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
 						</li>
 						</c:when>
 						<c:otherwise>
@@ -274,7 +244,7 @@
 							</c:choose>
 							<span>2,384,880 views</span>
 							<span class="f_left">${content.reg_date }</span>
-							<span class="f_right mr5"><a class="download_btn" ><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
+							<span class="f_right mr5"><a class="download_btn" data-contentId="${content.content_id }"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
 						</li>
 						</c:otherwise>
 						</c:choose>
@@ -331,13 +301,15 @@
 				</ul>
 				<hr />
 				<dl class="download">
-					<dt>DOWNLOAD</dt>
+					<dt id="downloadUrl">DOWNLOAD</dt>
+					<!-- 
 					<dd><a ><img src="./resources/images/common/icon_mov.png" alt="download" />RA33_Dynapro HP2_Motion Graphic(ENG).mov</a></dd>
 					<dd><a ><img src="./resources/images/common/icon_wmv.png" alt="download" />RA33_Dynapro HP2_Motion Graphic(ENG).wmv</a></dd>
 					<dd><a ><img src="./resources/images/common/icon_mp4.png" alt="download" />RA33_Dynapro HP2_Motion Graphic(ENG).mp4</a></dd>
 					<dd><a ><img src="./resources/images/common/icon_mpeg.png" alt="download" />RA33_Dynapro HP2_Motion Graphic(ENG).mpeg</a></dd>
 					<dd><a ><img src="./resources/images/common/icon_avi.png" alt="download" />RA33_Dynapro HP2_Motion Graphic(ENG).avi</a></dd>
 					<dd><a ><img src="./resources/images/common/icon_flv.png" alt="download" />RA33_Dynapro HP2_Motion Graphic(ENG).flv</a></dd>
+					 -->
 				</dl>
 				<hr />
 				<dl class="file_info">
@@ -365,19 +337,19 @@
 	<script type="text/javascript" src="./resources/common/js/jquery.cookies.2.2.0.min.js"></script>
 	<script type="text/javascript" src="./resources/common/js/common.js"></script>
 	<script type="text/javascript">
-	$(document).ready(function() {
-		$('a[id="detailView"]').click(function() {
-			var content_id  = null;
-			var thumb_url	= null;
-			var hiddenCon 	= null;
-			var hiddenThumb = null;
-			content_id  = $(this).attr('data-contentId');
-			thumb_url	= $(this).attr('data-thumbUrl');
-			hiddenCon 	= $('<input>').attr({'type':'hidden','name':'content_id','value':content_id});
-			hiddenThumb	= $('<input>').attr({'type':'hidden','name':'thumbUrl','value':thumb_url});
-			$('<form>').attr({'method':'post','action':'detail.do'}).append(hiddenCon).append(hiddenThumb).append('</form>').appendTo('body').submit();
+		$(document).ready(function() {
+			$('a[id="detailView"]').click(function() {
+				var content_id  = null;
+				var thumb_url	= null;
+				var hiddenCon 	= null;
+				var hiddenThumb = null;
+				content_id  = $(this).attr('data-contentId');
+				thumb_url	= $(this).attr('data-thumbUrl');
+				hiddenCon 	= $('<input>').attr({'type':'hidden','name':'content_id','value':content_id});
+				hiddenThumb	= $('<input>').attr({'type':'hidden','name':'thumbUrl','value':thumb_url});
+				$('<form>').attr({'method':'post','action':'detail.do'}).append(hiddenCon).append(hiddenThumb).append('</form>').appendTo('body').submit();
+			});
 		});
-	});
 	</script>
 </body>
 </html>

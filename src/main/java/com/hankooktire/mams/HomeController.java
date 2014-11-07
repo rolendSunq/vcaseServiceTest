@@ -15,7 +15,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -44,14 +43,14 @@ public class HomeController {
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
-	@RequestMapping(value = "/", method = RequestMethod.GET)
+	@RequestMapping(value = "/")
 	public String mamHome(Model model) {
 		List<Object> result = new ArrayList<Object>();
 		Map<String, Object> oneStreamPlay = new HashMap<String, Object>();
 		int objectCount = 0;
 		
 		// RequestContentList args: String media_type, String file_type, String state, String search_type, String search, Integer search_start_date, Integer search_end_date, Integer page, Integer page_size, String sort, String order, boolean with_extra	
-		omsResponder = omsConnector.RequestContentList("video", null, null, null, null, null, null, null, null, "reg_date", null, true, false);
+		omsResponder = omsConnector.RequestContentList("video", null, null, null, null, null, null, null, null, "reg_date", null, true, true);
 		JsonElement resultElement = omsResponder.getRootDataElement();
 		JsonArray contentJsonArray = resultElement.getAsJsonObject().get("content").getAsJsonArray();
 		for (int i = 0; i < contentJsonArray.size(); i++) {
@@ -94,7 +93,10 @@ public class HomeController {
 							// 미디어 ID
 							int content_id = trscdElement.getAsJsonObject().get("content_id").getAsInt();
 							map.put("content_id", content_id);
-
+							
+							JsonObject staticObject = trscdElement.getAsJsonObject().get("static_url").getAsJsonObject();
+							String downloadUrl = staticObject.getAsJsonObject().get("download_url").getAsString();
+							map.put("downloadUrl", downloadUrl);
 							// 섬네일 ID
 							int thumbnailMediaId = element.getAsJsonObject().get("extra").getAsJsonObject().get("thumbnails").getAsJsonArray().get(1).getAsJsonObject().get("content_id").getAsInt();
 							omsConnector.clear();
@@ -138,6 +140,7 @@ public class HomeController {
 		return getStreamPlayUrl(content_id, "streaming_url");
 	}
 	
+	// download Url을 얻어온다.
 	@RequestMapping(value = "contentInfo")
 	@ResponseBody
 	public String getFileInfo(HttpServletResponse response, @RequestParam("contentId") int contentId) {
@@ -257,7 +260,6 @@ public class HomeController {
 		// 재생할 미디어 정보를 가져온다.
 		omsResponder = omsConnector.RequestPulbishStreamingContent(contentId, 0, null, null, "rtmp", false);
 		String playStreamingUrl = omsResponder.getRootDataElement().getAsJsonObject().get("url").getAsString();
-		
 		return playStreamingUrl;
 	}
 	

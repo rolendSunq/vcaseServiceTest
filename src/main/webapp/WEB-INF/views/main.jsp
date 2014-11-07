@@ -131,7 +131,7 @@
 	                            <li><span>ID&nbsp;:&nbsp;</span><span id="playContentId">${oneStreamPlay.content_id }</span></li><!-- 어떤 종류의 아이디를 명시하지 않아서 컨텐츠 ID로 표시함 -->
 	                            <li id="playNation"><span>Region&nbsp;:&nbsp;</span>U.S.A</li>
 	                            <li id="playTag"><span>Tag&nbsp;:&nbsp;</span>Tire,  Dynapro HP2, RA33</li>
-	                            <li id="playVideoUrl"><span>Copy Video URL&nbsp;:&nbsp;</span>http://www.youtube.com/watch?v=N10WS9epgCo&amp;list=PLYkzrxbCq4D0jSb71h5RO2FVznuIf7YtN&amp;feature=player_detailpage</li>
+	                            <li id="playVideoUrl"><span>Copy Video URL&nbsp;:&nbsp;</span>DO NOT SURPPORTED</li>
 	                        </ul>
 	                        <hr />
 	                        
@@ -141,8 +141,8 @@
 	                        		<c:choose>
 	                        		<c:when test="${status.count == 1 }"></c:when>
 	                        		<c:when test="${status.count != 4 }">
-	                        	<li class="mr22" id="content_item" data-content-id="${object.content_id}" data-content-thumb = "${object.thumb_url}" data-content-title="${object.title}" data-content-regDate="${object.reg_date }" data-content-duration="${object.duration }">
-	                            	<a>
+	                        	<li class="mr22">
+	                            	<a id="latestMov" id="content_item" data-content-id="${object.content_id}" data-content-thumb = "${object.thumb_url}" data-content-title="${object.title}" data-content-regDate="${object.reg_date }" data-content-duration="${object.duration }">
 	                                	<span>
 	                                		<img width="153px" height="85" src="${object.thumb_url}" alt="" />
 	                                    	<span class="video-time">${object.duration}</span>
@@ -152,7 +152,7 @@
 	                        		</c:when>
 	                        		<c:otherwise>
 	                            <li id="content_item" data-content-id="${object.content_id}" data-content-thumb = "${object.thumb_url}" data-content-title="${object.title}" data-content-regDate="${object.reg_date }" data-content-duration="${object.duration }">
-	                            	<a>
+	                            	<a id="latestMov">
 	                                	<span>
 	                                    	<img width="153px" height="85" src="${object.thumb_url}" alt="" />
 	                                        <span class="video-time">${object.duration}</span>
@@ -176,7 +176,7 @@
 	                    	<c:choose>
 	                    		<c:when test="${status.count < 4}">
 	                    	<li class="mr24">
-	                        	<a>
+	                        	<a id="popularMov">
 	                            	<span>
 	                                	<img width="196px" height="110px" src="${popularObject.thumb_url }" alt="" />
 	                                    <span class="video-time">${popularObject.duration }</span>
@@ -199,7 +199,7 @@
 	                    		</c:when>
 	                    		<c:when test="${status.count == 4 }">
 	                        <li class="mr23">
-	                        	<a>
+	                        	<a id="popularMov">
 	                            	<span>
 	                                	<img width="196px" height="110px" src="${popularObject.thumb_url }" alt="" />
 	                                    <span class="video-time">${popularObject.duration }</span>
@@ -221,7 +221,7 @@
 	                    		</c:when>
 	                    		<c:otherwise>
 	                    	<li>
-	                        	<a>
+	                        	<a id="popularMov">
 	                            	<span>
 	                                	<img width="196px" height="110px" src="${popularObject.thumb_url }" alt="" />
 	                                    <span class="video-time">${popularObject.duration }</span>
@@ -252,8 +252,8 @@
 	                    <h2 class="mlr56">Corporation<span>Ventus, Optimo, Dynapro, WinterTire Concept movie</span></h2>
 	                    <ul class="category_slide">
 	                    	<c:forEach var="corporation" items="${list }" end="10" varStatus="status">
-	                        <li class="slide" data-contentId="${corporation.content_id }" data-thumbUrl="${corporation.thumb_url }">
-	                            <a>
+	                        <li class="slide">
+	                            <a id="corpMov" data-contentId="${corporation.content_id }" data-thumbUrl="${corporation.thumb_url }">
 	                            	<span>
 	                                	<img width="196px" height="110px" src="${corporation.thumb_url }" alt="" />
 	                                    <span class="video-time">${corporation.duration }</span>
@@ -354,46 +354,7 @@
 	    <script type="text/javascript" src="./resources/common/js/jquery.cookies.2.2.0.min.js"></script>
 	    <script type="text/javascript" src="./resources/common/js/common.js"></script>
 	    <script type="text/javascript">
-	    	
 	    	$(document).ready(function(){
-	    		var date = new Date();
-	    		var currentYear = date.getFullYear();
-	    		var expireDate = new Date(currentYear + 1, 1, 1);
-	    		var cookieOption = {
-				    domain: '',
-				    path: '/',
-				    expiresAt: expireDate.toGMTString(),
-				    secure: false
-	    		};
-	    		
-	    		var myStorage = {
-					myDownload:[],
-					myBookmark:[],
-					myHistory:[]
-				};
-	    		
-	    		var validCookieContent = {
-	    			isExistContentId:function(cookObject, contentID) {
-	    				var i		= 0;
-	    				var valid 	= 0;
-	    				for (i; i < cookObject.length; i = i + 1) {
-	    					if (cookObject[i] == contentID) {
-	    						valid = valid + 1;
-	    					}
-	    				}
-	    				if (valid == 0) {
-	    					return false;
-	    				} else {
-	    					return true;
-	    				}
-	    			}
-	    		};
-	    		
-				if ($.cookies.get('mamsCookie') == 'undefined' || $.cookies.get('mamsCookie') == null) {
-					var jsonData = JSON.stringify(myStorage);
-					$.cookies.set('mamsCookie', jsonData, cookieOption);
-				}
-				
 	    		if ($.cookies.get('mamsCookie') != null || $.cookies.get('mamsCookie') != 'undefined') {
 	    			var i 			= 0;
 	    			var contentId 	= null;
@@ -437,55 +398,9 @@
 					"</object>"
 				);
 				
-				$('a[class="download_btn"]').click(function(){
-					var contentId = $(this).attr('data-contentId');
-					$('.mb5').text('ID : ' + contentId);
-					$.getJSON('contentInfo', {"contentId":contentId}, function(data){
-						var decodeFileName = decodeURIComponent(data.fileName);
-						var fileName = decodeFileName.replace(/\+/g, ' ');
-						
-						var aTag = $('<a>').attr('href', data.downloadUrl).append('<img src="./resources/images/common/icon_mp4.png" alt="download"/>' + fileName).append('</a>');
-						var ddTag = $('<dd>').append(aTag).append('</dd>');
-						$("#downloadUrl").after(ddTag);
-						$("#contentType").text('Contents Type : ' + data.mediaType);
-						$("#size").text('Size : ' + data.size);
-						$("#videoFormat").text('Video Format : ' + data.videoFormat);
-						$("#videoCodec").text('Video Codec : ' + data.videoCodec);
-						$("#videoBps").text('Video bps : ' + data.videoBps);
-						$("#videoFps").text('Video fps : ' + data.videoFps);
-						$("#audioCodec").text('Audio Codec : ' + data.audioCodec);
-						$("#audioBps").text('Audio bps : ' + data.audioBps);
-						$("#channel").text('Audio channel : ' + data.audioChannel);
-						$("#hz").text('Audio Hz : ' + data.audioHz);
-					});
-				});
-				
-				// list_my_bookmark.jsp 페이지로 이동
-				$('a[id="mamsBookmark"]').click(function() {
-					var mamCook 	= null;
-					var hiddenInp 	= null;
-					var hiddenHis	= null;
-					mamCook = $.cookies.get('mamsCookie');
-					hiddenHis = $('<input>').attr({'type':'hidden', 'name':'historyList', 'value':JSON.stringify(mamCook.myHistory)});
-					hiddenInp = $('<input>').attr({'type':'hidden', 'name':'bookmarkInfo', 'value':JSON.stringify(mamCook.myBookmark)});
-					$('<form></form>').attr({'method':'POST','action':'moveMyBookmark'}).append(hiddenInp).append(hiddenHis).appendTo('body').submit();
-				});
-				
-				// list_my_download.jsp 페이지로 이동
-				$('#mamsDownload').click(function() {
-					var mamCook		= null;
-					var hiddenDwn 	= null;
-					var hiddenHis	= null;
-					mamCook = $.cookies.get('mamsCookie');
-					hiddenDwn = $('<input>').attr({'type':'hidden','name':'historyList','value':JSON.stringify(mamCook.myHistory)});
-					hiddenHis = $('<input>').attr({'type':'hidden','name':'downloadList','value':JSON.stringify(mamCook.myDownload)});
-					$('<form></form>').attr({'method':'POST','action':'mamsDownload'}).append(hiddenHis).append(hiddenDwn).appendTo('body').submit();
-				});
-				
 				// -- 11/4 update
-				$('li[class="slide"]').click(function() {
+				$('a[id="corpMov"]').click(function() {
 					var mamCook		= null;
-					var jsonData 	= null;
 					var hiddenCon	= null;
 					var hiddenTmb	= null;
 					var hiddenHis	= null;
@@ -494,21 +409,12 @@
 					mamCook = $.cookies.get('mamsCookie');
 					if (!validCookieContent.isExistContentId(mamCook.myHistory, contentId)) {
 						mamCook.myHistory.push(contentId);
+						$.cookies.set('mamsCookie', JSON.stringify(mamCook));
 					}
-					jsonData = JSON.stringify(mamCook);
-					$.cookies.set('mamsCookie', jsonData);
 					hiddenCon 	= $('<input>').attr({'type':'hidden','name':'content_id','value':contentId});
 					hiddenTmb 	= $('<input>').attr({'type':'hidden','name':'thumbUrl','value':thumbUrl});
 					hiddenHis	= $('<input>').attr({'type':'hidden','name':'historyList','value':JSON.stringify(mamCook.myHistory)});
-					$('<form>').attr({'method':'POST','action':'detail'}).append(hiddenCon).append(hiddenTmb).append(hiddenHis).appendTo('body').submit();
-				});
-				
-				$('#myMovies').click(function() {
-					var cookieData = $.cookies.get('mamsCookie');
-					var downLength = cookieData.myDownload.length;
-					var bookLength = cookieData.myBookmark.length;
-					$('#downloadCnt').text(downLength);
-					$('#bookmarkCnt').text(bookLength);
+					$('<form></form>').attr({'method':'POST','action':'detail'}).append(hiddenCon).append(hiddenTmb).append(hiddenHis).appendTo('body').submit();
 				});
 				
 				// history 목록중 하나를 선택하면 detail.jsp 페이지로 이동한다. -- 11/4 update
@@ -531,7 +437,6 @@
 				$(document).on("mouseleave", "#hisAtag", function(e) {
 				    $(this).css('cursor', 'default');
 				});
-				
 	    	});
 	    </script>
 	</body>

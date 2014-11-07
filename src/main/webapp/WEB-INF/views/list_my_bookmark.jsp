@@ -19,7 +19,7 @@
     	<!-- my movie -->
         <div class="my_movie">
         	<div class="my_movie_off">
-            	<a>my movie 페이지 열기m</a>
+            	<a id="myMovies">my movie 페이지 열기m</a>
             </div>
         	<div class="my_movie_on">
             	<div class="my_movie_bg">
@@ -36,18 +36,26 @@
                                 <c:forEach var="his" items="${history }" varStatus="status">
                             	<c:choose>
 								<c:when test="${fn:length(his.title) > 21}">
-								<dd><a id="his" data-streamingUrl="${his.streamingUrl }" data-thumbUrl="${his.thumb_url }" data-title="${his.title }"><img width="25px" height="14px" src="${his.thumb_url }" alt="" />${fn:substring(his.title, 0, 21)}...</a></dd>
+								<dd>
+									<a id="his" data-streamingUrl="${his.streamingUrl }" data-thumbUrl="${his.thumb_url }" data-contentId="${his.content_id }">
+										<img width="25px" height="14px" src="${his.thumb_url }" alt="" />${fn:substring(his.title, 0, 21)}...
+									</a>
+								</dd>
 								</c:when>
 								<c:otherwise>
-                                <dd><a><img width="25px" height="14px" src="${his.thumb_url }" alt="" />${his.title }</a></dd>
+                                <dd>
+                                	<a id="his" data-contentId="${his.content_id }" data-streamingUrl="${his.streamingUrl }" data-thumbUrl="${his.thumb_url }">
+                                		<img width="25px" height="14px" src="${his.thumb_url }" alt="" />${his.title }
+                                	</a>
+                                </dd>
 								</c:otherwise>
 								</c:choose>
                             	</c:forEach>
                             </dl>
                         </div>
                         <div class="my_movie_db">
-                        	<a class="dow" href="download">DOWNLOAD<span id="downloadCnt">0</span></a>
-                            <a class="book" id="bookmarkCnt" href="bookmark">BOOKMARK<span>0</span></a>
+                        	<a class="dow" id="mamsDownload">DOWNLOAD<span id="downloadCnt">0</span></a>
+                            <a class="book" id="mamsBookmark">BOOKMARK<span id="bookmarkCnt">0</span></a>
                         </div>
                     </div>
                 	<div class="mm_footer">Copyright 2014 Hankook Tire Co., Ltd.  All rights Reserved. HANKOOK</div>
@@ -103,63 +111,21 @@
 					<ul>
 						<li class="first menu menu1">
 							<a class="">Corporation</a>
-							<div>
-								<ul class="depth2">
-									<li><a>Video</a></li>
-									<li><a>Image</a></li>
-									<li><a>Other</a></li>
-								</ul>
-							</div>
 						</li>
 						<li class="menu menu2">
 							<a class="">Advertisements</a>
-							<div>
-								<ul class="depth2">
-									<li><a>Video</a></li>
-									<li><a>Image</a></li>
-									<li><a>Other</a></li>
-								</ul>
-							</div>
 						</li>
 						<li class="menu menu3">
 							<a class="">Products</a>
-							<div>
-								<ul class="depth2">
-									<li><a>Video</a></li>
-									<li><a>Image</a></li>
-									<li><a>Other</a></li>
-								</ul>
-							</div>
 						</li>
 						<li class="menu menu4">
 							<a class="">Motorsports</a>
-							<div>
-								<ul class="depth2">
-									<li><a>Video</a></li>
-									<li><a>Image</a></li>
-									<li><a>Other</a></li>
-								</ul>
-							</div>
 						</li>
 						<li class="menu menu5">
 							<a class="">Events</a>
-							<div>
-								<ul class="depth2">
-									<li><a>Video</a></li>
-									<li><a>Image</a></li>
-									<li><a>Other</a></li>
-								</ul>
-							</div>
 						</li>
 						<li class="last menu menu6">
 							<a class="">Others</a>
-							<div>
-								<ul class="depth2">
-									<li><a>Video</a></li>
-									<li><a>Image</a></li>
-									<li><a>Other</a></li>
-								</ul>
-							</div>
 						</li>
 					</ul>
 				</div>
@@ -222,7 +188,7 @@
 						<c:forEach var="info" items="${item }" varStatus="status">
 						<c:choose>
 						<c:when test="${status.count % 5 == 1 || status.count % 5 == 2 || status.count % 5 == 3 }">
-						<li class="mr24">
+						<li class="mr24" id="myContent">
 							<a>
 								<span>
 									<img width="196px" height="110px" src="${info.thumb_url }" alt="" />
@@ -233,12 +199,12 @@
 							<span>Corporation</span>
 							<h3><a>${info.title }</a></h3>
 							<span>2,384,880 views</span>
-							<span class="f_left"><input type="checkbox" />${info.reg_date }</span>
+							<span class="f_left"><input type="checkbox" id="chkbox"/>${info.reg_date }</span>
 							<span class="f_right mr5"><a class="download_btn"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
 						</li>
 						</c:when>
 						<c:when test="${status.count % 5 == 4 }">
-						<li class="mr23">
+						<li class="mr23" id="myContent">
 							<a>
 								<span>
 									<img width="196px" height="110px" src="${info.thumb_url }" alt="" />
@@ -248,12 +214,12 @@
 							<span>Corporation</span>
 							<h3><a>${info.title }</a></h3>
 							<span>2,384,880 views</span>
-							<span class="f_left"><input type="checkbox" />${info.reg_date }</span>
+							<span class="f_left"><input type="checkbox" id="chkbox"/>${info.reg_date }</span>
 							<span class="f_right mr5"><a class="download_btn"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
 						</li>
 						</c:when>
 						<c:when test="${status.count % 5 == 0 }">
-						<li>
+						<li id="myContent">
 							<a>
 								<span>
 									<img width="196px" height="110px" src="${info.thumb_url }" alt="" />
@@ -263,215 +229,12 @@
 							<span>Corporation</span>
 							<h3><a>${info.title }</a></h3>
 							<span>2,384,880 views</span>
-							<span class="f_left"><input type="checkbox" />${info.reg_date }</span>
+							<span class="f_left"><input type="checkbox" id="chkbox"/>${info.reg_date }</span>
 							<span class="f_right mr5"><a class="download_btn"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
 						</li>
 						</c:when>
 						</c:choose>
 						</c:forEach>
-						<!-- 
-						<li class="mr24">
-							<a>
-								<span>
-									<img src="./resources/images/common/thumbnail.jpg" alt="" />
-									<span class="video-time">7:04</span>
-									<span class="admin_icon"><img src="./resources/images/common/icon_admin.png" alt="admin" /></span>
-								</span>
-							</a>
-							<span>Corporation</span>
-							<h3><a>RA33_Dynapro HP2_Motion Graphic(ENG)</a></h3>
-							<span>2,384,880 views</span>
-							<span class="f_left"><input type="checkbox" />2014-07-15</span>
-							<span class="f_right mr5"><a class="download_btn"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
-						</li>
-						<li class="mr24">
-							<a>
-								<span>
-									<img src="./resources/images/common/thumbnail.jpg" alt="" />
-									<span class="video-time">7:04</span>
-								</span>
-							</a>
-							<span>Corporation</span>
-							<h3><a>RA33_Dynapro HP2_Motion Graphic(ENG)</a></h3>
-							<span>2,384,880 views</span>
-							<span class="f_left"><input type="checkbox" />2014-07-15</span>
-							<span class="f_right mr5"><a class="download_btn"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
-						</li>
-						<li class="mr24">
-							<a>
-								<span>
-									<img src="./resources/images/common/thumbnail.jpg" alt="" />
-									<span class="video-time">7:04</span>
-									<span class="admin_icon"><img src="./resources/images/common/icon_admin.png" alt="admin" /></span>
-								</span>
-							</a>
-							<span>Corporation</span>
-							<h3><a>RA33_Dynapro HP2_Motion Graphic(ENG)</a></h3>
-							<span>2,384,880 views</span>
-							<span class="f_left"><input type="checkbox" />2014-07-15</span>
-							<span class="f_right mr5"><a class="download_btn"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
-						</li>
-						<li class="mr23">
-							<a>
-								<span>
-									<img src="./resources/images/common/thumbnail.jpg" alt="" />
-									<span class="video-time">7:04</span>
-								</span>
-							</a>
-							<span>Corporation</span>
-							<h3><a>RA33_Dynapro HP2_Motion Graphic(ENG)</a></h3>
-							<span>2,384,880 views</span>
-							<span class="f_left"><input type="checkbox" />2014-07-15</span>
-							<span class="f_right mr5"><a class="download_btn"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
-						</li>
-						<li>
-							<a>
-								<span>
-									<img src="./resources/images/common/thumbnail.jpg" alt="" />
-									<span class="video-time">7:04</span>
-								</span>
-							</a>
-							<span>Corporation</span>
-							<h3><a>RA33_Dynapro HP2_Motion Graphic(ENG)</a></h3>
-							<span>2,384,880 views</span>
-							<span class="f_left"><input type="checkbox" />2014-07-15</span>
-							<span class="f_right mr5"><a class="download_btn"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
-						</li>
-						<li class="mr24">
-							<a>
-								<span>
-									<img src="./resources/images/common/thumbnail.jpg" alt="" />
-									<span class="video-time">7:04</span>
-									<span class="admin_icon"><img src="./resources/images/common/icon_admin.png" alt="admin" /></span>
-								</span>
-							</a>
-							<span>Corporation</span>
-							<h3><a>RA33_Dynapro HP2_Motion Graphic(ENG)</a></h3>
-							<span>2,384,880 views</span>
-							<span class="f_left"><input type="checkbox" />2014-07-15</span>
-							<span class="f_right mr5"><a class="download_btn"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
-						</li>
-						<li class="mr24">
-							<a>
-								<span>
-									<img src="./resources/images/common/thumbnail.jpg" alt="" />
-									<span class="video-time">7:04</span>
-								</span>
-							</a>
-							<span>Corporation</span>
-							<h3><a>RA33_Dynapro HP2_Motion Graphic(ENG)</a></h3>
-							<span>2,384,880 views</span>
-							<span class="f_left"><input type="checkbox" />2014-07-15</span>
-							<span class="f_right mr5"><a class="download_btn"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
-						</li>
-						<li class="mr24">
-							<a>
-								<span>
-									<img src="./resources/images/common/thumbnail.jpg" alt="" />
-									<span class="video-time">7:04</span>
-									<span class="admin_icon"><img src="./resources/images/common/icon_admin.png" alt="admin" /></span>
-								</span>
-							</a>
-							<span>Corporation</span>
-							<h3><a>RA33_Dynapro HP2_Motion Graphic(ENG)</a></h3>
-							<span>2,384,880 views</span>
-							<span class="f_left"><input type="checkbox" />2014-07-15</span>
-							<span class="f_right mr5"><a class="download_btn"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
-						</li>
-						<li class="mr23">
-							<a>
-								<span>
-									<img src="./resources/images/common/thumbnail.jpg" alt="" />
-									<span class="video-time">7:04</span>
-								</span>
-							</a>
-							<span>Corporation</span>
-							<h3><a>RA33_Dynapro HP2_Motion Graphic(ENG)</a></h3>
-							<span>2,384,880 views</span>
-							<span class="f_left"><input type="checkbox" />2014-07-15</span>
-							<span class="f_right mr5"><a class="download_btn"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
-						</li>
-						<li>
-							<a>
-								<span>
-									<img src="./resources/images/common/thumbnail.jpg" alt="" />
-									<span class="video-time">7:04</span>
-								</span>
-							</a>
-							<span>Corporation</span>
-							<h3><a>RA33_Dynapro HP2_Motion Graphic(ENG)</a></h3>
-							<span>2,384,880 views</span>
-							<span class="f_left"><input type="checkbox" />2014-07-15</span>
-							<span class="f_right mr5"><a class="download_btn"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
-						</li>
-						<li class="mr24">
-							<a>
-								<span>
-									<img src="./resources/images/common/thumbnail.jpg" alt="" />
-									<span class="video-time">7:04</span>
-									<span class="admin_icon"><img src="./resources/images/common/icon_admin.png" alt="admin" /></span>
-								</span>
-							</a>
-							<span>Corporation</span>
-							<h3><a>RA33_Dynapro HP2_Motion Graphic(ENG)</a></h3>
-							<span>2,384,880 views</span>
-							<span class="f_left"><input type="checkbox" />2014-07-15</span>
-							<span class="f_right mr5"><a class="download_btn"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
-						</li>
-						<li class="mr24">
-							<a>
-								<span>
-									<img src="./resources/images/common/thumbnail.jpg" alt="" />
-									<span class="video-time">7:04</span>
-								</span>
-							</a>
-							<span>Corporation</span>
-							<h3><a>RA33_Dynapro HP2_Motion Graphic(ENG)</a></h3>
-							<span>2,384,880 views</span>
-							<span class="f_left"><input type="checkbox" />2014-07-15</span>
-							<span class="f_right mr5"><a class="download_btn"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
-						</li>
-						<li class="mr24">
-							<a>
-								<span>
-									<img src="./resources/images/common/thumbnail.jpg" alt="" />
-									<span class="video-time">7:04</span>
-									<span class="admin_icon"><img src="./resources/images/common/icon_admin.png" alt="admin" /></span>
-								</span>
-							</a>
-							<span>Corporation</span>
-							<h3><a>RA33_Dynapro HP2_Motion Graphic(ENG)</a></h3>
-							<span>2,384,880 views</span>
-							<span class="f_left"><input type="checkbox" />2014-07-15</span>
-							<span class="f_right mr5"><a class="download_btn"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
-						</li>
-						<li class="mr23">
-							<a>
-								<span>
-									<img src="./resources/images/common/thumbnail.jpg" alt="" />
-									<span class="video-time">7:04</span>
-								</span>
-							</a>
-							<span>Corporation</span>
-							<h3><a>RA33_Dynapro HP2_Motion Graphic(ENG)</a></h3>
-							<span>2,384,880 views</span>
-							<span class="f_left"><input type="checkbox" />2014-07-15</span>
-							<span class="f_right mr5"><a class="download_btn"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
-						</li>
-						<li>
-							<a>
-								<span>
-									<img src="./resources/images/common/thumbnail.jpg" alt="" />
-									<span class="video-time">7:04</span>
-								</span>
-							</a>
-							<span>Corporation</span>
-							<h3><a>RA33_Dynapro HP2_Motion Graphic(ENG)</a></h3>
-							<span>2,384,880 views</span>
-							<span class="f_left"><input type="checkbox" />2014-07-15</span>
-							<span class="f_right mr5"><a class="download_btn"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
-						</li>
-						 -->
 					</ul>
 					<div class="list_bottom">
 						<div class="count">
@@ -489,7 +252,7 @@
 						</div>
 					</div>
 					<div class="list_btns txt_left">
-						<input type="checkbox" id="" value="" class="mr20" />
+						<input type="checkbox" id="allClear" value="" class="mr20" />
 						<a class="btn_delete">Delete</a>
 					</div>
 				</div>
@@ -563,43 +326,17 @@
 	<script type="text/javascript" src="./resources/common/js/common.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function() {
-			var date = new Date();
-    		var currentYear = date.getFullYear();
-    		var expireDate = new Date(currentYear + 1, 1, 1);
-    		var cookieOption = {
-			    domain: '',
-			    path: '/',
-			    expiresAt: expireDate.toGMTString(),
-			    secure: false
-    		};
-    		
-    		var myStorage = {
-				myDownload:[],
-				myBookmark:[],
-				myHistory:[]
-			};
-    		// -- 11/4 update
-    		var validCookieContent = {
-    			isExistContentId:function(cookObject, contentID) {
-    				var i		= 0;
-    				var valid 	= 0;
-    				for (i; i < cookObject.length; i = i + 1) {
-    					if (cookObject[i] == contentID) {
-    						valid = valid + 1;
-    					}
-    				}
-    				if (valid == 0) {
-    					return false;
-    				} else {
-    					return true;
-    				}
-    			}
-    		};
-    		
-			if ($.cookies.get('mamsCookie') == 'undefined' || $.cookies.get('mamsCookie') == null) {
-				var jsonData = JSON.stringify(myStorage);
-				$.cookies.set('mamsCookie', jsonData, cookieOption);
-			}		
+			$('input[id="allClear"]').click(function() {
+				if ($(this).prop('checked') == true) {
+					$('input[id="chkbox"]').each(function() {
+						$(this).prop("checked", true);
+					});
+				} else {
+					$('input[id="chkbox"]').each(function() {
+						$(this).prop('checked', false);	
+					});
+				}
+			});
 		});
 	</script>
 </body>
