@@ -28,6 +28,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.hankooktire.service.OvpService;
 
 /**
  * Handles requests for the application home page.
@@ -39,7 +40,9 @@ public class HomeController {
 	OMSConnectorResponse omsResponder;
 	@Autowired
 	OMSConnector omsConnector;
-
+	@Autowired
+	OvpService ovpService;
+	
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
@@ -105,11 +108,10 @@ public class HomeController {
 							map.put("thumb_url", thumb_url);
 
 							// streaming Url : streaming_url에 사용됨 (with_static_url) 인자에 true값을 넣어야 데이터가 생성
-							/*JsonObject staticUrlObject = trscdElement.getAsJsonObject().get("static_url").getAsJsonObject();
+							JsonObject staticUrlObject = trscdElement.getAsJsonObject().get("static_url").getAsJsonObject();
 							JsonArray streamingArray = staticUrlObject.getAsJsonObject().get("streaming").getAsJsonArray();
 							String streamingUrl = streamingArray.get(0).getAsJsonObject().get("url").getAsString();
-							System.out.println("streamingUrl: " + streamingUrl);*/
-							
+							map.put("streamingUrl", streamingUrl);
 							result.add(map);
 							
 							if (objectCount == 0) {
@@ -124,6 +126,7 @@ public class HomeController {
 				}
 			}
 		}
+		ovpService.popularList();
 		String streamingUrl = getStreamPlayUrl((Integer)oneStreamPlay.get("content_id"));
 		
 		model.addAttribute("list", result);

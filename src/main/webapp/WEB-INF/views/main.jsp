@@ -128,7 +128,7 @@
 	                        <p id="playTimeDate">${oneStreamPlay.duration }  /  ${oneStreamPlay.reg_date}</p>
 	                        <ul class="latest_info_con">
 		                        <li><span>Category&nbsp;&gt;&nbsp;</span>Product Movie</li>
-	                            <li><span>ID&nbsp;:&nbsp;</span><span id="playContentId">${oneStreamPlay.content_id }</span></li><!-- 어떤 종류의 아이디를 명시하지 않아서 컨텐츠 ID로 표시함 -->
+	                            <li><span>ID&nbsp;:&nbsp;</span><span id="playContentId">${oneStreamPlay.content_id }</span></li>
 	                            <li id="playNation"><span>Region&nbsp;:&nbsp;</span>U.S.A</li>
 	                            <li id="playTag"><span>Tag&nbsp;:&nbsp;</span>Tire,  Dynapro HP2, RA33</li>
 	                            <li id="playVideoUrl"><span>Copy Video URL&nbsp;:&nbsp;</span>DO NOT SURPPORTED</li>
@@ -137,27 +137,42 @@
 	                        
 	                        <ul class="latest_thumbnail">
 	                        	<!-- thumb loop -->
-	                        	<c:forEach var="object" items="${list }" end="3" varStatus="status">
+	                        	<c:forEach var="object" items="${list }" end="2" varStatus="status">
 	                        		<c:choose>
-	                        		<c:when test="${status.count == 1 }"></c:when>
-	                        		<c:when test="${status.count != 4 }">
+	                        		<c:when test="${status.count != 3 }">
 	                        	<li class="mr22">
-	                            	<a id="latestMov" id="content_item" data-content-id="${object.content_id}" data-content-thumb = "${object.thumb_url}" data-content-title="${object.title}" data-content-regDate="${object.reg_date }" data-content-duration="${object.duration }">
+	                            	<a id="latestMov" data-contentId="${object.content_id}" data-streamingUrl="${object.streamingUrl}" data-thumbUrl="${object.thumb_url}" data-title="${object.title}" data-dateNReg="${object.duration} / ${object.reg_date }" data-category="" data-region="" data-tag="" data-copyUrl="">
 	                                	<span>
 	                                		<img width="153px" height="85" src="${object.thumb_url}" alt="" />
 	                                    	<span class="video-time">${object.duration}</span>
 	                                    </span>
 	                                </a>
+	                                <c:choose>
+									<c:when test="${fn:length(object.title) > 12}">
+									<h3 class="thumbTitle">${fn:substring(object.title, 0, 12)}...</h3>
+									</c:when>
+									<c:otherwise>
+									<h3 class="thumbTitle">${object.title}</h3>
+									</c:otherwise>
+									</c:choose>
 	                            </li>
 	                        		</c:when>
 	                        		<c:otherwise>
-	                            <li id="content_item" data-content-id="${object.content_id}" data-content-thumb = "${object.thumb_url}" data-content-title="${object.title}" data-content-regDate="${object.reg_date }" data-content-duration="${object.duration }">
-	                            	<a id="latestMov">
+	                            <li id="content_item">
+	                            	<a id="latestMov" data-contentId="${object.content_id}" data-streamingUrl="${object.streamingUrl}" data-thumbUrl="${object.thumb_url}" data-title="${object.title}" data-dateNReg="${object.duration} / ${object.reg_date }" data-category="" data-region="" data-tag="" data-copyUrl="">
 	                                	<span>
 	                                    	<img width="153px" height="85" src="${object.thumb_url}" alt="" />
 	                                        <span class="video-time">${object.duration}</span>
 	                                    </span>
 	                                </a>
+	                                <c:choose>
+									<c:when test="${fn:length(object.title) > 12}">
+									<h3 class="thumbTitle">${fn:substring(object.title, 0, 12)}...</h3>
+									</c:when>
+									<c:otherwise>
+									<h3 class="thumbTitle">${object.title}</h3>
+									</c:otherwise>
+									</c:choose>
 	                            </li>
 	                        		</c:otherwise>
 	                        		</c:choose>
@@ -381,7 +396,6 @@
 		    			}
 		    		});
 	    		}
-	    		
 	    		$("#latestMovie").empty();
 				$("#latestMovie").append(
 					"<object data=\"http://vcase.myskcdn.com/static/ovp/ovp.swf\" name=\"ovp\" id=\"ovp\" type=\"application/x-shockwave-flash\" align=\"middle\" width=\"520\" height=\"292\" >" +
@@ -397,7 +411,42 @@
 									"&autoPlay=true\" name=\"flashvars\">"+
 					"</object>"
 				);
-				
+				$('.thumbTitle').css({'font-size':'12px','font-weight':'bold','line-height':'16px','color':'#513e1f'});
+				// Update Movie thumb nail click
+				$('a[id="latestMov"]').click(function() {
+					var title 		= null;
+					var contentId	= null;
+					var streamingUrl= null;
+					var thumbUrl	= null;
+					var dateNReg 	= null;
+					var category 	= null;
+					var region		= null;
+					var tag			= null;
+					title 		= $(this).attr('data-title');
+					dateNReg 	= $(this).attr('data-dateNReg');
+					streamingUrl= $(this).attr('data-streamingUrl');
+					thumbUrl	= $(this).attr('data-thumbUrl');
+					dateNReg	= $(this).attr('data-dateNReg');
+					contentId	= $(this).attr('data-contentId');
+					$('#playTitle').text(title);
+					$('#playTimeDate').text(dateNReg);
+					$('#playContentId').text(contentId);
+					$("#latestMovie").empty();
+					$("#latestMovie").append(
+						"<object data=\"http://vcase.myskcdn.com/static/ovp/ovp.swf\" name=\"ovp\" id=\"ovp\" type=\"application/x-shockwave-flash\" align=\"middle\" width=\"520\" height=\"292\" >" +
+							"<param value=\"high\" name=\"quality\">" + 
+							"<param value=\"#000000\" name=\"bgcolor\">" +
+							"<param value=\"always\" name=\"allowscriptaccess\">" +
+							"<param value=\"true\" name=\"allowfullscreen\">" +
+							"<param value=\"apiUrl=http://api.vcase.myskcdn.com" + 
+										"&mediaUrl=" + encodeURIComponent(streamingUrl) +
+										"&title=${oneStreamPlay.title}" +
+										"&thumbUrl=" + encodeURIComponent(thumbUrl) +
+										"&pid=${player_id}" +
+										"&autoPlay=true\" name=\"flashvars\">"+
+						"</object>"
+					);
+				});
 				// -- 11/4 update
 				$('a[id="corpMov"]').click(function() {
 					var mamCook		= null;

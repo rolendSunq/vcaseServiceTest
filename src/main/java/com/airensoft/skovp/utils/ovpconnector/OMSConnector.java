@@ -118,6 +118,20 @@ public class OMSConnector extends HttpConnectable {
 		return requestAPI();
 	}
 	
+	// 인기 콘텐트 목록 조회
+	public OMSConnectorResponse requestPopularContentList(int startDate, int endDate, int pageNumber, int pageSize, boolean withExtra, boolean withStaticUrl) {
+		setProtocol("http");
+		setMethod("GET");
+		addURIParam(OMSConfig.OVP_CONTENT_LIST + "/popular");
+		addParam("search_start_date", startDate);
+		addParam("search_end_date", endDate);
+		addParam("page", pageNumber);
+		addParam("page_size", pageSize);
+		addParam("with_extra", withExtra);
+		addParam("with_static_url", withStaticUrl);
+		
+		return requestAPI();
+	}
 	@Override
 	public void clear() {
 		super.clear();
