@@ -126,7 +126,7 @@ public class HomeController {
 				}
 			}
 		}
-		ovpService.popularList();
+		ovpService.popularList(model);
 		String streamingUrl = getStreamPlayUrl((Integer)oneStreamPlay.get("content_id"));
 		
 		model.addAttribute("list", result);

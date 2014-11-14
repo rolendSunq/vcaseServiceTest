@@ -145,6 +145,15 @@
 	                                	<span>
 	                                		<img width="153px" height="85" src="${object.thumb_url}" alt="" />
 	                                    	<span class="video-time">${object.duration}</span>
+	                                    	<c:choose>
+	                                    	<c:when test="${status.count == 1 }">
+	                                    	<span class="on"></span> 
+	                                    	</c:when>
+	                                    	<c:otherwise>
+	                                    	<span class="off"></span> 
+	                                    	</c:otherwise>
+	                                    	</c:choose>
+	                                    	
 	                                    </span>
 	                                </a>
 	                                <c:choose>
@@ -163,6 +172,7 @@
 	                                	<span>
 	                                    	<img width="153px" height="85" src="${object.thumb_url}" alt="" />
 	                                        <span class="video-time">${object.duration}</span>
+	                                        <span class="off"></span> 
 	                                    </span>
 	                                </a>
 	                                <c:choose>
@@ -187,73 +197,73 @@
 	                <div class="popular_movie">
 	                	<h2>Popular Movie<span>Popular on Hankookrire movie</span></h2>
 	                    <ul class="thumbnail">
-	                    	<c:forEach var="popularObject" items="${list }" end="4" varStatus="status">
+	                    	<c:forEach var="popularObject" items="${popularList }" end="4" varStatus="status">
 	                    	<c:choose>
 	                    		<c:when test="${status.count < 4}">
 	                    	<li class="mr24">
-	                        	<a id="popularMov">
+	                        	<a id="popularMov" data-contentId="${popularObject.getContent_id() }" data-thumbUrl="${popularObject.getThumb_url() }">
 	                            	<span>
-	                                	<img width="196px" height="110px" src="${popularObject.thumb_url }" alt="" />
-	                                    <span class="video-time">${popularObject.duration }</span>
+	                                	<img width="196px" height="110px" src="${popularObject.getThumb_url() }" alt="" />
+	                                    <span class="video-time">${popularObject.getDuration() }</span>
 	                                    <span class="admin_icon"><img src="./resources/images/common/icon_admin.png" alt="admin" /></span>
 	                                </span>
 	                            </a>
 	                            <span>Corporation</span>
 	                            <c:choose>
-								<c:when test="${fn:length(popularObject.title) > 37}">
-								<h3><a>${fn:substring(popularObject.title, 0, 37)}...</a></h3>
+								<c:when test="${fn:length(popularObject.getTitle()) > 37}">
+								<h3><a>${fn:substring(popularObject.getTitle(), 0, 37)}...</a></h3>
 								</c:when>
 								<c:otherwise>
-								<h3><a>${popularObject.title}</a></h3>
+								<h3><a>${popularObject.getTitle()}</a></h3>
 								</c:otherwise>
 								</c:choose>
-	                            <span>2,384,880 views</span>
-	                            <span class="f_left">2014-07-15</span>
-	                            <span class="f_right mr5"><a class="download_btn" data-contentId="${popularObject.content_id }"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
+	                            <span>${popularObject.getView_count() } views</span>
+	                            <span class="f_left">${popularObject.getReg_date() }</span>
+	                            <span class="f_right mr5"><a class="download_btn" data-contentId="${popularObject.getContent_id() }"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
 	                        </li>
 	                    		</c:when>
 	                    		<c:when test="${status.count == 4 }">
 	                        <li class="mr23">
-	                        	<a id="popularMov">
+	                        	<a id="popularMov" data-contentId="${popularObject.getContent_id() }" data-thumbUrl="${popularObject.getThumb_url() }">
 	                            	<span>
-	                                	<img width="196px" height="110px" src="${popularObject.thumb_url }" alt="" />
-	                                    <span class="video-time">${popularObject.duration }</span>
+	                                	<img width="196px" height="110px" src="${popularObject.getThumb_url() }" alt="" />
+	                                    <span class="video-time">${popularObject.getDuration() }</span>
 	                                </span>
 	                            </a>
 	                            <span>Corporation</span>
 	                            <c:choose>
-								<c:when test="${fn:length(popularObject.title) > 37}">
-								<h3><a>${fn:substring(popularObject.title, 0, 37)}...</a></h3>
+								<c:when test="${fn:length(popularObject.getTitle()) > 37}">
+								<h3><a>${fn:substring(popularObject.getTitle(), 0, 37)}...</a></h3>
 								</c:when>
 								<c:otherwise>
-								<h3><a>${popularObject.title}</a></h3>
+								<h3><a>${popularObject.getTitle()}</a></h3>
 								</c:otherwise>
 								</c:choose>
-	                            <span>2,384,880 views</span>
-	                            <span class="f_left">2014-07-15</span>
-	                            <span class="f_right mr5"><a class="download_btn" data-contentId="${popularObject.content_id }"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
+	                            <span>${popularObject.getView_count() } views</span>
+	                            <span class="f_left">${popularObject.getReg_date() }</span>
+	                            <span class="f_right mr5"><a class="download_btn" data-contentId="${popularObject.getContent_id() }"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
 	                        </li>
 	                    		</c:when>
 	                    		<c:otherwise>
 	                    	<li>
-	                        	<a id="popularMov">
+	                        	<a id="popularMov" data-contentId="${popularObject.getContent_id() }" data-thumbUrl="${popularObject.getThumb_url() }">
 	                            	<span>
-	                                	<img width="196px" height="110px" src="${popularObject.thumb_url }" alt="" />
-	                                    <span class="video-time">${popularObject.duration }</span>
+	                                	<img width="196px" height="110px" src="${popularObject.getThumb_url() }" alt="" />
+	                                    <span class="video-time">${popularObject.getDuration() }</span>
 	                                </span>
 	                            </a>
 	                            <span>Corporation</span>
 	                            <c:choose>
-								<c:when test="${fn:length(popularObject.title) > 37}">
-								<h3><a>${fn:substring(popularObject.title, 0, 37)}...</a></h3>
+								<c:when test="${fn:length(popularObject.getTitle()) > 37}">
+								<h3><a>${fn:substring(popularObject.getTitle(), 0, 37)}...</a></h3>
 								</c:when>
 								<c:otherwise>
-								<h3><a>${popularObject.title}</a></h3>
+								<h3><a>${popularObject.getTitle()}</a></h3>
 								</c:otherwise>
 								</c:choose>
-	                            <span>2,384,880 views</span>
-	                            <span class="f_left">2014-07-15</span>
-	                            <span class="f_right mr5"><a class="download_btn" data-contentId="${popularObject.content_id }"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
+	                            <span>${popularObject.getView_count() } views</span>
+	                            <span class="f_left">${popularObject.getReg_date() }</span>
+	                            <span class="f_right mr5"><a class="download_btn" data-contentId="${popularObject.getContent_id() }"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
 	                        </li>
 	                    		</c:otherwise>
 	                    	</c:choose>
@@ -412,8 +422,10 @@
 					"</object>"
 				);
 				$('.thumbTitle').css({'font-size':'12px','font-weight':'bold','line-height':'16px','color':'#513e1f'});
+
 				// Update Movie thumb nail click
 				$('a[id="latestMov"]').click(function() {
+					var mamCook		= null;
 					var title 		= null;
 					var contentId	= null;
 					var streamingUrl= null;
@@ -422,12 +434,22 @@
 					var category 	= null;
 					var region		= null;
 					var tag			= null;
+					var clickRound	= null;
 					title 		= $(this).attr('data-title');
 					dateNReg 	= $(this).attr('data-dateNReg');
 					streamingUrl= $(this).attr('data-streamingUrl');
 					thumbUrl	= $(this).attr('data-thumbUrl');
 					dateNReg	= $(this).attr('data-dateNReg');
 					contentId	= $(this).attr('data-contentId');
+					mamCook = $.cookies.get('mamsCookie');
+					console.log('myDownload: ', mamCook.myDownload.length);
+					if (!validCookieContent.isExistContentId(mamCook.myHistory, contentId)) {
+						mamCook.myHistory.push(contentId);
+						$.cookies.set('mamsCookie', JSON.stringify(mamCook));
+					}
+					$('span[class="on"]').prop('class', 'off');
+					clickRound = $(this).find('.off');
+					clickRound.prop('class', 'on');
 					$('#playTitle').text(title);
 					$('#playTimeDate').text(dateNReg);
 					$('#playContentId').text(contentId);
@@ -447,8 +469,9 @@
 						"</object>"
 					);
 				});
-				// -- 11/4 update
-				$('a[id="corpMov"]').click(function() {
+
+				// popular Movie, corperation Moview thumb nail 클릭하면 detail page로 이동한다.
+				$('a[id="corpMov"], a[id="popularMov"]').click(function() {
 					var mamCook		= null;
 					var hiddenCon	= null;
 					var hiddenTmb	= null;

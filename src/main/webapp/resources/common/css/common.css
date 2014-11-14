@@ -504,5 +504,5 @@ body { font-family: Arial,'Nanum Gothic','µ¸¿ò', sans-serif; }
 .my_movie .my_movie_on .my_movie_bg .my_movie_con .my_movie_db a span {font-weight:bold; padding-left:5px;}
 .my_movie .my_movie_on .my_movie_bg .my_movie_con .my_movie_db a.dow {background:url(../../images/common/icon_dow.png) no-repeat;}
 .my_movie .my_movie_on .my_movie_bg .my_movie_con .my_movie_db a.book {background:url(../../images/common/icon_book.png) no-repeat;}
-
+#content .latest .latest_info ul.latest_thumbnail li a .on {border:2px solid #ff9c00; position:absolute; top:0px; left:0px; width:149px; height:81px;}
 /* //my movie */

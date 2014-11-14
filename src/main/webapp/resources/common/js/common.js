@@ -310,6 +310,12 @@ $(function() {
 		hiddenHis	= $('<input>').attr({'type':'hidden','name':'historyList','value':JSON.stringify(mamCook.myHistory)});
 		$('<form></form>').attr({'method':'POST','action':'detail'}).append(hiddenCon).append(hiddenTmb).append(hiddenHis).appendTo('body').submit();
 	});
+	
+	$('#search').keypress(function(event) {
+		if (event.which == 13) {
+			console.log('hi Yo!!');
+		}
+	});
 	// ################################ Web Programmer surpport End ################################
 });
 
