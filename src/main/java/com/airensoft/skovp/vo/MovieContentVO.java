@@ -4,7 +4,7 @@ import com.airensoft.skovp.utils.common.UnitUtils;
 import com.airensoft.skovp.utils.time.DateHelper;
 import com.airensoft.skovp.utils.time.DateUtils;
 
-public class PopularContentVO {
+public class MovieContentVO {
 	private int content_id;
 	private int upper_content_id;
 	private String title;
@@ -32,6 +32,8 @@ public class PopularContentVO {
 	private boolean active;
 	private String thumb_url;
 	private String view_count;
+	private String streaming_url;
+	private String download_url;
 	
 	public int getContent_id() {
 		return content_id;
@@ -198,5 +200,17 @@ public class PopularContentVO {
 	}
 	public void setView_count(String view_count) {
 		this.view_count = view_count;
+	}
+	public String getStreaming_url() {
+		return streaming_url;
+	}
+	public void setStreaming_url(String streaming_url) {
+		this.streaming_url = streaming_url;
+	}
+	public String getDownload_url() {
+		return download_url;
+	}
+	public void setDownload_url(String download_url) {
+		this.download_url = download_url;
 	}
 }

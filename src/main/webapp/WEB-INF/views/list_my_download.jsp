@@ -33,13 +33,21 @@
                         <div class="my_movie_wh">
                         	<dl>
                             	<dt>Watch History</dt>
-                                <c:forEach var="his" items="${history }" varStatus="status">
+                                <c:forEach var="hisLis" items="${history }" varStatus="status">
                             	<c:choose>
-								<c:when test="${fn:length(his.title) > 21}">
-								<dd><a id="his" data-streamingUrl="${his.streamingUrl }" data-thumbUrl="${his.thumb_url }" data-title="${his.title }"><img width="25px" height="14px" src="${his.thumb_url }" alt="" />${fn:substring(his.title, 0, 21)}...</a></dd>
+								<c:when test="${fn:length(hisLis.title) > 21}">
+								<dd>
+									<a id="his" data-streamingUrl="${hisLis.streamingUrl }" data-thumbUrl="${hisLis.thumb_url }" data-title="${hisLis.title }">
+										<img width="25px" height="14px" src="${hisLis.thumb_url }" alt="" />${fn:substring(hisLis.title, 0, 21)}...
+									</a>
+								</dd>
 								</c:when>
 								<c:otherwise>
-                                <dd><a><img width="25px" height="14px" src="${his.thumb_url }" alt="" />${his.title }</a></dd>
+                                <dd>
+                                	<a id="his" data-streamingUrl="${hisLis.streamingUrl }" data-thumbUrl="${hisLis.thumb_url }" data-title="${hisLis.title }">
+                                		<img width="25px" height="14px" src="${hisLis.thumb_url }" alt="" />${hisLis.title }
+                                	</a>
+                                </dd>
 								</c:otherwise>
 								</c:choose>
                             	</c:forEach>

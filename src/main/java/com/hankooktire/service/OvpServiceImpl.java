@@ -1,18 +1,24 @@
 package com.hankooktire.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+import com.airensoft.skovp.utils.common.UnitUtils;
 import com.airensoft.skovp.utils.ovpconnector.OMSConnector;
 import com.airensoft.skovp.utils.ovpconnector.OMSConnectorResponse;
-import com.airensoft.skovp.vo.PopularContentVO;
+import com.airensoft.skovp.utils.time.DateHelper;
+import com.airensoft.skovp.utils.time.DateUtils;
+import com.airensoft.skovp.vo.MovieContentVO;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 
 @Service("ovpV2Service")
 public class OvpServiceImpl implements OvpService {
@@ -24,24 +30,9 @@ public class OvpServiceImpl implements OvpService {
 	
 	@Override
 	public void popularList(Model model) {
-		List<PopularContentVO> popularList = new ArrayList<PopularContentVO>();
 		omsConnector.clear();
 		omsResponder = omsConnector.requestPopularContentList(0, 0, 0, 5, true, false);
-		JsonElement resultElement = omsResponder.getRootDataElement();
-		JsonArray contentArray = resultElement.getAsJsonObject().get("content").getAsJsonArray();
-		for (JsonElement contentObject : contentArray) {
-			PopularContentVO popularContentVO = new Gson().fromJson(contentObject, PopularContentVO.class);
-			JsonArray thumbNailArray = contentObject.getAsJsonObject().get("extra").getAsJsonObject().get("thumbnails").getAsJsonArray();
-			for (JsonElement jsonElement : thumbNailArray) {
-				boolean isStill = jsonElement.getAsJsonObject().get("is_still").getAsBoolean();
-				int thumbId = 0;
-				if (isStill) {
-					thumbId = jsonElement.getAsJsonObject().get("content_id").getAsInt();
-					popularContentVO.setThumb_url(getThumbNailUrl(thumbId));
-				}
-			}
-			popularList.add(popularContentVO);
-		}
+		List<MovieContentVO> popularList = mappingContentData(omsResponder);
 		model.addAttribute("popularList", popularList);
 	}
 
@@ -53,10 +44,78 @@ public class OvpServiceImpl implements OvpService {
 	}
 
 	@Override
-	public void searchMovie(String searchWord) {
+	public void searchMovie(String searchWord, Model model) {
 		omsConnector.clear();
-		//omsResponder = omsConnector.RequestContentList(media_type, file_type, state, search_type, search, search_start_date, search_end_date, page, page_size, sort, order, with_extra, with_static_url)
-		
+		omsResponder = omsConnector.RequestContentList("video", "origin", "cmplit", "title", searchWord, 0, 0, 0, 20, "title", "asc", true, false);
+		int count = omsResponder.getRootDataElement().getAsJsonObject().get("total_count").getAsInt();
+		List<MovieContentVO> searchResult = mappingContentData(omsResponder);
+		model.addAttribute("totalCnt", count);
+		model.addAttribute("searchResult", searchResult);
+	}
+	
+	private List<MovieContentVO> mappingContentData(OMSConnectorResponse omsResp) {
+		List<MovieContentVO> contentList = new ArrayList<MovieContentVO>();
+		JsonElement resultElement = omsResp.getRootDataElement();
+		JsonArray contentArray = resultElement.getAsJsonObject().get("content").getAsJsonArray();
+		for (JsonElement contentObject : contentArray) {
+			MovieContentVO contentVO = new Gson().fromJson(contentObject, MovieContentVO.class);
+			JsonArray thumbNailArray = contentObject.getAsJsonObject().get("extra").getAsJsonObject().get("thumbnails").getAsJsonArray();
+			for (JsonElement jsonElement : thumbNailArray) {
+				boolean isStill = jsonElement.getAsJsonObject().get("is_still").getAsBoolean();
+				int thumbId = 0;
+				if (isStill) {
+					thumbId = jsonElement.getAsJsonObject().get("content_id").getAsInt();
+					contentVO.setThumb_url(getThumbNailUrl(thumbId));
+				}
+			}
+			contentList.add(contentVO);
+		}
+		return contentList;
 	}
 
+	@Override
+	public List<String> getOriginList(String[] trscdList) {
+		List<String> result = new ArrayList<String>();
+		if (trscdList != null) {
+			for (int i = 0; i < trscdList.length; i++) {
+				omsConnector.clear();
+				// RequestContentList args: String media_type, String file_type, String state, String search_type, String search, Integer search_start_date, Integer search_end_date, Integer page, Integer page_size, String sort, String order, boolean with_extra	
+				omsResponder = omsConnector.RequestContentList("video", "trscd", null, "content_id", trscdList[i], null, null, null, null, "reg_date", null, false, false);
+				JsonElement resultElement = omsResponder.getRootDataElement();
+				JsonArray contentJsonArray = resultElement.getAsJsonObject().get("content").getAsJsonArray();
+				for (JsonElement jsonElement : contentJsonArray) {
+					String upper_content_id = jsonElement.getAsJsonObject().get("upper_content_id").getAsString();
+					result.add(upper_content_id);
+				}
+			}
+		}
+		return result;
+	}
+
+	@Override
+	public List<MovieContentVO> getHistoryList(List<String> orginList) {
+		List<MovieContentVO> content = new ArrayList<MovieContentVO>();
+		for (int i = orginList.size() - 1; -1 < i; i--) {
+			omsConnector.clear();
+			// RequestContentList args: String media_type, String file_type, String state, String search_type, String search, Integer search_start_date, Integer search_end_date, Integer page, Integer page_size, String sort, String order, boolean with_extra	
+			omsResponder = omsConnector.RequestContentList("video", "orign", null, "content_id", orginList.get(i), null, null, null, null, "reg_date", null, true, true);
+			JsonElement resultElement = omsResponder.getRootDataElement();
+			JsonArray contentJsonArray = resultElement.getAsJsonObject().get("content").getAsJsonArray();
+			for (JsonElement jsonElement : contentJsonArray) {
+				System.out.println(jsonElement);
+				MovieContentVO movieContentVO = new Gson().fromJson(jsonElement, MovieContentVO.class);
+				int thumbnailMediaId = jsonElement.getAsJsonObject().get("extra").getAsJsonObject().getAsJsonObject().get("thumbnails").getAsJsonArray().get(1).getAsJsonObject().get("content_id").getAsInt();
+				omsConnector.clear();
+				omsResponder = omsConnector.RequestPulbishDownloadContent(thumbnailMediaId);
+				movieContentVO.setThumb_url(omsResponder.getRootDataElement().getAsJsonObject().get("url").getAsString());
+				JsonObject staticObject = jsonElement.getAsJsonObject().get("static_url").getAsJsonObject();
+				movieContentVO.setDownload_url(staticObject.getAsJsonObject().get("download_url").getAsString());
+				omsConnector.clear();
+				omsResponder = omsConnector.RequestPulbishStreamingContent(movieContentVO.getContent_id(), 0, 0, 0, "rtmp", false);
+				movieContentVO.setStreaming_url(omsResponder.getRootDataElement().getAsJsonObject().get("url").getAsString());
+				content.add(movieContentVO);
+			}
+		}
+		return content;
+	}
 }

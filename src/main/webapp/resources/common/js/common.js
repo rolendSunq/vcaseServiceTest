@@ -312,9 +312,22 @@ $(function() {
 	});
 	
 	$('#search').keypress(function(event) {
-		if (event.which == 13) {
-			console.log('hi Yo!!');
+		var mamCook 	= null;
+		var hiddenHis 	= null;
+		var stringRegx 	= /[~!@\#$%<>^&*\()\-=+_\']/gi;
+		mamCook = $.cookies.get('mamsCookie');
+		var searchString= $(this).val();
+		if(stringRegx.test(searchString)) { 
+			alert('특수문자는 허용하지 않습니다.');
+			$(this).val('').focus();
+			return false;
 		}
+		
+		if (event.which == 13) {
+			hiddenHis = $('<input>').prop({'type':'hidden','name':'historyList','value':JSON.stringify(mamCook.myHistory)});
+			$('form[class="search_form"]').append(hiddenHis);
+		}
+		
 	});
 	// ################################ Web Programmer surpport End ################################
 });

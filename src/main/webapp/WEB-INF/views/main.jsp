@@ -70,9 +70,9 @@
 					<!-- header_bottom -->
 					<div class="header_bottom">
 						<div class="header_search">
-	                    	<form class="search_form">
+	                    	<form class="search_form" method="post" action="search">
 	                    		<label for="search" class="hide">아이디</label>
-								<input id="search" name="mb_id" type="text" class="search_go" />
+								<input type="text" id="search" name="searchTitle" class="search_go" />
 	                            <button class="search_btn">search</button>
 	                        </form>
 	                    </div>
@@ -394,9 +394,9 @@
 		    			for (i; i < data.length; i = i + 1) {
 		    				contentId 	= data[i].content_id;
 		    				title 		= decodeURI(data[i].title);
-		    				title = title.replace(/\+/gi, ' ');
+		    				title 		= title.replace(/\+/gi, ' ');
 		    				thumbUrl 	= data[i].thumb_url;
-		    				streamingUrl = data[i].streamingUrl;
+		    				streamingUrl= data[i].streamingUrl;
 		    				if (title.length > 23) {
 		    					title = title.substring(0, 20) + '...';
 		    				}
@@ -442,7 +442,6 @@
 					dateNReg	= $(this).attr('data-dateNReg');
 					contentId	= $(this).attr('data-contentId');
 					mamCook = $.cookies.get('mamsCookie');
-					console.log('myDownload: ', mamCook.myDownload.length);
 					if (!validCookieContent.isExistContentId(mamCook.myHistory, contentId)) {
 						mamCook.myHistory.push(contentId);
 						$.cookies.set('mamsCookie', JSON.stringify(mamCook));
@@ -489,7 +488,7 @@
 					$('<form></form>').attr({'method':'POST','action':'detail'}).append(hiddenCon).append(hiddenTmb).append(hiddenHis).appendTo('body').submit();
 				});
 				
-				// history 목록중 하나를 선택하면 detail.jsp 페이지로 이동한다. -- 11/4 update
+				// history 목록중 하나를 선택하면 detail.jsp 페이지로 이동한다.
 				$(document).on('click', '#hisAtag', function() {
 					var mamCook		= null;
 					var contentId 	= $(this).attr('data-contentId');

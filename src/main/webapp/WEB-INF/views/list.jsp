@@ -9,7 +9,6 @@
 	<meta http-equiv="Expires" content="0" />
 	<meta http-equiv="Pragma" content="no-cache" />
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-
 	<title>한국타이어</title>
 	<link rel="Stylesheet" type="text/css" href="./resources/common/css/common.css" />
 </head>
@@ -36,10 +35,18 @@
                             	<c:forEach var="his" items="${history }" varStatus="status">
                             	<c:choose>
 								<c:when test="${fn:length(his.title) > 21}">
-								<dd><a id="his" data-streamingUrl="${his.streamingUrl }" data-thumbUrl="${his.thumb_url }" data-title="${his.title }"><img width="25px" height="14px" src="${his.thumb_url }" alt="" />${fn:substring(his.title, 0, 21)}...</a></dd>
+								<dd>
+									<a id="his" data-streamingUrl="${his.streamingUrl }" data-thumbUrl="${his.thumb_url }" data-title="${his.title }">
+										<img width="25px" height="14px" src="${his.thumb_url }" alt="" />${fn:substring(his.title, 0, 21)}...
+									</a>
+								</dd>
 								</c:when>
 								<c:otherwise>
-                                <dd><a><img width="25px" height="14px" src="${his.thumb_url }" alt="" />${his.title }</a></dd>
+                                <dd>
+                                	<a id="his" data-streamingUrl="${his.streamingUrl }" data-thumbUrl="${his.thumb_url }" data-title="${his.title }">
+                                		<img width="25px" height="14px" src="${his.thumb_url }" alt="" />${his.title }
+                                	</a>
+                                </dd>
 								</c:otherwise>
 								</c:choose>
                             	</c:forEach>
@@ -339,15 +346,23 @@
 	<script type="text/javascript">
 		$(document).ready(function() {
 			$('a[id="detailView"]').click(function() {
+				var mamCook 	= null;
 				var content_id  = null;
 				var thumb_url	= null;
 				var hiddenCon 	= null;
 				var hiddenThumb = null;
+				var hiddenHis	= null;
 				content_id  = $(this).attr('data-contentId');
 				thumb_url	= $(this).attr('data-thumbUrl');
-				hiddenCon 	= $('<input>').attr({'type':'hidden','name':'content_id','value':content_id});
-				hiddenThumb	= $('<input>').attr({'type':'hidden','name':'thumbUrl','value':thumb_url});
-				$('<form>').attr({'method':'post','action':'detail.do'}).append(hiddenCon).append(hiddenThumb).append('</form>').appendTo('body').submit();
+				mamCook = $.cookies.get('mamsCookie');
+				if (!validCookieContent.isExistContentId(mamCook.myHistory, content_id)) {
+					mamCook.myHistory.push(content_id);
+					$.cookies.set('mamsCookie', JSON.stringify(mamCook));
+				}
+				hiddenHis	= $('<input>').prop({'type':'hidden','name':'historyList','value':JSON.stringify(mamCook.myHistory)});
+				hiddenCon 	= $('<input>').prop({'type':'hidden','name':'content_id','value':content_id});
+				hiddenThumb	= $('<input>').prop({'type':'hidden','name':'thumbUrl','value':thumb_url});
+				$('<form></form>').prop({'method':'post','action':'detail.do'}).append(hiddenCon).append(hiddenThumb).append(hiddenHis).appendTo('body').submit();
 			});
 		});
 	</script>

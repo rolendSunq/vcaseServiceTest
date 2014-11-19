@@ -9,7 +9,6 @@
 	<meta http-equiv="Expires" content="0" />
 	<meta http-equiv="Pragma" content="no-cache" />
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-
 	<title>한국타이어</title>
 	<link rel="Stylesheet" type="text/css" href="./resources/common/css/common.css" />
 </head>
@@ -91,9 +90,9 @@
 				<!-- header_bottom -->
 				<div class="header_bottom">
 					<div class="header_search">
-                    	<form class="search_form">
+                    	<form class="search_form" method="post" action="search">
                     		<label for="search" class="hide">아이디</label>
-							<input id="search" name="mb_id" type="text" class="search_go" />
+							<input type="text" id="search" name="searchTitle" class="search_go" />
                             <button class="search_btn">search</button>
                         </form>
                     </div>
