@@ -184,78 +184,102 @@
 							</div>
 						</div>
 					</div>
-					<ul class="thumbnail">
-						<c:forEach var="content" items="${list }" varStatus="status">
+					<c:forEach var="content" items="${list }" varStatus="status">
 						<c:choose>
-						<c:when test="${status.count % 5 == 1 || status.count % 5 == 2 || status.count % 5 == 3 }">
-						<li class="mr24">
-							<a id="detailView" data-contentId="${content.content_id }" data-thumbUrl="${content.thumb_url }">
-								<span>
-									<img width="196px" height="110px" src="${content.thumb_url }" alt="" />
-									<span class="video-time">${content.duration }</span>
-									<span class="admin_icon"><img src="./resources/images/common/icon_admin.png" alt="admin" /></span>
-								</span>
-							</a>
-							<span>Corporation</span>
-							<c:choose>
-							<c:when test="${fn:length(content.title) > 37}">
-							<h3><a>${fn:substring(content.title, 0, 37)}...</a></h3>
-							</c:when>
-							<c:otherwise>
-							<h3><a>${content.title}</a></h3>
-							</c:otherwise>
-							</c:choose>
-							<span>2,384,880 views</span>
-							<span class="f_left">${content.reg_date }</span>
-							<span class="f_right mr5"><a class="download_btn" data-contentId="${content.content_id }"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
-						</li>
+						<c:when test="${status.count % 5 == 1 }">
+						<ul class="thumbnail">
+							<li class="mr24">
+								<a id="detailView" data-contentId="${content.content_id }" data-thumbUrl="${content.thumb_url }">
+									<span>
+										<img width="196px" height="110px" src="${content.thumb_url }" alt="" />
+										<span class="video-time">${content.duration }</span>
+										<span class="admin_icon"><img src="./resources/images/common/icon_admin.png" alt="admin" /></span>
+									</span>
+								</a>
+								<span>Corporation</span>
+								<c:choose>
+								<c:when test="${fn:length(content.title) > 37}">
+								<h3><a>${fn:substring(content.title, 0, 37)}...</a></h3>
+								</c:when>
+								<c:otherwise>
+								<h3><a>${content.title}</a></h3>
+								</c:otherwise>
+								</c:choose>
+								<span>2,384,880 views</span>
+								<span class="f_left">${content.reg_date }</span>
+								<span class="f_right mr5"><a class="download_btn" data-contentId="${content.content_id }"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
+							</li>
+						</c:when>
+						<c:when test="${status.count % 5 == 2 || status.count % 5 == 3 }">
+							<li class="mr24">
+								<a id="detailView" data-contentId="${content.content_id }" data-thumbUrl="${content.thumb_url }">
+									<span>
+										<img width="196px" height="110px" src="${content.thumb_url }" alt="" />
+										<span class="video-time">${content.duration }</span>
+										<span class="admin_icon"><img src="./resources/images/common/icon_admin.png" alt="admin" /></span>
+									</span>
+								</a>
+								<span>Corporation</span>   
+								<c:choose>
+								<c:when test="${fn:length(content.title) > 37}">
+								<h3><a>${fn:substring(content.title, 0, 37)}...</a></h3>
+								</c:when>
+								<c:otherwise>
+								<h3><a>${content.title}</a></h3>
+								</c:otherwise>
+								</c:choose>
+								<span>2,384,880 views</span>
+								<span class="f_left">${content.reg_date }</span>
+								<span class="f_right mr5"><a class="download_btn" data-contentId="${content.content_id }"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
+							</li>
 						</c:when>
 						<c:when test="${status.count % 5 == 4 }">
-						<li class="mr23">
-							<a id="detailView" data-contentId="${content.content_id }" data-thumbUrl="${content.thumb_url }">
-								<span>
-									<img width="196px" height="110px" src="${content.thumb_url }" alt="" />
-									<span class="video-time">${content.duration }</span>
-								</span>
-							</a>
-							<span>Corporation</span>
-							<c:choose>
-							<c:when test="${fn:length(content.title) > 37}">
-							<h3><a>${fn:substring(content.title, 0, 37)}...</a></h3>
-							</c:when>
-							<c:otherwise>
-							<h3><a>${content.title}</a></h3>
-							</c:otherwise>
-							</c:choose>
-							<span>2,384,880 views</span>
-							<span class="f_left">${content.reg_date }</span>
-							<span class="f_right mr5"><a class="download_btn" data-contentId="${content.content_id }"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
-						</li>
+							<li class="mr23">
+								<a id="detailView" data-contentId="${content.content_id }" data-thumbUrl="${content.thumb_url }">
+									<span>
+										<img width="196px" height="110px" src="${content.thumb_url }" alt="" />
+										<span class="video-time">${content.duration }</span>
+									</span>
+								</a>
+								<span>Corporation</span>
+								<c:choose>
+								<c:when test="${fn:length(content.title) > 37}">
+								<h3><a>${fn:substring(content.title, 0, 37)}...</a></h3>
+								</c:when>
+								<c:otherwise>
+								<h3><a>${content.title}</a></h3>
+								</c:otherwise>
+								</c:choose>
+								<span>2,384,880 views</span>
+								<span class="f_left">${content.reg_date }</span>
+								<span class="f_right mr5"><a class="download_btn" data-contentId="${content.content_id }"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
+							</li>
 						</c:when>
 						<c:otherwise>
-						<li>
-							<a id="detailView" data-contentId="${content.content_id }" data-thumbUrl="${content.thumb_url }">
-								<span>
-									<img width="196px" height="110px" src="${content.thumb_url }" alt="" />
-									<span class="video-time">${content.duration }</span>
-								</span>
-							</a>
-							<span>Corporation</span>
-							<c:choose>
-							<c:when test="${fn:length(content.title) > 37}">
-							<h3><a>${fn:substring(content.title, 0, 37)}...</a></h3>
-							</c:when>
-							<c:otherwise>
-							<h3><a>${content.title}</a></h3>
-							</c:otherwise>
-							</c:choose>
-							<span>2,384,880 views</span>
-							<span class="f_left">${content.reg_date }</span>
-							<span class="f_right mr5"><a class="download_btn" data-contentId="${content.content_id }"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
-						</li>
+							<li>
+								<a id="detailView" data-contentId="${content.content_id }" data-thumbUrl="${content.thumb_url }">
+									<span>
+										<img width="196px" height="110px" src="${content.thumb_url }" alt="" />
+										<span class="video-time">${content.duration }</span>
+									</span>
+								</a>
+								<span>Corporation</span>
+								<c:choose>
+								<c:when test="${fn:length(content.title) > 37}">
+								<h3><a>${fn:substring(content.title, 0, 37)}...</a></h3>
+								</c:when>
+								<c:otherwise>
+								<h3><a>${content.title}</a></h3>
+								</c:otherwise>
+								</c:choose>
+								<span>2,384,880 views</span>
+								<span class="f_left">${content.reg_date }</span>
+								<span class="f_right mr5"><a class="download_btn" data-contentId="${content.content_id }"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
+							</li>
+						</ul>
 						</c:otherwise>
 						</c:choose>
-						</c:forEach>
+					</c:forEach>
 					</ul>
 					<div class="list_bottom mb50">
 						<div class="count">
