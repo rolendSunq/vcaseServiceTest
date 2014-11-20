@@ -37,14 +37,14 @@
                             	<c:choose>
 								<c:when test="${fn:length(his.title) > 21}">
 								<dd>
-									<a id="his" data-streamingUrl="${his.getDownload_url() }" data-thumbUrl="${his.getThumb_url() }" data-title="${his.getTitle() }">
+									<a id="his" data-contentId="${his.getContent_id()}" data-streamingUrl="${his.getDownload_url() }" data-thumbUrl="${his.getThumb_url() }" data-title="${his.getTitle() }">
 										<img width="25px" height="14px" src="${his.getThumb_url() }" alt="" />${fn:substring(his.getTitle(), 0, 21)}...
 									</a>
 								</dd>
 								</c:when>
 								<c:otherwise>
                                 <dd>
-                                	<a id="his" data-streamingUrl="${his.getStreaming_url() }" data-thumbUrl="${his.getThumb_url() }" data-title="${his.getTitle() }">
+                                	<a id="his" data-contentId="${his.getContent_id()}" data-streamingUrl="${his.getStreaming_url() }" data-thumbUrl="${his.getThumb_url() }" data-title="${his.getTitle() }">
                                 		<img width="25px" height="14px" src="${his.getThumb_url() }" alt="" />${his.getTitle() }
                                 	</a>
                                 </dd>
