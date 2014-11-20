@@ -54,8 +54,8 @@
                             </dl>
                         </div>
                         <div class="my_movie_db">
-                        	<a class="dow" href="download">DOWNLOAD<span>5</span></a>
-                            <a class="book" href="bookmark">BOOKMARK<span>32</span></a>
+                        	<a class="dow" id="mamsDownload">DOWNLOAD<span id="downloadCnt">0</span></a>
+                            <a class="book" id="mamsBookmark">BOOKMARK<span id="bookmarkCnt">0</span></a>
                         </div>
                     </div>
                 	<div class="mm_footer">Copyright 2014 Hankook Tire Co., Ltd.  All rights Reserved. HANKOOK</div>
@@ -200,27 +200,27 @@
 							<div class="by first">
 								<span>Filter by</span>
 								<div class="drop_menu">
-									<a>Region</a>
-									<input class="hide" type="text" value="" />
+									<a id="showRegion">Region</a>
+									<input class="hide" type="text" id="selectRegion" value="" />
 									<!-- li 안의 a 태그를 클릭하면 input 태그 안의 value에 해당 값이 들어가도록 개발해주시면 됩니다. -->
 									<ul>
-										<li><a>region</a></li>
-										<li><a>Contents</a></li>
-										<li><a>Size</a></li>
-                                        <li><a>Video Format</a></li>
-                                        <li><a>Video Codec</a></li>
+										<li id="regions"><a>Europe</a></li>
+										<li id="regions"><a>America</a></li>
+										<li id="regions"><a>Middle East & Africa</a></li>
+                                        <li id="regions"><a>AsiaPacific</a></li>
+                                        <li id="regions"><a>China</a></li>
+                                        <li id="regions"><a>Korea</a></li>
 									</ul>
 								</div>
 							</div>
 							<div class="by">
 								<span>Sort by</span>
 								<div class="drop_menu">
-									<a>Select</a>
+									<a id="showSelected">Select</a>
 									<input class="hide" type="text" value="" />
 									<ul>
-										<li><a>Select</a></li>
-										<li><a>Upload date</a></li>
-										<li><a>View count </a></li>
+										<li id="selected"><a>Upload date</a></li>
+										<li id="selected"><a>View count</a></li>
 									</ul>
 								</div>
 							</div>
@@ -385,6 +385,7 @@
 	<script type="text/javascript" src="./resources/common/js/common.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function() {
+			console.log("cookie", $.cookies.get('mamsCookie'));
 			$('a[id="goDetail"]').click(function() {
 				var mamCook		= null;
 				var hiddenCon	= null;

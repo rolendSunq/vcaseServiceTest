@@ -102,7 +102,6 @@ public class OvpServiceImpl implements OvpService {
 			JsonElement resultElement = omsResponder.getRootDataElement();
 			JsonArray contentJsonArray = resultElement.getAsJsonObject().get("content").getAsJsonArray();
 			for (JsonElement jsonElement : contentJsonArray) {
-				System.out.println(jsonElement);
 				MovieContentVO movieContentVO = new Gson().fromJson(jsonElement, MovieContentVO.class);
 				int thumbnailMediaId = jsonElement.getAsJsonObject().get("extra").getAsJsonObject().getAsJsonObject().get("thumbnails").getAsJsonArray().get(1).getAsJsonObject().get("content_id").getAsInt();
 				omsConnector.clear();

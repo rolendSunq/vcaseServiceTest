@@ -329,6 +329,17 @@ $(function() {
 		}
 		
 	});
+	
+	// Region click 후 해당 지역 검색
+	$('li[id="regions"]').click(function() {
+		var regionValue = null;
+		regionValue = $(this).text();
+	});
+	
+	$('li[id="selected"]').click(function() {
+		var selectedValue = null;
+		selectedValue = $(this).text();
+	});
 	// ################################ Web Programmer surpport End ################################
 });
 
