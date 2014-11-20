@@ -18,7 +18,7 @@
     	<!-- my movie -->
         <div class="my_movie">
         	<div class="my_movie_off">
-            	<a id="myMovies">my movie 페이지 열기m</a>
+            	<a id="myMovies">my movie 페이지 열기      </a>  
             </div>
         	<div class="my_movie_on">
             	<div class="my_movie_bg">
