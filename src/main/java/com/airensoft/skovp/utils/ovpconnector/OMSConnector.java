@@ -132,6 +132,9 @@ public class OMSConnector extends HttpConnectable {
 		
 		return requestAPI();
 	}
+	
+	// 콘텐트 파일 업로드
+	//public OMSConnectorResponse requestFileUpload(File file, )
 	@Override
 	public void clear() {
 		super.clear();

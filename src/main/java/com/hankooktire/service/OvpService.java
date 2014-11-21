@@ -12,4 +12,5 @@ public interface OvpService {
 	public void searchMovie(String searchWord, Model model);
 	public List<String> getOriginList(String[] trscdList);
 	public List<MovieContentVO> getHistoryList(List<String> orginList);
+	public void contentFileUpload();
 }

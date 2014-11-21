@@ -340,6 +340,25 @@ $(function() {
 		var selectedValue = null;
 		selectedValue = $(this).text();
 	});
+	
+	// upload Test
+	$('#push').click(function() {
+		var title 		= null;
+		var category 	= null;
+		var year 		= null;
+		var type 		= null;
+		var region 		= null;
+		var finalized 	= null;
+		var info 		= null;
+		title 		= $('#myFile').val();
+		category 	= $('#category').val();
+		year 		= $('#year').val();
+		type 		= $('#selType option:selected').val();
+		region 		= $('#selRegion option:selected').val();
+		finalized	= $('input[name="finalized"]:checked').val();
+		info		= $('#info').val();
+		console.log('title', title, 'category', category, 'year', year, 'type', type, 'region', region, 'finalized', finalized, 'info', info);
+	});
 	// ################################ Web Programmer surpport End ################################
 });
 

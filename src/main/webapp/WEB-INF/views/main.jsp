@@ -78,9 +78,9 @@
 	                    </div>
 						<div class="personal_menu">
 							<ul>
-								<li class="p_menu1"><a>설정</a></li>
-								<li class="p_menu2"><a>업로드</a></li>
-								<li class="p_menu3"><a>로그아웃</a></li>
+								<li class="p_menu1"><a id="admin">설정</a></li>
+								<li class="p_menu2"><a id="upload">업로드</a></li>
+								<li class="p_menu3"><a id="logout">로그아웃</a></li>
 							</ul>
 						</div>
 					</div>
@@ -371,7 +371,30 @@
 	            </div>
 	        </div>
 	        <!-- //download layer -->
-	
+			<!-- file Upload modal -->
+			<div id="uploader" class="content_wrap">
+				<div class="content">
+					<input type="file" name="uploadFile" id="myFile"><br>
+					<input type="text" name="title" id="title" placeHolder="Title"><br>
+					<input type="text" name="category" id="category" placeHolder="Category"><br>
+					year<input type="text" name="year" id="year" placeHolder="Year">
+					type<select name="type" id="selType">
+						<option value="Hankook Tire Official">Hankook Tire Official</option>
+						<option value="Unofficial">Unofficial</option>
+					</select><br>
+					Region<select name="region" id="selRegion">
+						<option value="Europe">Europe</option>
+						<option value="America">America</option>
+						<option value="Middle East & Africa">Middle East & Africa</option>
+						<option value="Asia-Pacific">Asia-Pacific</option>
+						<option value="China">China</option>
+						<option value="Korea">Korea</option>
+					</select>
+					Finalized Video<input type="radio" name="finalized" value="video">
+					Raw Data<input type="radio" name="finalized" value="rawData"><br>
+					info <button id="push">send</button><br><textarea rows="200" cols="100px" id="info"></textarea>
+				</div>
+			</div>
 		</div>
 		<script type="text/javascript" src="./resources/common/js/jquery-1.11.1.min.js"></script>
 		<script type="text/javascript" src="./resources/common/js/jquery.ui.all.js"></script>
