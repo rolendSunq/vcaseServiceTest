@@ -1,5 +1,6 @@
 package com.airensoft.skovp.utils.ovpconnector;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.HashMap;
@@ -134,7 +135,13 @@ public class OMSConnector extends HttpConnectable {
 	}
 	
 	// 콘텐트 파일 업로드
-	//public OMSConnectorResponse requestFileUpload(File file, )
+	public OMSConnectorResponse requestFileUpload(File file ) {
+		setProtocol("http");
+		setMethod("POST");
+		addURIParam(OMSConfig.OVP_CONTENT_LIST + "/upload");
+		//addParam("file", file);
+		return requestAPI();
+	}
 	@Override
 	public void clear() {
 		super.clear();
