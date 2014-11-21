@@ -332,7 +332,7 @@
 							<span class="now">${ (pageNum * pageSize) - pageSize + 1 } - ${toEndNum }</span> of ${count }       
 						</div> 
 						<div class="page_control">
-pageSize:${pageSize}<br />     
+<!-- pageSize:${pageSize}<br />     
 pageNum:${pageNum}<br />           
 count:${count}<br />     
 number:${number}<br />       
@@ -340,7 +340,7 @@ currentPage:${currentPage}<br />
 startPage:${startPage}<br />
 endPage:${endPage }<br />
 pageCount:${pageCount }<br />   
-다음페이지 (endPage < pageCount) : ${endPage} < ${pageCount} <br />            
+다음페이지 (endPage < pageCount) : ${endPage} < ${pageCount} <br /-->             
 												
 <!-- pageing append [start] -->
 <c:if test="${count > 0}" >
