@@ -231,13 +231,40 @@ public class HomeController {
 
 	// list 페이지 이동
 	@RequestMapping(value = "listDetail")
-	public String moveListDetailView(@RequestParam("historyList") String historyList, Model model) {
+	public String moveListDetailView(@RequestParam("historyList") String historyList, Model model, HttpServletRequest request ) {
 		String[] trscdlst = new Gson().fromJson(historyList, String[].class);
 		List<String> historylst = getOrignList(trscdlst);
 		List<Object> history = getList(historylst);
 		List<Object> thumbNailList = getThumbNailList();
+		
+		
+		//########################## 페이징 처리 추가부분 [start] ########################## 
+		int pageSize = 10; //한페이지에 표시할 글의 수 
+		String number = request.getParameter("number");; //현재페이지에 표시할 레코드수
+	    String pageNum = request.getParameter("pageNum");//화면에 표시할 페이지번호
+	    
+	    if (pageNum == null) {//페이지번호가 없으면
+	        pageNum = "1";//1페이지의 내용이 화면에 표시
+	    }
+	    if (number == null) { //현재페이지에 표시할 레코드수
+	    	number = "20"; //현재페이지에 표시할 레코드수 초기 값 : 20개로 설정
+	    }   
+	    
+	    int count = thumbNailList.size(); //전체글의 수
+	    int currentPage = Integer.parseInt(pageNum); //pageNum변수값을 숫자로 파싱
+	   
+		model.addAttribute("pageSize", pageSize); //한페이지에 표시할 글의 수
+		model.addAttribute("pageNum", pageNum); //화면에 표시할 페이지번호
+		model.addAttribute("count", count); //전체글의 수
+		model.addAttribute("number", number); //현재페이지에 표시할 레코드수 <-- 변경
+		model.addAttribute("currentPage", currentPage); //pageNum변수값을 숫자로 파싱
+		//########################## 페이징 처리 추가부분 [end] ########################## 
+		 
+		
+		model.addAttribute("cnt", thumbNailList.size()); //카운트 갯수
 		model.addAttribute("list", thumbNailList);
 		model.addAttribute("history", history);
+		
 		return "list";
 	}
 	

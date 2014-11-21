@@ -244,7 +244,7 @@
                                     <div class="d_slide_img">
                                         <img src="${detailSlide.thumb_url }" alt="" />
                                         <span class="on"></span>
-                                    </div>
+                                    </div> 
                                     <div class="d_slide_info">
                                     	<c:choose>
                                     	<c:when test="${fn:length(detailSlide.title) > 23 }">
