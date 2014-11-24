@@ -1,8 +1,5 @@
 package com.hankooktire.mams;
 
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -19,10 +16,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.airensoft.skovp.utils.common.UnitUtils;
 import com.airensoft.skovp.utils.ovpconnector.OMSConfig;
@@ -71,7 +66,7 @@ public class HomeController {
 			String state = element.getAsJsonObject().get("state").getAsString();
 			
 			// job 프로파일과 맞은 트랜스코딩 미디어 파일을 찾는다. 없는경우 원본사용
-			if (state.equals("cmplt")) {
+			if (state.equals("cmplt")) {   
 				
 				map.put("title", element.getAsJsonObject().get("title").getAsString());
 
@@ -243,29 +238,33 @@ public class HomeController {
 		List<Object> history = getList(historylst);
 		List<Object> thumbNailList = getThumbNailList();
 		
-		
 		//########################## 페이징 처리 추가부분 [start] ########################## 
-		int pageSize = 10; //한페이지에 표시할 글의 수 
-		String number = request.getParameter("number");; //현재페이지에 표시할 레코드수
-	    String pageNum = request.getParameter("pageNum");//화면에 표시할 페이지번호
+//		int pageSize = 10; //한페이지에 표시할 글의 수 
+//		String number = request.getParameter("number");; //현재페이지에 표시할 레코드수
 	    
-	    if (pageNum == null) {//페이지번호가 없으면
-	        pageNum = "1";//1페이지의 내용이 화면에 표시
-	    }
-	    if (number == null) { //현재페이지에 표시할 레코드수
-	    	number = "20"; //현재페이지에 표시할 레코드수 초기 값 : 20개로 설정
-	    }   
 	    
-	    int count = thumbNailList.size(); //전체글의 수
-	    int currentPage = Integer.parseInt(pageNum); //pageNum변수값을 숫자로 파싱
+//	    if (number == null) { //현재페이지에 표시할 레코드수
+//	    	number = "20"; //현재페이지에 표시할 레코드수 초기 값 : 20개로 설정
+//	    }   
+	    
+//	    int currentPage = Integer.parseInt(pageNum); //pageNum변수값을 숫자로 파싱
 	   
-		model.addAttribute("pageSize", pageSize); //한페이지에 표시할 글의 수
+//		model.addAttribute("pageSize", pageSize); //한페이지에 표시할 글의 수
+		
+		String pageNum = request.getParameter("pageNum");//화면에 표시할 페이지번호
+		
+		if (pageNum == null) {//페이지번호가 없으면
+			pageNum = "1";//1페이지의 내용이 화면에 표시
+		}
+		
+		System.out.println("########## pageNum #########"+pageNum);
+		
+		int pageCount = thumbNailList.size(); //전체 글 수
 		model.addAttribute("pageNum", pageNum); //화면에 표시할 페이지번호
-		model.addAttribute("count", count); //전체글의 수
-		model.addAttribute("number", number); //현재페이지에 표시할 레코드수 <-- 변경
-		model.addAttribute("currentPage", currentPage); //pageNum변수값을 숫자로 파싱
+		model.addAttribute("pageCount", pageCount); //전체 글 수
+//		model.addAttribute("number", number); //현재페이지에 표시할 레코드수 <-- 변경
+//		model.addAttribute("currentPage", currentPage); //pageNum변수값을 숫자로 파싱
 		//########################## 페이징 처리 추가부분 [end] ########################## 
-		 
 		
 		model.addAttribute("cnt", thumbNailList.size()); //카운트 갯수
 		model.addAttribute("list", thumbNailList);

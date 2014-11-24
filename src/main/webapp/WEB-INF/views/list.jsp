@@ -98,9 +98,9 @@
 					</div>
 					<div class="personal_menu">
 						<ul>
-							<li class="p_menu1"><a id="admin">설정</a></li>
-							<li class="p_menu2"><a id="upload">업로드</a></li>
-							<li class="p_menu3"><a id="logout">로그아웃</a></li>
+							<li class="p_menu1"><a >설정</a></li>
+							<li class="p_menu2"><a >업로드</a></li>
+							<li class="p_menu3"><a >로그아웃</a></li>
 						</ul>
 					</div>
 				</div>
@@ -150,10 +150,10 @@
                     <div class="location"><span>Corporation</span>&nbsp;&gt;&nbsp;<span class="present">Video</span></div>
 					<div class="list_top">
 						<ul class="sort_count">
-							<li class="list20"><a href="#" onClick="fn_changePage('1', '20')">20개씩 보기</a></li> <!-- fn_changePage(page, number) ==> page : 현재페이지 번호, number : 화면에 노출 갯수(20개, 15개, 10개) -->
-							<li class="list15"><a href="#" onClick="fn_changePage('1', '15')">15개씩 보기</a></li> <!-- fn_changePage(page, number) ==> page : 현재페이지 번호, number : 화면에 노출 갯수(20개, 15개, 10개) -->
-							<li class="list10"><a href="#" onClick="fn_changePage('1', '10')">10개씩 보기</a></li> <!-- fn_changePage(page, number) ==> page : 현재페이지 번호, number : 화면에 노출 갯수(20개, 15개, 10개) -->
-						</ul>   
+							<li class="list20"><a>20개씩 보기</a></li>
+							<li class="list15"><a>15개씩 보기</a></li>
+							<li class="list10"><a>10개씩 보기</a></li>
+						</ul>
 						<div class="list_top_right">
 							<div class="by first">
 								<span>Filter by</span>
@@ -184,212 +184,170 @@
 							</div>
 						</div>
 					</div>
-					<c:if test="${count > 0}" > <!-- 페이지 변수 설정[start] -->
-						<c:set var="startPage" value="1" />
-						<c:choose>
-							<c:when test="${count % pageSize == 0}">
-								<c:set var="pageTmp" value="10" />              
-							</c:when>
-							<c:otherwise>
-								<c:set var="pageTmp" value="1" /> 
-							</c:otherwise>
-						</c:choose>
-							
-						<c:set var="pageCount" value="${ (count / pageSize) + pageTmp }" /> 
 					
+					<!-- 썸네일 content 영역[start] -->
+					<c:set var="totalCount" scope="session" value="${pageCount}"/> <!-- 전체 글 수 -->
+				    <c:set var="perPage" scope="session" value="10"/>  <!-- 현재페이지 글 수 -->      
+				    <c:set var="totalPages" scope="session" value="${totalCount/perPage}"/> <!-- 전체 페이지 block -->
+				    <c:set var="pageIndex" scope="session" value="${pageNum/perPage+1}"/>
+				    
+					<c:forEach var="content" items="${list }" varStatus="status"> 
+					<c:if test="${status.count >= ( 1 + (pageNum * perPage) - perPage )  && status.count <= ( pageNum * perPage )}">
+					::${status.count }::${1 + (pageNum * perPage) - perPage }::${pageNum * perPage }:: 
+					<!-- c:forEach var="boundaryStart" varStatus="status" begin="0" end="${totalCount - 1}" step="${perPage}" -->
 						<c:choose>
-							<c:when test="${currentPage % 10 != 0}">
-								<c:set var="startPage" value="${(currentPage/10)*10 + 1}" /> 
-							</c:when>
-							<c:otherwise>
-								<c:set var="startPage" value="${((currentPage/10)-1)*10 + 1}" />  
-							</c:otherwise>
-						</c:choose>
-						
-						<c:set var="pageBlock" value="10" /> 
-						<c:set var="endPage" value="${startPage + pageBlock-1}" /> 
-					</c:if>	 <!-- 페이지 변수 설정[end] -->
-				
-					<c:forEach var="content" items="${list }" varStatus="status">                       
-						<c:if test="${ ( status.count > (pageSize * pageNum - 10) )  && ( status.count <= number * pageNum ) }" >                                                           
-							<c:choose>  
-							<c:when test="${status.count % 5 == 1 }">
-							<ul class="thumbnail">         
-								<li class="mr24">
-									<a id="detailView" data-contentId="${content.content_id }" data-thumbUrl="${content.thumb_url }">
-										<span>
-											<img width="196px" height="110px" src="${content.thumb_url }" alt="" />
-											<span class="video-time">${content.duration }</span>
-											<span class="admin_icon"><img src="./resources/images/common/icon_admin.png" alt="admin" /></span>
-										</span>
-									</a>   
-									<span>Corporation</span>
-									<c:choose>
-									<c:when test="${fn:length(content.title) > 37}">
-									<h3><a>${fn:substring(content.title, 0, 37)}...</a></h3>
-									</c:when>
-									<c:otherwise>
-									<h3><a>${content.title}</a></h3>
-									</c:otherwise>
-									</c:choose>
-									<span>2,384,880 views</span>
-									<span class="f_left">${content.reg_date }</span>
-									<span class="f_right mr5"><a class="download_btn" data-contentId="${content.content_id }"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
-								</li>
-							</c:when>
-							<c:when test="${status.count % 5 == 2 || status.count % 5 == 3 }">
-								<li class="mr24">
-									<a id="detailView" data-contentId="${content.content_id }" data-thumbUrl="${content.thumb_url }">
-										<span>
-											<img width="196px" height="110px" src="${content.thumb_url }" alt="" />
-											<span class="video-time">${content.duration }</span>
-											<span class="admin_icon"><img src="./resources/images/common/icon_admin.png" alt="admin" /></span>
-										</span>
-									</a>
-									<span>Corporation</span>   
-									<c:choose>
-									<c:when test="${fn:length(content.title) > 37}">
-									<h3><a>${fn:substring(content.title, 0, 37)}...</a></h3>
-									</c:when>
-									<c:otherwise>
-									<h3><a>${content.title}</a></h3>
-									</c:otherwise>
-									</c:choose>
-									<span>2,384,880 views</span>
-									<span class="f_left">${content.reg_date }</span>
-									<span class="f_right mr5"><a class="download_btn" data-contentId="${content.content_id }"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
-								</li>
-							</c:when>
-							<c:when test="${status.count % 5 == 4 }">
-								<li class="mr23">
-									<a id="detailView" data-contentId="${content.content_id }" data-thumbUrl="${content.thumb_url }">
-										<span>
-											<img width="196px" height="110px" src="${content.thumb_url }" alt="" />
-											<span class="video-time">${content.duration }</span>
-										</span>
-									</a>
-									<span>Corporation</span>
-									<c:choose>
-									<c:when test="${fn:length(content.title) > 37}">
-									<h3><a>${fn:substring(content.title, 0, 37)}...</a></h3>
-									</c:when>
-									<c:otherwise>
-									<h3><a>${content.title}</a></h3>
-									</c:otherwise>
-									</c:choose>
-									<span>2,384,880 views</span>
-									<span class="f_left">${content.reg_date }</span>
-									<span class="f_right mr5"><a class="download_btn" data-contentId="${content.content_id }"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
-								</li>
-							</c:when>
-							<c:otherwise>
-								<li>
-									<a id="detailView" data-contentId="${content.content_id }" data-thumbUrl="${content.thumb_url }">
-										<span>
-											<img width="196px" height="110px" src="${content.thumb_url }" alt="" />
-											<span class="video-time">${content.duration }</span>
-										</span>
-									</a>
-									<span>Corporation</span>
-									<c:choose>
-									<c:when test="${fn:length(content.title) > 37}">
-									<h3><a>${fn:substring(content.title, 0, 37)}...</a></h3>
-									</c:when>
-									<c:otherwise>
-									<h3><a>${content.title}</a></h3>
-									</c:otherwise>
-									</c:choose>
-									<span>2,384,880 views</span>
-									<span class="f_left">${content.reg_date }</span>
-									<span class="f_right mr5"><a class="download_btn" data-contentId="${content.content_id }"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
-								</li>
-							</ul>
-							</c:otherwise>
-							</c:choose>
-						</c:if>
-						
-					</c:forEach>
-					</ul>
-					<br /> 
-					 
-					<!-- 페이징 처리 -->     
-					<form name="frm" id="frm" method="POST">
-						<input type="hidden" name="pageNum" id="pageNum" value="${pageNum }" /> <!-- 현재 페이지 -->
-					</form>
-					
-					<div class="list_bottom mb50">
-						<div class="count">            
-						
-							<c:choose>
-								<c:when test="${count < pageNum * number }">
-									<c:set var="toEndNum" value="${count }" /> 
+						<c:when test="${status.count % 5 == 1 }">
+						<ul class="thumbnail"> 
+							<li class="mr24"> 
+								<a id="detailView" data-contentId="${content.content_id }" data-thumbUrl="${content.thumb_url }">
+									<span>
+										<img width="196px" height="110px" src="${content.thumb_url }" alt="" />
+										<span class="video-time">${content.duration }</span>
+										<span class="admin_icon"><img src="./resources/images/common/icon_admin.png" alt="admin" /></span>
+									</span>
+								</a>
+								<span>Corporation</span>
+								<c:choose>
+								<c:when test="${fn:length(content.title) > 37}">
+								<h3><a>${fn:substring(content.title, 0, 37)}...</a></h3>
 								</c:when>
 								<c:otherwise>
-									<c:set var="toEndNum" value="${pageNum * number }" />
+								<h3><a>${content.title}</a></h3>
 								</c:otherwise>
-							</c:choose>														
-													
-							<span class="now">${ (pageNum * pageSize) - pageSize + 1 } - ${toEndNum }</span> of ${count }       
-						</div> 
-						<div class="page_control">
-<!-- pageSize:${pageSize}<br />     
-pageNum:${pageNum}<br />           
-count:${count}<br />     
-number:${number}<br />       
-currentPage:${currentPage}<br /> 
-startPage:${startPage}<br />
-endPage:${endPage }<br />
-pageCount:${pageCount }<br />   
-다음페이지 (endPage < pageCount) : ${endPage} < ${pageCount} <br /-->             
-												
-<!-- pageing append [start] -->
-<c:if test="${count > 0}" >
-	<!-- 이전페이지 버튼 -->
-	<c:choose>
-		<c:when test="${startPage > 10}">
-			<div class="control"><a href="#" class="btn_prev" onClick="fn_changePage('${startPage - 10}','${number }')">previous</a></div> <!-- fn_changePage(page, number) ==> page : 현재페이지 번호, number : 화면에 노출 갯수(20개, 15개, 10개) --> 
-		</c:when>
-		<c:otherwise>       
-			<div class="control"><a class="btn_prev">previous</a></div>              
-		</c:otherwise> 
-	</c:choose>   
+								</c:choose>
+								<span>2,384,880 views</span>
+								<span class="f_left">${content.reg_date }</span>
+								<span class="f_right mr5"><a class="download_btn" data-contentId="${content.content_id }"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
+							</li>
+						</c:when>
+						<c:when test="${status.count % 5 == 2 || status.count % 5 == 3 }">
+							<li class="mr24">
+								<a id="detailView" data-contentId="${content.content_id }" data-thumbUrl="${content.thumb_url }">
+									<span>
+										<img width="196px" height="110px" src="${content.thumb_url }" alt="" />
+										<span class="video-time">${content.duration }</span>
+										<span class="admin_icon"><img src="./resources/images/common/icon_admin.png" alt="admin" /></span>
+									</span>
+								</a>
+								<span>Corporation</span>   
+								<c:choose>
+								<c:when test="${fn:length(content.title) > 37}">
+								<h3><a>${fn:substring(content.title, 0, 37)}...</a></h3>
+								</c:when>
+								<c:otherwise>
+								<h3><a>${content.title}</a></h3>
+								</c:otherwise>
+								</c:choose>
+								<span>2,384,880 views</span>
+								<span class="f_left">${content.reg_date }</span>
+								<span class="f_right mr5"><a class="download_btn" data-contentId="${content.content_id }"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
+							</li>
+						</c:when>
+						<c:when test="${status.count % 5 == 4 }">
+							<li class="mr23">
+								<a id="detailView" data-contentId="${content.content_id }" data-thumbUrl="${content.thumb_url }">
+									<span>
+										<img width="196px" height="110px" src="${content.thumb_url }" alt="" />
+										<span class="video-time">${content.duration }</span>
+									</span>
+								</a>
+								<span>Corporation</span>
+								<c:choose>
+								<c:when test="${fn:length(content.title) > 37}">
+								<h3><a>${fn:substring(content.title, 0, 37)}...</a></h3>
+								</c:when>
+								<c:otherwise>
+								<h3><a>${content.title}</a></h3>
+								</c:otherwise>
+								</c:choose>
+								<span>2,384,880 views</span>
+								<span class="f_left">${content.reg_date }</span>
+								<span class="f_right mr5"><a class="download_btn" data-contentId="${content.content_id }"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
+							</li>
+						</c:when>
+						<c:otherwise>
+							<li>
+								<a id="detailView" data-contentId="${content.content_id }" data-thumbUrl="${content.thumb_url }">
+									<span>
+										<img width="196px" height="110px" src="${content.thumb_url }" alt="" />
+										<span class="video-time">${content.duration }</span>
+									</span>
+								</a>
+								<span>Corporation</span>
+								<c:choose>
+								<c:when test="${fn:length(content.title) > 37}">
+								<h3><a>${fn:substring(content.title, 0, 37)}...</a></h3>
+								</c:when>
+								<c:otherwise>
+								<h3><a>${content.title}</a></h3>
+								</c:otherwise>
+								</c:choose>
+								<span>2,384,880 views</span>
+								<span class="f_left">${content.reg_date }</span>
+								<span class="f_right mr5"><a class="download_btn" data-contentId="${content.content_id }"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
+							</li>
+						</ul>
+						</c:otherwise>
+						</c:choose>
+						</c:if>
+					</c:forEach>
+					<!-- 썸네일 content 영역[end] -->
+					</ul>
+
+<!-- 페이징 처리 [start] -->
+<div class="list_bottom mb50">
 	
-	<!-- 페이징 처리부분 [1,2,3,4,5] -->
-	<div class="pages"> 
-	<c:forEach var="i" begin="${pageNum / 10 + 1  }" end="${pageCount }" step="1">
-		<a href="#" onClick="fn_changePage('${i }','${number }')">${i }</a> <!-- fn_changePage(page, number) ==> page : 현재페이지 번호, number : 화면에 노출 갯수(20개, 15개, 10개) --> 
-	</c:forEach> 
+	<div class="count">
+		<span class="now">1 - 15</span> of ${pageCount}
+	</div>
+	
+	<div class="page_control">
+    <c:if test="${!empty pageNum && pageNum >(perPage-1) && pageNum !=0 }">
+          <div class="control"><a href="#" onClick="goPage('${pageNum - perPage}')" class="btn_prev">Prev</a></div> <!-- 이전버튼 -->
+    </c:if>
+    
+    <div class="pages"> <!-- 페이징 처리[1,2,3,4,5......] -->
+	    <c:forEach var="boundaryStart" varStatus="status" begin="0" end="${totalCount - 1}" step="${perPage}">
+	        <c:choose>
+	            <c:when test="${status.count>0 && status.count != pageIndex}">
+					 <a href="#" onClick="goPage('${status.count}')">
+						<c:out value="${status.count}"/>  
+					</a>
+	            </c:when>
+				<c:otherwise>
+					<a class="on"><c:out value="${status.count}"/></a>
+				</c:otherwise>
+	        </c:choose>
+	    </c:forEach>
 	</div>
 
-	<!-- 다음페이지 버튼-->
-	<c:choose>
-		<c:when test="${ endPage < pageCount }">
-			<div class="control"><a href="#" class="btn_next" onClick="fn_changePage('${startPage + 10}','${number }')">next</a></div> <!-- fn_changePage(page, number) ==> page : 현재페이지 번호, number : 화면에 노출 갯수(20개, 15개, 10개) --> 
-		</c:when>
-		<c:otherwise>
-			<div class="control"><a class="btn_next">next</a></div>
-		</c:otherwise>
-	</c:choose>
-	
-</c:if>
-
-
-<!-- pageing append [end] -->
-						
-						
-							<!-- div class="control"><a class="btn_prev">previous</a></div>
+    <c:if test="${empty pageNum || pageNum<(totalCount-perPage)}">
+         <div class="control">
+         	<a href="#" onClick="goPage('${pageNum + perPage}')" class="btn_next">next</a>
+         </div> <!-- 다음버튼 -->
+    </c:if>
+    </div>
+</div>
+					
+					
+					<!-- div class="list_bottom mb50">
+						<div class="count">
+							<span class="now">1 - 15</span> of 35
+						</div>
+						<div class="page_control">
+							<div class="control"><a class="btn_prev">previous</a></div>
 							<div class="pages">
 								<a class="on">1</a>
 								<a>2</a>
 								<a>3</a>
 								<a>4</a>
 							</div>
-							<div class="control"><a class="btn_next">next</a></div -->
-							
-							
+							<div class="control"><a class="btn_next">next</a></div>
 						</div>
-					</div>
-					<!-- 페이징 처리 -->
+					</div -->
+<!-- 페이징 처리 [end] -->	
+				
+					
 				</div>
 				<!-- //popular movie -->
 
@@ -483,21 +441,17 @@ pageCount:${pageCount }<br />
 				$('<form></form>').prop({'method':'post','action':'detail.do'}).append(hiddenCon).append(hiddenThumb).append(hiddenHis).appendTo('body').submit();
 			});
 		});
-		           
-		/* 페이지 이동 */
-		function fn_changePage(page, number){ //page : 현재페이지 번호, number : 화면에 노출 갯수(20개, 15개, 10개)
-			       
+		
+		// 페이지 이동
+		function goPage(pageNum) {
+			alert("page = " + pageNum);
 			var mamCook 	= null;
 			var hiddenHis 	= null;
 			mamCook = $.cookies.get('mamsCookie');
-			hiddenHis = $('<input>').attr( {'type':'hidden','name':'historyList','value':JSON.stringify(mamCook.myHistory) }) ;
-			hiddenPage = $('<input>').attr( {'type':'hidden','name':'pageNum','value':page }); 
-			hiddenNumber = $('<input>').attr( {'type':'hidden','name':'number','value':number }); 
-			  
-			$('<form></form>').attr({'method':'post','action':'listDetail'}).append(hiddenHis).append(hiddenPage).append(hiddenNumber).appendTo('body').submit();
-			
+			hiddenHis = $('<input>').attr({'type':'hidden','name':'historyList','value':JSON.stringify(mamCook.myHistory)});
+			hiddenPaging = $('<input>').attr({'type':'hidden','name':'pageNum','value':pageNum }); //페이징 처리 시 param 전달...
+			$('<form></form>').attr({'method':'post','action':'listDetail'}).append(hiddenHis).append(hiddenPaging).appendTo('body').submit();
 		}
-		
 	</script>
 </body>
 </html>
