@@ -285,8 +285,8 @@ public class HomeController {
 	public String uploadFileToDefault(FileVO fileVO) throws IllegalStateException, IOException {
 		System.out.println(fileVO);
 		ovpService.contentFileUpload(fileVO);
-		/*
-		MultipartFile file = fileVO.getFile();
+		
+		/*MultipartFile file = fileVO.getFile();
 		 if (!file.isEmpty()) {
             try {
                 byte[] bytes = file.getBytes();
@@ -299,8 +299,8 @@ public class HomeController {
             }
         } else {
             return "[업로드 실패]: " + file.getOriginalFilename() + " 파일에 대한 오류가 있습니다.";
-        }
-        */
+        }*/
+        
 		return null;
 	}
 	private String getStreamPlayUrl(int contentId, String variableUrlName) {

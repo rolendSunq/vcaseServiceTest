@@ -124,14 +124,24 @@ public class OvpServiceImpl implements OvpService {
 
 	@Override
 	public void contentFileUpload(FileVO fileVO) throws IllegalStateException, IOException {
-		List<String> tagList = new ArrayList<String>();
-		tagList.add("catagory/" + fileVO.getCategory());
-		tagList.add("year/" + fileVO.getYear());
-		tagList.add("type/" + fileVO.getType());
-		tagList.add("region/" + fileVO.getRegion());
-		tagList.add("official/" + fileVO.getOfficial());
+		StringBuffer sb = new StringBuffer();
+		sb.append("\"[");
+		sb.append("\"catagory:" + fileVO.getCategory() + "\",");
+		sb.append("\"year:" + fileVO.getYear() + "\",");
+		sb.append("\"type:" + fileVO.getType() + "\",");
+		sb.append("\"region:" + fileVO.getRegion() + "\",");
+		sb.append("\"official:" + fileVO.getOfficial() + "\"");
+		sb.append("]\"");
+		System.out.println(sb.toString());
+		System.out.println(fileVO.getFile().getOriginalFilename());
 		omsResponder = omsConnector.requestFileUpload(multipartToFile(fileVO.getFile()), 
-				fileVO.getFile().getOriginalFilename(), fileVO.getDescription(), fileVO.getTitle(), "1300000203", tagList);
+				fileVO.getFile().getOriginalFilename(), fileVO.getDescription(), fileVO.getTitle(), "1300000203", sb.toString());
+		System.out.println(omsResponder.toString());
+	}
+	
+	@Override
+	public void setContentGroup(String name) {
+		omsResponder = omsConnector.requestSetPlayList(null, name, null, true);
 		System.out.println(omsResponder.toString());
 	}
 	
@@ -141,4 +151,5 @@ public class OvpServiceImpl implements OvpService {
 	        multipart.transferTo(convFile);
 	        return convFile;
 	}
+
 }
