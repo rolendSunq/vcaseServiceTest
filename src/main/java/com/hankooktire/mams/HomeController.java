@@ -1,5 +1,9 @@
 package com.hankooktire.mams;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -18,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.airensoft.skovp.utils.common.UnitUtils;
 import com.airensoft.skovp.utils.ovpconnector.OMSConfig;
@@ -25,6 +30,7 @@ import com.airensoft.skovp.utils.ovpconnector.OMSConnector;
 import com.airensoft.skovp.utils.ovpconnector.OMSConnectorResponse;
 import com.airensoft.skovp.utils.time.DateHelper;
 import com.airensoft.skovp.utils.time.DateUtils;
+import com.airensoft.skovp.vo.FileVO;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -274,6 +280,29 @@ public class HomeController {
 		return "list_result";
 	}
 	
+	// File을 업로드 한다.
+	@RequestMapping(value = "/video/fileUpload")
+	public String uploadFileToDefault(FileVO fileVO) throws IllegalStateException, IOException {
+		System.out.println(fileVO);
+		ovpService.contentFileUpload(fileVO);
+		/*
+		MultipartFile file = fileVO.getFile();
+		 if (!file.isEmpty()) {
+            try {
+                byte[] bytes = file.getBytes();
+                BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(new File(file.getOriginalFilename() + "-uploaded")));
+                stream.write(bytes);
+                stream.close();
+                return "[업로드 성공]: " + file.getOriginalFilename() + " into " + file.getOriginalFilename() + "-uploaded 성공!";
+            } catch (Exception e) {
+                return "[업로드 실패]: " + file.getOriginalFilename() + " => " + e.getMessage();
+            }
+        } else {
+            return "[업로드 실패]: " + file.getOriginalFilename() + " 파일에 대한 오류가 있습니다.";
+        }
+        */
+		return null;
+	}
 	private String getStreamPlayUrl(int contentId, String variableUrlName) {
 		omsConnector.clear();
 		Map<String, String> map = new HashMap<String, String>();

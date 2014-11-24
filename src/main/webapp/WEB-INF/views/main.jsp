@@ -374,25 +374,27 @@
 			<!-- file Upload modal -->
 			<div id="uploader" class="content_wrap">
 				<div class="content">
-					<input type="file" name="uploadFile" id="myFile"><br>
-					<input type="text" name="title" id="title" placeHolder="Title"><br>
-					<input type="text" name="category" id="category" placeHolder="Category"><br>
-					year<input type="text" name="year" id="year" placeHolder="Year">
-					type<select name="type" id="selType">
-						<option value="Hankook Tire Official">Hankook Tire Official</option>
-						<option value="Unofficial">Unofficial</option>
-					</select><br>
-					Region<select name="region" id="selRegion">
-						<option value="Europe">Europe</option>
-						<option value="America">America</option>
-						<option value="Middle East & Africa">Middle East & Africa</option>
-						<option value="Asia-Pacific">Asia-Pacific</option>
-						<option value="China">China</option>
-						<option value="Korea">Korea</option>
-					</select>
-					Finalized Video<input type="radio" name="finalized" value="video">
-					Raw Data<input type="radio" name="finalized" value="rawData"><br>
-					info <button id="push">send</button><br><textarea rows="200" cols="100px" id="info"></textarea>
+					<form id="uploadFrm" method="post" action="video/fileUpload" enctype="multipart/form-data">
+						<input type="file" name="file" id="myFile"><br>
+						<input type="text" name="title" id="title" placeHolder="Title"><br>
+						<input type="text" name="category" id="category" placeHolder="Category"><br>
+						year<input type="text" name="year" id="year" placeHolder="Year">
+						type<select name="type" id="selType">
+							<option value="Hankook Tire Official">Hankook Tire Official</option>
+							<option value="Unofficial">Unofficial</option>
+						</select><br>
+						Region<select name="region" id="selRegion">
+							<option value="Europe">Europe</option>
+							<option value="America">America</option>
+							<option value="Middle East & Africa">Middle East & Africa</option>
+							<option value="Asia-Pacific">Asia-Pacific</option>
+							<option value="China">China</option>
+							<option value="Korea">Korea</option>
+						</select>
+						Finalized Video<input type="radio" name="official" value="finalized video">
+						Raw Data<input type="radio" name="official" value="raw Data"><br>
+						info <button id="push">send</button><br><textarea rows="200" cols="100px" id="info" name="description"></textarea>
+					</form>
 				</div>
 			</div>
 		</div>

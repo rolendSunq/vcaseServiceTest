@@ -33,20 +33,20 @@ public class OMSConnectorResponse extends HttpConnectorResponsable {
 				element = parser.parse(jsonString);
 				setRootObject(element.getAsJsonObject());
 
-				// ?�제 ?�이???�싱
+				// 제이슨 파싱
 				this.rootDataElement = getRootObject().get("result");
 
-				// requestId ?�싱
+				// requestId 파싱
 				if (getRootObject().get("request_id") != null) {
 					this.requestId = getRootObject().get("request_id").getAsString();
 				}
 
-				// resultCode ?�싱
+				// resultCode 파싱
 				if (getRootObject().get("result_code") != null) {
 					this.resultCode = getRootObject().get("result_code").getAsString();
 				}
 
-				// errorMessage ?�싱
+				// errorMessage 파싱
 				if (getRootObject().get("message") != null) {
 					setErrorMessage(getRootObject().get("message").getAsString());
 				}

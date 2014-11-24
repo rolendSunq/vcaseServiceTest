@@ -1,5 +1,7 @@
 package com.hankooktire.service;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -8,12 +10,14 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.airensoft.skovp.utils.common.UnitUtils;
 import com.airensoft.skovp.utils.ovpconnector.OMSConnector;
 import com.airensoft.skovp.utils.ovpconnector.OMSConnectorResponse;
 import com.airensoft.skovp.utils.time.DateHelper;
 import com.airensoft.skovp.utils.time.DateUtils;
+import com.airensoft.skovp.vo.FileVO;
 import com.airensoft.skovp.vo.MovieContentVO;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -119,8 +123,22 @@ public class OvpServiceImpl implements OvpService {
 	}
 
 	@Override
-	public void contentFileUpload() {
-		// TODO Auto-generated method stub
-		
+	public void contentFileUpload(FileVO fileVO) throws IllegalStateException, IOException {
+		List<String> tagList = new ArrayList<String>();
+		tagList.add("catagory/" + fileVO.getCategory());
+		tagList.add("year/" + fileVO.getYear());
+		tagList.add("type/" + fileVO.getType());
+		tagList.add("region/" + fileVO.getRegion());
+		tagList.add("official/" + fileVO.getOfficial());
+		omsResponder = omsConnector.requestFileUpload(multipartToFile(fileVO.getFile()), 
+				fileVO.getFile().getOriginalFilename(), fileVO.getDescription(), fileVO.getTitle(), "1300000203", tagList);
+		System.out.println(omsResponder.toString());
+	}
+	
+	private File multipartToFile(MultipartFile multipart) throws IllegalStateException, IOException 
+	{
+	        File convFile = new File( multipart.getOriginalFilename());
+	        multipart.transferTo(convFile);
+	        return convFile;
 	}
 }

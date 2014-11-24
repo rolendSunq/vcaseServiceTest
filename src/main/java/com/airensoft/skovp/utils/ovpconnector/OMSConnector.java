@@ -4,6 +4,9 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.HashMap;
+import java.util.List;
+
+import net.sf.cglib.transform.impl.AddPropertyTransformer;
 
 import org.apache.http.client.ClientProtocolException;
 
@@ -135,13 +138,19 @@ public class OMSConnector extends HttpConnectable {
 	}
 	
 	// 콘텐트 파일 업로드
-	public OMSConnectorResponse requestFileUpload(File file ) {
+	public OMSConnectorResponse requestFileUpload(File file, String fileName, String fileDescription, String title, String playListIds, List<String> tagList) {
+		clear();
 		setProtocol("http");
 		setMethod("POST");
+		setUploadFile(file, fileName, fileDescription);
 		addURIParam(OMSConfig.OVP_CONTENT_LIST + "/upload");
-		//addParam("file", file);
+		addParam("title", title);
+		addParam("description", fileDescription);
+		addParam("playlist_ids", playListIds);
+		this.paramData.put("tags", tagList);
 		return requestAPI();
 	}
+	
 	@Override
 	public void clear() {
 		super.clear();
