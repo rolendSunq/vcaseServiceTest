@@ -183,8 +183,13 @@ public class UserController {
 		JsonObject result = getInfo(content_id);
 		// auto Streaming Play Info
 		Map<String, String> map = getPlayContentInfo(result, false);
+		
+		String sort = request.getParameter("sort"); //정렬을 위한 변수[Upload date, View count]
+		if ( sort == null ) {
+			sort = "title";
+		}
 		// 좌측 컨텐츠 thumb nail 컨텐츠 리스트
-		List<Object> list = getThumbNailList();
+		List<Object> list = getThumbNailList( sort );
 		
 		String[] trscdlst = new Gson().fromJson(historyList, String[].class);
 		// history list
@@ -234,9 +239,15 @@ public class UserController {
 	@RequestMapping(value = "listDetail")
 	public String moveListDetailView(@RequestParam("historyList") String historyList, Model model, HttpServletRequest request ) {
 			String[] trscdlst = new Gson().fromJson(historyList, String[].class);
+			
+			String sort = request.getParameter("sort"); //정렬을 위한 변수[Upload date, View count]
+			if ( sort == null ) {
+				sort = "title";
+			}
+			
 			List<String> historylst = getOrignList(trscdlst);
 			List<Object> history = getList(historylst);
-			List<Object> thumbNailList = getThumbNailList();
+			List<Object> thumbNailList = getThumbNailList( sort ); ////썸네일 
 			
 			//########################## 페이징 처리 추가부분 [start] ########################## 
 			String pageNum = request.getParameter("pageNum");//화면에 표시할 페이지번호
@@ -250,7 +261,7 @@ public class UserController {
 			model.addAttribute("pageCount", pageCount); //전체 글 수
 			//########################## 페이징 처리 추가부분 [end] ########################## 
 			
-			model.addAttribute("cnt", thumbNailList.size()); //카운트 갯수
+			model.addAttribute("totalCount", getThumbNailListCount()); //카운트 갯수
 			model.addAttribute("list", thumbNailList);
 			model.addAttribute("history", history);
 			
@@ -377,12 +388,12 @@ public class UserController {
 		return map;
 	}
 	// thumb nail 과 정보 추출
-	private List<Object> getThumbNailList() {
+	private List<Object> getThumbNailList( String sort ) {
 		omsConnector.clear();
 		List<Object> result = new ArrayList<Object>();
 		
 		// RequestContentList args: String media_type, String file_type, String state, String search_type, String search, Integer search_start_date, Integer search_end_date, Integer page, Integer page_size, String sort, String order, boolean with_extra	
-		omsResponder = omsConnector.RequestContentList("video", null, null, null, null, null, null, null, null, "reg_date", null, true, false);
+		omsResponder = omsConnector.RequestContentList("video", null, null, null, null, null, null, null, null, sort, "asc", true, false);
 		JsonElement resultElement = omsResponder.getRootDataElement();
 		JsonArray contentJsonArray = resultElement.getAsJsonObject().get("content").getAsJsonArray();
 		

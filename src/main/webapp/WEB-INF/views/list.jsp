@@ -178,8 +178,8 @@
 									<input class="hide" type="text" value="" />
 									<ul>
 										<li><a >Select</a></li>
-										<li><a >Upload date</a></li>
-										<li><a >View count </a></li>
+										<li><a href="#" onClick="sortPage('mod_date')">Upload date</a></li> <!-- 수정일 -->   
+										<li><a href="#" onClick="sortPage('custom_id')">View count </a></li> <!-- 추후변경 -->
 									</ul>
 								</div>
 							</div>
@@ -187,8 +187,8 @@
 					</div>
 					
 					<!-- 썸네일 content 영역[start] -->
-					<c:set var="totalCount" scope="session" value="${pageCount}"/> <!-- 전체 글 수 -->
-				    <c:set var="perPage" scope="session" value="20"/>  <!-- 현재페이지 글 수 -->            
+					<c:set var="totalCount" scope="session" value="${totalCount}"/> <!-- 전체 글 수 -->
+				    <c:set var="perPage" scope="session" value="20"/>  <!-- 현재페이지 글 수 -->              
 				    <c:set var="totalPages" scope="session" value="${totalCount/perPage}"/> <!-- 전체 페이지 block -->
 				    <c:set var="pageIndex" scope="session" value="${pageNum/perPage+1}"/>
 				    
@@ -204,7 +204,7 @@
 									<span>
 										<img width="196px" height="110px" src="${content.thumb_url }" alt="" />
 										<span class="video-time">${content.duration }</span>
-										<span class="admin_icon"><img src="./resources/images/common/icon_admin.png" alt="admin" /></span>
+										<!-- <span><img src="./resources/images/common/icon_admin.png" alt="admin" /></span> -->
 									</span>
 								</a>
 								<span>Corporation</span>
@@ -227,8 +227,8 @@
 									<span>
 										<img width="196px" height="110px" src="${content.thumb_url }" alt="" />
 										<span class="video-time">${content.duration }</span>
-										<span class="admin_icon"><img src="./resources/images/common/icon_admin.png" alt="admin" /></span>
-									</span>
+										<!-- <span><img src="./resources/images/common/icon_admin.png" alt="admin" /></span> -->
+									</span><!-- class="admin_icon" -->
 								</a>
 								<span>Corporation</span>   
 								<c:choose>
@@ -299,8 +299,8 @@
 <div class="list_bottom mb50">
 	
 	<div class="count">
-		<%-- <span class="now">1 - 15</span> of ${pageCount} --%>
-		Total : <span class="now">${pageCount}</span>           
+		<%-- <span class="now">1 - 15</span> of ${totalCount} --%>
+		Total : <span class="now">${totalCount}</span>           
 	</div>
 	
 	<div class="page_control">
@@ -318,20 +318,27 @@
           <div class="control"><a href="#" onClick="goPage('${pageNum - perPage}')" class="btn_prev">Prev</a></div> <!-- 이전버튼 -->
     </c:if> --%>
     
-    <%-- <div class="pages"> <!-- 페이징 처리[1,2,3,4,5......] -->
+    <div class="pages"> <!-- 페이징 처리[1,2,3,4,5......] -->
 	    <c:forEach var="boundaryStart" varStatus="status" begin="0" end="${totalCount - 1}" step="${perPage}">
 	        <c:choose>
 	            <c:when test="${status.count>0 && status.count != pageIndex}">
-					 <a href="#" onClick="goPage('${status.count}')">
+	            	<c:if test="${pageNum == status.count }">
+					 <a href="#" class="on">
+						<c:out value="${status.count}"/>  
+					</a> 
+					</c:if>
+					<c:if test="${pageNum != status.count }">
+					 <a href="#" >
 						<c:out value="${status.count}"/>  
 					</a>
+					</c:if>
 	            </c:when>
 				<c:otherwise>
 					<a class="on"><c:out value="${status.count}"/></a>
 				</c:otherwise>
 	        </c:choose>
 	    </c:forEach>
-	</div --> --%>
+	</div>
 	 
     <div class="control"> 
 		<c:if test="${ pageNum < totalPages }">    
@@ -472,6 +479,16 @@
 			hiddenHis = $('<input>').attr({'type':'hidden','name':'historyList','value':JSON.stringify(mamCook.myHistory)});
 			hiddenPaging = $('<input>').attr({'type':'hidden','name':'pageNum','value':pageNum }); //페이징 처리 시 param 전달...
 			$('<form></form>').attr({'method':'post','action':'listDetail'}).append(hiddenHis).append(hiddenPaging).appendTo('body').submit();
+		}
+		
+		//selected(정렬) 영역 조회
+		function sortPage(sort) {
+			var mamCook 	= null;
+			var hiddenHis 	= null;
+			mamCook = $.cookies.get('mamsCookie');
+			hiddenHis = $('<input>').attr({'type':'hidden','name':'historyList','value':JSON.stringify(mamCook.myHistory)});
+			hiddenSort = $('<input>').attr({'type':'hidden','name':'sort','value':sort}); //정렬을 위한 변수[Upload date, View count] 
+			$('<form></form>').attr({'method':'post','action':'listDetail'}).append(hiddenHis).append(hiddenSort).appendTo('body').submit();
 		}
 	</script>
 </body>
