@@ -204,7 +204,7 @@
 									<span>
 										<img width="196px" height="110px" src="${content.thumb_url }" alt="" />
 										<span class="video-time">${content.duration }</span>
-										<span class="admin_icon"><img src="./resources/images/common/icon_admin.png" alt="admin" /></span>
+										<!-- <span><img src="./resources/images/common/icon_admin.png" alt="admin" /></span> -->
 									</span>
 								</a>
 								<span>Corporation</span>
@@ -227,8 +227,8 @@
 									<span>
 										<img width="196px" height="110px" src="${content.thumb_url }" alt="" />
 										<span class="video-time">${content.duration }</span>
-										<span class="admin_icon"><img src="./resources/images/common/icon_admin.png" alt="admin" /></span>
-									</span>
+										<!-- <span><img src="./resources/images/common/icon_admin.png" alt="admin" /></span> -->
+									</span><!-- class="admin_icon" -->
 								</a>
 								<span>Corporation</span>   
 								<c:choose>
