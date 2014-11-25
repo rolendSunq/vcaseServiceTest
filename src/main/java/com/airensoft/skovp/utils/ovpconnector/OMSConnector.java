@@ -138,7 +138,7 @@ public class OMSConnector extends HttpConnectable {
 	}
 	
 	// 콘텐트 파일 업로드
-	public OMSConnectorResponse requestFileUpload(File file, String fileName, String fileDescription, String title, String playListIds, List<String> tagList) {
+	public OMSConnectorResponse requestFileUpload(File file, String fileName, String fileDescription, String title, String playListIds, String tagList) {
 		clear();
 		setProtocol("http");
 		setMethod("POST");
@@ -148,6 +148,19 @@ public class OMSConnector extends HttpConnectable {
 		addParam("description", fileDescription);
 		addParam("playlist_ids", playListIds);
 		this.paramData.put("tags", tagList);
+		return requestAPI();
+	}
+	
+	// 플레이리스트(콘텐트 그룹) 생성
+	public OMSConnectorResponse requestSetPlayList(String custom_id, String name, String desription, boolean active) {
+		clear();
+		setProtocol("http");
+		setMethod("POST");
+		addURIParam("/playlist");
+		addParam("custom_id", custom_id);
+		addParam("name", name);
+		addParam("description", desription);
+		addParam("active", active);
 		return requestAPI();
 	}
 	

@@ -15,4 +15,5 @@ public interface OvpService {
 	public List<String> getOriginList(String[] trscdList);
 	public List<MovieContentVO> getHistoryList(List<String> orginList);
 	public void contentFileUpload(FileVO fileVO) throws IllegalStateException, IOException;
+	public void setContentGroup(String name);
 }

@@ -348,16 +348,20 @@ $(function() {
 		var year 		= null;
 		var type 		= null;
 		var region 		= null;
-		var finalized 	= null;
-		var info 		= null;
+		var official 	= null;
+		var description	= null;
+		var tags		= null;
 		title 		= $('#myFile').val();
-		category 	= $('#category').val();
-		year 		= $('#year').val();
-		type 		= $('#selType option:selected').val();
-		region 		= $('#selRegion option:selected').val();
-		finalized	= $('input[name="finalized"]:checked').val();
-		info		= $('#info').val();
-		console.log('title', title, 'category', category, 'year', year, 'type', type, 'region', region, 'finalized', finalized, 'info', info);
+		category 	= 'category/' + $('#category').val();
+		year 		= 'year/' + $('#year').val();
+		type 		= 'type/' + $('#selType option:selected').val();
+		region 		= 'region/' + $('#selRegion option:selected').val();
+		official	= 'official/' + $('input[name="official"]:checked').val();
+		description	= 'description/' + $('#info').val();
+		//tags = JSON.stringify([category, year, type, region, official, description]);
+		//$('form[name="uploadFrm"]').prop('action':'http://')
+		//console.log('title', title, 'tags', tags);
+		//return false;
 	});
 	// ################################ Web Programmer surpport End ################################
 });
