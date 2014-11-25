@@ -141,19 +141,19 @@
 				<!-- popular movie -->
 				<div class="popular_movie my_list">
 					<h2 class="mb0">Corporation</h2>
-					<div class="search">
+					<!-- <div class="search">
 						<label for="search_word">
 							Search within<input type="text" id="search_word" />
 							<a  class="btn_search">찾기</a>
 						</label>
-					</div>
+					</div> -->   
                     <div class="location"><span>Corporation</span>&nbsp;&gt;&nbsp;<span class="present">Video</span></div>
 					<div class="list_top">
-						<ul class="sort_count">
+						<!-- <ul class="sort_count">
 							<li class="list20"><a>20개씩 보기</a></li>
 							<li class="list15"><a>15개씩 보기</a></li>
 							<li class="list10"><a>10개씩 보기</a></li>
-						</ul>
+						</ul> -->
 						<div class="list_top_right">
 							<div class="by first">
 								<span>Filter by</span>
@@ -187,13 +187,13 @@
 					
 					<!-- 썸네일 content 영역[start] -->
 					<c:set var="totalCount" scope="session" value="${pageCount}"/> <!-- 전체 글 수 -->
-				    <c:set var="perPage" scope="session" value="10"/>  <!-- 현재페이지 글 수 -->      
+				    <c:set var="perPage" scope="session" value="20"/>  <!-- 현재페이지 글 수 -->            
 				    <c:set var="totalPages" scope="session" value="${totalCount/perPage}"/> <!-- 전체 페이지 block -->
 				    <c:set var="pageIndex" scope="session" value="${pageNum/perPage+1}"/>
 				    
 					<c:forEach var="content" items="${list }" varStatus="status"> 
 					<c:if test="${status.count >= ( 1 + (pageNum * perPage) - perPage )  && status.count <= ( pageNum * perPage )}">
-					::${status.count }::${1 + (pageNum * perPage) - perPage }::${pageNum * perPage }:: 
+					<%-- ::${status.count }::${1 + (pageNum * perPage) - perPage }::${pageNum * perPage }:: --%> 
 					<!-- c:forEach var="boundaryStart" varStatus="status" begin="0" end="${totalCount - 1}" step="${perPage}" -->
 						<c:choose>
 						<c:when test="${status.count % 5 == 1 }">
@@ -298,15 +298,26 @@
 <div class="list_bottom mb50">
 	
 	<div class="count">
-		<span class="now">1 - 15</span> of ${pageCount}
+		<%-- <span class="now">1 - 15</span> of ${pageCount} --%>
+		Total : <span class="now">${pageCount}</span>           
 	</div>
 	
 	<div class="page_control">
-    <c:if test="${!empty pageNum && pageNum >(perPage-1) && pageNum !=0 }">
-          <div class="control"><a href="#" onClick="goPage('${pageNum - perPage}')" class="btn_prev">Prev</a></div> <!-- 이전버튼 -->
-    </c:if>
+	
+    <div class="control">
+    	<c:if test="${ pageNum > 1 }">
+    		<a href="#" onClick="goPage('${pageNum - 1}')" class="btn_prev">Prev</a>
+    	</c:if>
+    	<c:if test="${ pageNum <= 1 }"> 
+    		<a class="btn_prev">Prev</a>
+    	</c:if>
+    </div> <!-- 이전버튼 -->
     
-    <div class="pages"> <!-- 페이징 처리[1,2,3,4,5......] -->
+    <%-- <c:if test="${!empty pageNum && pageNum >(perPage-1) && pageNum !=0 }">
+          <div class="control"><a href="#" onClick="goPage('${pageNum - perPage}')" class="btn_prev">Prev</a></div> <!-- 이전버튼 -->
+    </c:if> --%>
+    
+    <%-- <div class="pages"> <!-- 페이징 처리[1,2,3,4,5......] -->
 	    <c:forEach var="boundaryStart" varStatus="status" begin="0" end="${totalCount - 1}" step="${perPage}">
 	        <c:choose>
 	            <c:when test="${status.count>0 && status.count != pageIndex}">
@@ -319,13 +330,22 @@
 				</c:otherwise>
 	        </c:choose>
 	    </c:forEach>
-	</div>
+	</div --> --%>
+	 
+    <div class="control"> 
+		<c:if test="${ pageNum < totalPages }">    
+    		<a href="#" onClick="goPage('${pageNum + 1}')" class="btn_next">next</a>
+    	</c:if>
+		<c:if test="${ pageNum eq totalPages || pageNum > totalPages }"> 
+    		<a class="btn_next">next</a>
+    	</c:if>
+    </div> <!-- 다음버튼 -->
 
-    <c:if test="${empty pageNum || pageNum<(totalCount-perPage)}">
+    <%-- <c:if test="${empty pageNum || pageNum<(totalCount-perPage)}">
          <div class="control">
          	<a href="#" onClick="goPage('${pageNum + perPage}')" class="btn_next">next</a>
          </div> <!-- 다음버튼 -->
-    </c:if>
+    </c:if> --%>
     </div>
 </div>
 					
@@ -444,7 +464,7 @@
 		
 		// 페이지 이동
 		function goPage(pageNum) {
-			alert("page = " + pageNum);
+			//alert("page = " + pageNum);
 			var mamCook 	= null;
 			var hiddenHis 	= null;
 			mamCook = $.cookies.get('mamsCookie');
