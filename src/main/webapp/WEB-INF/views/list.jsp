@@ -13,7 +13,7 @@
 	<link rel="Stylesheet" type="text/css" href="./resources/common/css/common.css" />
 </head>
 <body>
-	<div class="wrapper">
+	<div class="wrapper"> 
       
     	<!-- my movie -->         
         <div class="my_movie">
@@ -104,7 +104,7 @@
 						</ul>
 					</div>
 				</div>
-				<!-- //header_bottom end -->
+				<!-- //header_bottom end    -->
 				<!-- gnb -->
 				<div id="gnb">
 					<ul>
