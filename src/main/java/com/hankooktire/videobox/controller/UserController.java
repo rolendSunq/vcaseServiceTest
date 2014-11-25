@@ -1,8 +1,5 @@
-package com.hankooktire.mams;
+package com.hankooktire.videobox.controller;
 
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -19,10 +16,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.airensoft.skovp.utils.common.UnitUtils;
 import com.airensoft.skovp.utils.ovpconnector.OMSConfig;
@@ -35,13 +30,13 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.hankooktire.service.OvpService;
+import com.hankooktire.videobox.service.OvpService;
 
 /**
  * Handles requests for the application home page.
  */
 @Controller
-public class HomeController {
+public class UserController {
 
 	@Autowired
 	OMSConnectorResponse omsResponder;
@@ -54,7 +49,7 @@ public class HomeController {
 	 * Simply selects the home view to render by returning its name.
 	 */
 	@RequestMapping(value = "/")
-	public String mamHome(Model model) {
+	public String videoBoxHome(Model model) {
 		List<Object> result = new ArrayList<Object>();
 		Map<String, Object> oneStreamPlay = new HashMap<String, Object>();
 		int objectCount = 0;

@@ -384,7 +384,7 @@ public class HttpConnectable implements HttpConnector {
 				fileBody = new FileBody(this.uploadFile, "application/octect-stream");
 			}
 
-			multipartEntity.addPart("attachment", fileBody);
+			multipartEntity.addPart("file", fileBody);
 
 			httpEntity = multipartEntity;
 		} else if (this.requestBody != null) {

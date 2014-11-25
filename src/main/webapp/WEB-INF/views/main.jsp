@@ -333,7 +333,7 @@
 	    	<div class="dow_layer">
 	        	<div class="dow_layer_con">
 	            	<ul>
-	                	<li class="mb5">ID : 2014cvrw001800000255</li>
+	                	<li class="mb5">ID : </li>
 	                    <li>region : korea</li>
 	                </ul>
 	                <hr />

@@ -1,4 +1,4 @@
-package com.hankooktire.service;
+package com.hankooktire.videobox.service;
 
 import java.io.IOException;
 import java.util.List;

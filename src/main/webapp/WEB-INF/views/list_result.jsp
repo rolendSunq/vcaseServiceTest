@@ -111,63 +111,21 @@
 					<ul>
 						<li class="first menu menu1">
 							<a class="">Corporation</a>
-							<div>
-								<ul class="depth2">
-									<li><a>Video</a></li>
-									<li><a>Image</a></li>
-									<li><a>Other</a></li>
-								</ul>
-							</div>
 						</li>
 						<li class="menu menu2">
 							<a class="">Advertisements</a>
-							<div>
-								<ul class="depth2">
-									<li><a>Video</a></li>
-									<li><a>Image</a></li>
-									<li><a>Other</a></li>
-								</ul>
-							</div>
 						</li>
 						<li class="menu menu3">
 							<a class="">Products</a>
-							<div>
-								<ul class="depth2">
-									<li><a>Video</a></li>
-									<li><a>Image</a></li>
-									<li><a>Other</a></li>
-								</ul>
-							</div>
 						</li>
 						<li class="menu menu4">
 							<a class="">Motorsports</a>
-							<div>
-								<ul class="depth2">
-									<li><a>Video</a></li>
-									<li><a>Image</a></li>
-									<li><a>Other</a></li>
-								</ul>
-							</div>
 						</li>
 						<li class="menu menu5">
 							<a class="">Events</a>
-							<div>
-								<ul class="depth2">
-									<li><a>Video</a></li>
-									<li><a>Image</a></li>
-									<li><a>Other</a></li>
-								</ul>
-							</div>
 						</li>
 						<li class="last menu menu6">
 							<a class="">Others</a>
-							<div>
-								<ul class="depth2">
-									<li><a>Video</a></li>
-									<li><a>Image</a></li>
-									<li><a>Other</a></li>
-								</ul>
-							</div>
 						</li>
 					</ul>
 				</div>

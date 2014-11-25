@@ -10,10 +10,13 @@ public class OMSConfig {
 	public static final String OVP_PUBLISH_DOWNLOAD_CONTENT = "/publish/download/content";
 	public static final String OVP_PUBLISH_STREAMING_CONTENT = "/publish/streaming/content";
 
+	// PLAYLIST
+	public static final String OVP_PLAYLIST = "/playlist";
+	public static final String OVP_PLAYLIST_INNER_CONTENT_BINDING = OVP_PLAYLIST + "/content";
+	
 	// PLAYER 광고
 	public static final String OVP_PLAYER_AD = "/player/%s/ad";
 
-	// FILE API URN
 	public static String getAccessToken() {
 		return GlobalObject.getInstance().getProperty("skovp.access_token", "");
 	}

@@ -203,10 +203,6 @@ $(function() {
 	$('.my_movie').set_my_movie();
 	//my movie setting end
 	
-	$('#mamsHome').click(function() {
-		$(location).attr('href', '/mams');
-	});
-	
 	$('a[class="download_btn"]').click(function(){
 		$('.dow_layer').show();
 		$('.dow_layer_close').click(function(){
@@ -225,6 +221,11 @@ $(function() {
 			$(this).css('cursor', 'default');
 		}
 	);
+	
+	// videoBox 이미지 클릭
+	$('#mamsHome').click(function() {
+		$(location).attr('href', '/videoBox');
+	});
 	
 	// 좌측 사이드의 'MY MOVIE'이미지 클릭
 	$('#myMovies').click(function() {
@@ -264,11 +265,11 @@ $(function() {
 		$.getJSON('contentInfo', {"contentId":contentId}, function(data){
 			var decodeFileName = decodeURIComponent(data.fileName);
 			var fileName = decodeFileName.replace(/\+/g, ' ');
-			console.log('downloadUrl', data.downloadUrl);
-			var aTag = $('<a></a>').attr({'href':data.downloadUrl,'id':'getTheFile','data-contentId':contentId}).append('<img src="./resources/images/common/icon_mp4.png" alt="download"/>' + fileName);
-			var ddTag = $('<dd></dd>').append(aTag);
+			var aTag = $('<a id="fileFormat"></a>').attr({'href':data.downloadUrl,'id':'getTheFile','data-contentId':contentId}).append('<img src="./resources/images/common/icon_mp4.png" alt="download"/>' + fileName);
+			ddTag = $('<dd></dd>').append(aTag);
 			$("#downloadUrl").append();
-			$("#downloadUrl").after(ddTag);
+			$("#downloadUrl").append(ddTag);
+			/*
 			$("#contentType").text('Contents Type : ' + data.mediaType);
 			$("#size").text('Size : ' + data.size);
 			$("#videoFormat").text('Video Format : ' + data.videoFormat);
@@ -279,6 +280,7 @@ $(function() {
 			$("#audioBps").text('Audio bps : ' + data.audioBps);
 			$("#channel").text('Audio channel : ' + data.audioChannel);
 			$("#hz").text('Audio Hz : ' + data.audioHz);
+			*/
 		});
 	});
 	

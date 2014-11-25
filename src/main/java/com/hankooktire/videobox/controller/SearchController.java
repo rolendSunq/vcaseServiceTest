@@ -1,4 +1,4 @@
-package com.hankooktire.mams;
+package com.hankooktire.videobox.controller;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.airensoft.skovp.vo.MovieContentVO;
 import com.google.gson.Gson;
-import com.hankooktire.service.OvpService;
+import com.hankooktire.videobox.service.OvpService;
 
 @Controller
 public class SearchController {

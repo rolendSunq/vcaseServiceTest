@@ -1,4 +1,4 @@
-package com.hankooktire.service;
+package com.hankooktire.videobox.service;
 
 import java.io.File;
 import java.io.IOException;
@@ -125,17 +125,15 @@ public class OvpServiceImpl implements OvpService {
 	@Override
 	public void contentFileUpload(FileVO fileVO) throws IllegalStateException, IOException {
 		StringBuffer sb = new StringBuffer();
-		sb.append("\"[");
+		sb.append("[");
 		sb.append("\"catagory:" + fileVO.getCategory() + "\",");
 		sb.append("\"year:" + fileVO.getYear() + "\",");
 		sb.append("\"type:" + fileVO.getType() + "\",");
 		sb.append("\"region:" + fileVO.getRegion() + "\",");
 		sb.append("\"official:" + fileVO.getOfficial() + "\"");
-		sb.append("]\"");
-		System.out.println(sb.toString());
-		System.out.println(fileVO.getFile().getOriginalFilename());
+		sb.append("]");
 		omsResponder = omsConnector.requestFileUpload(multipartToFile(fileVO.getFile()), 
-				fileVO.getFile().getOriginalFilename(), fileVO.getDescription(), fileVO.getTitle(), "1300000203", sb.toString());
+				null, fileVO.getDescription(), fileVO.getTitle(), "1300000203", sb.toString());
 		System.out.println(omsResponder.toString());
 	}
 	
@@ -147,7 +145,7 @@ public class OvpServiceImpl implements OvpService {
 	
 	private File multipartToFile(MultipartFile multipart) throws IllegalStateException, IOException 
 	{
-	        File convFile = new File( multipart.getOriginalFilename());
+	        File convFile = new File(multipart.getOriginalFilename());
 	        multipart.transferTo(convFile);
 	        return convFile;
 	}

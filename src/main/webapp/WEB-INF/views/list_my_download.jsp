@@ -122,10 +122,6 @@
 						</li>
 						<li class="menu menu5">
 							<a class="" >Events</a>
-							<div>
-								<ul class="depth2">
-								</ul>
-							</div>
 						</li>
 						<li class="last menu menu6">
 							<a class="" >Others</a>
@@ -165,11 +161,12 @@
 									<input class="hide" type="text" value="" />
 									<!-- li 안의 a 태그를 클릭하면 input 태그 안의 value에 해당 값이 들어가도록 개발해주시면 됩니다. -->
 									<ul>
-										<li><a >region</a></li>
-										<li><a >Contents</a></li>
-										<li><a >Size</a></li>
-                                        <li><a >Video Format</a></li>
-                                        <li><a >Video Codec</a></li>
+										<li id="regions"><a>Europe</a></li>
+										<li id="regions"><a>America</a></li>
+										<li id="regions"><a>Middle East & Africa</a></li>
+                                        <li id="regions"><a>AsiaPacific</a></li>
+                                        <li id="regions"><a>China</a></li>
+                                        <li id="regions"><a>Korea</a></li>
 									</ul>
 								</div>
 							</div>

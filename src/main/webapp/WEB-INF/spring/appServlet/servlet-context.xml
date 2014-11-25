@@ -57,8 +57,8 @@
 	
 	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
 	
-	<context:component-scan base-package="com.hankooktire.mams" />
-	<context:component-scan base-package="com.hankooktire.service" />
+	<context:component-scan base-package="com.hankooktire.videobox.controller" />
+	<context:component-scan base-package="com.hankooktire.videobox.service" />
 	
 	
 	

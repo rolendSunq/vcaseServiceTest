@@ -140,6 +140,7 @@ public class OMSConnector extends HttpConnectable {
 	// 콘텐트 파일 업로드
 	public OMSConnectorResponse requestFileUpload(File file, String fileName, String fileDescription, String title, String playListIds, String tagList) {
 		clear();
+		setHost("http://upload.vcase.myskcdn.com/v1");
 		setProtocol("http");
 		setMethod("POST");
 		setUploadFile(file, fileName, fileDescription);
@@ -147,7 +148,7 @@ public class OMSConnector extends HttpConnectable {
 		addParam("title", title);
 		addParam("description", fileDescription);
 		addParam("playlist_ids", playListIds);
-		this.paramData.put("tags", tagList);
+		addParam("tags", tagList);
 		return requestAPI();
 	}
 	

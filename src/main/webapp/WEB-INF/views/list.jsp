@@ -149,11 +149,11 @@
 					</div> -->   
                     <div class="location"><span>Corporation</span>&nbsp;&gt;&nbsp;<span class="present">Video</span></div>
 					<div class="list_top">
-						<!-- <ul class="sort_count">
+						<ul class="sort_count">
 							<li class="list20"><a>20개씩 보기</a></li>
 							<li class="list15"><a>15개씩 보기</a></li>
 							<li class="list10"><a>10개씩 보기</a></li>
-						</ul> -->
+						</ul>
 						<div class="list_top_right">
 							<div class="by first">
 								<span>Filter by</span>
@@ -162,11 +162,12 @@
 									<input class="hide" type="text" value="" />
 									<!-- li 안의 a 태그를 클릭하면 input 태그 안의 value에 해당 값이 들어가도록 개발해주시면 됩니다. -->
 									<ul>
-										<li><a >region</a></li>
-										<li><a >Contents</a></li>
-										<li><a >Size</a></li>
-                                        <li><a >Video Format</a></li>
-                                        <li><a >Video Codec</a></li>
+										<li id="regions"><a>Europe</a></li>
+										<li id="regions"><a>America</a></li>
+										<li id="regions"><a>Middle East & Africa</a></li>
+                                        <li id="regions"><a>AsiaPacific</a></li>
+                                        <li id="regions"><a>China</a></li>
+                                        <li id="regions"><a>Korea</a></li>
 									</ul>
 								</div>
 							</div>
