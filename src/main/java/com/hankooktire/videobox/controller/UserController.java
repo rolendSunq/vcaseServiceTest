@@ -51,21 +51,15 @@ public class UserController {
 	@RequestMapping(value = "/")
 	public String videoBoxHome(Model model) {
 		
-		System.out.println("1.###################### loading.... #######################");
-		
 		List<Object> result = new ArrayList<Object>();
 		Map<String, Object> oneStreamPlay = new HashMap<String, Object>();
 		int objectCount = 0;
-		System.out.println("2.###################### loading.... #######################");
 		
 		// RequestContentList args: String media_type, String file_type, String state, String search_type, String search, Integer search_start_date, Integer search_end_date, Integer page, Integer page_size, String sort, String order, boolean with_extra	
 		omsResponder = omsConnector.RequestContentList("video", null, null, null, null, null, null, null, null, "reg_date", null, true, true);
 		JsonElement resultElement = omsResponder.getRootDataElement();
 		JsonArray contentJsonArray = resultElement.getAsJsonObject().get("content").getAsJsonArray();
-		System.out.println("3.###################### loading.... #######################");
 		for (int i = 0; i < contentJsonArray.size(); i++) {
-			
-			System.out.println(i+".###################### loading.... #######################");
 			
 			Map<String, Object> map = new HashMap<String, Object>();
 			JsonElement element = contentJsonArray.get(i);
@@ -81,7 +75,6 @@ public class UserController {
 				// 업로드가 완료된 미디어만 View에 출력하도록 한다.
 				JsonArray trscdJsonArray = element.getAsJsonObject().get("extra").getAsJsonObject().get("transcodes").getAsJsonArray();
 				for (int j = 0; j < trscdJsonArray.size(); j++) {
-					System.out.println(j+".###################### loading.... #######################");
 					JsonElement trscdElement = trscdJsonArray.get(j);
 					
 					// 업로드가 완료된 미디어만 View에 출력하도록 한다.
@@ -137,7 +130,6 @@ public class UserController {
 				}
 			}
 		}
-		System.out.println("END.###################### loading.... #######################");
 		ovpService.popularList(model);
 		String streamingUrl = getStreamPlayUrl((Integer)oneStreamPlay.get("content_id"));
 		
@@ -145,8 +137,6 @@ public class UserController {
 		model.addAttribute("streamingUrl", streamingUrl);
 		model.addAttribute("oneStreamPlay", oneStreamPlay);
 		model.addAttribute("player_id", OMSConfig.getPlayerId());
-		
-		System.out.println("END.###################### loading.... success #######################");
 		
 		return "main";
 	}
