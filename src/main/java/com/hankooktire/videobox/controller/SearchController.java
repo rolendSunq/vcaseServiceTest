@@ -24,10 +24,7 @@ public class SearchController {
 		if (historyList.length() != 0) {
 			String[] myHistory= new Gson().fromJson(historyList, String[].class);
 			
-			String sort = request.getParameter("sort"); //정렬을 위한 변수[Upload date, View count]
-			if ( sort == null ) {
-				sort = "title";
-			}
+			
 			
 			//########################## 페이징 처리 추가부분 [start] ########################## 
 			String pageNum = request.getParameter("pageNum");//화면에 표시할 페이지번호
@@ -35,9 +32,6 @@ public class SearchController {
 			if (pageNum == null) {//페이지번호가 없으면
 				pageNum = "1";//1페이지의 내용이 화면에 표시
 			}
-			
-			
-			
 			//########################## 페이징 처리 추가부분 [end] ########################## 
 			
 			List<String> originHistoryList = ovpService.getOriginList(myHistory);
@@ -48,7 +42,12 @@ public class SearchController {
 			model.addAttribute("history", hisList);
 		}
 		
-		int totalCnt = ovpService.searchMovie(searchTitle, model); //통합검색 
+		String sort = request.getParameter("sort"); //정렬을 위한 변수[Upload date, View count]
+		if ( sort == null ) {
+			sort = "title";
+		}
+		
+		int totalCnt = ovpService.searchMovie(searchTitle, model, sort); //통합검색 
 		
 		model.addAttribute("totalCount", totalCnt); //총 갯수
 		model.addAttribute("searchValue", searchTitle);

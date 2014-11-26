@@ -251,20 +251,15 @@ public class UserController {
 	@RequestMapping(value = "listDetail")
 	public String moveListDetailView(@RequestParam("historyList") String historyList, Model model, HttpServletRequest request ) {
 			String[] trscdlst = new Gson().fromJson(historyList, String[].class);
-			System.out.println("1.###################### loading.... #######################");
 			String sort = request.getParameter("sort"); //정렬을 위한 변수[Upload date, View count]
 			if ( sort == null ) {
 				sort = "title";
 			}
-			System.out.println("2.###################### loading.... #######################");
 			
 			List<String> historylst = getOrignList(trscdlst);
-			System.out.println("3.###################### loading.... #######################");
 			List<Object> history = getList(historylst);
-			System.out.println("4.###################### loading.... #######################");
 			
 			List<Object> thumbNailList = getThumbNailList( sort ); ////썸네일 
-			System.out.println("5.###################### loading.... #######################");
 			
 			//########################## 페이징 처리 추가부분 [start] ########################## 
 			String pageNum = request.getParameter("pageNum");//화면에 표시할 페이지번호
@@ -273,14 +268,12 @@ public class UserController {
 				pageNum = "1";//1페이지의 내용이 화면에 표시
 			}
 			
-			System.out.println("6.###################### loading.... #######################");
 			model.addAttribute("pageNum", pageNum); //화면에 표시할 페이지번호
 			model.addAttribute("totalCount", getThumbNailListCount()); //카운트 갯수
 			//########################## 페이징 처리 추가부분 [end] ########################## 
 			
 			model.addAttribute("list", thumbNailList);
 			model.addAttribute("history", history);
-			System.out.println("end.###################### loading.... success #######################");
 			
 			return "list";
 	}

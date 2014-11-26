@@ -349,33 +349,9 @@
     	</c:if>
     </div> <!-- 다음버튼 -->
 
-    <%-- <c:if test="${empty pageNum || pageNum<(totalCount-perPage)}">
-         <div class="control">
-         	<a href="#" onClick="goPage('${pageNum + perPage}')" class="btn_next">next</a>
-         </div> <!-- 다음버튼 -->
-    </c:if> --%>
     </div>
 </div>
-					
-					
-					<!-- div class="list_bottom mb50">
-						<div class="count">
-							<span class="now">1 - 15</span> of 35
-						</div>
-						<div class="page_control">
-							<div class="control"><a class="btn_prev">previous</a></div>
-							<div class="pages">
-								<a class="on">1</a>
-								<a>2</a>
-								<a>3</a>
-								<a>4</a>
-							</div>
-							<div class="control"><a class="btn_next">next</a></div>
-						</div>
-					</div -->
 <!-- 페이징 처리 [end] -->	
-				
-					
 				</div>
 				<!-- //popular movie -->
 

@@ -177,17 +177,17 @@
 									<a id="showSelected">Select</a>
 									<input class="hide" type="text" value="" />
 									<ul>
-										<li id="selected"><a>Upload date</a></li>
-										<li id="selected"><a>View count</a></li>
+										<li><a href="#" onClick="sortPage('mod_date','${searchValue }')">Upload date</a></li> <!-- 수정일 -->   
+										<li><a href="#" onClick="sortPage('view_count','${searchValue }')">View count </a></li> <!-- 추후변경 -->
 									</ul>
 								</div>
 							</div>
 						</div>
 					</div>
-					
+					 
 					<!-- content 영역[start] -->  
 					<c:set var="totalCount" scope="session" value="${totalCount}"/> <!-- 전체 글 수 --> 
-				    <c:set var="perPage" scope="session" value="5"/>  <!-- 현재페이지 글 수 -->              
+				    <c:set var="perPage" scope="session" value="20"/>  <!-- 현재페이지 글 수 -->               
 				    <c:set var="totalPages" scope="session" value="${totalCount/perPage}"/> <!-- 전체 페이지 block -->
 				    <c:set var="pageIndex" scope="session" value="${pageNum/perPage+1}"/>
 				    
@@ -444,6 +444,20 @@
 			hiddenHis = $('<input>').prop({'type':'hidden','name':'historyList','value':JSON.stringify(mamCook.myHistory)});
 			hiddenSer 	= $('<input>').prop({'type':'hidden','name':'searchTitle','value': searchValue } );
 			$('<form></form>').prop({'method':'POST','action':'search'}).append(hiddenSer).append(hiddenHis).append(hiddenPag).append('body').submit();
+		}
+		
+		//selected(정렬) 영역 조회
+		function sortPage( sort, searchValue ) {
+			var mamCook		= null;
+			var hiddenHis	= null; 
+			var hiddenPag	= null;
+			var hiddenSer	= null;
+			var hiddenSor	= null; 
+			mamCook = $.cookies.get('mamsCookie');
+			hiddenHis = $('<input>').prop({'type':'hidden','name':'historyList','value':JSON.stringify(mamCook.myHistory)});
+			hiddenSer = $('<input>').prop({'type':'hidden','name':'searchTitle','value': searchValue } );
+			hiddenSor = $('<input>').prop({'type':'hidden','name':'sort','value': sort } );    
+			$('<form></form>').prop({'method':'POST','action':'search'}).append(hiddenSor).append(hiddenSer).append(hiddenHis).append(hiddenPag).append('body').submit();
 		}
 	</script>
 </body>
