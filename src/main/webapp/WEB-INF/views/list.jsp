@@ -92,8 +92,8 @@
 					<div class="header_search">
 						<form class="search_form">
 							<label for="search" class="hide">아이디</label>
-							<input id="search" name="mb_id" type="text" class="search_go" />
-							<button class="search_btn">search</button>
+							<input type="text" id="search" name="searchTitle" class="search_go" />
+							<button class="search_btn">search</button> 
 						</form>
 					</div>
 					<div class="personal_menu">
