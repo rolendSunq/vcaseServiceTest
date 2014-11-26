@@ -48,13 +48,15 @@ public class OvpServiceImpl implements OvpService {
 	}
 
 	@Override
-	public void searchMovie(String searchWord, Model model) {
+	public int searchMovie(String searchWord, Model model) {
 		omsConnector.clear();
 		omsResponder = omsConnector.RequestContentList("video", "origin", "cmplit", "title", searchWord, 0, 0, 0, 20, "title", "asc", true, false);
 		int count = omsResponder.getRootDataElement().getAsJsonObject().get("total_count").getAsInt();
 		List<MovieContentVO> searchResult = mappingContentData(omsResponder);
 		model.addAttribute("totalCnt", count);
 		model.addAttribute("searchResult", searchResult);
+		
+		return count;
 	}
 	
 	private List<MovieContentVO> mappingContentData(OMSConnectorResponse omsResp) {

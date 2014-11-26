@@ -179,7 +179,7 @@
 									<ul>
 										<li><a >Select</a></li>
 										<li><a href="#" onClick="sortPage('mod_date')">Upload date</a></li> <!-- 수정일 -->   
-										<li><a href="#" onClick="sortPage('custom_id')">View count </a></li> <!-- 추후변경 -->
+										<li><a href="#" onClick="sortPage('view_count')">View count </a></li> <!-- 추후변경 -->
 									</ul>
 								</div>
 							</div>

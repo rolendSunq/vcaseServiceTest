@@ -50,15 +50,23 @@ public class UserController {
 	 */
 	@RequestMapping(value = "/")
 	public String videoBoxHome(Model model) {
+		
+		System.out.println("1.###################### loading.... #######################");
+		
 		List<Object> result = new ArrayList<Object>();
 		Map<String, Object> oneStreamPlay = new HashMap<String, Object>();
 		int objectCount = 0;
+		System.out.println("2.###################### loading.... #######################");
 		
 		// RequestContentList args: String media_type, String file_type, String state, String search_type, String search, Integer search_start_date, Integer search_end_date, Integer page, Integer page_size, String sort, String order, boolean with_extra	
 		omsResponder = omsConnector.RequestContentList("video", null, null, null, null, null, null, null, null, "reg_date", null, true, true);
 		JsonElement resultElement = omsResponder.getRootDataElement();
 		JsonArray contentJsonArray = resultElement.getAsJsonObject().get("content").getAsJsonArray();
+		System.out.println("3.###################### loading.... #######################");
 		for (int i = 0; i < contentJsonArray.size(); i++) {
+			
+			System.out.println(i+".###################### loading.... #######################");
+			
 			Map<String, Object> map = new HashMap<String, Object>();
 			JsonElement element = contentJsonArray.get(i);
 
@@ -73,6 +81,7 @@ public class UserController {
 				// 업로드가 완료된 미디어만 View에 출력하도록 한다.
 				JsonArray trscdJsonArray = element.getAsJsonObject().get("extra").getAsJsonObject().get("transcodes").getAsJsonArray();
 				for (int j = 0; j < trscdJsonArray.size(); j++) {
+					System.out.println(j+".###################### loading.... #######################");
 					JsonElement trscdElement = trscdJsonArray.get(j);
 					
 					// 업로드가 완료된 미디어만 View에 출력하도록 한다.
@@ -128,6 +137,7 @@ public class UserController {
 				}
 			}
 		}
+		System.out.println("END.###################### loading.... #######################");
 		ovpService.popularList(model);
 		String streamingUrl = getStreamPlayUrl((Integer)oneStreamPlay.get("content_id"));
 		
@@ -135,7 +145,9 @@ public class UserController {
 		model.addAttribute("streamingUrl", streamingUrl);
 		model.addAttribute("oneStreamPlay", oneStreamPlay);
 		model.addAttribute("player_id", OMSConfig.getPlayerId());
-
+		
+		System.out.println("END.###################### loading.... success #######################");
+		
 		return "main";
 	}
 
@@ -239,15 +251,20 @@ public class UserController {
 	@RequestMapping(value = "listDetail")
 	public String moveListDetailView(@RequestParam("historyList") String historyList, Model model, HttpServletRequest request ) {
 			String[] trscdlst = new Gson().fromJson(historyList, String[].class);
-			
+			System.out.println("1.###################### loading.... #######################");
 			String sort = request.getParameter("sort"); //정렬을 위한 변수[Upload date, View count]
 			if ( sort == null ) {
 				sort = "title";
 			}
+			System.out.println("2.###################### loading.... #######################");
 			
 			List<String> historylst = getOrignList(trscdlst);
+			System.out.println("3.###################### loading.... #######################");
 			List<Object> history = getList(historylst);
+			System.out.println("4.###################### loading.... #######################");
+			
 			List<Object> thumbNailList = getThumbNailList( sort ); ////썸네일 
+			System.out.println("5.###################### loading.... #######################");
 			
 			//########################## 페이징 처리 추가부분 [start] ########################## 
 			String pageNum = request.getParameter("pageNum");//화면에 표시할 페이지번호
@@ -256,14 +273,14 @@ public class UserController {
 				pageNum = "1";//1페이지의 내용이 화면에 표시
 			}
 			
-			int pageCount = thumbNailList.size(); //전체 글 수
+			System.out.println("6.###################### loading.... #######################");
 			model.addAttribute("pageNum", pageNum); //화면에 표시할 페이지번호
-			model.addAttribute("pageCount", pageCount); //전체 글 수
+			model.addAttribute("totalCount", getThumbNailListCount()); //카운트 갯수
 			//########################## 페이징 처리 추가부분 [end] ########################## 
 			
-			model.addAttribute("totalCount", getThumbNailListCount()); //카운트 갯수
 			model.addAttribute("list", thumbNailList);
 			model.addAttribute("history", history);
+			System.out.println("end.###################### loading.... success #######################");
 			
 			return "list";
 	}
@@ -614,6 +631,8 @@ public class UserController {
 		}
 		return result;
 	}
+	
+	
 	
 	private int getThumbNailListCount() {
 		omsConnector.clear();
