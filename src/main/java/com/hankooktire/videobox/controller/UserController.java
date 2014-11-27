@@ -50,6 +50,7 @@ public class UserController {
 	 */
 	@RequestMapping(value = "/")
 	public String videoBoxHome(Model model) {
+		
 		List<Object> result = new ArrayList<Object>();
 		Map<String, Object> oneStreamPlay = new HashMap<String, Object>();
 		int objectCount = 0;
@@ -57,11 +58,12 @@ public class UserController {
 		// RequestContentList args: String media_type, String file_type, String state, String search_type, String search, Integer search_start_date, Integer search_end_date, Integer page, Integer page_size, String sort, String order, boolean with_extra	
 		omsResponder = omsConnector.RequestContentList("video", null, null, null, null, null, null, null, null, "reg_date", null, true, true);
 		JsonElement resultElement = omsResponder.getRootDataElement();
+		
 		JsonArray contentJsonArray = resultElement.getAsJsonObject().get("content").getAsJsonArray();
 		for (int i = 0; i < contentJsonArray.size(); i++) {
+			
 			Map<String, Object> map = new HashMap<String, Object>();
 			JsonElement element = contentJsonArray.get(i);
-
 			// 업로드 완료된 미디어 : cmplt = complete
 			String state = element.getAsJsonObject().get("state").getAsString();
 			
@@ -69,18 +71,15 @@ public class UserController {
 			if (state.equals("cmplt")) {
 				
 				map.put("title", element.getAsJsonObject().get("title").getAsString());
-
 				// 업로드가 완료된 미디어만 View에 출력하도록 한다.
 				JsonArray trscdJsonArray = element.getAsJsonObject().get("extra").getAsJsonObject().get("transcodes").getAsJsonArray();
 				for (int j = 0; j < trscdJsonArray.size(); j++) {
 					JsonElement trscdElement = trscdJsonArray.get(j);
-					
 					// 업로드가 완료된 미디어만 View에 출력하도록 한다.
 					String trscdState = trscdElement.getAsJsonObject().get("state").getAsString();
 					
 					if (trscdState.equals("cmplt")) {
 						Integer jobProfileId = trscdElement.getAsJsonObject().get("job_profile_id").getAsInt();
-						
 						if (jobProfileId.equals(OMSConfig.getJobProfileId())) {
 
 							//재생시간
@@ -102,12 +101,17 @@ public class UserController {
 							JsonObject staticObject = trscdElement.getAsJsonObject().get("static_url").getAsJsonObject();
 							String downloadUrl = staticObject.getAsJsonObject().get("download_url").getAsString();
 							map.put("downloadUrl", downloadUrl);
-							// 섬네일 ID
-							int thumbnailMediaId = element.getAsJsonObject().get("extra").getAsJsonObject().get("thumbnails").getAsJsonArray().get(1).getAsJsonObject().get("content_id").getAsInt();
-							omsConnector.clear();
-							omsResponder = omsConnector.RequestPulbishDownloadContent(thumbnailMediaId);
-							String thumb_url = omsResponder.getRootDataElement().getAsJsonObject().get("url").getAsString();
-							map.put("thumb_url", thumb_url);
+							
+							// 섬네일 url 추출
+							JsonArray thumbArry = element.getAsJsonObject().get("extra").getAsJsonObject().get("thumbnails").getAsJsonArray();
+							for (JsonElement jsonElement : thumbArry) {
+								boolean isStill = jsonElement.getAsJsonObject().get("is_still").getAsBoolean();
+								if (isStill) {
+									JsonObject staticUrl = jsonElement.getAsJsonObject().get("static_url").getAsJsonObject();
+									String thumb_url = staticUrl.getAsJsonObject().get("download_url").getAsString();
+									map.put("thumb_url", thumb_url);
+								}
+							}
 
 							// streaming Url : streaming_url에 사용됨 (with_static_url) 인자에 true값을 넣어야 데이터가 생성
 							JsonObject staticUrlObject = trscdElement.getAsJsonObject().get("static_url").getAsJsonObject();
@@ -129,10 +133,8 @@ public class UserController {
 			}
 		}
 		ovpService.popularList(model);
-		String streamingUrl = getStreamPlayUrl((Integer)oneStreamPlay.get("content_id"));
 		
 		model.addAttribute("list", result);
-		model.addAttribute("streamingUrl", streamingUrl);
 		model.addAttribute("oneStreamPlay", oneStreamPlay);
 		model.addAttribute("player_id", OMSConfig.getPlayerId());
 
@@ -179,37 +181,27 @@ public class UserController {
 	// detail 페이지 이동
 	@RequestMapping(value = "detail") 
 	public String moveDetailView(HttpServletRequest request, @RequestParam("content_id") int content_id, @RequestParam("thumbUrl") String thumbUrl, Model model) {
+		String pageNum = request.getParameter("pageNum");
+		if (pageNum == null) {
+			pageNum = "0";
+		}
 		String historyList = (String)request.getParameter("historyList");
-		Long start = System.currentTimeMillis();
 		JsonObject result = getInfo(content_id);
-		System.out.println("1  " + (System.currentTimeMillis() - start));
-		start = System.currentTimeMillis();
 		// auto Streaming Play Info
 		Map<String, String> map = getPlayContentInfo(result, false);
-		System.out.println("2  " + (System.currentTimeMillis() - start));
-		start = System.currentTimeMillis();
+		String sort = request.getParameter("sort"); //정렬을 위한 변수[Upload date, View count]
+		if ( sort == null ) {
+			sort = "title";
+		}
 		// 좌측 컨텐츠 thumb nail 컨텐츠 리스트
-		List<Object> list = getThumbNailList();
-		System.out.println("3  " + (System.currentTimeMillis() - start));
-		start = System.currentTimeMillis();
-		
+		List<Object> list = getThumbNailList(pageNum);
 		String[] trscdlst = new Gson().fromJson(historyList, String[].class);
 		
-		System.out.println("4  " + (System.currentTimeMillis() - start));
-		start = System.currentTimeMillis();
 		// history list
 		List<String> historylst = getOrignList(trscdlst);
-		
-		System.out.println("5  " + (System.currentTimeMillis() - start));
-		start = System.currentTimeMillis();
 		List<Object> history = getList(historylst);
-		
-		System.out.println("6  " + (System.currentTimeMillis() - start));
-		start = System.currentTimeMillis();
 		String streamingUrl = getStreamPlayUrl(content_id);
 		
-		System.out.println("7  " + (System.currentTimeMillis() - start));
-		start = System.currentTimeMillis();
 		model.addAttribute("history", history);
 		model.addAttribute("oneStreamPlay", map);
 		model.addAttribute("streamingUrl", streamingUrl);
@@ -217,9 +209,7 @@ public class UserController {
 		model.addAttribute("player_id", OMSConfig.getPlayerId());
 		model.addAttribute("list", list);
 		model.addAttribute("totalCount", getThumbNailListCount());
-		
-		System.out.println("8  " + (System.currentTimeMillis() - start));
-		start = System.currentTimeMillis();
+		model.addAttribute("pageNum", pageNum);
 		
 		return "detail";
 	}
@@ -257,23 +247,26 @@ public class UserController {
 	@RequestMapping(value = "listDetail")
 	public String moveListDetailView(@RequestParam("historyList") String historyList, Model model, HttpServletRequest request ) {
 		String[] trscdlst = new Gson().fromJson(historyList, String[].class);
-		List<String> historylst = getOrignList(trscdlst);
-		List<Object> history = getList(historylst);
-		List<Object> thumbNailList = getThumbNailList();
+		String sort = request.getParameter("sort"); //정렬을 위한 변수[Upload date, View count]
+		if ( sort == null ) {
+			sort = "title";
+		}
+		
 		
 		//########################## 페이징 처리 추가부분 [start] ########################## 
 		String pageNum = request.getParameter("pageNum");//화면에 표시할 페이지번호
 		
 		if (pageNum == null) {//페이지번호가 없으면
-			pageNum = "1";//1페이지의 내용이 화면에 표시
+			pageNum = "0";//1페이지의 내용이 화면에 표시
 		}
 		
-		int pageCount = thumbNailList.size(); //전체 글 수
+		List<String> historylst = getOrignList(trscdlst);
+		List<Object> history = getList(historylst);
+		List<Object> thumbNailList = getThumbNailList(pageNum); ////썸네일 
 		model.addAttribute("pageNum", pageNum); //화면에 표시할 페이지번호
-		model.addAttribute("pageCount", pageCount); //전체 글 수
+		model.addAttribute("totalCount", getThumbNailListCount()); //총 콘텐트 갯수
 		//########################## 페이징 처리 추가부분 [end] ########################## 
 		
-		model.addAttribute("cnt", thumbNailList.size()); //카운트 갯수
 		model.addAttribute("list", thumbNailList);
 		model.addAttribute("history", history);
 		
@@ -288,26 +281,10 @@ public class UserController {
 	
 	// File을 업로드 한다.
 	@RequestMapping(value = "/video/fileUpload")
+	@ResponseBody
 	public String uploadFileToDefault(FileVO fileVO) throws IllegalStateException, IOException {
-		System.out.println(fileVO);
-		ovpService.contentFileUpload(fileVO);
-		
-		/*MultipartFile file = fileVO.getFile();
-		 if (!file.isEmpty()) {
-            try {
-                byte[] bytes = file.getBytes();
-                BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(new File(file.getOriginalFilename() + "-uploaded")));
-                stream.write(bytes);
-                stream.close();
-                return "[업로드 성공]: " + file.getOriginalFilename() + " into " + file.getOriginalFilename() + "-uploaded 성공!";
-            } catch (Exception e) {
-                return "[업로드 실패]: " + file.getOriginalFilename() + " => " + e.getMessage();
-            }
-        } else {
-            return "[업로드 실패]: " + file.getOriginalFilename() + " 파일에 대한 오류가 있습니다.";
-        }*/
-        
-		return "redirect:/";
+		System.out.println("file info: " + fileVO);
+		return ovpService.contentFileUpload(fileVO);
 	}
 	
 	// Content Group 생성
@@ -407,69 +384,46 @@ public class UserController {
 		map.put("downloadUrl", downloadUrl);
 		return map;
 	}
+	
 	// thumb nail 과 정보 추출
-	private List<Object> getThumbNailList() {
+	private List<Object> getThumbNailList(String pageNum) {
 		omsConnector.clear();
 		List<Object> result = new ArrayList<Object>();
 		
 		// RequestContentList args: String media_type, String file_type, String state, String search_type, String search, Integer search_start_date, Integer search_end_date, Integer page, Integer page_size, String sort, String order, boolean with_extra	
-		omsResponder = omsConnector.RequestContentList("video", null, null, null, null, null, null, null, null, "reg_date", null, true, false);
+		omsResponder = omsConnector.RequestContentList("video", "orign", "cmplt", null, null, null, null, (pageNum == null) ? null : Integer.parseInt(pageNum), null, "reg_date", null, true, true);
 		JsonElement resultElement = omsResponder.getRootDataElement();
 		JsonArray contentJsonArray = resultElement.getAsJsonObject().get("content").getAsJsonArray();
-		
-		for (int i = 0; i < contentJsonArray.size(); i++) {
+		for (JsonElement jsonElement : contentJsonArray) {
 			Map<String, Object> map = new HashMap<String, Object>();
-			JsonElement element = contentJsonArray.get(i);
-			
-			// 업로드 완료된 미디어 : cmplt = complete
-			String state = element.getAsJsonObject().get("state").getAsString();
-			
-			if (state.equals("cmplt")) {
-				
-				// job 프로파일과 맞은 트랜스코딩 미디어 파일을 찾는다. 없는경우 원본사용
-				map.put("title", element.getAsJsonObject().get("title").getAsString());
+			map.put("title", jsonElement.getAsJsonObject().get("title").getAsString());
+			//재생시간
+			long duration = jsonElement.getAsJsonObject().get("duration").getAsLong();
+			map.put("duration", DateHelper.getHourString(duration) + ":" + DateHelper.getMinuteString(duration) + ":" + DateHelper.getSecondString(duration));
 
-				// 업로드가 완료된 미디어만 View에 출력하도록 한다.
-				JsonArray trscdJsonArray = element.getAsJsonObject().get("extra").getAsJsonObject().get("transcodes").getAsJsonArray();
-				for (int j = 0; j < trscdJsonArray.size(); j++) {
-					JsonElement trscdElement = trscdJsonArray.get(j);
-					
-					// 업로드가 완료된 미디어만 View에 출력하도록 한다.
-					String trscdState = trscdElement.getAsJsonObject().get("state").getAsString();
-					
-					if (trscdState.equals("cmplt")) {
-						Integer jobProfileId = trscdElement.getAsJsonObject().get("job_profile_id").getAsInt();
-						
-						if (jobProfileId.equals(OMSConfig.getJobProfileId())) {
+			// 컨텐츠 파일사이즈차례
+			long file_size = jsonElement.getAsJsonObject().get("file_size").getAsLong();
+			map.put("file_size", UnitUtils.humanReadableByteCount(file_size, false));
 
-							//재생시간
-							long duration = trscdElement.getAsJsonObject().get("duration").getAsLong();
-							map.put("duration", DateHelper.getHourString(duration) + ":" + DateHelper.getMinuteString(duration) + ":" + DateHelper.getSecondString(duration));
+			// 미디어 등록 일자
+			int reg_date = jsonElement.getAsJsonObject().get("reg_date").getAsInt();
+			map.put("reg_date", DateUtils.TimestamptToString(reg_date));
 
-							// 컨텐츠 파일사이즈차례
-							long file_size = trscdElement.getAsJsonObject().get("file_size").getAsLong();
-							map.put("file_size", UnitUtils.humanReadableByteCount(file_size, false));
+			// 미디어 ID
+			int content_id = jsonElement.getAsJsonObject().get("content_id").getAsInt();
+			map.put("content_id", content_id);
 
-							// 미디어 등록 일자
-							int reg_date = trscdElement.getAsJsonObject().get("reg_date").getAsInt();
-							map.put("reg_date", DateUtils.TimestamptToString(reg_date));
-
-							// 미디어 ID
-							int content_id = trscdElement.getAsJsonObject().get("content_id").getAsInt();
-							map.put("content_id", content_id);
-
-							// 섬네일 ID
-							int thumbnailMediaId = element.getAsJsonObject().get("extra").getAsJsonObject().get("thumbnails").getAsJsonArray().get(1).getAsJsonObject().get("content_id").getAsInt();
-							omsConnector.clear();
-							omsResponder = omsConnector.RequestPulbishDownloadContent(thumbnailMediaId);
-							String thumb_url = omsResponder.getRootDataElement().getAsJsonObject().get("url").getAsString();
-							map.put("thumb_url", thumb_url);
-							result.add(map);
-							break;
-						}
-					}
+			// 섬네일 url 추출
+			JsonArray thumbArry = jsonElement.getAsJsonObject().get("extra").getAsJsonObject().get("thumbnails").getAsJsonArray();
+			for (JsonElement thumbElement : thumbArry) {
+				boolean isStill = thumbElement.getAsJsonObject().get("is_still").getAsBoolean();
+				if (isStill) {
+					JsonObject staticUrl = thumbElement.getAsJsonObject().get("static_url").getAsJsonObject();
+					String thumb_url = staticUrl.getAsJsonObject().get("download_url").getAsString();
+					map.put("thumb_url", thumb_url);
 				}
 			}
+			result.add(map);
 		}
 		return result;
 	}

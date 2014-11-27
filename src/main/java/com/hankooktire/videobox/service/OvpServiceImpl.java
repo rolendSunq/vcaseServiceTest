@@ -3,9 +3,9 @@ package com.hankooktire.videobox.service;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
+import javax.swing.plaf.basic.BasicInternalFrameTitlePane.MoveAction;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.airensoft.skovp.utils.common.UnitUtils;
+import com.airensoft.skovp.utils.ovpconnector.OMSConfig;
 import com.airensoft.skovp.utils.ovpconnector.OMSConnector;
 import com.airensoft.skovp.utils.ovpconnector.OMSConnectorResponse;
 import com.airensoft.skovp.utils.time.DateHelper;
@@ -35,7 +36,7 @@ public class OvpServiceImpl implements OvpService {
 	@Override
 	public void popularList(Model model) {
 		omsConnector.clear();
-		omsResponder = omsConnector.requestPopularContentList(0, 0, 0, 5, true, false);
+		omsResponder = omsConnector.requestPopularContentList(0, 0, 0, 5, true, true);
 		List<MovieContentVO> popularList = mappingContentData(omsResponder);
 		model.addAttribute("popularList", popularList);
 	}
@@ -48,35 +49,17 @@ public class OvpServiceImpl implements OvpService {
 	}
 
 	@Override
-	public void searchMovie(String searchWord, Model model) {
+	public int searchMovie(String searchWord, Model model, String sort) {
 		omsConnector.clear();
-		omsResponder = omsConnector.RequestContentList("video", "origin", "cmplit", "title", searchWord, 0, 0, 0, 20, "title", "asc", true, true);
+		omsResponder = omsConnector.RequestContentList("video", "origin", "cmplit", "title", searchWord, 0, 0, 0, 20, sort, "asc", true, true);
 		int count = omsResponder.getRootDataElement().getAsJsonObject().get("total_count").getAsInt();
-		List<MovieContentVO> searchResult = mappingContentData(omsResponder);
+		List<MovieContentVO> searchResult = mappingContentData(omsResponder); 
 		model.addAttribute("totalCnt", count);
 		model.addAttribute("searchResult", searchResult);
+		
+		return count;
 	}
 	
-	private List<MovieContentVO> mappingContentData(OMSConnectorResponse omsResp) {
-		List<MovieContentVO> contentList = new ArrayList<MovieContentVO>();
-		JsonElement resultElement = omsResp.getRootDataElement();
-		JsonArray contentArray = resultElement.getAsJsonObject().get("content").getAsJsonArray();
-		for (JsonElement contentObject : contentArray) {
-			MovieContentVO contentVO = new Gson().fromJson(contentObject, MovieContentVO.class);
-			JsonArray thumbNailArray = contentObject.getAsJsonObject().get("extra").getAsJsonObject().get("thumbnails").getAsJsonArray();
-			for (JsonElement jsonElement : thumbNailArray) {
-				System.out.println("thumbNail: " + jsonElement);
-				boolean isStill = jsonElement.getAsJsonObject().get("is_still").getAsBoolean();
-				int thumbId = 0;
-				if (isStill) {
-					thumbId = jsonElement.getAsJsonObject().get("content_id").getAsInt();
-					contentVO.setThumb_url(getThumbNailUrl(thumbId));
-				}
-			}
-			contentList.add(contentVO);
-		}
-		return contentList;
-	}
 
 	@Override
 	public List<String> getOriginList(String[] trscdList) {
@@ -124,18 +107,18 @@ public class OvpServiceImpl implements OvpService {
 	}
 
 	@Override
-	public void contentFileUpload(FileVO fileVO) throws IllegalStateException, IOException {
+	public String contentFileUpload(FileVO fileVO) throws IllegalStateException, IOException {
 		StringBuffer sb = new StringBuffer();
 		sb.append("[");
-		sb.append("\"catagory:" + fileVO.getCategory() + "\",");
-		sb.append("\"year:" + fileVO.getYear() + "\",");
-		sb.append("\"type:" + fileVO.getType() + "\",");
-		sb.append("\"region:" + fileVO.getRegion() + "\",");
-		sb.append("\"official:" + fileVO.getOfficial() + "\"");
+		sb.append("catagory:" + fileVO.getCategory() + ",");
+		sb.append("year:" + fileVO.getYear() + ",");
+		sb.append("type:" + fileVO.getType() + ",");
+		sb.append("region:" + fileVO.getRegion() + ",");
+		sb.append("official:" + fileVO.getOfficial());
 		sb.append("]");
 		omsResponder = omsConnector.requestFileUpload(multipartToFile(fileVO.getFile()), 
 				null, fileVO.getDescription(), fileVO.getTitle(), "1300000203", sb.toString());
-		System.out.println(omsResponder.toString());
+		return omsResponder.toString();
 	}
 	
 	@Override
@@ -144,11 +127,74 @@ public class OvpServiceImpl implements OvpService {
 		System.out.println(omsResponder.toString());
 	}
 	
-	private File multipartToFile(MultipartFile multipart) throws IllegalStateException, IOException 
-	{
-	        File convFile = new File(multipart.getOriginalFilename());
-	        multipart.transferTo(convFile);
-	        return convFile;
+	@Override
+	public void getAllContentList(Model model) {
+		omsResponder = omsConnector.RequestContentList("video", null, null, null, null, null, null, null, null, "reg_date", null, true, true);
+		JsonElement resultElement = omsResponder.getRootDataElement();
+		JsonArray contentJsonArray = resultElement.getAsJsonObject().get("content").getAsJsonArray();
+		for (JsonElement jsonElement : contentJsonArray) {
+			// 업로드가 완료된 미디어만 View에 출력하도록 한다.
+			String state = jsonElement.getAsJsonObject().get("state").getAsString();
+			if (state.equals("cmplt")) {
+				MovieContentVO movieContentVO = new Gson().fromJson(jsonElement, MovieContentVO.class);
+				JsonObject staticObject = jsonElement.getAsJsonObject().get("static_url").getAsJsonObject();
+				movieContentVO.setDownload_url(staticObject.getAsJsonObject().get("download_url").getAsString());
+				// 섬네일 ID
+				/*
+				int thumbnailMediaId = element.getAsJsonObject().get("extra").getAsJsonObject().get("thumbnails").getAsJsonArray().get(1).getAsJsonObject().get("content_id").getAsInt();
+				omsConnector.clear();
+				omsResponder = omsConnector.RequestPulbishDownloadContent(thumbnailMediaId);
+				String thumb_url = omsResponder.getRootDataElement().getAsJsonObject().get("url").getAsString();
+				map.put("thumb_url", thumb_url);
+
+				// streaming Url : streaming_url에 사용됨 (with_static_url) 인자에 true값을 넣어야 데이터가 생성
+				JsonObject staticUrlObject = jsonElement.getAsJsonObject().get("static_url").getAsJsonObject();
+				JsonArray streamingArray = staticUrlObject.getAsJsonObject().get("streaming").getAsJsonArray();
+				String streamingUrl = streamingArray.get(0).getAsJsonObject().get("url").getAsString();
+				map.put("streamingUrl", streamingUrl);
+				result.add(map);
+				
+				if (objectCount == 0) {
+					oneStreamPlay.putAll(map);
+				}
+				
+				objectCount++;
+				
+				break;
+				ovpService.popularList(model);
+				String streamingUrl = getStreamPlayUrl((Integer)oneStreamPlay.get("content_id"));
+				
+				model.addAttribute("list", result);
+				model.addAttribute("streamingUrl", streamingUrl);
+				model.addAttribute("oneStreamPlay", oneStreamPlay);
+				model.addAttribute("player_id", OMSConfig.getPlayerId());
+		*/
+			}
+		}
+	}
+	
+	private File multipartToFile(MultipartFile multipart) throws IllegalStateException, IOException {
+        File convFile = new File(multipart.getOriginalFilename());
+        multipart.transferTo(convFile);
+        return convFile;
 	}
 
+	private List<MovieContentVO> mappingContentData(OMSConnectorResponse omsResp) {
+		List<MovieContentVO> contentList = new ArrayList<MovieContentVO>();
+		JsonElement resultElement = omsResp.getRootDataElement();
+		JsonArray contentArray = resultElement.getAsJsonObject().get("content").getAsJsonArray();
+		for (JsonElement contentObject : contentArray) {
+			MovieContentVO contentVO = new Gson().fromJson(contentObject, MovieContentVO.class);
+			JsonArray thumbNailArray = contentObject.getAsJsonObject().get("extra").getAsJsonObject().get("thumbnails").getAsJsonArray();
+			for (JsonElement jsonElement : thumbNailArray) {
+				boolean isStill = jsonElement.getAsJsonObject().get("is_still").getAsBoolean();
+				if (isStill) {
+					JsonObject staticUrl = jsonElement.getAsJsonObject().get("static_url").getAsJsonObject();
+					contentVO.setThumb_url(staticUrl.getAsJsonObject().get("download_url").getAsString());
+				}
+			}
+			contentList.add(contentVO);
+		}
+		return contentList;
+	}
 }

@@ -161,34 +161,18 @@ $(function() {
 	$('.detail_link .d_link01').click(function() {
 		if($(this).hasClass('d_link01_on')==true){
 			$(this).removeClass('d_link01_on');
-			$('.d_download').hide();
+			$('#d_download').hide();
 		}else{
 			$(this).addClass('d_link01_on');
-			$('.d_download').show();
+			$('#d_download').show();
 		}
 	});
 	
 	$('.btn_folding').click(function(){
-		$('.d_download').hide();
+		$('#d_download').hide();
 		$(this).parent().prev('.detail_link').find('.d_link01').removeClass('d_link01_on');
 	});
 	//download e
-	//Upload hide And Show start
-	$('.detail_link .d_link01').click(function() {
-		if($(this).hasClass('d_link01_on')==true){
-			$(this).removeClass('d_link01_on');
-			$('.d_download').hide();
-		}else{
-			$(this).addClass('d_link01_on');
-			$('.d_download').show();
-		}
-	});
-	
-	$('.btn_folding').click(function(){
-		$('.d_download').hide();
-		$(this).parent().prev('.detail_link').find('.d_link01').removeClass('d_link01_on');
-	});
-	//Upload hide And Show end
 	
 	//share s
 	$('.detail_link .d_link02').click(function() {
@@ -372,12 +356,43 @@ $(function() {
 		region:null,
 		official:null,
 		description:null,
-		nullCheck:function(jqueryElement) {
+		uploadFileCheck:function(jqueryElement) {
 			if(jqueryElement.val() == 'undefined' || jqueryElement.val() == null || jqueryElement.val() == '') {
-				console.log('what: ', jqueryElement.prop('type'));
-				alert('정보를 선택 또는 입력해주세요.');
+				alert('업로드할 파일을 선택하세요!');
+				jqueryElement.focus();
+				jqueryElement.val('');
+				return false;
+			} else {
+				return true;
+			}
+		},
+		titleCheck:function(jqueryElement) {
+			console.log('title');
+			if(jqueryElement.val() == 'undefined' || jqueryElement.val() == null || jqueryElement.val() == '') {
+				alert('제목을 입력하세요!');
 				jqueryElement.val('').focus();
 				return false;
+			} else {
+				return true;
+			}
+		},
+		officialCheck:function(jqueryElement) {
+			console.log(jqueryElement.val());
+			if(jqueryElement.val() == 'undefined' || jqueryElement.val() == null || jqueryElement.val() == '') {
+				alert('송출 타입을 지정하세요!');
+				$('input[name="official"]').focus();
+				return false;
+			} else {
+				return true;
+			}
+		},
+		infoCheck:function(jqueryElement) {
+			if(jqueryElement.val() == 'undefined' || jqueryElement.val() == null || jqueryElement.val() == '') {
+				alert('파일에 대한 설명을 작성하세요!');
+				jqueryElement.val('').focus();
+				return false;
+			} else {
+				return true;
 			}
 		}
 	};
@@ -394,8 +409,6 @@ $(function() {
 		uploadCls.region 		= $('#region option:selected').val();
 		uploadCls.official		= $('input[name="official"]:checked').val();
 		uploadCls.description	= $('#info').val();
-		uploadCls.nullCheck($('#videoFile'));
-		console.log('hi');
 		//method="post" action="video/fileUpload" enctype="multipart/form-data"
 		//$('form[name="uploadFrm"]').prop({'method':'post','action':'video/fileUpload','enctype':'multipart/form-data'})
 		//$('.upload_popup_wrap').hide();
@@ -404,6 +417,38 @@ $(function() {
 	
 	$('#uploadClose').click(function() {
 		$('.upload_popup_wrap').hide();
+		return false;
+	});
+	
+	$('#pushTheUpload').click(function() {
+		var form = null;
+		if(!uploadCls.uploadFileCheck($('#videoFile'))) {
+			return false;
+		}
+		if(!uploadCls.titleCheck($('#videoTitle'))) {
+			return false;
+		}
+		if(!uploadCls.officialCheck($('input[name="official"]:checked'))) {
+			return false;
+		}
+		if(!uploadCls.infoCheck($('#info'))) {
+			return false;
+		}
+		form = new FormData(document.getElementById('uploadForm'));
+		$.ajax({
+			url: "video/fileUpload",
+			data: form,
+			dataType: 'text',
+			processData: false,
+			contentType: false,
+			type: 'POST',
+			success: function (response) {
+				alert(response);
+			},
+			error: function (jqXHR) {
+				alert(jqXHR);
+			}
+		});
 	});
 	//--upload layer show and file uploading end
 	// ################################ Web Programmer surpport End ################################

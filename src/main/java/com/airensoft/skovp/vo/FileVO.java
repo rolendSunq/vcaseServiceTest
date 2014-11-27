@@ -69,7 +69,7 @@ public class FileVO {
 	@Override
 	public String toString() {
 		StringBuffer sb = new StringBuffer();
-		sb.append("file name: " + file.getOriginalFilename() + "\r\n");
+		sb.append("file name: " + getFileName() + "\r\n");
 		sb.append("category: " + getCategory() + "\r\n");
 		sb.append("title: " + getTitle() + "\r\n");
 		sb.append("year: " + getYear() + "\r\n");

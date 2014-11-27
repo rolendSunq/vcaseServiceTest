@@ -20,17 +20,17 @@
 		    <div class="upload_popup_wrap">
 		        <div class="upload_popup_con">
 		            <div class="popup_title">Upload <span><a id="uploadClose"><img src="./resources/images/common/popup_close_btn.png" alt="닫기"/></a></span></div>
-		            <form method="post" action="video/fileUpload" enctype="multipart/form-data">
+		            <form id="uploadForm" method="post" action="video/fileUpload" enctype="multipart/form-data">
 		                <div class="popup_form">
 		                    <ul>
 		                        <li class="form_file mb45">
 		                            <p class="mb10 title">File</p>
 		                            <!--<p><input type="file" name="" id="" src="./resources/images/common/file_search_btn.png"/></p>-->
 		                            <div>
-		                                <input type="text" class="file_input_txtbox value_control" readonly="readonly" id="file_text1" name="att_file[]" value="">
+		                                <input type="text" class="file_input_txtbox value_control" readonly="readonly" id="videoFile" name="fileName" value="">
 		                                <div class="file_input_div">
 		                                    <img src="./resources/images/common/file_search_btn.png" alt="파일찾기">
-		                                    <input type="file" class="file_input_hidden" name="userfile[]" id="videoFile" value="" onchange="javascript: document.getElementById('videoFile').value=this.value">
+		                                    <input type="file" class="file_input_hidden" name="file" id="hidVideoFile" value="" onchange="javascript: document.getElementById('videoFile').value=this.value">
 		                                </div>
 		                            </div>
 		                        </li>
@@ -122,7 +122,7 @@
 		                        <li class="form_info">
 		                            <p class="mb10">Info</p>
 		                            <p>
-		                                <textarea name="info" id="info" cols="30" rows="10"></textarea>
+		                                <textarea name="description" id="info" cols="30" rows="10"></textarea>
 		                            </p>
 		                        </li>
 		                    </ul>
@@ -333,16 +333,13 @@
 						</ul>
 					</div>
 					<!-- //gnb -->
-	
 				</div>
 				<!-- //header end -->
-	
 			</div>
 			<!-- //header_wrap end -->
 			<!-- content_wrap -->
 			<div class="content_wrap">
 				<div id="content">
-	            
 	            	<!-- Updated Movie -->
 	            	<div class="latest mlr56">
 	            		<h2>Updated Movie</h2>
@@ -509,82 +506,70 @@
 	                    <!-- //탭메뉴_대분류 End -->
 	                    <!-- 탭메뉴_소분류 -->
 	                    <ul class="tab02 on">
-	                        <li class="on"><a>Company1</a></li>
+	                        <li class="on"><a>Company</a></li>
 	                        <li class="line ml15 mr15">|</li>
-	                        <li><a>Company (RAW)1</a></li>
+	                        <li><a>Company (RAW)</a></li>
 	                        <li class="line ml15 mr15">|</li>
-	                        <li><a>Culture1</a></li>
+	                        <li><a>Culture</a></li>
 	                        <li class="line ml15 mr15">|</li>
-	                        <li><a>Culture (RAW)1</a></li>
+	                        <li><a>Culture (RAW)</a></li>
 	                        <li class="line ml15 mr15">|</li>
-	                        <li><a>TV Footages1</a></li>
+	                        <li><a>TV Footages</a></li>
 	                        <li class="line ml15 mr15">|</li>
-	                        <li><a>TV Footages (RAW)1</a></li>
+	                        <li><a>TV Footages (RAW)</a></li>
                     	</ul>
                     	<ul class="tab02">
-	                        <li class="on"><a>Company2</a></li>
+	                        <li class="on"><a>TVC</a></li>
 	                        <li class="line ml15 mr15">|</li>
-	                        <li><a>Company (RAW)2</a></li>
+	                        <li><a>TVC (RAW)</a></li>
 	                        <li class="line ml15 mr15">|</li>
-	                        <li><a>Culture2</a></li>
+	                        <li><a>Campaign</a></li>
 	                        <li class="line ml15 mr15">|</li>
-	                        <li><a>Culture (RAW)2</a></li>
+	                        <li><a>Campaign (RAW)</a></li>
 	                        <li class="line ml15 mr15">|</li>
-	                        <li><a>TV Footages2</a></li>
+	                        <li><a>Sports Marketing</a></li>
 	                        <li class="line ml15 mr15">|</li>
-	                        <li><a>TV Footages (RAW)2</a></li>
+	                        <li><a>Sports Marketing (RAW)</a></li>
                     	</ul>
 	                    <ul class="tab02">
-	                        <li class="on"><a>Company3</a></li>
+	                        <li class="on"><a>HanKook Tire</a></li>
 	                        <li class="line ml15 mr15">|</li>
-	                        <li><a>Company (RAW)3</a></li>
+	                        <li><a>HanKook Tire (RAW)</a></li>
 	                        <li class="line ml15 mr15">|</li>
-	                        <li><a>Culture3</a></li>
+	                        <li><a>Other Brand</a></li>
 	                        <li class="line ml15 mr15">|</li>
-	                        <li><a>Culture (RAW)3</a></li>
+	                        <li><a>Other Brand (RAW)</a></li>
 	                        <li class="line ml15 mr15">|</li>
-	                        <li><a>TV Footages3</a></li>
+	                        <li><a>Technoloagy</a></li>
 	                        <li class="line ml15 mr15">|</li>
-	                        <li><a>TV Footages (RAW)3</a></li>
+	                        <li><a>Technoloagy (RAW)</a></li>
 	                    </ul>
 	                    <ul class="tab02">
-	                        <li class="on"><a>Company4</a></li>
+	                        <li class="on"><a>Europe</a></li>
 	                        <li class="line ml15 mr15">|</li>
-	                        <li><a>Company (RAW)4</a></li>
+	                        <li><a>Europe (RAW)</a></li>
 	                        <li class="line ml15 mr15">|</li>
-	                        <li><a>Culture3</a></li>
+	                        <li><a>Other Motosports</a></li>
 	                        <li class="line ml15 mr15">|</li>
-	                        <li><a>Culture (RAW)4</a></li>
-	                        <li class="line ml15 mr15">|</li>
-	                        <li><a>TV Footages4</a></li>
-	                        <li class="line ml15 mr15">|</li>
-	                        <li><a>TV Footages (RAW)4</a></li>
+	                        <li><a>Other Motosports (RAW)</a></li>
 	                    </ul>
 	                    <ul class="tab02">
-	                        <li class="on"><a>Company5</a></li>
+	                        <li class="on"><a>Exhibition</a></li>
 	                        <li class="line ml15 mr15">|</li>
-	                        <li><a>Company (RAW)5</a></li>
+	                        <li><a>Exhibition (RAW)</a></li>
 	                        <li class="line ml15 mr15">|</li>
-	                        <li><a>Culture5</a></li>
+	                        <li><a>Promotion</a></li>
 	                        <li class="line ml15 mr15">|</li>
-	                        <li><a>Culture (RAW)5</a></li>
+	                        <li><a>Promotion (RAW)</a></li>
 	                        <li class="line ml15 mr15">|</li>
-	                        <li><a>TV Footages5</a></li>
+	                        <li><a>Other Event</a></li>
 	                        <li class="line ml15 mr15">|</li>
-	                        <li><a>TV Footages (RAW)5</a></li>
+	                        <li><a>Other Event (RAW)</a></li>
 	                    </ul>
 	                    <ul class="tab02">
-	                        <li class="on"><a>Company6</a></li>
+	                        <li class="on"><a>Other</a></li>
 	                        <li class="line ml15 mr15">|</li>
-	                        <li><a>Company (RAW)6</a></li>
-	                        <li class="line ml15 mr15">|</li>
-	                        <li><a>Culture6</a></li>
-	                        <li class="line ml15 mr15">|</li>
-	                        <li><a>Culture (RAW)6</a></li>
-	                        <li class="line ml15 mr15">|</li>
-	                        <li><a>TV Footages6</a></li>
-	                        <li class="line ml15 mr15">|</li>
-	                        <li><a>TV Footages (RAW)6</a></li>
+	                        <li><a>Other (RAW)</a></li>
 	                    </ul>
                     	<!-- //탭메뉴_소분류 End -->
 	                    <ul class="category_slide">
@@ -679,35 +664,15 @@
 	            </div>
 	        </div>
 	        <!-- //download layer -->
-			<!-- file Upload modal -->
+	        <!-- ####TEST#### -->
 			<div id="uploader" class="content_wrap">
 				<div class="content">
-					<form id="uploadFrm" method="post" action="video/fileUpload" enctype="multipart/form-data">
-						<input type="file" name="file" id="myFile"><br>
-						<input type="text" name="title" id="title" placeHolder="Title"><br>
-						<input type="text" name="category" id="category" placeHolder="Category"><br>
-						year<input type="text" name="year" id="year" placeHolder="Year">
-						type<select name="type" id="selType">
-							<option value="Hankook Tire Official">Hankook Tire Official</option>
-							<option value="Unofficial">Unofficial</option>
-						</select><br>
-						Region<select name="region" id="selRegion">
-							<option value="Europe">Europe</option>
-							<option value="America">America</option>
-							<option value="Middle East & Africa">Middle East & Africa</option>
-							<option value="Asia-Pacific">Asia-Pacific</option>
-							<option value="China">China</option>
-							<option value="Korea">Korea</option>
-						</select>
-						Finalized Video<input type="radio" name="official" value="finalized video">
-						Raw Data<input type="radio" name="official" value="raw Data"><br>
-						info <button id="push">send</button><br><textarea rows="200" cols="100px" id="info" name="description"></textarea>
-					</form>
 					<!-- playlist Add -->
 					<input type="text" name="groupName" id="groupName">
 					<button id="plstAdder">콘텐트그룹추가</button>
 				</div>
 			</div>
+	        <!-- ####TEST#### -->
 		</div>
 		<script type="text/javascript" src="./resources/common/js/jquery-1.11.1.min.js"></script>
 		<script type="text/javascript" src="./resources/common/js/jquery.ui.all.js"></script>
@@ -780,7 +745,7 @@
 						"<param value=\"always\" name=\"allowscriptaccess\">" +
 						"<param value=\"true\" name=\"allowfullscreen\">" +
 						"<param value=\"apiUrl=http://api.vcase.myskcdn.com" + 
-									"&mediaUrl=" + encodeURIComponent("${streamingUrl}") +
+									"&mediaUrl=" + encodeURIComponent("${oneStreamPlay.streamingUrl}") +
 									"&title=${oneStreamPlay.title}" +
 									"&thumbUrl=" + encodeURIComponent("${oneStreamPlay.thumb_url}") +
 									"&pid=${player_id}" +
@@ -834,7 +799,7 @@
 							"<param value=\"transparent\" name=\"wmode\">" +
 							"<param value=\"apiUrl=http://api.vcase.myskcdn.com" + 
 										"&mediaUrl=" + encodeURIComponent(streamingUrl) +
-										"&title=${oneStreamPlay.title}" +
+										'&title=${oneStreamPlay.title}' +
 										"&thumbUrl=" + encodeURIComponent(thumbUrl) +
 										"&pid=${player_id}" +
 										"&autoPlay=true\" name=\"flashvars\">"+

@@ -91,7 +91,7 @@
 				<!-- header_bottom -->
 				<div class="header_bottom">
 					<div class="header_search">
-						<form class="search_form" method="post" action="search">
+						<form class="search_form" method="post" action="search"> 
 							<label for="search" class="hide">아이디</label>
 							<input type="text" id="search" name="searchTitle" class="search_go" />
 							<button class="search_btn">search</button>
@@ -141,13 +141,13 @@
 			<div id="content">
 				<!-- popular movie -->
 				<div class="popular_movie my_list">
-					<h2>${searchValue }&nbsp;<em>About ${totalCnt } results</em></h2>
-					<div class="search">
+					<h2>${searchValue }&nbsp;<em>About ${totalCount } results</em></h2>
+					<!-- <div class="search">
 						<label for="search_word">
 							Search within<input type="text" id="search_word" />
 							<a class="btn_search">찾기</a>
 						</label>
-					</div>
+					</div> --> 
 					<div class="list_top">
 						<ul class="sort_count">
 							<li class="list20"><a>20개씩 보기</a></li>
@@ -177,101 +177,171 @@
 									<a id="showSelected">Select</a>
 									<input class="hide" type="text" value="" />
 									<ul>
-										<li id="selected"><a>Upload date</a></li>
-										<li id="selected"><a>View count</a></li>
+										<li><a href="#" onClick="sortPage('mod_date','${searchValue }')">Upload date</a></li> <!-- 수정일 -->   
+										<li><a href="#" onClick="sortPage('view_count','${searchValue }')">View count </a></li> <!-- 추후변경 -->
 									</ul>
 								</div>
 							</div>
 						</div>
 					</div>
-					<ul class="thumbnail">
+					 
+					<!-- content 영역[start] -->  
+					<c:set var="totalCount" scope="session" value="${totalCount}"/> <!-- 전체 글 수 --> 
+				    <c:set var="perPage" scope="session" value="20"/>  <!-- 현재페이지 글 수 -->               
+				    <c:set var="totalPages" scope="session" value="${totalCount/perPage}"/> <!-- 전체 페이지 block -->
+				    <c:set var="pageIndex" scope="session" value="${pageNum/perPage+1}"/>
+				    
 					<c:forEach var="result" items="${searchResult }" varStatus="status">
+					<c:if test="${status.count >= ( 1 + (pageNum * perPage) - perPage )  && status.count <= ( pageNum * perPage )}">
 						<c:choose>
-							<c:when test="${status.count % 5 == 1 || status.count % 5 == 2 || status.count % 5 == 3}">
-						<li class="mr24">
-							<a id="goDetail" data-contentId="${result.getContent_id() }" data-thumbUrl="${result.getThumb_url() }">
-								<span>
-									<img width="196px" height="110px" src="${result.getThumb_url() }" alt="" />
-									<span class="video-time">${result.getDuration() }</span>
-									<!-- <span class="admin_icon"><img src="./resources/images/common/icon_admin.png" alt="admin" /></span> -->
-								</span>
-							</a>
-							<span>Corporation</span>
-							<c:choose>
-							<c:when test="${fn:length(result.getTitle()) > 37}">
-							<h3><a>${fn:substring(result.getTitle(), 0, 37)}...</a></h3>
+							<c:when test="${status.count % 5 == 1}">
+							<ul class="thumbnail">
+								<li class="mr24">
+									<a id="goDetail" data-contentId="${result.getContent_id() }" data-thumbUrl="${result.getThumb_url() }">
+										<span>
+											<img width="196px" height="110px" src="${result.getThumb_url() }" alt="" />
+											<span class="video-time">${result.getDuration() }</span>
+											<!-- <span class="admin_icon"><img src="./resources/images/common/icon_admin.png" alt="admin" /></span> -->
+										</span>
+									</a>
+									<span>Corporation</span>
+									<c:choose>
+									<c:when test="${fn:length(result.getTitle()) > 37}">
+									<h3><a>${fn:substring(result.getTitle(), 0, 37)}...</a></h3>
+									</c:when>
+									<c:otherwise>
+									<h3><a>${result.getTitle()}</a></h3>
+									</c:otherwise>
+									</c:choose>
+									<span>2,384,880 views</span>
+									<span class="f_left">${result.getReg_date() }</span>
+									<span class="f_right mr5"><a class="download_btn"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
+								</li>
 							</c:when>
-							<c:otherwise>
-							<h3><a>${result.getTitle()}</a></h3>
-							</c:otherwise>
-							</c:choose>
-							<span>2,384,880 views</span>
-							<span class="f_left">${result.getReg_date() }</span>
-							<span class="f_right mr5"><a class="download_btn"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
-						</li>
+							<c:when test="${status.count % 5 == 2 || status.count % 5 == 3}">
+								<li class="mr24">
+									<a id="goDetail" data-contentId="${result.getContent_id() }" data-thumbUrl="${result.getThumb_url() }">
+										<span>
+											<img width="196px" height="110px" src="${result.getThumb_url() }" alt="" />
+											<span class="video-time">${result.getDuration() }</span>
+											<!-- <span class="admin_icon"><img src="./resources/images/common/icon_admin.png" alt="admin" /></span> -->
+										</span>
+									</a>
+									<span>Corporation</span>
+									<c:choose>
+									<c:when test="${fn:length(result.getTitle()) > 37}">
+									<h3><a>${fn:substring(result.getTitle(), 0, 37)}...</a></h3>
+									</c:when>
+									<c:otherwise>
+									<h3><a>${result.getTitle()}</a></h3>
+									</c:otherwise>
+									</c:choose>
+									<span>2,384,880 views</span>
+									<span class="f_left">${result.getReg_date() }</span>
+									<span class="f_right mr5"><a class="download_btn"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
+								</li>
 							</c:when>
 							<c:when test="${status.count % 5 == 4 }">
-						<li class="mr23">
-							<a id="goDetail" data-contentId="${result.getContent_id() }" data-thumbUrl="${result.getThumb_url() }">
-								<span>
-									<img width="196px" height="110px" src="${result.getThumb_url() }" alt="" />
-									<span class="video-time">${result.getDuration() }</span>
-								</span>
-							</a>
-							<span>Corporation</span>
-							<c:choose>
-							<c:when test="${fn:length(result.getTitle()) > 37}">
-							<h3><a>${fn:substring(result.getTitle(), 0, 37)}...</a></h3>
+								<li class="mr23">
+									<a id="goDetail" data-contentId="${result.getContent_id() }" data-thumbUrl="${result.getThumb_url() }">
+										<span>
+											<img width="196px" height="110px" src="${result.getThumb_url() }" alt="" />
+											<span class="video-time">${result.getDuration() }</span>
+										</span>
+									</a>
+									<span>Corporation</span>
+									<c:choose>
+									<c:when test="${fn:length(result.getTitle()) > 37}">
+									<h3><a>${fn:substring(result.getTitle(), 0, 37)}...</a></h3>
+									</c:when>
+									<c:otherwise>
+									<h3><a>${result.getTitle()}</a></h3>
+									</c:otherwise>
+									</c:choose>
+									<span>2,384,880 views</span>
+									<span class="f_left">${result.getReg_date() }</span>
+									<span class="f_right mr5"><a class="download_btn"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
+								</li>
 							</c:when>
 							<c:otherwise>
-							<h3><a>${result.getTitle()}</a></h3>
-							</c:otherwise>
-							</c:choose>
-							<span>2,384,880 views</span>
-							<span class="f_left">${result.getReg_date() }</span>
-							<span class="f_right mr5"><a class="download_btn"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
-						</li>
-							</c:when>
-							<c:when test="${status.count % 5 == 0 }">
-						<li>
-							<a id="goDetail" data-contentId="${result.getContent_id() }" data-thumbUrl="${result.getThumb_url() }">
-								<span>
-									<img width="196px" height="110px" src="${result.getThumb_url() }" alt="" />
-									<span class="video-time">${result.getDuration() }</span>
-								</span>
-							</a>
-							<span>Corporation</span>
-							<c:choose>
-							<c:when test="${fn:length(result.getTitle()) > 37}">
-							<h3><a>${fn:substring(result.getTitle(), 0, 37)}...</a></h3>
-							</c:when>
-							<c:otherwise>
-							<h3><a>${result.getTitle()}</a></h3>
-							</c:otherwise>
-							</c:choose>
-							<span>2,384,880 views</span>
-							<span class="f_left">${result.getReg_date() }</span>
-							<span class="f_right mr5"><a class="download_btn"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
-						</li>
-							</c:when>	
+								<li>
+									<a id="goDetail" data-contentId="${result.getContent_id() }" data-thumbUrl="${result.getThumb_url() }">
+										<span>
+											<img width="196px" height="110px" src="${result.getThumb_url() }" alt="" />
+											<span class="video-time">${result.getDuration() }</span>
+										</span>
+									</a>
+									<span>Corporation</span>
+									<c:choose>
+									<c:when test="${fn:length(result.getTitle()) > 37}">
+									<h3><a>${fn:substring(result.getTitle(), 0, 37)}...</a></h3>
+									</c:when>
+									<c:otherwise>
+									<h3><a>${result.getTitle()}</a></h3>
+									</c:otherwise>
+									</c:choose>
+									<span>2,384,880 views</span>
+									<span class="f_left">${result.getReg_date() }</span>
+									<span class="f_right mr5"><a class="download_btn"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
+								</li>
+							</ul>	
+							</c:otherwise>	
 						</c:choose>
+						</c:if>
 						</c:forEach>
 					</ul>
-					<div class="list_bottom mb50">
-						<div class="count">
-							<span class="now">1 - 15</span> of 35
-						</div>
-						<div class="page_control">
-							<div class="control"><a class="btn_prev">previous</a></div>
-							<div class="pages">
-								<a class="on">1</a>
-								<a>2</a>
-								<a>3</a>
-								<a>4</a>
-							</div>
-							<div class="control"><a class="btn_next">next</a></div>
-						</div>
-					</div>
+
+
+					
+<!-- 페이징 처리 [start] -->
+<div class="list_bottom mb50">
+	<div class="count">
+		Total : <span class="now">${totalCount}</span>           
+	</div>
+	
+	<div class="page_control">
+	
+    <div class="control">
+    	<c:if test="${ pageNum > 1 }">
+    		<a href="#" onClick="goPage('${pageNum - 1}','${searchValue }')" class="btn_prev">Prev</a>
+    	</c:if>
+    	<c:if test="${ pageNum <= 1 }"> 
+    		<a class="btn_prev">Prev</a>
+    	</c:if>
+    </div> <!-- 이전버튼 -->
+    
+    <div class="pages"> <!-- 페이징 처리[1,2,3,4,5......] -->
+	    <c:forEach var="boundaryStart" varStatus="status" begin="0" end="${totalCount - 1}" step="${perPage}">
+	        <c:choose>
+	            <c:when test="${status.count>0 && status.count != pageIndex}">
+	            	<c:if test="${pageNum == status.count }">
+					 <a href="#" class="on">
+						<c:out value="${status.count}"/>  
+					</a> 
+					</c:if>
+					<c:if test="${pageNum != status.count }">
+					 <a href="#" >
+						<c:out value="${status.count}"/>  
+					</a>
+					</c:if>
+	            </c:when>
+				<c:otherwise>
+					<a class="on"><c:out value="${status.count}"/></a>
+				</c:otherwise>
+	        </c:choose>
+	    </c:forEach>
+	</div>
+	 
+    <div class="control"> 
+		<c:if test="${ pageNum < totalPages }">    
+    		<a href="#" onClick="goPage('${pageNum + 1}','${searchValue }')" class="btn_next">next</a>
+    	</c:if>
+		<c:if test="${ pageNum eq totalPages || pageNum > totalPages }"> 
+    		<a class="btn_next">next</a>
+    	</c:if>
+    </div> <!-- 다음버튼 -->   
+</div>
+<!-- 페이징 처리 [end] -->	
 				</div>
 				<!-- //popular movie -->
 
@@ -343,7 +413,7 @@
 	<script type="text/javascript" src="./resources/common/js/common.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function() {
-			console.log("cookie", $.cookies.get('mamsCookie'));
+			//console.log("cookie", $.cookies.get('mamsCookie'));
 			$('a[id="goDetail"]').click(function() {
 				var mamCook		= null;
 				var hiddenCon	= null;
@@ -362,6 +432,33 @@
 				$('<form></form>').attr({'method':'POST','action':'detail'}).append(hiddenCon).append(hiddenTmb).append(hiddenHis).appendTo('body').submit();
 			});
 		});
+		 
+		// 페이지 이동
+		function goPage(pageNum, searchValue) {
+			var mamCook		= null;
+			var hiddenHis	= null;
+			var hiddenPag	= null;
+			var hiddenSer	= null;
+			mamCook = $.cookies.get('mamsCookie');
+			hiddenPag = $('<input>').prop({'type':'hidden','name':'pageNum','value':pageNum}),
+			hiddenHis = $('<input>').prop({'type':'hidden','name':'historyList','value':JSON.stringify(mamCook.myHistory)});
+			hiddenSer 	= $('<input>').prop({'type':'hidden','name':'searchTitle','value': searchValue } );
+			$('<form></form>').prop({'method':'POST','action':'search'}).append(hiddenSer).append(hiddenHis).append(hiddenPag).append('body').submit();
+		}
+		
+		//selected(정렬) 영역 조회
+		function sortPage( sort, searchValue ) {
+			var mamCook		= null;
+			var hiddenHis	= null; 
+			var hiddenPag	= null;
+			var hiddenSer	= null;
+			var hiddenSor	= null; 
+			mamCook = $.cookies.get('mamsCookie');
+			hiddenHis = $('<input>').prop({'type':'hidden','name':'historyList','value':JSON.stringify(mamCook.myHistory)});
+			hiddenSer = $('<input>').prop({'type':'hidden','name':'searchTitle','value': searchValue } );
+			hiddenSor = $('<input>').prop({'type':'hidden','name':'sort','value': sort } );    
+			$('<form></form>').prop({'method':'POST','action':'search'}).append(hiddenSor).append(hiddenSer).append(hiddenHis).append(hiddenPag).append('body').submit();
+		}
 	</script>
 </body>
 </html>
