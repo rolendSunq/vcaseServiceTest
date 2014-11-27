@@ -180,17 +180,36 @@ public class UserController {
 	@RequestMapping(value = "detail") 
 	public String moveDetailView(HttpServletRequest request, @RequestParam("content_id") int content_id, @RequestParam("thumbUrl") String thumbUrl, Model model) {
 		String historyList = (String)request.getParameter("historyList");
+		Long start = System.currentTimeMillis();
 		JsonObject result = getInfo(content_id);
+		System.out.println("1  " + (System.currentTimeMillis() - start));
+		start = System.currentTimeMillis();
 		// auto Streaming Play Info
 		Map<String, String> map = getPlayContentInfo(result, false);
+		System.out.println("2  " + (System.currentTimeMillis() - start));
+		start = System.currentTimeMillis();
 		// 좌측 컨텐츠 thumb nail 컨텐츠 리스트
 		List<Object> list = getThumbNailList();
+		System.out.println("3  " + (System.currentTimeMillis() - start));
+		start = System.currentTimeMillis();
 		
 		String[] trscdlst = new Gson().fromJson(historyList, String[].class);
+		
+		System.out.println("4  " + (System.currentTimeMillis() - start));
+		start = System.currentTimeMillis();
 		// history list
 		List<String> historylst = getOrignList(trscdlst);
+		
+		System.out.println("5  " + (System.currentTimeMillis() - start));
+		start = System.currentTimeMillis();
 		List<Object> history = getList(historylst);
+		
+		System.out.println("6  " + (System.currentTimeMillis() - start));
+		start = System.currentTimeMillis();
 		String streamingUrl = getStreamPlayUrl(content_id);
+		
+		System.out.println("7  " + (System.currentTimeMillis() - start));
+		start = System.currentTimeMillis();
 		model.addAttribute("history", history);
 		model.addAttribute("oneStreamPlay", map);
 		model.addAttribute("streamingUrl", streamingUrl);
@@ -198,6 +217,10 @@ public class UserController {
 		model.addAttribute("player_id", OMSConfig.getPlayerId());
 		model.addAttribute("list", list);
 		model.addAttribute("totalCount", getThumbNailListCount());
+		
+		System.out.println("8  " + (System.currentTimeMillis() - start));
+		start = System.currentTimeMillis();
+		
 		return "detail";
 	}
 	
@@ -233,28 +256,28 @@ public class UserController {
 	// list 페이지 이동
 	@RequestMapping(value = "listDetail")
 	public String moveListDetailView(@RequestParam("historyList") String historyList, Model model, HttpServletRequest request ) {
-			String[] trscdlst = new Gson().fromJson(historyList, String[].class);
-			List<String> historylst = getOrignList(trscdlst);
-			List<Object> history = getList(historylst);
-			List<Object> thumbNailList = getThumbNailList();
-			
-			//########################## 페이징 처리 추가부분 [start] ########################## 
-			String pageNum = request.getParameter("pageNum");//화면에 표시할 페이지번호
-			
-			if (pageNum == null) {//페이지번호가 없으면
-				pageNum = "1";//1페이지의 내용이 화면에 표시
-			}
-			
-			int pageCount = thumbNailList.size(); //전체 글 수
-			model.addAttribute("pageNum", pageNum); //화면에 표시할 페이지번호
-			model.addAttribute("pageCount", pageCount); //전체 글 수
-			//########################## 페이징 처리 추가부분 [end] ########################## 
-			
-			model.addAttribute("cnt", thumbNailList.size()); //카운트 갯수
-			model.addAttribute("list", thumbNailList);
-			model.addAttribute("history", history);
-			
-			return "list";
+		String[] trscdlst = new Gson().fromJson(historyList, String[].class);
+		List<String> historylst = getOrignList(trscdlst);
+		List<Object> history = getList(historylst);
+		List<Object> thumbNailList = getThumbNailList();
+		
+		//########################## 페이징 처리 추가부분 [start] ########################## 
+		String pageNum = request.getParameter("pageNum");//화면에 표시할 페이지번호
+		
+		if (pageNum == null) {//페이지번호가 없으면
+			pageNum = "1";//1페이지의 내용이 화면에 표시
+		}
+		
+		int pageCount = thumbNailList.size(); //전체 글 수
+		model.addAttribute("pageNum", pageNum); //화면에 표시할 페이지번호
+		model.addAttribute("pageCount", pageCount); //전체 글 수
+		//########################## 페이징 처리 추가부분 [end] ########################## 
+		
+		model.addAttribute("cnt", thumbNailList.size()); //카운트 갯수
+		model.addAttribute("list", thumbNailList);
+		model.addAttribute("history", history);
+		
+		return "list";
 	}
 	
 	// list_result 페이지 이동
@@ -284,8 +307,16 @@ public class UserController {
             return "[업로드 실패]: " + file.getOriginalFilename() + " 파일에 대한 오류가 있습니다.";
         }*/
         
-		return null;
+		return "redirect:/";
 	}
+	
+	// Content Group 생성
+	@RequestMapping("/setGroup")
+	public String setGroupController (String groupName) {
+		ovpService.setContentGroup(groupName);
+		return "redirect:/";
+	}
+	
 	private String getStreamPlayUrl(int contentId, String variableUrlName) {
 		omsConnector.clear();
 		Map<String, String> map = new HashMap<String, String>();

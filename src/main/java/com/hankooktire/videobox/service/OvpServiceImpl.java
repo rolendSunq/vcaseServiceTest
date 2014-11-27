@@ -50,7 +50,7 @@ public class OvpServiceImpl implements OvpService {
 	@Override
 	public void searchMovie(String searchWord, Model model) {
 		omsConnector.clear();
-		omsResponder = omsConnector.RequestContentList("video", "origin", "cmplit", "title", searchWord, 0, 0, 0, 20, "title", "asc", true, false);
+		omsResponder = omsConnector.RequestContentList("video", "origin", "cmplit", "title", searchWord, 0, 0, 0, 20, "title", "asc", true, true);
 		int count = omsResponder.getRootDataElement().getAsJsonObject().get("total_count").getAsInt();
 		List<MovieContentVO> searchResult = mappingContentData(omsResponder);
 		model.addAttribute("totalCnt", count);
@@ -65,6 +65,7 @@ public class OvpServiceImpl implements OvpService {
 			MovieContentVO contentVO = new Gson().fromJson(contentObject, MovieContentVO.class);
 			JsonArray thumbNailArray = contentObject.getAsJsonObject().get("extra").getAsJsonObject().get("thumbnails").getAsJsonArray();
 			for (JsonElement jsonElement : thumbNailArray) {
+				System.out.println("thumbNail: " + jsonElement);
 				boolean isStill = jsonElement.getAsJsonObject().get("is_still").getAsBoolean();
 				int thumbId = 0;
 				if (isStill) {

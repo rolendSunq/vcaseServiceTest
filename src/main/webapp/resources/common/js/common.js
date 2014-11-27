@@ -153,6 +153,10 @@ $(function() {
 		mode: 'vertical'
 	});
 	
+	//--Upload layer start (developer Add)
+	$('.upload_popup_wrap').hide();
+	//--Upload layer end
+	
 	//download s
 	$('.detail_link .d_link01').click(function() {
 		if($(this).hasClass('d_link01_on')==true){
@@ -169,6 +173,22 @@ $(function() {
 		$(this).parent().prev('.detail_link').find('.d_link01').removeClass('d_link01_on');
 	});
 	//download e
+	//Upload hide And Show start
+	$('.detail_link .d_link01').click(function() {
+		if($(this).hasClass('d_link01_on')==true){
+			$(this).removeClass('d_link01_on');
+			$('.d_download').hide();
+		}else{
+			$(this).addClass('d_link01_on');
+			$('.d_download').show();
+		}
+	});
+	
+	$('.btn_folding').click(function(){
+		$('.d_download').hide();
+		$(this).parent().prev('.detail_link').find('.d_link01').removeClass('d_link01_on');
+	});
+	//Upload hide And Show end
 	
 	//share s
 	$('.detail_link .d_link02').click(function() {
@@ -343,28 +363,49 @@ $(function() {
 		selectedValue = $(this).text();
 	});
 	
-	// upload Test
-	$('#push').click(function() {
-		var title 		= null;
-		var category 	= null;
-		var year 		= null;
-		var type 		= null;
-		var region 		= null;
-		var official 	= null;
-		var description	= null;
-		var tags		= null;
-		title 		= $('#myFile').val();
-		category 	= 'category/' + $('#category').val();
-		year 		= 'year/' + $('#year').val();
-		type 		= 'type/' + $('#selType option:selected').val();
-		region 		= 'region/' + $('#selRegion option:selected').val();
-		official	= 'official/' + $('input[name="official"]:checked').val();
-		description	= 'description/' + $('#info').val();
-		//tags = JSON.stringify([category, year, type, region, official, description]);
-		//$('form[name="uploadFrm"]').prop('action':'http://')
-		//console.log('title', title, 'tags', tags);
-		//return false;
+	var uploadCls = {
+		myFile:null,
+		title:null,
+		category:null,
+		year:null,
+		type:null,
+		region:null,
+		official:null,
+		description:null,
+		nullCheck:function(jqueryElement) {
+			if(jqueryElement.val() == 'undefined' || jqueryElement.val() == null || jqueryElement.val() == '') {
+				console.log('what: ', jqueryElement.prop('type'));
+				alert('정보를 선택 또는 입력해주세요.');
+				jqueryElement.val('').focus();
+				return false;
+			}
+		}
+	};
+	//--upload layer show and file uploading
+	$('#upload').click(function() {
+		//method="post" action="video/fileUpload" enctype="multipart/form-data"
+		$('.upload_popup_wrap').layerCenter();
+		$('.upload_popup_wrap').show();
+		uploadCls.myFile		= $('#videoFile').val();
+		uploadCls.title 		= $('#videoTitle').val();
+		uploadCls.category 		= $('#category').val();
+		uploadCls.year 			= $('#year').val();
+		uploadCls.type 			= $('#type option:selected').val();
+		uploadCls.region 		= $('#region option:selected').val();
+		uploadCls.official		= $('input[name="official"]:checked').val();
+		uploadCls.description	= $('#info').val();
+		uploadCls.nullCheck($('#videoFile'));
+		console.log('hi');
+		//method="post" action="video/fileUpload" enctype="multipart/form-data"
+		//$('form[name="uploadFrm"]').prop({'method':'post','action':'video/fileUpload','enctype':'multipart/form-data'})
+		//$('.upload_popup_wrap').hide();
+		return false;
 	});
+	
+	$('#uploadClose').click(function() {
+		$('.upload_popup_wrap').hide();
+	});
+	//--upload layer show and file uploading end
 	// ################################ Web Programmer surpport End ################################
 });
 
@@ -396,4 +437,16 @@ $.fn.set_my_movie = function () {
 		return false;
 	});
 };
+
+//--center position screen start (developer Add) 
+//--useage: $(element).center();
+jQuery.fn.layerCenter = function () {
+    this.css("position","absolute");
+    this.css("top", Math.max(165, (($(window).height() - $(this).outerHeight()) / 2) + 
+                                                $(window).scrollTop()) + "px");
+    this.css("left", Math.max(5, (($(window).width() - $(this).outerWidth()) / 2) + 
+                                                $(window).scrollLeft()) + "px");
+    return this;
+};
+//--center position screen end
 //################################ DFLUX C&C publishing End ################################

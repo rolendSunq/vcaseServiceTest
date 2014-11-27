@@ -149,7 +149,8 @@ public class OMSConnector extends HttpConnectable {
 		addParam("description", fileDescription);
 		addParam("playlist_ids", playListIds);
 		addParam("tags", tagList);
-		return requestAPI();
+		addParam("access_token", getAccessToken());
+		return requestAPI(false);
 	}
 	
 	// 플레이리스트(콘텐트 그룹) 생성
@@ -157,11 +158,14 @@ public class OMSConnector extends HttpConnectable {
 		clear();
 		setProtocol("http");
 		setMethod("POST");
-		addURIParam("/playlist");
+		addURIParam(OMSConfig.OVP_PLAYLIST);
 		addParam("custom_id", custom_id);
 		addParam("name", name);
 		addParam("description", desription);
 		addParam("active", active);
+		
+		//this.paramData.put("key", value);
+		
 		return requestAPI();
 	}
 	

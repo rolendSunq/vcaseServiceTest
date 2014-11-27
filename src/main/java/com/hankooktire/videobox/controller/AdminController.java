@@ -13,9 +13,4 @@ public class AdminController {
 	@Autowired
 	OvpService ovpService;
 	
-	@RequestMapping("/admin/setGroup")
-	public String setGroupController (@RequestParam("GroupName") String groupName) {
-		ovpService.setContentGroup(groupName);
-		return null;
-	}
 }
