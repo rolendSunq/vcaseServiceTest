@@ -522,10 +522,16 @@ public class UserController {
 				int reg_date = jsonElement.getAsJsonObject().get("reg_date").getAsInt();
 				long duration = jsonElement.getAsJsonObject().get("duration").getAsLong();
 				long file_size = jsonElement.getAsJsonObject().get("file_size").getAsLong();
-				int thumbnailMediaId = jsonElement.getAsJsonObject().get("extra").getAsJsonObject().getAsJsonObject().get("thumbnails").getAsJsonArray().get(1).getAsJsonObject().get("content_id").getAsInt();
-				omsConnector.clear();
-				omsResponder = omsConnector.RequestPulbishDownloadContent(thumbnailMediaId);
-				String thumb_url = omsResponder.getRootDataElement().getAsJsonObject().get("url").getAsString();
+				// 섬네일 url 추출
+				JsonArray thumbArry = jsonElement.getAsJsonObject().get("extra").getAsJsonObject().get("thumbnails").getAsJsonArray();
+				String thumb_url = null;
+				for (JsonElement thumbnailElement : thumbArry) {
+					boolean isStill = thumbnailElement.getAsJsonObject().get("is_still").getAsBoolean();
+					if (isStill) {
+						JsonObject staticUrl = thumbnailElement.getAsJsonObject().get("static_url").getAsJsonObject();
+						thumb_url = staticUrl.getAsJsonObject().get("download_url").getAsString();
+					}
+				}
 				String media_type = jsonElement.getAsJsonObject().get("media_type").getAsString();
 				String convertFileSize = UnitUtils.humanReadableByteCount(file_size, false);
 				String width = jsonElement.getAsJsonObject().get("width").getAsString();

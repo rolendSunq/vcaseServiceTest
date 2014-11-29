@@ -13,4 +13,13 @@ public class AdminController {
 	@Autowired
 	OvpService ovpService;
 	
+	@RequestMapping("/adminDoc")
+	public String goAdminPage() {
+		return "admin_document";
+	}
+	
+	@RequestMapping("/adminLog")
+	public String goLogPage() {
+		return "admin_log";
+	}
 }

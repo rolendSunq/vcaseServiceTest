@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<meta charset="UTF-8" />
 		<meta http-equiv="Cache-Control" content="no-cache" />
 		<meta http-equiv="Expires" content="0" />
 		<meta http-equiv="Pragma" content="no-cache" />
@@ -343,7 +343,7 @@
 	            	<!-- Updated Movie -->
 	            	<div class="latest mlr56">
 	            		<h2>Updated Movie</h2>
-	                	<div class="latest_movie" id="latestMovie"></div>
+	                	<div class="latest_movie" id="latestMovie" style="position:relative; z-index:1;"></div>
 	                    <div class="latest_info">
 	                        <h3 id="playTitle">${oneStreamPlay.title }</h3>
 	                        <p id="playTimeDate">${oneStreamPlay.duration }  /  ${oneStreamPlay.reg_date}</p>
@@ -744,6 +744,7 @@
 						"<param value=\"#000000\" name=\"bgcolor\">" +
 						"<param value=\"always\" name=\"allowscriptaccess\">" +
 						"<param value=\"true\" name=\"allowfullscreen\">" +
+						"<param value=\"transparent\" name=\"wmode\">" +
 						"<param value=\"apiUrl=http://api.vcase.myskcdn.com" + 
 									"&mediaUrl=" + encodeURIComponent("${oneStreamPlay.streamingUrl}") +
 									"&title=${oneStreamPlay.title}" +
@@ -753,11 +754,6 @@
 					"</object>"
 				);
 
-				$(document).on('load', '#ovp', function() {
-					$(this).css('z-index', 10);
-					console.log('hi');
-				});
-				
 				$('.thumbTitle').css({'font-size':'12px','font-weight':'bold','line-height':'16px','color':'#513e1f'});
 
 				// Update Movie thumb nail click
@@ -802,6 +798,7 @@
 										'&title=${oneStreamPlay.title}' +
 										"&thumbUrl=" + encodeURIComponent(thumbUrl) +
 										"&pid=${player_id}" +
+										"&wmode=transparent" +
 										"&autoPlay=true\" name=\"flashvars\">"+
 						"</object>"
 					);

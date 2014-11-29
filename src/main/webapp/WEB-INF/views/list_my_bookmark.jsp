@@ -15,7 +15,164 @@
 </head>
 <body>
 	<div class="wrapper">
-    
+    	<!--Upload 팝업-->
+	    <div class="upload_popup_wrap">
+	        <div class="upload_popup_con">
+	            <div class="popup_title">Upload <span><a id="uploadClose"><img src="./resources/images/common/popup_close_btn.png" alt="닫기"/></a></span></div>
+	            <form id="uploadForm" method="post" action="video/fileUpload" enctype="multipart/form-data">
+	                <div class="popup_form">
+	                    <ul>
+	                        <li class="form_file mb45">
+	                            <p class="mb10 title">File</p>
+	                            <!--<p><input type="file" name="" id="" src="./resources/images/common/file_search_btn.png"/></p>-->
+	                            <div>
+	                                <input type="text" class="file_input_txtbox value_control" readonly="readonly" id="videoFile" name="fileName" value="">
+	                                <div class="file_input_div">
+	                                    <img src="./resources/images/common/file_search_btn.png" alt="파일찾기">
+	                                    <input type="file" class="file_input_hidden" name="file" id="hidVideoFile" value="" onchange="javascript: document.getElementById('videoFile').value=this.value">
+	                                </div>
+	                            </div>
+	                        </li>
+	                        <li class="mb10">
+	                            <p class="mb10">Title</p>
+	                            <p><input type="text" name="title" id="videoTitle"/></p>
+	                        </li>
+	                        <li class="mb25">
+	                            <p class="mb10">Category</p>
+	                            <p>
+	                                <select name="category" id="category">
+	                                	<optgroup label="Corporation">
+	                                    	<option value="Company">Company</option>
+	                                    	<option value="Company (RAW)">Company (RAW)</option>
+	                                    	<option value="Culture">Culture</option>
+	                                    	<option value="Culture (RAW)">Culture (RAW)</option>
+	                                    	<option value="TV Footages">TV Footages</option>
+	                                    	<option value="TV Footages (RAW)">TV Footages (RAW)</option>
+	                                	</optgroup>
+	                                	<optgroup label="Advertisements">
+	                                    	<option value="TVC">TVC</option>
+	                                    	<option value="TVC (RAW)">TVC (RAW)</option>
+	                                    	<option value="Campaign">Campaign</option>
+	                                    	<option value="Campaign (RAW)">Campaign (RAW)</option>
+	                                    	<option value="Sports Marketing">Sports Marketing</option>
+	                                    	<option value="Sports Marketing (RAW)">Sports Marketing (RAW)</option>
+	                                	</optgroup>
+	                                	<optgroup label="Products">
+	                                    	<option value="HanKook Tire">HanKook Tire</option>
+	                                    	<option value="HanKook Tire (RAW)">HanKook Tire (RAW)</option>
+	                                    	<option value="Other Brand">Other Brand</option>
+	                                    	<option value="Other Brand (RAW)">Other Brand (RAW)</option>
+	                                    	<option value="Technoloagy">Technoloagy</option>
+	                                    	<option value="Technoloagy (RAW)">Technoloagy (RAW)</option>
+	                                	</optgroup>
+	                                	<optgroup label="Motosports">
+	                                    	<option value="Europe">Europe</option>
+	                                    	<option value="Europe (RAW)">Europe (RAW)</option>
+	                                    	<option value="Other Motosports">Other Motosports</option>
+	                                    	<option value="Other Motosports (RAW)">Other Motosports (RAW)</option>
+	                                	</optgroup>
+	                                	<optgroup label="Events">
+	                                    	<option value="Exhibition">Exhibition</option>
+	                                    	<option value="Exhibition (RAW)">Exhibition (RAW)</option>
+	                                    	<option value="Promotion">Promotion</option>
+	                                    	<option value="Promotion (RAW)">Promotion (RAW)</option>
+	                                    	<option value="Other Event">Other Event</option>
+	                                    	<option value="Other Event (RAW)">Other Event (RAW)</option>
+	                                	</optgroup>
+	                                	<optgroup label="Others">
+	                                    	<option value="Other">Other</option>
+	                                    	<option value="Other (RAW)">Other (RAW)</option>
+	                                	</optgroup>
+	                                </select>
+	                            </p>
+	                        </li>
+	                        <li class="width202">
+	                            <span>Year</span>
+	                            <select name="year" id="year">
+	                                <option value="2014">2014</option>
+	                                <option value="2013">2013</option>
+	                                <option value="2012">2012</option>
+	                                <option value="2011">2011</option>
+	                                <option value="2010 before">2010 before</option>
+	                            </select>
+	                        </li>
+	                        <li class="width202 ml20 right">
+	                            <span>Type</span>
+	                            <select name="type" id="type">
+	                                <option value="Hankook Tire Official">Hankook Tire Official</option>
+	                                <option value="Unofficial">Unofficial</option>
+	                            </select>
+	                        </li>
+	                        <li class="width202 mb25">
+	                            <span>Region</span>
+	                            <select name="region" id="region">
+	                                <option value="Europe">Europe</option>
+									<option value="America">America</option>
+									<option value="Middle East & Africa">Middle East & Africa</option>
+									<option value="Asia-Pacific">Asia-Pacific</option>
+									<option value="China">China</option>
+									<option value="Korea">Korea</option>
+	                            </select>
+	                        </li>
+	                        <li class="width202 radio right">
+	                            <label for="video">Finalized Video</label> <input type="radio" name="official" value="Finalized Video"/>
+	                            <label for="data">Raw Data</label> <input type="radio" name="official" value="Raw Data"/>
+	                        </li>
+	                        <li class="form_info">
+	                            <p class="mb10">Info</p>
+	                            <p>
+	                                <textarea name="description" id="info" cols="30" rows="10"></textarea>
+	                            </p>
+	                        </li>
+	                    </ul>
+	                    <p class="up_btn_con"><a id="pushTheUpload"><img src="./resources/images/common/upload_btn.png" alt="upload"/></a></p>
+	                </div>
+	            </form>
+	        </div>
+	    </div>
+	    <!--//Upload 팝업-->
+	    <!-- Download 팝업 -->
+	    <div class="download_popup_wrap">
+	        <div class="download_popup_con">
+	            <div class="popup_title">
+	                <div class="mb20">
+	                    <p class="mb10">RA33_Dynapro HP2_Motion Graphic Graphic Graphic Graphic</p>
+	                    <p><span>ID :</span> 2014cvrw001800000255 </p>
+	                </div>
+	                <span><a><img src="./resources/images/common/popup_close_btn.png" alt="닫기"/></a></span>
+	            </div>
+	            <div class="download_con">
+	                <p><img src="./resources/images/common/down_title.png" alt="download"/></p>
+	                <ul>
+	                    <li><a><img src="./resources/images/common/down_mp4.png" alt="mp4"/></a></li>
+	                    <li><a><img src="./resources/images/common/down_avi.png" alt="avi"/></a></li>
+	                    <li><a><img src="./resources/images/common/down_mov.png" alt="mov"/></a></li>
+	                    <li><a><img src="./resources/images/common/down_flv.png" alt="flv"/></a></li>
+	                    <li><a><img src="./resources/images/common/down_mpeg.png" alt="mpeg"/></a></li>
+	                    <li><a><img src="./resources/images/common/down_wmv.png" alt="wmv"/></a></li>
+	                </ul>
+	            </div>
+	            <div class="detail_con">
+	                <p><img src="./resources/images/common/detail_title.png" alt="detail"/></p>
+	                <ul>
+	                    <li>
+	                        <p>Size : 1280x720 HD 408MB</p>
+	                        <p>Video Format : MP4</p>
+	                        <p>Video Codec : h264</p>
+	                        <p>Video bps : 256478</p>
+	                        <p>Video fps :29</p>
+	                    </li>
+	                    <li>
+	                        <p>Audio Codec :aac</p>
+	                        <p>Audio bps :235478</p>
+	                        <p>Audio channel : 2</p>
+	                        <p>Audio Hz : 44100</p>
+	                    </li>
+	                </ul>
+	            </div>
+	        </div>
+	    </div>
+	    <!--// Download 팝업 --> 
     	<!-- my movie -->
         <div class="my_movie">
         	<div class="my_movie_off">
@@ -110,30 +267,94 @@
 				<div id="gnb">
 					<ul>
 						<li class="first menu menu1">
-							<a class="">Corporation</a>
-						</li>
+                        	<a class="pad0">Corporation</a>
+                        	<div>
+	                        	<div>
+	                        		<ul class="depth2">
+	                        			<li><a>Company</a></li>
+	                        			<li><a>Company (RAW)</a></li>
+	                        			<li><a>Culture</a></li>
+	                        			<li><a>Culture (RAW)</a></li>
+	                        			<li><a>TV Footages</a></li>
+	                        			<li><a>TV Footages (RAW)</a></li>
+	                        		</ul>
+	                        	</div>
+                        	</div>
+                        </li>
 						<li class="menu menu2">
-							<a class="">Advertisements</a>
-						</li>
+                        	<a class="pad1">Advertisements</a>
+                        	<div>
+	                        	<div>
+	                        		<ul class="depth2">
+	                        			<li><a>TVC</a></li>
+	                        			<li><a>TVC (RAW)</a></li>
+	                        			<li><a>Campaign</a></li>
+	                        			<li><a>Campaign (RAW)</a></li>
+	                        			<li><a>Sports Marketing</a></li>
+	                        			<li><a>Sports Marketing (RAW)</a></li>
+	                        		</ul>
+	                        	</div>
+                        	</div>
+                        </li>
 						<li class="menu menu3">
-							<a class="">Products</a>
-						</li>
+                        	<a class="pad2">Products</a>
+                        	<div>
+	                        	<div>
+	                        		<ul class="depth2">
+	                        			<li><a>HanKook Tire</a></li>
+	                        			<li><a>HanKook Tire (RAW)</a></li>
+	                        			<li><a>Other Brand</a></li>
+	                        			<li><a>Other Brand (RAW)</a></li>
+	                        			<li><a>Technoloagy</a></li>
+	                        			<li><a>Technoloagy (RAW)</a></li>
+	                        		</ul>
+	                        	</div>
+                        	</div>
+                        </li>
 						<li class="menu menu4">
-							<a class="">Motorsports</a>
-						</li>
+                        	<a class="pad3">Motorsports</a>
+                        	<div>
+	                        	<div>
+	                        		<ul class="depth2">
+	                        			<li><a>Europe</a></li>
+	                        			<li><a>Europe (RAW)</a></li>
+	                        			<li><a>Other Motosports</a></li>
+	                        			<li><a>Other Motosports (RAW)</a></li>
+	                        		</ul>
+	                        	</div>
+                        	</div>
+                        </li>
 						<li class="menu menu5">
-							<a class="">Events</a>
-						</li>
+                        	<a class="pad4">Events</a>
+                        	<div>
+	                        	<div>
+	                        		<ul class="depth2">
+	                        			<li><a>Exhibition</a></li>
+	                        			<li><a>Exhibition (RAW)</a></li>
+	                        			<li><a>Promotion</a></li>
+	                        			<li><a>Promotion (RAW)</a></li>
+	                        			<li><a>Other Event</a></li>
+	                        			<li><a>Other Event (RAW)</a></li>
+	                        		</ul>
+	                        	</div>
+                        	</div>
+                        </li>
 						<li class="last menu menu6">
-							<a class="">Others</a>
-						</li>
+                        	<a class="pad5">Others</a>
+                        	<div>
+	                        	<div>
+	                        		<ul class="depth2">
+	                        			<li><a>Other</a></li>
+	                        			<li><a>Other (RAW)</a></li>
+	                        		</ul>
+	                        	</div>
+                        	</div>
+                        </li>
 					</ul>
 				</div>
 				<!-- //gnb -->
-
 			</div>
 			<!-- //header end -->
-
 		</div>
 		<!-- //header_wrap end -->
 		<!-- content_wrap -->
@@ -142,12 +363,14 @@
 				<!-- popular movie -->
 				<div class="popular_movie my_list">
 					<h2>My Bookmark</h2>
+					<!-- 
 					<div class="search">
 						<label for="search_word">
 							Search within<input type="text" id="search_word" />
 							<a class="btn_search">찾기</a>
 						</label>
 					</div>
+					 -->
 					<div class="list_top">
 						<ul class="sort_count">
 							<li class="list20"><a>20개씩 보기</a></li>

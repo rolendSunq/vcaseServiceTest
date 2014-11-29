@@ -650,6 +650,7 @@
 				"<param value=\"high\" name=\"quality\">" + 
 				"<param value=\"#000000\" name=\"bgcolor\">" +
 				"<param value=\"always\" name=\"allowscriptaccess\">" +
+				"<param value=\"transparent\" name=\"wmode\">" +
 				"<param value=\"true\" name=\"allowfullscreen\">" +
 				"<param value=\"apiUrl=http://api.vcase.myskcdn.com" + 
 						"&mediaUrl=" + encodeURIComponent("${streamingUrl}") +

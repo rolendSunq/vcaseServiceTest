@@ -271,8 +271,8 @@ $(function() {
 			var fileName = decodeFileName.replace(/\+/g, ' ');
 			var aTag = $('<a id="fileFormat"></a>').attr({'href':data.downloadUrl,'id':'getTheFile','data-contentId':contentId}).append('<img src="./resources/images/common/icon_mp4.png" alt="download"/>' + fileName);
 			ddTag = $('<dd></dd>').append(aTag);
-			$("#downloadUrl").append();
-			$("#downloadUrl").append(ddTag);
+			$("#downloadUrl").empty();
+			$("#downloadUrl").after(ddTag);
 			/*
 			$("#contentType").text('Contents Type : ' + data.mediaType);
 			$("#size").text('Size : ' + data.size);
@@ -317,6 +317,7 @@ $(function() {
 		$('<form></form>').attr({'method':'POST','action':'detail'}).append(hiddenCon).append(hiddenTmb).append(hiddenHis).appendTo('body').submit();
 	});
 	
+	// 검색 
 	$('#search').keypress(function(event) {
 		var mamCook 	= null;
 		var hiddenHis 	= null;
@@ -451,6 +452,14 @@ $(function() {
 		});
 	});
 	//--upload layer show and file uploading end
+	
+	//--admin enter start
+	$('#admin').click(function() {
+		location.replace('/videoBox/adminDoc');
+	});
+	//--admin enter end
+	
+	//--
 	// ################################ Web Programmer surpport End ################################
 });
 
