@@ -188,9 +188,9 @@
 	                    <h2>Setting</h2>
 	                    <!-- 탭메뉴 -->
 	                    <ul class="admin_tab">
-		                    <li><a id="goUploader">업로더 설정</a></li>
-	                        <li class="on"><a id="goDoc">Document</a></li>
-	                        <li><a id="goLog">Log</a></li>
+		                    <li id="tabUplo"><a id="goUploader">업로더 설정</a></li>
+	                        <li id="tabDoc"class="on"><a id="goDoc">Document</a></li>
+	                        <li id="tabLog"><a id="goLog">Log</a></li>
 	                        <li></li>
 	                        <li></li>
 	                        <li></li>

@@ -6,4 +6,5 @@ encoding//src/main/java/com/airensoft/skovp/utils/parser=UTF-8
 encoding//src/main/java/com/airensoft/skovp/utils/parser/JsonParser.java=UTF-8
 encoding//src/main/webapp/WEB-INF/views/admin_document.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/views/admin_log.jsp=UTF-8
+encoding//src/main/webapp/WEB-INF/views/admin_uploader.jsp=UTF-8
 encoding/<project>=UTF-8

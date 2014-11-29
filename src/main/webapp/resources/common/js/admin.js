@@ -154,11 +154,21 @@ $(function() {
 	$('.my_movie').set_my_movie();
 	//################################ DFLUX C&C publishing end ################################
 	//################################ DFLUX C&C developer start ################################
+	// a태그의 href 속성 제거로 마우스 hover 효과를 넣음.
+	$('a').hover(
+		function () {
+			$(this).css('cursor', 'pointer');
+		}, 
+		function () {
+			$(this).css('cursor', 'default');
+		}
+	);
 	
 	// document page 이동
 	$('#goDoc').click(function() {
-		location.replace('/videoBox/adminDoc')
+		location.replace('/videoBox/adminDoc');
 	});
+	
 	// log page 이동
     $('#goLogPage').click(function() {
         location.replace('/videoBox/adminLog');
