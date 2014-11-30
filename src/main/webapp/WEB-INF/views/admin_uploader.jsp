@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
 <html lang="ko">
 	<head>
 		<meta charset="UTF-8" />
@@ -8,6 +9,8 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
 		<title>한국타이어</title>
 		<link rel="Stylesheet" type="text/css" href="./resources/common/css/admin.css" />
+		<link rel="Stylesheet" type="text/css" href="./resources/common/css/jquery-ui.css" />
+	    <link rel="stylesheet" type="text/css" href="./resources/common/lib/jqueryui/jquery-ui-1.10.4.custom.css">
 	</head>
 	<body>
 		<div class="wrapper">
