@@ -12,6 +12,11 @@ public class AdminController {
 	@Autowired
 	OvpService ovpService;
 	
+	@RequestMapping("/adminUploaders")
+	public String goUploaderPage( ) {
+		return "admin_uploader";
+	}
+	
 	@RequestMapping("/adminDoc")
 	public String goAdminPage() {
 		return "admin_document";

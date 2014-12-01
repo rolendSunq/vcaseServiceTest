@@ -455,7 +455,7 @@ $(function() {
 	
 	//--admin enter start
 	$('#admin').click(function() {
-		location.replace('/videoBox/adminDoc');
+		location.replace('/videoBox/adminUploaders');
 	});
 	//--admin enter end
 	
