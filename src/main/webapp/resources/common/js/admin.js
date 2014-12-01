@@ -15,10 +15,10 @@ $(function() {
     //search e
 
     //header
-    var header_offset = $('#header').offset();
-    var header_width = $('#header').outerWidth();
-    var gnb_offset = $('#gnb').offset();
-    var gnb_width = $('#gnb').outerWidth();
+    //var header_offset = $('#header').offset();
+    //var header_width = $('#header').outerWidth();
+    //var gnb_offset = $('#gnb').offset();
+    //var gnb_width = $('#gnb').outerWidth();
     $(window).resize(function () {
         $('#gnb .menu > div').css({
             'width': $('#header_wrap').width(),
@@ -39,7 +39,7 @@ $(function() {
     $('#gnb > ul').find('> li > a').focusin(function () {
         $('#gnb .menu > div').slideUp(150);
         $(this).next('div').stop().slideDown(150);
-    })
+    });
     $('.depth2 li:last-child a').focusout(function () {
         $('#gnb .menu > div').stop().slideUp(150);
     });
@@ -173,6 +173,17 @@ $(function() {
     $('#goLogPage').click(function() {
         location.replace('/videoBox/adminLog');
     });
+    
+    // tab mouse over
+    $('#tabUplo, #tabDoc, #tabLog').mouseenter(function() {
+    	$(this).css('cursor', 'pointer');
+    });
+    
+    // tab mouse leave
+    $('#tabUplo, #tabDoc, #tabLog').mouseleave(function() {
+    	$(this).css('cursor', 'default');
+    });
+    
     //################################ DFLUX C&C developer end ################################
 });
 

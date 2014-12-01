@@ -4,9 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.HashMap;
-import java.util.List;
-
-import net.sf.cglib.transform.impl.AddPropertyTransformer;
 
 import org.apache.http.client.ClientProtocolException;
 

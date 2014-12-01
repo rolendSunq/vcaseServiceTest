@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta charset="UTF-8" />
 	<meta http-equiv="Cache-Control" content="no-cache" />
 	<meta http-equiv="Expires" content="0" />
 	<meta http-equiv="Pragma" content="no-cache" />
@@ -108,7 +108,7 @@
 	                            <select name="region" id="region">
 	                                <option value="Europe">Europe</option>
 									<option value="America">America</option>
-									<option value="Middle East & Africa">Middle East & Africa</option>
+									<option value="Middle East & Africa">Middle East &amp; Africa</option>
 									<option value="Asia-Pacific">Asia-Pacific</option>
 									<option value="China">China</option>
 									<option value="Korea">Korea</option>
@@ -387,7 +387,7 @@
 									<ul>
 										<li id="regions"><a>Europe</a></li>
 										<li id="regions"><a>America</a></li>
-										<li id="regions"><a>Middle East & Africa</a></li>
+										<li id="regions"><a>Middle East &amp; Africa</a></li>
                                         <li id="regions"><a>AsiaPacific</a></li>
                                         <li id="regions"><a>China</a></li>
                                         <li id="regions"><a>Korea</a></li>

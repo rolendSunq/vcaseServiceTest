@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <% request.setCharacterEncoding("utf-8"); %>
 <% response.setContentType("text/html; charset=utf-8"); %>
 <!DOCTYPE html>
@@ -109,7 +110,7 @@
 		                            <select name="region" id="region">
 		                                <option value="Europe">Europe</option>
 										<option value="America">America</option>
-										<option value="Middle East & Africa">Middle East & Africa</option>
+										<option value="Middle East & Africa">Middle East &amp; Africa</option>
 										<option value="Asia-Pacific">Asia-Pacific</option>
 										<option value="China">China</option>
 										<option value="Korea">Korea</option>
@@ -355,7 +356,6 @@
 	                            <li id="playVideoUrl"><span>Copy Video URL&nbsp;:&nbsp;</span>DO NOT SURPPORTED</li>
 	                        </ul>
 	                        <hr />
-	                        
 	                        <ul class="latest_thumbnail">
 	                        	<!-- thumb loop -->
 	                        	<c:forEach var="object" items="${list }" end="2" varStatus="status">
@@ -374,7 +374,6 @@
 	                                    	<span class="off"></span> 
 	                                    	</c:otherwise>
 	                                    	</c:choose>
-	                                    	
 	                                    </span>
 	                                </a>
 	                                <c:choose>
@@ -764,9 +763,6 @@
 					var streamingUrl= null;
 					var thumbUrl	= null;
 					var dateNReg 	= null;
-					var category 	= null;
-					var region		= null;
-					var tag			= null;
 					var clickRound	= null;
 					title 		= $(this).attr('data-title');
 					dateNReg 	= $(this).attr('data-dateNReg');
