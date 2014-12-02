@@ -70,7 +70,7 @@
 						<h1>
 							<a>
 								<img id="hankookHome" src="./resources/images/common/img_logo.png" alt="Hankook - driving emotion" />
-								<img id="mamsHome" src="./resources/images/common/img_logo2.png" alt="Digital Library MAMs" />
+								<img id="vbHome" src="./resources/images/common/img_logo2.png" alt="Digital Library MAMs" />
 							</a>
 						</h1>
 						<div class="util_navi">

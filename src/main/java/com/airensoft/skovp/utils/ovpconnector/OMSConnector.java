@@ -39,6 +39,7 @@ public class OMSConnector extends HttpConnectable {
 	 */
 	public OMSConnectorResponse RequestContentList(String media_type, String file_type, String state, String search_type, String search, Integer search_start_date, Integer search_end_date,
 			Integer page, Integer page_size, String sort, String order, boolean with_extra, boolean with_static_url) {
+		clear();
 		setProtocol("http");
 		setMethod("GET");
 		addURIParam(OMSConfig.OVP_CONTENT_LIST);
@@ -121,6 +122,7 @@ public class OMSConnector extends HttpConnectable {
 	
 	// 인기 콘텐트 목록 조회
 	public OMSConnectorResponse requestPopularContentList(int startDate, int endDate, int pageNumber, int pageSize, boolean withExtra, boolean withStaticUrl) {
+		clear();
 		setProtocol("http");
 		setMethod("GET");
 		addURIParam(OMSConfig.OVP_CONTENT_LIST + "/popular");
@@ -164,6 +166,66 @@ public class OMSConnector extends HttpConnectable {
 		//this.paramData.put("key", value);
 		
 		return requestAPI();
+	}
+	
+	// 플레이리스트별 콘텐트 개수 조회
+	public OMSConnectorResponse requestContentForPlayList() {
+		clear();
+		setProtocol("http");
+		setMethod("GET");
+		addURIParam(OMSConfig.OVP_PLAYLIST_PER_CONTENT);
+		return requestAPI();
+	}
+	
+	// 개별 플레이리스트의 콘텐츠 목록을 가져온다.
+	public OMSConnectorResponse requestGetPlayListToContent(String playlist_id, String mediaType, String state, String searchType, String search, Integer searchStartDate, Integer searchEndDate, Integer pageNum, Integer pageSize, String sort, String order, boolean withExtra, boolean withStatic) {
+		clear();
+		setProtocol("http");
+		setMethod("GET");
+		addURIParam(OMSConfig.OVP_PLAYLIST + "/" + playlist_id + "/content");
+		addParam("mediaType", mediaType);
+		addParam("state", state);
+		addParam("search_type", searchType);
+		addParam("search", search);
+		addParam("search_start_date", searchStartDate);
+		addParam("search_end_date", searchEndDate);
+		addParam("page", pageNum);
+		addParam("page_size", pageSize);
+		addParam("sort", sort);
+		addParam("order", order);
+		addParam("with_extra", withExtra);
+		addParam("with_static_url", withStatic);
+		return requestAPI();
+	}
+	
+	// view_count 통계
+	public OMSConnectorResponse getOvpViewCountStatistics(String country, String device, String devicesOS, String playerCode, String playTimeGrade, Integer searchStartDate, Integer searchEndDate, Integer page){
+		clear();
+		setProtocol("http");
+		setMethod("GET");
+		addURIParam(OMSConfig.OVP_STATISTICS_VIEWCOUNT);
+		addParam("country", country);
+		addParam("device", device);
+		addParam("device_os", devicesOS);
+		addParam("player_code", playerCode);
+		addParam("play_time_grade", playTimeGrade);
+		addParam("search_start_date", searchStartDate);
+		addParam("search_end_date", searchEndDate);
+		addParam("page", page);
+		addParam("page_size", 20);
+		addParam("view_count", "view_count");
+		addParam("order", "desc");
+		return requestAPI();
+	}
+	
+	// content를 삭제한다.
+	public OMSConnectorResponse requestDeleteContentList(String deleteList) {
+		 clear();
+		 setProtocol("http");
+		 setMethod("DELETE");
+		 addURIParam("/content");
+		 addParam("content_ids", deleteList);
+		 return requestAPI();
 	}
 	
 	@Override

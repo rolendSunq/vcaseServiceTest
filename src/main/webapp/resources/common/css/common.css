@@ -262,7 +262,7 @@ body { font-family: Arial,'Nanum Gothic','돋움', sans-serif; }
 
 /*content*/
 .mlr56 {margin:0 49px 0px 56px !important;}
-.content_wrap { background: url(../../images/common/bg_content.gif) repeat-x center top;position:relative;z-index:1; }
+.content_wrap { background: url(../../images/common/bg_content.gif) repeat-x center top; }
 #content {width:1180px; margin:0 auto;}
 #content h2 {font-size:24px; font-weight:bold; letter-spacing:-0.25pt; line-height:18px; color:#513e1f; padding:25px 0px 16px 0px;}
 #content h2 span {font-size:11px; font-weight:bold; color:#513e1f; display:block; margin-top:5px;}
@@ -534,7 +534,7 @@ body { font-family: Arial,'Nanum Gothic','돋움', sans-serif; }
 .my_movie .my_movie_on .my_movie_bg .my_movie_con .my_movie_db a.dow {background:url(../../images/common/icon_dow.png) no-repeat;}
 .my_movie .my_movie_on .my_movie_bg .my_movie_con .my_movie_db a.book {background:url(../../images/common/icon_book.png) no-repeat;}
 #content .latest .latest_info ul.latest_thumbnail li a .on {border:2px solid #ff9c00; position:absolute; top:0px; left:0px; width:149px; height:81px;}
-/* //my movie *
+/* //my movie */
 
 
 /* upload Popup */

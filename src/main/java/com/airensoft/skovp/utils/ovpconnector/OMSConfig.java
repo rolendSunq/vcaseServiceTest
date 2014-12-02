@@ -13,10 +13,14 @@ public class OMSConfig {
 	// PLAYLIST
 	public static final String OVP_PLAYLIST = "/playlist";
 	public static final String OVP_PLAYLIST_INNER_CONTENT_BINDING = OVP_PLAYLIST + "/content";
+	public static final String OVP_PLAYLIST_PER_CONTENT = OVP_PLAYLIST_INNER_CONTENT_BINDING + "/count";
 	
 	// PLAYER 광고
 	public static final String OVP_PLAYER_AD = "/player/%s/ad";
 
+	// 재생 횟수 통계
+	public static final String OVP_STATISTICS_VIEWCOUNT = "/stats/viewcount/content";
+	
 	public static String getAccessToken() {
 		return GlobalObject.getInstance().getProperty("skovp.access_token", "");
 	}

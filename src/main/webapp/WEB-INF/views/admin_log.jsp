@@ -1,4 +1,7 @@
 ﻿<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:requestEncoding value="UTF-8"/>
 <!DOCTYPE html>
 <html lang="ko">
 	<head>
@@ -56,8 +59,8 @@
 					<div class="header_top"> 
 						<h1>
 							<a>
-								<img src="./resources/images/admin/img_logo.png" alt="Hankook - driving emotion" />
-								<img src="./resources/images/admin/img_logo2.png" alt="Digital Library MAMs" />
+								<img id="hankookHome" src="./resources/images/admin/img_logo.png" alt="Hankook - driving emotion" />
+								<img id="vbHome" src="./resources/images/admin/img_logo2.png" alt="Digital Library MAMs" />
 							</a>
 						</h1>
 						<div class="util_navi">
@@ -189,9 +192,9 @@
 	                    <h2>Setting</h2>
 	                    <!-- 탭메뉴 -->
 	                    <ul class="admin_tab">
-		                    <li id="tabUplo"><a id="goUploader">업로더 설정</a></li>
-	                        <li id="tabDoc"class="on"><a id="goDoc">Document</a></li>
-	                        <li id="tabLog"><a id="goLog">Log</a></li>
+		                    <li id="tabUplo"><a>업로더 설정</a></li>
+	                        <li id="tabDoc"><a>Document</a></li>
+	                        <li id="tabLog" class="on"><a>Log</a></li>
 	                        <li></li>
 	                        <li></li>
 	                        <li></li>
@@ -242,8 +245,7 @@
 	                        </div>
 	                        <!-- //Log -->
 	                        <!-- plugIn -->
-	                        <div class="plugin_con">
-	
+	                        <div class="plugin_con" id="chart_div">
 	                        </div>
 	                        <!-- //plugIn -->
 	                        <!-- 테이블 영역 -->
@@ -263,45 +265,19 @@
 	                                    <th scope="col">제목</th>
 	                                    <th scope="col">콘텐츠ID</th>
 	                                    <th scope="col">설명</th>
-	                                    <th scope="col">삭제</th>
+	                                    <th scope="col">재생횟수</th>
 	                                </tr>
 	                                </thead>
 	                                <tbody>
+	                           	<c:forEach var="popList" items="${popularList }" varStatus="status">
 	                                <tr>
-	                                    <td>1</td>
-	                                    <td class="left"><a href="#none">한국타이어 북미 광고영상</a></td>
-	                                    <td>21000011</td>
-	                                    <td class="left">비주얼커뮤니케이션팀</td>
-	                                    <td>32514</td>
+	                                    <td><c:out value="${status.count }" /></td>
+	                                    <td class="left"><a href="#none"><c:out value="${popList.getTitle() }" /></a></td>
+	                                    <td><c:out value="${popList.getContent_id() }" /></td>
+	                                    <td class="left"></td>
+	                                    <td><c:out value="${popList.getView_count() }" /></td>
 	                                </tr>
-	                                <tr>
-	                                    <td>2</td>
-	                                    <td class="left"><a href="#none">한국타이어 북미 광고영상</a></td>
-	                                    <td>21000011</td>
-	                                    <td class="left">비주얼커뮤니케이션팀</td>
-	                                    <td>32514</td>
-	                                </tr>
-	                                <tr>
-	                                    <td>3</td>
-	                                    <td class="left"><a href="#none">한국타이어 북미 광고영상</a></td>
-	                                    <td>21000011</td>
-	                                    <td class="left">비주얼커뮤니케이션팀</td>
-	                                    <td>32514</td>
-	                                </tr>
-	                                <tr>
-	                                    <td>4</td>
-	                                    <td class="left"><a href="#none">한국타이어 북미 광고영상</a></td>
-	                                    <td>21000011</td>
-	                                    <td class="left">비주얼커뮤니케이션팀</td>
-	                                    <td>32514</td>
-	                                </tr>
-	                                <tr>
-	                                    <td>5</td>
-	                                    <td class="left"><a href="#none">한국타이어 북미 광고영상</a></td>
-	                                    <td>21000011</td>
-	                                    <td class="left">비주얼커뮤니케이션팀</td>
-	                                    <td>32514</td>
-	                                </tr>
+	                           	</c:forEach>
 	                                </tbody>
 	                            </table>
 	                        </div>
@@ -355,18 +331,44 @@
 					</div>
 				</div>
 				<!-- //footer end -->
-	
 			</div>
 			<!-- //footer_wrap end -->
-	
 		</div>
 		<script type="text/javascript" src="./resources/common/js/jquery-1.11.1.min.js"></script>
 	    <script type="text/javascript" src="./resources/common/js/jquery.bxslider.min.js"></script>
 	    <script type="text/javascript" src="./resources/common/lib/jqueryui/jquery-ui-1.10.4.custom.js"></script>
 	    <script type="text/javascript" src="./resources/common/js/admin.js"></script>
-	    <!-- <script type="text/javascript" src=".././resources/common/js/common.js"></script> -->
+	    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 	    <script>
-	        $(function() {
+	    	var dataTitle = null;
+	    	var dataVcount = null;
+	    	var resultData = [['title','view count']];
+	    <c:forEach var="list" items="${result}" varStatus="status">
+	    	dataTitle = '<c:out value="${list.getContent_title()}"/>';
+	    	dataTitle = dataTitle.replace(/&#039;/g, '\'');
+	    	dataTitel = '\'' + dataTitle + '\'';
+	    	dataVcount = <c:out value="${list.getView_count()}" />;
+	    	resultData.push([dataTitle,dataVcount]);
+	    </c:forEach>
+	    	google.load("visualization", "1", {packages:["corechart"]});
+        	google.setOnLoadCallback(drawChart);
+        	function drawChart() {
+				var data = new google.visualization.arrayToDataTable(resultData);
+
+				var options = {
+				    title: '조회순',
+				    smoothLine: true,
+				    width: 1000,
+				    height: 250,
+				    hAxis:  {title: 'title',  titleTextStyle: {color: 'blue'}}
+				};
+
+				var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+				chart.draw(data, options);
+        	}
+	      	
+	        $(document).ready(function() {
+
 	            // 리스트
 	            $.datepicker.regional['ko'] = {
 	                closeText: '닫기',

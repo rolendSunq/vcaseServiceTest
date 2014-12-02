@@ -232,7 +232,7 @@
 					<h1>
 						<a >
 							<img id="hankookHome" src="./resources/images/common/img_logo.png" alt="Hankook - driving emotion" />
-							<img id="mamsHome" src="./resources/images/common/img_logo2.png" alt="Digital Library MAMs" />
+							<img id="vbHome" src="./resources/images/common/img_logo2.png" alt="Digital Library MAMs" />
 						</a>
 					</h1>
 					<div class="util_navi">
@@ -256,9 +256,9 @@
 					</div>
 					<div class="personal_menu">
 						<ul>
-							<li class="p_menu1"><a >설정</a></li>
-							<li class="p_menu2"><a >업로드</a></li>
-							<li class="p_menu3"><a >로그아웃</a></li>
+							<li class="p_menu1"><a id="admin">설정</a></li>
+							<li class="p_menu2"><a id="upload">업로드</a></li>
+							<li class="p_menu3"><a id="logout">로그아웃</a></li>
 						</ul>
 					</div>
 				</div>

@@ -47,6 +47,7 @@ $(function() {
 	$('#search').focus(function() {
 		$(this).css("background-image","none");
 	});
+	
 	$('#search').blur(function() {
 		if ($(this).val()) {
 			$(this).css("background-image","none");
@@ -67,58 +68,56 @@ $(function() {
 	gnb_width 		= $('#gnb').outerWidth();  
 	
 	$(window).resize(function () {
-		$('#gnb .menu > div').css({
-			'width': $('#header_wrap').width(),
-			'left': 0
-		});
-	});
+        $('#gnb .menu > div').css({
+            'width': $('#header_wrap').width(),
+            'left': 0
+        });
+    });
 	
-	$('#gnb .menu > div').css({
-		'width': $('#header_wrap').width(),
-		'left': 0
-	});
-	
-	//gnb mouse and tab setting
-	$('#gnb > ul').find('> li').mouseenter(function () {
-		$('#gnb .menu > div').stop().slideUp(150);
-		$(this).find('> div').stop().slideDown(150);
-	}).mouseleave(function () {
-		$(this).find('> div').stop().slideUp(150);
-	});
-	
-	$('#gnb > ul').find('> li > a').focusin(function () {
-		$('#gnb .menu > div').slideUp(150);
-		$(this).next('div').stop().slideDown(150);
-	});
-	$('.depth2 li:last-child a').focusout(function () {
-		$('#gnb .menu > div').stop().slideUp(150);
-	});
-	//gnb mouse and tab setting end
-	
-	// gnb
-	$('#gnb > ul > li.menu > a').mouseenter(function() {
-		$(this).css('color', '#ff6600');
-	});
-	
-	$('#gnb > ul > li.menu > a').mouseleave(function() {
-		$(this).css('color', '#513e1f');
-	});
-	$('#gnb > ul > li.menu > div > ul > li > a').mouseenter(function() {
-		$(this).css('color', '#ff6600');
-	});
-	$('#gnb > ul > li.menu > div > ul > li > a').mouseleave(function() {
-		$(this).css('color', '#513e1f');
-	});
-	
-	$('#gnb > ul > li.menu > div').mouseenter(function(){
-		$(this).prev('a').css('color', '#ff6600');
-	});
-	
-	$('#gnb > ul > li.menu > div').mouseleave(function(){
-		$(this).prev('a').css('color', '#513e1f');
-	});
-	// gnb
-	//header
+    $('#gnb .menu > div').css({
+        'width': $('#header_wrap').width(),
+        'left': 0
+    });
+    
+    //gnb mouse and tab setting
+    $('#gnb > ul').find('> li').mouseenter(function () {
+        $('#gnb .menu > div').stop().slideUp(150);
+        $(this).find('> div').stop().slideDown(150);
+    }).mouseleave(function () {
+            $(this).find('> div').stop().slideUp(150);
+        });
+    
+    $('#gnb > ul').find('> li > a').focusin(function () {
+        $('#gnb .menu > div').slideUp(150);
+        $(this).next('div').stop().slideDown(150);
+    });
+    
+    $('.depth2 li:last-child a').focusout(function () {
+        $('#gnb .menu > div').stop().slideUp(150);
+    });
+    //gnb mouse and tab setting end
+
+    // gnb
+    $('#gnb > ul > li.menu > a').mouseenter(function() {
+        $(this).css('color', '#ff6600');
+    });
+    $('#gnb > ul > li.menu > a').mouseleave(function() {
+        $(this).css('color', '#513e1f');
+    });
+    $('#gnb > ul > li.menu > div > ul > li > a').mouseenter(function() {
+        $(this).css('color', '#ff6600');
+    });
+    $('#gnb > ul > li.menu > div > ul > li > a').mouseleave(function() {
+        $(this).css('color', '#513e1f');
+    });
+    $('#gnb > ul > li.menu > div').mouseenter(function(){
+        $(this).prev('a').css('color', '#ff6600');
+    });
+    $('#gnb > ul > li.menu > div').mouseleave(function(){
+        $(this).prev('a').css('color', '#513e1f');
+    });
+    // gnb
+    //header
 	
 	$('.category_slide').bxSlider({
 		slideWidth: 196,
@@ -227,7 +226,7 @@ $(function() {
 	);
 	
 	// videoBox 이미지 클릭
-	$('#mamsHome').click(function() {
+	$('#vbHome').click(function() {
 		$(location).attr('href', '/videoBox');
 	});
 	
@@ -334,7 +333,6 @@ $(function() {
 			hiddenHis = $('<input>').prop({'type':'hidden','name':'historyList','value':JSON.stringify(mamCook.myHistory)});
 			$('form[class="search_form"]').append(hiddenHis);
 		}
-		
 	});
 	
 	// Region click 후 해당 지역 검색
@@ -459,6 +457,25 @@ $(function() {
 	});
 	//--admin enter end
 	
+	//--category 항목 클릭후 해당 카테고리로 이동 start
+	$('li[id="gnb"]').click(function() {
+		var playlistId  = null;
+		var formElement = null;
+		var hiddenPid	= null;
+		var mamCook		= null;
+		var hiddenHis	= null;
+		mamCook 	= $.cookies.get('mamsCookie');
+		playlistId 	= $(this).attr('data-gnb');
+		hiddenHis 	= $('<input>').prop({'type':'hidden','name':'historyList','value':JSON.stringify(mamCook.myHistory)});
+		/*
+		formElement = $('<form></form>').prop({'method':'post','action':'categorySection'});
+		hiddenPid	= $('<input>').prop({'type':'hidden','name':'playlist_id','value':playlistId});
+		formElement.append(hiddenPid).append(hiddenHis).appendTo('body').submit();
+		*/
+	});
+	//--category 항목 클릭후 해당 카테고리로 이동 end
+	
+	//--
 	//--
 	// ################################ Web Programmer surpport End ################################
 });

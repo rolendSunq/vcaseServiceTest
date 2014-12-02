@@ -2,8 +2,12 @@ package com.hankooktire.videobox.service;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.Array;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,8 +16,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.airensoft.skovp.utils.ovpconnector.OMSConnector;
 import com.airensoft.skovp.utils.ovpconnector.OMSConnectorResponse;
+import com.airensoft.skovp.utils.time.DateUtils;
 import com.airensoft.skovp.vo.FileVO;
 import com.airensoft.skovp.vo.MovieContentVO;
+import com.airensoft.skovp.vo.PlayListCountVO;
+import com.airensoft.skovp.vo.ViewCountStatisticsVO;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -28,9 +35,8 @@ public class OvpServiceImpl implements OvpService {
 	OMSConnector omsConnector;
 	
 	@Override
-	public void popularList(Model model) {
-		omsConnector.clear();
-		omsResponder = omsConnector.requestPopularContentList(0, 0, 0, 5, true, true);
+	public void popularList(Model model, int displayCount) {
+		omsResponder = omsConnector.requestPopularContentList(0, 0, 0, displayCount, true, true);
 		List<MovieContentVO> popularList = mappingContentData(omsResponder);
 		model.addAttribute("popularList", popularList);
 	}
@@ -167,6 +173,93 @@ public class OvpServiceImpl implements OvpService {
 		}
 	}
 	
+	// 콘텐트 재생 횟수 통계
+	@Override
+	public List<ViewCountStatisticsVO> getViewCountContent(int page) {
+		List<ViewCountStatisticsVO> resultList = new ArrayList<ViewCountStatisticsVO>();
+		omsResponder = omsConnector.getOvpViewCountStatistics(null, "all", "windowsnt", "ovfp", "all", DateUtils.getMonthAgoDate(), DateUtils.getMonthDate(), page);
+		JsonElement resultElement = omsResponder.getRootDataElement();
+		JsonArray contentJsonArray = resultElement.getAsJsonObject().get("view").getAsJsonArray();
+		for (JsonElement jsonElement : contentJsonArray) {
+			ViewCountStatisticsVO viewCountStatisticsVO = new Gson().fromJson(jsonElement, ViewCountStatisticsVO.class);
+			JsonObject content_infoElement = jsonElement.getAsJsonObject().get("content_info").getAsJsonObject();
+			viewCountStatisticsVO.setContent_title(content_infoElement.get("content_title").getAsString());
+			viewCountStatisticsVO.setContent_id(content_infoElement.get("content_id").getAsString());
+			System.out.println(viewCountStatisticsVO);
+			resultList.add(viewCountStatisticsVO);
+		}
+		return resultList;
+	}
+	
+	// playlist 내의 콘텐트 수 조회
+	@Override
+	public List<PlayListCountVO> getCountPlayListForContent() {
+		List<PlayListCountVO> list = new ArrayList<PlayListCountVO>();
+		omsResponder = omsConnector.requestContentForPlayList();
+		JsonElement resultElement = omsResponder.getRootDataElement();
+		JsonArray jsonArray = resultElement.getAsJsonObject().get("content_count").getAsJsonArray();
+		for (JsonElement jsonElement : jsonArray) {
+			PlayListCountVO playListCountVO = new Gson().fromJson(jsonElement, PlayListCountVO.class);
+			System.out.println(playListCountVO);
+			list.add(playListCountVO);
+		}
+		return list;
+	}
+	
+	// 개별 플레이리스트 목록에 컨텐트를 가져온다.
+	@Override
+	public List<MovieContentVO> getPlayListForContent(String playlist_id, String searchType, String search, Integer pageNum, Model model) {
+		List<MovieContentVO> playlistContentList = new ArrayList<MovieContentVO>();
+		omsResponder = omsConnector.requestGetPlayListToContent(playlist_id, "video", "cmplt", searchType, search, null, null, pageNum, 20, "reg_date", "desc", true, true);
+		JsonElement jsonElement = omsResponder.getRootDataElement();
+		if (jsonElement != null) {
+			JsonArray contentJsonArray = jsonElement.getAsJsonObject().get("content").getAsJsonArray();
+			int totalCnt = jsonElement.getAsJsonObject().get("total_count").getAsInt();
+			for (JsonElement contentElement : contentJsonArray) {
+				MovieContentVO movieContentVO = new Gson().fromJson(contentElement, MovieContentVO.class);
+				JsonArray thumbNailArray = contentElement.getAsJsonObject().get("extra").getAsJsonObject().get("thumbnails").getAsJsonArray();
+				for (JsonElement thumbElement : thumbNailArray) {
+					boolean isStill = thumbElement.getAsJsonObject().get("is_still").getAsBoolean();
+					if (isStill) {
+						JsonObject staticUrl = thumbElement.getAsJsonObject().get("static_url").getAsJsonObject();
+						movieContentVO.setThumb_url(staticUrl.getAsJsonObject().get("download_url").getAsString());
+					}
+				}
+				System.out.println(movieContentVO);
+				playlistContentList.add(movieContentVO);
+			}
+			System.out.println("total_count: " + totalCnt);
+			model.addAttribute("totalCnt", totalCnt);
+		}
+		return playlistContentList;
+	}
+	
+	// 해당 카데코리 리스트로 이동한다.
+	@Override
+	public void goCategoryList(String[] historyList, String playlist_id, int pageNum, String sort, Model model) {
+		List<MovieContentVO> hisList = new ArrayList<MovieContentVO>();
+		for(int i = historyList.length; i < historyList.length; i--) {
+			omsResponder = omsConnector.RequestContentList("video", "orign", "cmplt", "content_id", historyList[i], null, null, pageNum, 20, sort, "desc", true, true);
+			JsonElement jsonElement = omsResponder.getRootDataElement();
+			JsonArray jsonHistoryArray = jsonElement.getAsJsonObject().get("content").getAsJsonArray();
+			for (JsonElement resultContent : jsonHistoryArray) {
+				MovieContentVO movieContentVO = new Gson().fromJson(resultContent, MovieContentVO.class);
+				JsonArray thumbNailArray = resultContent.getAsJsonObject().get("extra").getAsJsonObject().get("thumbnails").getAsJsonArray();
+				for (JsonElement thumbElement : thumbNailArray) {
+					boolean isStill = thumbElement.getAsJsonObject().get("is_still").getAsBoolean();
+					if (isStill) {
+						JsonObject staticUrl = thumbElement.getAsJsonObject().get("static_url").getAsJsonObject();
+						movieContentVO.setThumb_url(staticUrl.getAsJsonObject().get("download_url").getAsString());
+					}
+				}
+				hisList.add(movieContentVO);
+			}
+		}
+		model.addAttribute("historyList", hisList);
+		
+	}
+	
+	// multipart file을 file type 으로 변환
 	private File multipartToFile(MultipartFile multipart) throws IllegalStateException, IOException {
         File convFile = new File(multipart.getOriginalFilename());
         multipart.transferTo(convFile);
@@ -191,4 +284,7 @@ public class OvpServiceImpl implements OvpService {
 		}
 		return contentList;
 	}
+
+
+
 }

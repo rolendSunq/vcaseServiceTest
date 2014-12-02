@@ -31,11 +31,11 @@
 	                        <div class="my_movie_wh">
 	                        	<dl>
 	                            	<dt>Watch History</dt>
-	                                <dd><a><img width="25px" height="14px" src="images/common/admin/thumbnail.jpg" alt="" />The UEFA Europa League 12-13 ...</a></dd>
-	                                <dd><a><img width="25px" height="14px" src="images/common/admin/thumbnail.jpg" alt="" />Eins mit der Straße - Hankook Reifen ...</a></dd>
-	                                <dd><a><img width="25px" height="14px" src="images/common/admin/thumbnail.jpg" alt="" />SIENTE LA CONEXION - NEUMATI...</a></dd>
-	                                <dd><a><img width="25px" height="14px" src="images/common/admin/thumbnail.jpg" alt="" />Be One with it" (20'', English, 2013)...</a></dd>
-	                                <dd><a><img width="25px" height="14px" src="images/common/admin/thumbnail.jpg" alt="" />Ne faites qu'un avec vos pneus...</a></dd>
+	                                <dd><a><img width="25px" height="14px" src="./resources/images/admin/thumbnail.jpg" alt="" />The UEFA Europa League 12-13 ...</a></dd>
+	                                <dd><a><img width="25px" height="14px" src="./resources/images/admin/thumbnail.jpg" alt="" />Eins mit der Straße - Hankook Reifen ...</a></dd>
+	                                <dd><a><img width="25px" height="14px" src="./resources/images/admin/thumbnail.jpg" alt="" />SIENTE LA CONEXION - NEUMATI...</a></dd>
+	                                <dd><a><img width="25px" height="14px" src="./resources/images/admin/thumbnail.jpg" alt="" />Be One with it" (20'', English, 2013)...</a></dd>
+	                                <dd><a><img width="25px" height="14px" src="./resources/images/admin/thumbnail.jpg" alt="" />Ne faites qu'un avec vos pneus...</a></dd>
 	                            </dl>
 	                        </div>
 	                        <div class="my_movie_db">
@@ -56,8 +56,8 @@
 					<div class="header_top"> 
 						<h1>
 							<a>
-								<img src="images/common/admin/img_logo.png" alt="Hankook - driving emotion" />
-								<img src="images/common/admin/img_logo2.png" alt="Digital Library MAMs" />
+								<img id="hankookHome" src="./resources/images/admin/img_logo.png" alt="Hankook - driving emotion" />
+								<img id="vbHome" src="./resources/images/admin/img_logo2.png" alt="Digital Library MAMs" />
 							</a>
 						</h1>
 						<div class="util_navi">
@@ -189,9 +189,9 @@
 	                    <h2>Setting</h2>
 	                    <!-- 탭메뉴 -->
 	                    <ul class="admin_tab">
-	                       	<li id="tabUplo"><a id="goUploader">업로더 설정</a></li>
-	                        <li id="tabDoc"class="on"><a id="goDoc">Document</a></li>
-	                        <li id="tabLog"><a id="goLog">Log</a></li>
+	                       	<li id="tabUplo" class="on"><a>업로더 설정</a></li>
+	                        <li id="tabDoc"><a>Document</a></li>
+	                        <li id="tabLog"><a>Log</a></li>
 	                        <li></li>
 	                        <li></li>
 	                        <li></li>
@@ -208,7 +208,7 @@
 	                            <div class="uploader_con">
 	                                <div class="uploader_title_con">
 	                                    <p>업로더 찾기</p>
-	                                    <p class="close"><a><img src="images/common/admin/close_btn.png" alt="close"/></a></p>
+	                                    <p class="close"><a><img src="./resources/images/admin/close_btn.png" alt="close"/></a></p>
 	                                </div>
 	                                <div class="uploader_contents">
 	                                    <div class="uploader_search_con">
@@ -221,7 +221,7 @@
 	                                            <input type="text" name="" id=""/>
 	                                        </span>
 	                                        <span class="search_btn">
-	                                            <img src="images/common/admin/uploader_search_btn.png" alt="Search"/>
+	                                            <img src="./resources/images/admin/uploader_search_btn.png" alt="Search"/>
 	                                        </span>
 	                                    </div>
 	                                </div>
@@ -274,14 +274,14 @@
 	                                    </table>
 	                                </div>
 	                                <!-- //리스트 -->
-	                                <p class="uploader_select_btn"><a><img src="images/common/admin/uploader_select_btn.png" alt="Select"/></a></p>
+	                                <p class="uploader_select_btn"><a><img src="./resources/images/admin/uploader_select_btn.png" alt="Select"/></a></p>
 	                            </div>
 	                        </div>
 	                        <!-- //Search_uploader 팝업 -->
 	                        <!-- 업로더설정 -->
 	                        <div class="admin_title">
 	                            <p class="uploader_title">Setting &nbsp; &gt; <span>업로더 설정</span></p>
-	                            <p class="uploader_btn"><a><img src="images/common/admin/upload_btn.png" alt="등록하기"/></a></p>
+	                            <p class="uploader_btn"><a><img src="./resources/images/admin/upload_btn.png" alt="등록하기"/></a></p>
 	                        </div>
 	                        <!-- //업로더설정 -->
 	                        <!-- 테이블 영역 -->
@@ -316,7 +316,7 @@
 	                                    <td class="left">비주얼커뮤니케이션팀</td>
 	                                    <td class="left">afaehtjong@hankooktire.com</td>
 	                                    <td class="left">Hankook Tire</td>
-	                                    <td><a><img src="images/common/admin/uploader_delete_btn.png" alt="Delete"/></a></td>
+	                                    <td><a><img src="./resources/images/admin/uploader_delete_btn.png" alt="Delete"/></a></td>
 	                                </tr>
 	                                <tr>
 	                                    <td>9</td>
@@ -325,7 +325,7 @@
 	                                    <td class="left">구주법인</td>
 	                                    <td class="left">attttg@hankooktire.com</td>
 	                                    <td class="left">Delear</td>
-	                                    <td><a><img src="images/common/admin/uploader_delete_btn.png" alt="Delete"/></a></td>
+	                                    <td><a><img src="./resources/images/admin/uploader_delete_btn.png" alt="Delete"/></a></td>
 	                                </tr>
 	                                <tr>
 	                                    <td>8</td>
@@ -334,7 +334,7 @@
 	                                    <td class="left">구주법인</td>
 	                                    <td class="left">attttg@hankooktire.com</td>
 	                                    <td class="left">Delear</td>
-	                                    <td><a><img src="images/common/admin/uploader_delete_btn.png" alt="Delete"/></a></td>
+	                                    <td><a><img src="./resources/images/admin/uploader_delete_btn.png" alt="Delete"/></a></td>
 	                                </tr>
 	                                <tr>
 	                                    <td>7</td>
@@ -343,7 +343,7 @@
 	                                    <td class="left">구주법인</td>
 	                                    <td class="left">attttg@hankooktire.com</td>
 	                                    <td class="left">Delear</td>
-	                                    <td><a><img src="images/common/admin/uploader_delete_btn.png" alt="Delete"/></a></td>
+	                                    <td><a><img src="./resources/images/admin/uploader_delete_btn.png" alt="Delete"/></a></td>
 	                                </tr>
 	                                <tr>
 	                                    <td>6</td>
@@ -352,7 +352,7 @@
 	                                    <td class="left">구주법인</td>
 	                                    <td class="left">attttg@hankooktire.com</td>
 	                                    <td class="left">Delear</td>
-	                                    <td><a><img src="images/common/admin/uploader_delete_btn.png" alt="Delete"/></a></td>
+	                                    <td><a><img src="./resources/images/admin/uploader_delete_btn.png" alt="Delete"/></a></td>
 	                                </tr>
 	                                <tr>
 	                                    <td>5</td>
@@ -361,7 +361,7 @@
 	                                    <td class="left">구주법인</td>
 	                                    <td class="left">attttg@hankooktire.com</td>
 	                                    <td class="left">Delear</td>
-	                                    <td><a><img src="images/common/admin/uploader_delete_btn.png" alt="Delete"/></a></td>
+	                                    <td><a><img src="./resources/images/admin/uploader_delete_btn.png" alt="Delete"/></a></td>
 	                                </tr>
 	                                <tr>
 	                                    <td>4</td>
@@ -370,7 +370,7 @@
 	                                    <td class="left">구주법인</td>
 	                                    <td class="left">attttg@hankooktire.com</td>
 	                                    <td class="left">Delear</td>
-	                                    <td><a><img src="images/common/admin/uploader_delete_btn.png" alt="Delete"/></a></td>
+	                                    <td><a><img src="./resources/images/admin/uploader_delete_btn.png" alt="Delete"/></a></td>
 	                                </tr>
 	                                <tr>
 	                                    <td>3</td>
@@ -379,7 +379,7 @@
 	                                    <td class="left">구주법인</td>
 	                                    <td class="left">attttg@hankooktire.com</td>
 	                                    <td class="left">Delear</td>
-	                                    <td><a><img src="images/common/admin/uploader_delete_btn.png" alt="Delete"/></a></td>
+	                                    <td><a><img src="./resources/images/admin/uploader_delete_btn.png" alt="Delete"/></a></td>
 	                                </tr>
 	                                <tr>
 	                                    <td>2</td>
@@ -388,7 +388,7 @@
 	                                    <td class="left">구주법인</td>
 	                                    <td class="left">attttg@hankooktire.com</td>
 	                                    <td class="left">Delear</td>
-	                                    <td><a><img src="images/common/admin/uploader_delete_btn.png" alt="Delete"/></a></td>
+	                                    <td><a><img src="./resources/images/admin/uploader_delete_btn.png" alt="Delete"/></a></td>
 	                                </tr>
 	                                <tr>
 	                                    <td>1</td>
@@ -397,7 +397,7 @@
 	                                    <td class="left">구주법인</td>
 	                                    <td class="left">attttg@hankooktire.com</td>
 	                                    <td class="left">Delear</td>
-	                                    <td><a><img src="images/common/admin/uploader_delete_btn.png" alt="Delete"/></a></td>
+	                                    <td><a><img src="./resources/images/admin/uploader_delete_btn.png" alt="Delete"/></a></td>
 	                                </tr>
 	                                </tbody>
 	                            </table>
@@ -412,7 +412,7 @@
 	                            </div>
 	                            <div class="right_paging_con">
 	                                <div class="paging_prev">
-	                                    <a><img src="images/common/admin/prev_btn_off.png" alt="previous"/>previous</a>
+	                                    <a><img src="./resources/images/admin/prev_btn_off.png" alt="previous"/>previous</a>
 	                                </div>
 	                                <div class="paging_num">
 	                                    <span class="on"><a>1</a></span>
@@ -420,7 +420,7 @@
 	                                    <span><a>3</a></span>
 	                                </div>
 	                                <div class="paging_next paging_on">
-	                                    <a>next<img src="images/common/admin/next_btn_on.png" alt="next"/></a>
+	                                    <a>next<img src="./resources/images/admin/next_btn_on.png" alt="next"/></a>
 	                                </div>
 	                            </div>
 	                        </div>
@@ -436,7 +436,7 @@
 			<div class="footer_wrap">
 				<!-- footer -->
 				<div id="footer">
-					<h2><img src="images/common/admin/img_logo_bottom.gif" alt="Hankook - driving emotion" /></h2>
+					<h2><img src="./resources/images/admin/img_logo_bottom.gif" alt="Hankook - driving emotion" /></h2>
 					<div class="footer_navi">
 						<ul>
 							<li><a>Digital library</a></li>
@@ -456,5 +456,10 @@
 		<script type="text/javascript" src="./resources/common/js/jquery.ui.all.js"></script>
 	    <script type="text/javascript" src="./resources/common/js/jquery.bxslider.min.js"></script>
 	    <script type="text/javascript" src="./resources/common/js/admin.js"></script>
+	    <script type="text/javascript">
+			$(document).ready(function() {
+				$('.uploader_popup').hide();
+			});
+	    </script>
 	</body>
 </html>

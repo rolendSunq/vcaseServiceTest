@@ -4,5 +4,62 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
+	<!-- DataSource -->
+	<!-- 
+	<alias name="dataSource-oracle" alias="egov.dataSource" />
+	 -->
+
+	<!-- Oracle -->
+	<!-- 
+	<bean id="dataSource-oracle" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
+		<property name="url" value="jdbc:oracle:thin:@202.31.11.182:1521:DHQPDLIB" />
+		<property name="username" value="HDL"/>
+		<property name="password" value="djemals"/>
+	</bean>
+	 -->
+	
+	 <!-- 실행환경에서 빈이름 참조(EgovAbstractDAO) -->
+	 <!-- 
+	<bean id="egov.lobHandler" class="org.springframework.jdbc.support.lob.DefaultLobHandler" lazy-init="true" />
+	  -->
+	
+	<!-- SqlMap setup for iBATIS Database Layer -->
+	<!-- 
+	<bean id="egov.sqlMapClient" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
 		
+		<property name="configLocations">
+				<value>classpath:/videoBox/src/main/resources/META-INF/sqlmap/config/oracle/*.xml</value>
+		</property>
+	 -->
+
+		<!-- property name="configLocation" value="WEB-INF/classes/egovframework/sqlmap/config/${Globals.DbType}/*.xml"/-->
+		
+		<!-- not appointed -->
+		<!-- 
+		<property name="configLocation" value="classpath:/egovframework/sqlmap/com/sql-map-config.xml"/>
+		-->
+
+		<!-- Oracle -->
+		<!-- 
+		<property name="configLocation" value="classpath:/egovframework/sqlmap/com/sql-map-config-oracle.xml"/>
+		-->
+		<!-- Mysql -->
+		<!-- 
+		<property name="configLocation" value="classpath:/egovframework/sqlmap/com/sql-map-config-mysql.xml"/>
+		-->
+		<!-- Altibase -->
+		<!-- 
+		<property name="configLocation" value="classpath:/egovframework/sqlmap/com/sql-map-config-altibase.xml"/>
+		-->
+		<!-- Tibero -->
+		<!-- 
+		<property name="configLocation" value="classpath:/egovframework/sqlmap/com/sql-map-config-tibero.xml"/>
+		-->
+		<!-- 
+		<property name="dataSource" ref="egov.dataSource"/>
+		
+		<property name="lobHandler" ref="egov.lobHandler"/>
+	</bean>
+		 -->
 </beans>

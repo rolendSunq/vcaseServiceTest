@@ -132,7 +132,7 @@ public class UserController {
 				}
 			}
 		}
-		ovpService.popularList(model);
+		ovpService.popularList(model, 5);
 		
 		model.addAttribute("list", result);
 		model.addAttribute("oneStreamPlay", oneStreamPlay);
@@ -294,6 +294,10 @@ public class UserController {
 		return "redirect:/";
 	}
 	
+	// 해당 category list page로 이동
+	public String goCategoryPage() {
+		return null;
+	}
 	private String getStreamPlayUrl(int contentId, String variableUrlName) {
 		omsConnector.clear();
 		Map<String, String> map = new HashMap<String, String>();
@@ -586,6 +590,7 @@ public class UserController {
 				omsResponder = omsConnector.RequestContentList("video", "trscd", null, "content_id", trscdList[i], null, null, null, null, "reg_date", null, false, false);
 				JsonElement resultElement = omsResponder.getRootDataElement();
 				JsonArray contentJsonArray = resultElement.getAsJsonObject().get("content").getAsJsonArray();
+				System.out.println("resultElement: " + resultElement.toString());
 				for (JsonElement jsonElement : contentJsonArray) {
 					String upper_content_id = jsonElement.getAsJsonObject().get("upper_content_id").getAsString();
 					result.add(upper_content_id);

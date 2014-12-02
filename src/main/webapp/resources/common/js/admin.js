@@ -164,14 +164,24 @@ $(function() {
 		}
 	);
 	
+	// videoBox 이미지 클릭
+	$('#vbHome').click(function() {
+		$(location).attr('href', '/videoBox');
+	});
+	
 	// document page 이동
-	$('#goDoc').click(function() {
+	$('#tabDoc').click(function() {
 		location.replace('/videoBox/adminDoc');
 	});
 	
 	// log page 이동
-    $('#goLogPage').click(function() {
+    $('#tabLog').click(function() {
         location.replace('/videoBox/adminLog');
+    });
+    
+    // uploader page 이동
+    $('#tabUplo').click(function() {
+    	location.replace('/videoBox/adminUploaders');
     });
     
     // tab mouse over
@@ -184,6 +194,10 @@ $(function() {
     	$(this).css('cursor', 'default');
     });
     
+    $('li[id="category"]').click(function() {
+    	var playlistId = null;
+    	playlistId = $(this).attr('data-category');
+    });
     //################################ DFLUX C&C developer end ################################
 });
 

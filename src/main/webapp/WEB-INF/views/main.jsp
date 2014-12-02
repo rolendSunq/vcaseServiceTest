@@ -148,8 +148,6 @@
 		                    <li><a><img src="./resources/images/common/down_mp4.png" alt="mp4"/></a></li>
 		                    <li><a><img src="./resources/images/common/down_avi.png" alt="avi"/></a></li>
 		                    <li><a><img src="./resources/images/common/down_mov.png" alt="mov"/></a></li>
-		                    <li><a><img src="./resources/images/common/down_flv.png" alt="flv"/></a></li>
-		                    <li><a><img src="./resources/images/common/down_mpeg.png" alt="mpeg"/></a></li>
 		                    <li><a><img src="./resources/images/common/down_wmv.png" alt="wmv"/></a></li>
 		                </ul>
 		            </div>
@@ -212,7 +210,7 @@
 						<h1>
 							<a>
 								<img id="hankookHome" src="./resources/images/common/img_logo.png" alt="Hankook - driving emotion" />
-								<img id="mamsHome" src="./resources/images/common/img_logo2.png" alt="Digital Library MAMs" />
+								<img id="vbHome" src="./resources/images/common/img_logo2.png" alt="Digital Library MAMs" />
 							</a>
 						</h1>
 						<div class="util_navi">
@@ -248,87 +246,87 @@
 						<ul>
 							<li class="first menu menu1">
 	                        	<a class="pad0">Corporation</a>
-	                        	<div>
-		                        	<div>
-		                        		<ul class="depth2">
-		                        			<li><a>Company</a></li>
-		                        			<li><a>Company (RAW)</a></li>
-		                        			<li><a>Culture</a></li>
-		                        			<li><a>Culture (RAW)</a></li>
-		                        			<li><a>TV Footages</a></li>
-		                        			<li><a>TV Footages (RAW)</a></li>
-		                        		</ul>
-		                        	</div>
-	                        	</div>
+	                            <div>
+	                                <div>
+		                                <ul class="depth2">
+		                                    <li id="gnb" data-gnb="1300000248"><a>Company</a></li>
+		                        			<li id="gnb" data-gnb="1300000247"><a>Company (RAW)</a></li>
+		                        			<li id="gnb" data-gnb="1300000246"><a>Culture</a></li>
+		                        			<li id="gnb" data-gnb="1300000245"><a>Culture (RAW)</a></li>
+		                        			<li id="gnb" data-gnb="1300000244"><a>TV Footages</a></li>
+		                        			<li id="gnb" data-gnb="1300000243"><a>TV Footages (RAW)</a></li>
+		                                </ul>
+	                                </div>
+	                            </div>
 	                        </li>
 							<li class="menu menu2">
 	                        	<a class="pad1">Advertisements</a>
-	                        	<div>
-		                        	<div>
-		                        		<ul class="depth2">
-		                        			<li><a>TVC</a></li>
-		                        			<li><a>TVC (RAW)</a></li>
-		                        			<li><a>Campaign</a></li>
-		                        			<li><a>Campaign (RAW)</a></li>
-		                        			<li><a>Sports Marketing</a></li>
-		                        			<li><a>Sports Marketing (RAW)</a></li>
-		                        		</ul>
-		                        	</div>
-	                        	</div>
+	                            <div>
+	                                <div>
+		                                <ul class="depth2">
+		                                    <li id="gnb" data-gnb="1300000242"><a>TVC</a></li>
+		                        			<li id="gnb" data-gnb="1300000241"><a>TVC (RAW)</a></li>
+		                        			<li id="gnb" data-gnb="1300000240"><a>Campaign</a></li>
+		                        			<li id="gnb" data-gnb="1300000239"><a>Campaign (RAW)</a></li>
+		                        			<li id="gnb" data-gnb="1300000238"><a>Sports Marketing</a></li>
+		                        			<li id="gnb" data-gnb="1300000237"><a>Sports Marketing (RAW)</a></li>
+		                                </ul>
+	                                </div>
+	                            </div>
 	                        </li>
 							<li class="menu menu3">
 	                        	<a class="pad2">Products</a>
-	                        	<div>
-		                        	<div>
-		                        		<ul class="depth2">
-		                        			<li><a>HanKook Tire</a></li>
-		                        			<li><a>HanKook Tire (RAW)</a></li>
-		                        			<li><a>Other Brand</a></li>
-		                        			<li><a>Other Brand (RAW)</a></li>
-		                        			<li><a>Technoloagy</a></li>
-		                        			<li><a>Technoloagy (RAW)</a></li>
-		                        		</ul>
-		                        	</div>
-	                        	</div>
+	                            <div>
+	                                <div>
+										<ul class="depth2">
+											<li id="gnb" data-gnb="1300000236"><a>HanKook Tire</a></li>
+		                        			<li id="gnb" data-gnb="1300000235"><a>HanKook Tire (RAW)</a></li>
+		                        			<li id="gnb" data-gnb="1300000234"><a>Other Brand</a></li>
+		                        			<li id="gnb" data-gnb="1300000233"><a>Other Brand (RAW)</a></li>
+		                        			<li id="gnb" data-gnb="1300000232"><a>Technoloagy</a></li>
+		                        			<li id="gnb" data-gnb="1300000231"><a>Technoloagy (RAW)</a></li>
+										</ul>
+	                                </div>
+	                            </div>
 	                        </li>
 							<li class="menu menu4">
 	                        	<a class="pad3">Motorsports</a>
-	                        	<div>
-		                        	<div>
-		                        		<ul class="depth2">
-		                        			<li><a>Europe</a></li>
-		                        			<li><a>Europe (RAW)</a></li>
-		                        			<li><a>Other Motosports</a></li>
-		                        			<li><a>Other Motosports (RAW)</a></li>
-		                        		</ul>
-		                        	</div>
-	                        	</div>
+	                            <div>
+	                                <div>
+		                                <ul class="depth2">
+		                                    <li id="gnb" data-gnb="1300000230"><a>Europe</a></li>
+		                        			<li id="gnb" data-gnb="1300000229"><a>Europe (RAW)</a></li>
+		                        			<li id="gnb" data-gnb="1300000228"><a>Other Motosports</a></li>
+		                        			<li id="gnb" data-gnb="1300000227"><a>Other Motosports (RAW)</a></li>
+		                                </ul>
+	                                </div>
+	                            </div>
 	                        </li>
 							<li class="menu menu5">
 	                        	<a class="pad4">Events</a>
-	                        	<div>
-		                        	<div>
-		                        		<ul class="depth2">
-		                        			<li><a>Exhibition</a></li>
-		                        			<li><a>Exhibition (RAW)</a></li>
-		                        			<li><a>Promotion</a></li>
-		                        			<li><a>Promotion (RAW)</a></li>
-		                        			<li><a>Other Event</a></li>
-		                        			<li><a>Other Event (RAW)</a></li>
-		                        		</ul>
-		                        	</div>
-	                        	</div>
+	                            <div>
+	                                <div>
+		                                <ul class="depth2">
+		                                    <li id="gnb" data-gnb="1300000226"><a>Exhibition</a></li>
+		                        			<li id="gnb" data-gnb="1300000225"><a>Exhibition (RAW)</a></li>
+		                        			<li id="gnb" data-gnb="1300000224"><a>Promotion</a></li>
+		                        			<li id="gnb" data-gnb="1300000223"><a>Promotion (RAW)</a></li>
+		                        			<li id="gnb" data-gnb="1300000222"><a>Other Event</a></li>
+		                        			<li id="gnb" data-gnb="1300000221"><a>Other Event (RAW)</a></li>
+		                                </ul>
+	                                </div>
+	                            </div>
 	                        </li>
 							<li class="last menu menu6">
 	                        	<a class="pad5">Others</a>
-	                        	<div>
-		                        	<div>
-		                        		<ul class="depth2">
-		                        			<li><a>Other</a></li>
-		                        			<li><a>Other (RAW)</a></li>
-		                        		</ul>
-		                        	</div>
-	                        	</div>
+	                            <div>
+	                                <div>
+										<ul class="depth2">
+											<li id="gnb" data-gnb="1300000220"><a>Other</a></li>
+											<li id="gnb" data-gnb="1300000219"><a>Other (RAW)</a></li>
+										</ul>
+	                                </div>
+	                            </div>
 	                        </li>
 						</ul>
 					</div>
@@ -424,7 +422,6 @@
 	                            	<span>
 	                                	<img width="196px" height="110px" src="${popularObject.getThumb_url() }" alt="" />
 	                                    <span class="video-time">${popularObject.getDuration() }</span>
-	                                    <span class="admin_icon"><img src="./resources/images/common/icon_admin.png" alt="admin" /></span>
 	                                </span>
 	                            </a>
 	                            <span>Corporation</span>
@@ -504,7 +501,7 @@
 	                    <!-- //탭메뉴_대분류 End -->
 	                    <!-- 탭메뉴_소분류 -->
 	                    <ul class="tab02 on">
-	                        <li class="on"><a>Company</a></li>
+	                        <li class="on" id="tabCategory"><a>Company</a></li>
 	                        <li class="line ml15 mr15">|</li>
 	                        <li><a>Company (RAW)</a></li>
 	                        <li class="line ml15 mr15">|</li>
