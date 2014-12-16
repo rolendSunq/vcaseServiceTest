@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.HashMap;
+import java.util.List;
 
 import org.apache.http.client.ClientProtocolException;
 
@@ -75,7 +76,7 @@ public class OMSConnector extends HttpConnectable {
 	/**
 	 * 컨텐츠 스트리밍 URL 발급
 	 */
-	public OMSConnectorResponse RequestPulbishStreamingContent(Integer content_id, Integer allow_count, Integer allow_start_Date, Integer allow_end_date, String protocol, boolean encryption) {
+	public OMSConnectorResponse RequestPulbishStreamingContent(String content_id, Integer allow_count, Integer allow_start_Date, Integer allow_end_date, String protocol, boolean encryption) {
 		setProtocol("http");
 		setMethod("GET");
 		addURIParam(OMSConfig.OVP_PUBLISH_STREAMING_CONTENT + "/" + content_id);
@@ -101,7 +102,8 @@ public class OMSConnector extends HttpConnectable {
 	}
 	
 	// 단일 컨텐츠 정보 조회
-	public OMSConnectorResponse requestPlayerInfo(int contentId, boolean withExtra, boolean withStaticUrl) {
+	public OMSConnectorResponse requestPlayerInfo(String contentId, boolean withExtra, boolean withStaticUrl) {
+		clear();
 		setProtocol("http");
 		setMethod("GET");
 		addURIParam(OMSConfig.OVP_CONTENT_LIST + "/" + contentId);
@@ -110,13 +112,21 @@ public class OMSConnector extends HttpConnectable {
 		return requestAPI();
 	}
 	
-	// 메타 태그 정보 수정
-	public OMSConnectorResponse requestMetaInfoEdit(int contentId, String countTag) {
+	// 메타 태그 정보 수정 (ovp manual 3.1)
+	public OMSConnectorResponse requestMetaInfoEdit(String contentId, List<String> tags, String custom_id, String titie, String description, String related_link, String related_descripttion, String related_object, String related_type, String rev) {
+		clear();
 		setProtocol("http");
 		setMethod("POST");
 		addURIParam(OMSConfig.OVP_CONTENT_LIST + "/" + contentId);
-		addParam("tags", countTag);
-		
+		paramData.put("tags", tags);
+		paramData.put("custom_id", custom_id);
+		paramData.put("title", titie);
+		paramData.put("description", description);
+		paramData.put("related_link", related_link);
+		paramData.put("related_description", related_descripttion);
+		paramData.put("related_object", related_object);
+		paramData.put("related_type", related_type);
+		paramData.put("rev", rev);
 		return requestAPI();
 	}
 	
@@ -152,7 +162,7 @@ public class OMSConnector extends HttpConnectable {
 		return requestAPI(false);
 	}
 	
-	// 플레이리스트(콘텐트 그룹) 생성
+	// 플레이리스트(콘텐트 그룹) 생성 (ovp manual 4.1)
 	public OMSConnectorResponse requestSetPlayList(String custom_id, String name, String desription, boolean active) {
 		clear();
 		setProtocol("http");
@@ -163,7 +173,7 @@ public class OMSConnector extends HttpConnectable {
 		addParam("description", desription);
 		addParam("active", active);
 		
-		//this.paramData.put("key", value);
+		//paramData.put("key", value);
 		
 		return requestAPI();
 	}
@@ -177,7 +187,24 @@ public class OMSConnector extends HttpConnectable {
 		return requestAPI();
 	}
 	
-	// 개별 플레이리스트의 콘텐츠 목록을 가져온다.
+	// 플레이리스트 목록 조회 ovp menual 4.6
+	public OMSConnectorResponse requestSearchPlaylistLIST(String search_Type, String search, String search_start_date, String search_end_date, Integer page, Integer page_size, String sort, String order) {
+		clear();
+		setProtocol("http");
+		setMethod("GET");
+		addURIParam(OMSConfig.OVP_PLAYLIST);
+		addParam("search_Type", search_Type);
+		addParam("search", search);
+		addParam("search_start_date", search_start_date);
+		addParam("search_end_date", search_end_date);
+		addParam("page", page);
+		addParam("page_size", page_size);
+		addParam("sort", sort);
+		addParam("order", order);
+		return requestAPI();
+	}
+	
+	// 개별 플레이리스트의 콘텐츠 목록을 가져온다.(플레이리스트 내 콘텐츠 목록 조회 ovp maual 4.8)
 	public OMSConnectorResponse requestGetPlayListToContent(String playlist_id, String mediaType, String state, String searchType, String search, Integer searchStartDate, Integer searchEndDate, Integer pageNum, Integer pageSize, String sort, String order, boolean withExtra, boolean withStatic) {
 		clear();
 		setProtocol("http");
@@ -195,6 +222,16 @@ public class OMSConnector extends HttpConnectable {
 		addParam("order", order);
 		addParam("with_extra", withExtra);
 		addParam("with_static_url", withStatic);
+		return requestAPI();
+	}
+	
+	// 플레이리스트(컨텐트 그룹)에 해당 콘텐트 바인딩
+	public OMSConnectorResponse requestPlaylistContentBinding(List<String> content_ids, String playlist_id) {
+		clear();
+		setProtocol("http");
+		setMethod("POST");
+		addURIParam(OMSConfig.OVP_PLAYLIST + "/" + playlist_id + "/content");
+		paramData.put("content_ids", content_ids);
 		return requestAPI();
 	}
 	
@@ -225,9 +262,26 @@ public class OMSConnector extends HttpConnectable {
 		 setMethod("DELETE");
 		 addURIParam("/content");
 		 addParam("content_ids", deleteList);
+		 addParam("custom_ids", "");
 		 return requestAPI();
 	}
 	
+	// 플레이리스트의 아이디를 찾는다 (ovp manual 4.6)
+	public OMSConnectorResponse requestPlaylistId(String playlistName) {
+		clear();
+		setProtocol("http");
+		setMethod("GET");
+		addURIParam("/playlist");
+		addParam("search_Type", "name");
+		addParam("search", playlistName);
+		addParam("search_start_date", 0);
+		addParam("search_end_date", 0);
+		addParam("page", 0);
+		addParam("page_size", 1);
+		addParam("sort", "playlist_id");
+		addParam("order", "desc");
+		return requestAPI();
+	}
 	@Override
 	public void clear() {
 		super.clear();

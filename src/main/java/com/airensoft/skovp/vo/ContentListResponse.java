@@ -8,14 +8,14 @@ import java.util.List;
 public class ContentListResponse extends OVPResponse {
 
     static class Result {
-        public List<Content> content;
+        public List<CategoryPageVO> content;
         public int total_count;
     }
 
     public Result result;
 
 
-    public List<Content> getContentList() {
+    public List<CategoryPageVO> getContentList() {
         if(result == null)
             return null;
 

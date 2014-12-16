@@ -3,7 +3,7 @@ package com.airensoft.skovp.vo;
 import org.springframework.web.multipart.MultipartFile;
 
 public class FileVO {
-	private String name, category, title, year, fileName, type, region, official, description;
+	private String name, category, title, year, fileName, type, region, official, description, content_id, custom_id;
 	private MultipartFile file;
 	
 	public String getName() {
@@ -66,6 +66,18 @@ public class FileVO {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+	public String getContent_id() {
+		return content_id;
+	}
+	public void setContent_id(String content_id) {
+		this.content_id = content_id;
+	}
+	public String getCustom_id() {
+		return custom_id;
+	}
+	public void setCustom_id(String custom_id) {
+		this.custom_id = custom_id;
+	}
 	@Override
 	public String toString() {
 		StringBuffer sb = new StringBuffer();
@@ -77,6 +89,8 @@ public class FileVO {
 		sb.append("region: " + getRegion() + "\r\n");
 		sb.append("official: " + getOfficial() + "\r\n");
 		sb.append("description: " + getDescription() + "\r\n");
+		sb.append("content_id: " + getContent_id() + "\r\n");
+		sb.append("customId: " + getCustom_id() + "\r\n");
 		return sb.toString();
 	}
 }

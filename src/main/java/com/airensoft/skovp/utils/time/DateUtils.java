@@ -3,6 +3,7 @@ package com.airensoft.skovp.utils.time;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 import java.util.SimpleTimeZone;
 
 public class DateUtils {
@@ -45,5 +46,13 @@ public class DateUtils {
 		return formatter.format(todayMonth);*/
 		Long longTime = new Long(todayMonth.getTime()/1000L);
 		return longTime.intValue();
+	}
+	
+	public static String getMontDateTime() {
+		Calendar cal = Calendar.getInstance(new SimpleTimeZone(0x1ee6280, "KST"));
+		cal.add(Calendar.MONTH, 0); // 현재 날짜 가져오기
+		Date todayMonth = cal.getTime();
+		SimpleDateFormat formatter = new SimpleDateFormat("MMddHHmmss", Locale.KOREA);
+		return formatter.format(todayMonth);
 	}
 }

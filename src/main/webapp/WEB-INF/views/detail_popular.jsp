@@ -66,8 +66,8 @@
 		                                	<optgroup label="Motorsports">
 		                                    	<option value="Europe">Europe</option>
 		                                    	<option value="Europe (RAW)">Europe (RAW)</option>
-		                                    	<option value="Other Motorsports">Other Motosports</option>
-		                                    	<option value="Other Motorsports (RAW)">Other Motosports (RAW)</option>
+		                                    	<option value="Other Motorsports">Other Motorsports</option>
+		                                    	<option value="Other Motorsports (RAW)">Other Motorsports (RAW)</option>
 		                                	</optgroup>
 		                                	<optgroup label="Events">
 		                                    	<option value="Exhibition">Exhibition</option>
@@ -131,39 +131,39 @@
 		    </div>
 		    <!--//Upload 팝업-->
 		    <!-- Download 팝업 -->
-		    <div class="download_popup_wrap" id="downloadPop">
+		    <div class="download_popup_wrap" style="visibility: hidden;">
 		        <div class="download_popup_con">
 		            <div class="popup_title">
 		                <div class="mb20">
-		                    <p class="mb10" id="dTitle">RA33_Dynapro HP2_Motion Graphic Graphic Graphic Graphic</p>
-		                    <p><span>ID :</span> <label id="contentID">2014cvrw001800000255</label> </p>
+		                    <p class="mb10">RA33_Dynapro HP2_Motion Graphic Graphic Graphic Graphic</p>
+		                    <p><span>ID :</span> 2014cvrw001800000255 </p>
 		                </div>
-		                <span><a id="downClose"><img src="./resources/images/common/popup_close_btn.png" alt="닫기"/></a></span>
+		                <span><a><img src="./resources/images/common/popup_close_btn.png" alt="닫기"/></a></span>
 		            </div>
 		            <div class="download_con">
 		                <p><img src="./resources/images/common/down_title.png" alt="download"/></p>
 		                <ul>
-		                  	<li><a id="mp4dl"><img src="./resources/images/common/ndown_mp4.png" alt="mp4"/></a></li>
-							<li><a id="avidl"><img src="./resources/images/common/ndown_avi.png" alt="avi"/></a></li>
-							<li><a id="movdl"><img src="./resources/images/common/ndown_mov.png" alt="mov"/></a></li>
-							<li><a id="wmvdl"><img src="./resources/images/common/ndown_wmv.png" alt="wmv"/></a></li>
+		                  	<li><a><img src="./resources/images/common/ndown_mp4.png" alt="mp4"/></a></li>
+							<li><a><img src="./resources/images/common/ndown_avi.png" alt="avi"/></a></li>
+							<li><a><img src="./resources/images/common/ndown_mov.png" alt="mov"/></a></li>
+							<li><a><img src="./resources/images/common/ndown_wmv.png" alt="wmv"/></a></li>
 		                </ul>
 		            </div>
 		            <div class="detail_con">
 		                <p><img src="./resources/images/common/detail_title.png" alt="detail"/></p>
 		                <ul>
 		                    <li>
-		                        <p>Size : <label id="fwidth"></label>x<label id="fheight"></label> HD <label id="fsize"></label></p>
-		                        <p>Video Format : <label id="container"></label></p>
-		                        <p>Video Codec : <label id="vCodec"></label></p>
-		                        <p>Video bps : <label id="vbps"></label></p>
-		                        <p>Video fps :<label id="vfps"></label></p>
+		                        <p>Size : 1280x720 HD 408MB</p>
+		                        <p>Video Format : MP4</p>
+		                        <p>Video Codec : h264</p>
+		                        <p>Video bps : 256478</p>
+		                        <p>Video fps :29</p>
 		                    </li>
 		                    <li>
-		                        <p>Audio Codec :<label id="aCodec">aac</label></p>
-		                        <p>Audio bps :<label id="aBps">235478</label></p>
-		                        <p>Audio channel : <label id="aChannel">2</label></p>
-		                        <p>Audio Hz : <label id="aSampleRate">44100</label></p>
+		                        <p>Audio Codec :aac</p>
+		                        <p>Audio bps :235478</p>
+		                        <p>Audio channel : 2</p>
+		                        <p>Audio Hz : 44100</p>
 		                    </li>
 		                </ul>
 		            </div>
@@ -187,19 +187,19 @@
 	                        <div class="my_movie_wh">
 	                        	<dl>
 	                            	<dt>Watch History</dt>
-	                            	<c:forEach var="his" items="${history}" varStatus="status">
+	                            	<c:forEach var="his" items="${history }" varStatus="status">
 	                            	<c:choose>
 									<c:when test="${fn:length(his.title) > 21}">
 									<dd>
-										<a id="his" data-contentId="${his.content_id }" data-streamingUrl="${his.streaming_url }">
-											<img width="25px" height="14px" src="${his.thumb_url }" alt="" />${fn:substring(his.title, 0, 21)}...
+										<a id="his" data-contentId="${his.content_id}" data-streamingUrl="${his.streaming_url}">
+											<img width="25px" height="14px" src="${his.thumb_url}" alt="" />${fn:substring(his.title, 0, 21)}...
 										</a>
 									</dd>
 									</c:when>
 									<c:otherwise>
 	                                <dd>
-	                                	<a id="his" data-contentId="${his.content_id }" data-streamingUrl="${his.streaming_url }">
-	                                		<img width="25px" height="14px" src="${his.thumb_url }" alt="" />${his.title }
+	                                	<a id="his" data-contentId="${his.content_id}" data-streamingUrl="${his.streaming_url}">
+	                                		<img width="25px" height="14px" src="${his.thumb_url}" alt="" />${his.title}
 	                                	</a>
 	                                </dd>
 									</c:otherwise>
@@ -290,8 +290,8 @@
 	                        	<div>
 		                        	<div>
 		                        		<ul class="depth2">
-		                        			<li><a id="pls1300000236">Hankook Tire</a></li>
-		                        			<li><a id="pls1300000235">Hankook Tire (RAW)</a></li>
+		                        			<li><a id="pls1300000236">HanKook Tire</a></li>
+		                        			<li><a id="pls1300000235">HanKook Tire (RAW)</a></li>
 		                        			<li><a id="pls1300000234">Other Brand</a></li>
 		                        			<li><a id="pls1300000233">Other Brand (RAW)</a></li>
 		                        			<li><a id="pls1300000232">Technology</a></li>
@@ -351,7 +351,7 @@
 				<div id="content">
 	            	<div class="detail mlr56">
 	                	<div class="detail_left">
-	                    	<h2><c:out value="${pageInfo.getPlaylist_name()}"/><a class="f_right" id="goList"><img src="./resources/images/common/detai_list.png" alt="List" /></a></h2>
+	                    	<h2><label id="contentName">Popular Movie</label><a class="f_right" id= "goList"><img src="./resources/images/common/detai_list.png" alt="List" /></a></h2>
 	                        <div class="detail_movie"></div>
 	                        <div class="datail_title">
 	                        	<h3>${oneStreamPlay.getTitle()}</h3>
@@ -362,7 +362,7 @@
 	                        </div>
 	                        <div class="datail_info">
 	                        	<ul>
-	                              <li><span>Category&nbsp;&gt;&nbsp;</span>${pageInfo.category}&nbsp;&gt;&nbsp;${pageInfo.playlist_name}</li>
+	                                <li><span>Category&nbsp;&gt;&nbsp;</span>Popular Movie</li>
 	                                <li><span>ID&nbsp;:&nbsp;</span>${oneStreamPlay.getCustom_id()}</li>
 	                                <li><span>Region&nbsp;:&nbsp;</span>${oneStreamPlay.tag.region}</li>
 	                                <li><span>Tag&nbsp;:&nbsp;</span>${oneStreamPlay.tag.category}, ${oneStreamPlay.tag.region}, ${oneStreamPlay.tag.year}, ${oneStreamPlay.tag.type}, ${oneStreamPlay.tag.official}</li>
@@ -387,7 +387,7 @@
 	                                <c:when test="${file.getContainer() eq  'flv' || file.getContainer() eq 'mkv' || status.count eq 6}"></c:when>
 	                                <c:otherwise>
 	                                <li>
-	                                	<a id="getTheFile" data-download="${file.getDownload_url()}" data-mediaType="${file.getMedia_type()}" data-contentSize="${file.getFile_size()}" data-videoFormat="${file.getContainer()}" data-videoCodec="${file.getVideo_codec()}" data-videoBps="${file.getVideo_bitrate()}" data-videoFps="${file.getVideo_framerate()}" data-audioCodec="${file.getAudio_codec()}" data-audioBps="${file.getAudio_bitrate()}" data-audioChannel="${file.getAudio_channel()}" data-audioHz="${file.getAudio_samplerate()}">
+	                                	<a id="getTheFile" href="${file.getDownload_url()}" data-mediaType="${file.getMedia_type()}" data-contentSize="${file.getFile_size()}" data-videoFormat="${file.getContainer()}" data-videoCodec="${file.getVideo_codec()}" data-videoBps="${file.getVideo_bitrate()}" data-videoFps="${file.getVideo_framerate()}" data-audioCodec="${file.getAudio_codec()}" data-audioBps="${file.getAudio_bitrate()}" data-audioChannel="${file.getAudio_channel()}" data-audioHz="${file.getAudio_samplerate()}">
 	                                		<img id="mp4Img" src="./resources/images/common/down_<c:out value="${file.getContainer()}"/>.png" alt="download" /><c:out value="${file.getTitle()}"/>.<c:out value="${file.getContainer()}"/>
 	                                	</a>
 	                                </li>
@@ -438,14 +438,14 @@
 	                        <a class="btn_list" id="goList">List</a>
 	                    </div>
 	                    <div class="detail_right">
-	                    	<div class="dr_title"><p><c:out value="${pageInfo.getPlaylist_name()}"/></p><span id="moreVideoMark">more <c:out value="${pageInfo.getTotalCount() - 1}"/> videos</span></div>
+	                    	<div class="dr_title"><p>Popular Movie</p><span id="moreVideoMark">more <c:out value="${popularList.size() - 1}"/> videos</span></div>
 	                        <ul class="detail_slide">
-	                        	<c:set var="nowPlayContent_id" value="${oneStreamPlay.content_id}"/>
-	                        	<c:forEach  var="detailSlide" items="${list }" varStatus="status">
+	                        	<c:set var="nowPlayContent_id" value="${oneStreamPlay['content_id'] }"/>
+	                        	<c:forEach  var="detailSlide" items="${popularList}" varStatus="">
 	                        	<c:choose>
-	                        	<c:when test="${detailSlide.content_id eq nowPlayContent_id }">
+	                        	<c:when test="${detailSlide.content_id == nowPlayContent_id }">
 	                            <li class="slide">
-	                                <a id="corpSlide"  data-contentId="${detailSlide.content_id }" data-playlistName="${detailSlide.getTag().getCategory()}">
+	                                <a id="corpSlide" data-contentId="${detailSlide.content_id }" data-thumbUrl="${detailSlide.thumb_url }" data-title="${datailSlide.title }">
 	                                    <div class="d_slide_img">
 	                                        <img src="${detailSlide.thumb_url }" alt="">
 	                                        <span class="on"></span>
@@ -466,9 +466,9 @@
 	                        	</c:when>
 	                        	<c:otherwise>
 	                            <li class="slide">
-	                                <a id="corpSlide" data-contentId="${detailSlide.content_id }" data-playlistName="${detailSlide.getTag().getCategory()}">
+	                                <a id="corpSlide" data-contentId="${detailSlide.content_id }" data-thumbUrl="${detailSlide.thumb_url }">
 	                                    <div class="d_slide_img">
-                                        	<img src="${detailSlide.thumb_url}" alt="" />
+	                                        <img src="${detailSlide.thumb_url }" alt="" />
 	                                    </div>
 	                                    <div class="d_slide_info">
 	                                       <c:choose>
@@ -490,13 +490,13 @@
 	                        <div class="rm_title"><p>Related  Movie</p></div>
 	                        <div class="related_movie_list">
 	                        	<ul>
-                            	<c:forEach var="conLst" items="${viewCountASC}" varStatus="status">
+	                        	<c:forEach var="conLst" items="${viewCountASC}" varStatus="status">
 	                            	<li>
-	                                    <a data-streaming="${conLst.streaming_url}" data-thumb="${conLst.thumb_url}" data-title="${conLst.title}">
-	                                       <div class="rm_img">
-	                                           <img src="<c:out value="${conLst.getThumb_url()}"/>" alt="" />
-	                                       </div>
-	                                       <div class="rm_info">
+	                                    <a id="related" data-streaming="${conLst.streaming_url}" data-thumb="${conLst.thumb_url}" data-title="${conLst.title}">
+	                                       	<div class="rm_img">
+												<img id="vcAsc" data-contentId="${conLst.getContent_id()}" src="${conLst.thumb_url}" alt="" />
+	                                       	</div>
+	                                       	<div class="rm_info">
 		                                       <c:choose>
 		                                    	<c:when test="${fn:length(conLst.title) > 23 }">
 		                                    	 <h3 class="on">${fn:substring(conLst.title, 0, 23)}...</h3>
@@ -532,43 +532,6 @@
 	
 			</div>
 			<!-- //footer_wrap end -->
-	        
-	        <!-- download layer -->
-	    	<div class="dow_layer">
-	        	<div class="dow_layer_con">
-	            	<ul>
-	                	<li class="mb5">ID : 2014cvrw001800000255</li>
-	                    <li>region : korea</li>
-	                </ul>
-	                <hr />
-	                <dl class="download">
-	                	<dt>DOWNLOAD</dt>
-	                    <dd><a><img src="./resources/images/common/icon_mov.png" alt="download" />RA33_Dynapro HP2_Motion Graphic(ENG).mov</a></dd>
-	                    <dd><a><img src="./resources/images/common/icon_wmv.png" alt="download" />RA33_Dynapro HP2_Motion Graphic(ENG).wmv</a></dd>
-	                    <dd><a><img src="./resources/images/common/icon_mp4.png" alt="download" />RA33_Dynapro HP2_Motion Graphic(ENG).mp4</a></dd>
-	                    <dd><a><img src="./resources/images/common/icon_mpeg.png" alt="download" />RA33_Dynapro HP2_Motion Graphic(ENG).mpeg</a></dd>
-	                    <dd><a><img src="./resources/images/common/icon_avi.png" alt="download" />RA33_Dynapro HP2_Motion Graphic(ENG).avi</a></dd>
-	                    <dd><a><img src="./resources/images/common/icon_flv.png" alt="download" />RA33_Dynapro HP2_Motion Graphic(ENG).flv</a></dd>
-	                </dl>
-	                <hr />
-	                <dl class="file_info">
-	                	<dt>fILE INFO</dt>
-	                    <dd>Contents Type : <label id="mediaType"></label></dd>
-	                    <dd>Scale : the base rate</dd>
-	                    <dd>Size : <label id="width"></label>x<label id="height"></label> HD <label id="fileSize"></label></dd>
-	                    <dd>Video Format : <label id="container"></label></dd>
-	                    <dd>Video Codec : <label id="videoCodec"></label></dd>
-	                    <dd>Video bps : <label id="videoBps"></label></dd>
-	                    <dd>Video fps : <label id="videoFps"></label></dd>
-	                    <dd>Audio Codec : <label id="audioCodec"></label></dd>
-	                    <dd>Audio bps :<label id="audioBps"></label></dd>
-	                    <dd>Audio channel : <label id="audioChannel"></label></dd>
-	                    <dd>Audio Hz : <label id="audioSamplerate"></label></dd>
-	                </dl>
-	                <a class="dow_layer_close">close</a>
-	            </div>
-	        </div>
-	        <!-- //download layer -->
 		</div>
 		<script type="text/javascript" src="./resources/common/js/jquery-1.11.1.min.js"></script>
 		<script type="text/javascript" src="./resources/common/js/jquery.ui.all.js"></script>
@@ -605,8 +568,6 @@
 					var audioBps = $(this).attr('data-audioBps');
 					var audioChannel = $(this).attr('data-audioChannel');
 					var audioHz = $(this).attr('data-audioHz');
-					var download = $(this).attr('data-download');
-					$(this).attr('href', download);
 					$('#mediaType').text(mType);
 					$('#contentSize').text(contentSize);
 					$('#videoFormat').text(videoFormat);
@@ -620,7 +581,6 @@
 				});
 
 				$('a[id="getTheFile"]').mouseout(function() {
-					//$(this).removeProp('href');
 					$('#mediaType').text('');
 					$('#contentSize').text('');
 					$('#videoFormat').text('');
@@ -639,25 +599,37 @@
 				
 				// 우측 사이드 thumb nail 을 클릭하면 해당 컨텐츠 실행
 				$('a[id="corpSlide"]').click(function() {
-					var mamCook		= null;
 					var contentId 	= null;
-					var playlistName= null;
-					var formElement	= null;
+					var thumbUrl 	= null;
+					var mamCook		= null;
 					var hiddenCon 	= null;
-					var hiddenHis	= null;
-					var hiddenPln	= null;
+					var hiddenThumb = null;
 					mamCook 	= $.cookies.get('mamsCookie');
 					contentId 	= $(this).attr('data-contentId');
-					playlistName= $(this).attr('data-playlistName');
 					if (!validCookieContent.isExistContentId(mamCook.myHistory, contentId)) {
 						mamCook.myHistory.push(contentId);
 						$.cookies.set('mamsCookie', JSON.stringify(mamCook));
 					}
-					formElement = $('<form></form>').prop({'method':'POST', 'action':'detail'});
-					hiddenCon 	= $('<input>').prop({'type':'hidden','name':'content_id','value':contentId});
-					hiddenPln 	= $('<input>').prop({'type':'hidden','name':'playlist_name','value':playlistName});
-					hiddenHis 	= $('<input>').prop({'type':'hidden','name':'historyList','value':JSON.stringify(mamCook.myHistory)});
-					formElement.append(hiddenCon, hiddenPln, hiddenHis).submit();
+					hiddenCon = $('<input>').attr({'type':'hidden', 'name':'content_id', 'value':contentId});
+					hiddenHisli = $('<input>').attr({'type':'hidden','name':'historyList','value':JSON.stringify(mamCook.myHistory)});
+					$('<form></form>').attr({'method':'POST', 'action':'detailPopular'}).append(hiddenCon).append(hiddenThumb).append(hiddenHisli).submit();
+				});
+
+				// 우측 하단 5개 썸네일 클릭
+				$('img[id="vcAsc"]').click(function() {
+					var contentId 	= null;
+					var mamCook		= null;
+					var hiddenCon 	= null;
+					var hiddenHis	= null;
+					mamCook 	= $.cookies.get('mamsCookie');
+					contentId 	= $(this).attr('data-contentId');
+					if (!validCookieContent.isExistContentId(mamCook.myHistory, contentId)) {
+						mamCook.myHistory.push(contentId);
+						$.cookies.set('mamsCookie', JSON.stringify(mamCook));
+					}
+					hiddenCon = $('<input>').attr({'type':'hidden', 'name':'content_id', 'value':contentId});
+					hiddenHis = $('<input>').attr({'type':'hidden','name':'historyList','value':JSON.stringify(mamCook.myHistory)});
+					$('<form></form>').attr({'method':'POST', 'action':'detailPopular'}).append(hiddenCon, hiddenHis).submit();
 				});
 				
 				// 북마크 추가
@@ -677,21 +649,17 @@
 				$('a[id="goList"]').click(function() {
 					var mamCook 	= null;
 					var hiddenHis 	= null;
-					var hiddenPln	= null;
-					var hiddenPld	= null;
-					var playlistName= null;
-					var playlistId	= null;
-					playlistName 	= '<c:out value="${pageInfo.getPlaylist_name()}"/>';
-					playlistId		= '<c:out value="${pageInfo.getPlaylist_id()}"/>';
-					mamCook 		= $.cookies.get('mamsCookie');
-					hiddenPld		= $('<input>').prop({'type':'hidden','name':'playlist_id','value':playlistId});
-					hiddenPln		= $('<input>').prop({'type':'hidden','name':'playlist_name','value':playlistName});
-					hiddenHis 		= $('<input>').attr({'type':'hidden','name':'historyList','value':JSON.stringify(mamCook.myHistory)});
-					$('<form></form>').attr({'method':'post','action':'playlist'}).append(hiddenHis, hiddenPln, hiddenPld).appendTo('body').submit();
+					var hiddenCtn	= null;
+					var hiddenTgp	= null;
+					var contentName = $('#contentName').text();
+					mamCook = $.cookies.get('mamsCookie');
+					hiddenTgp = $('<input>').prop({'type':'hidden','name':'targetPage','value':'popular'});
+					hiddenHis = $('<input>').attr({'type':'hidden','name':'historyList','value':JSON.stringify(mamCook.myHistory)});
+					hiddenCtn = $('<input>').attr({'type':'hidden','name':'contentName','value':contentName});
+					$('<form></form>').attr({'method':'post','action':'listDetail'}).append(hiddenHis, hiddenCtn, hiddenTgp).appendTo('body').submit();
 				});
 
 				$('a[id="related"]').click(function() {
-					console.log('hiIII');
 					var streamingUrl 	= $(this).attr('data-streaming');
 					var thumb 			= $(this).attr('data-thumb');
 					var title 			= $(this).attr('data-title');

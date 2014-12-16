@@ -1,19 +1,16 @@
 package com.airensoft.skovp.vo;
 
-import java.util.List;
-
 import com.airensoft.skovp.utils.common.UnitUtils;
 import com.airensoft.skovp.utils.time.DateHelper;
 import com.airensoft.skovp.utils.time.DateUtils;
 
-public class MovieContentVO {
-	private List<ThumbUrlVO> staticThumb;
-	private List<DownloadFileVO> downloadFile;
-	private TagInfoVO tag;
+public class HistoryVO {
 	private String content_id;
-	private String custom_id;
-	private String upper_content_id;
+	private String thumb_url;
 	private String title;
+	private String streaming_url;
+	private String playlist_id;
+	private String playlist_name;
 	private String description;
 	private String content_type;
 	private String media_type;
@@ -37,34 +34,49 @@ public class MovieContentVO {
 	private String reg_date;
 	private String mod_date;
 	private boolean active;
-	private String thumb_url;
 	private String view_count;
-	private String streaming_url;
 	private String download_url;
-	
 	public String getContent_id() {
 		return content_id;
 	}
 	public void setContent_id(String content_id) {
 		this.content_id = content_id;
 	}
-	public String getCustom_id() {
-		return custom_id;
+	public String getThumb_url() {
+		return thumb_url;
 	}
-	public void setCustom_id(String custom_id) {
-		this.custom_id = custom_id;
-	}
-	public String getUpper_content_id() {
-		return upper_content_id;
-	}
-	public void setUpper_content_id(String upper_content_id) {
-		this.upper_content_id = upper_content_id;
+	public void setThumb_url(String thumb_url) {
+		this.thumb_url = thumb_url;
 	}
 	public String getTitle() {
 		return title;
 	}
 	public void setTitle(String title) {
 		this.title = title;
+	}
+	public String getStreaming_url() {
+		return streaming_url;
+	}
+	public void setStreaming_url(String streaming_url) {
+		this.streaming_url = streaming_url;
+	}
+	public String getPlaylist_id() {
+		return playlist_id;
+	}
+	public void setPlaylist_id(String playlist_id) {
+		this.playlist_id = playlist_id;
+	}
+	public String getPlaylist_name() {
+		return playlist_name;
+	}
+	public void setPlaylist_name(String playlist_name) {
+		this.playlist_name = playlist_name;
+	}
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
 	}
 	public String getContent_type() {
 		return content_type;
@@ -98,7 +110,6 @@ public class MovieContentVO {
 		this.file_size = file_size;
 	}
 	public String getDuration() {
-		duration = (duration == null) ? "0" : duration;
 		long convertDuration = Long.parseLong(duration);
 		return DateHelper.getHourString(convertDuration) + ":" + DateHelper.getMinuteString(convertDuration) + ":" + DateHelper.getSecondString(convertDuration);
 	}
@@ -184,7 +195,6 @@ public class MovieContentVO {
 		this.is_drm = is_drm;
 	}
 	public String getReg_date() {
-		reg_date = (reg_date == null) ? "0"	: reg_date;
 		int convertRegDate = Integer.parseInt(reg_date);
 		return DateUtils.TimestamptToString(convertRegDate);
 	}
@@ -204,87 +214,16 @@ public class MovieContentVO {
 	public void setActive(boolean active) {
 		this.active = active;
 	}
-	public String getThumb_url() {
-		return thumb_url;
-	}
-	public void setThumb_url(String thumb_url) {
-		this.thumb_url = thumb_url;
-	}
 	public String getView_count() {
 		return view_count;
 	}
 	public void setView_count(String view_count) {
 		this.view_count = view_count;
 	}
-	public String getStreaming_url() {
-		return streaming_url;
-	}
-	public void setStreaming_url(String streaming_url) {
-		this.streaming_url = streaming_url;
-	}
 	public String getDownload_url() {
 		return download_url;
 	}
 	public void setDownload_url(String download_url) {
 		this.download_url = download_url;
-	}
-	public String getDescription() {
-		return description;
-	}
-	public void setDescription(String description) {
-		this.description = description;
-	}
-	public List<ThumbUrlVO> getStaticThumb() {
-		return staticThumb;
-	}
-	public void setStaticThumb(List<ThumbUrlVO> staticThumb) {
-		this.staticThumb = staticThumb;
-	}
-	public List<DownloadFileVO> getDownloadFile() {
-		return downloadFile;
-	}
-	public void setDownloadFile(List<DownloadFileVO> downloadFile) {
-		this.downloadFile = downloadFile;
-	}
-	public TagInfoVO getTag() {
-		return tag;
-	}
-	public void setTag(TagInfoVO tags) {
-		this.tag = tags;
-	}
-	@Override
-	public String toString() {
-		StringBuffer sb = new StringBuffer();
-		sb.append("content_id: " + getContent_id() + "\r\n");
-		sb.append("upper_content_id: " + getUpper_content_id() + "\r\n");
-		sb.append("title: " + getTitle() + "\r\n");
-		sb.append("description: " + getDescription() + "\r\n");
-		sb.append("content_type: " + getContent_type() + "\r\n");
-		sb.append("media_type: " + getMedia_type() + "\r\n");
-		sb.append("file_type: " + getFile_type() + "\r\n");
-		sb.append("file_name: " + getFile_name() + "\r\n");
-		sb.append("file_size: " + getFile_size() + "\r\n");
-		sb.append("duration: " + getDuration() + "\r\n");
-		sb.append("state: " + getState() + "\r\n");
-		sb.append("progress: " + getProgress() + "\r\n");
-		sb.append("container: " + getContainer() + "\r\n");
-		sb.append("video_codec: " + getVideo_codec() + "\r\n");
-		sb.append("audio_codec: " + getAudio_codec() + "\r\n");
-		sb.append("video_bitrate: " + getVideo_bitrate() + "\r\n");
-		sb.append("audio_bitrate: " + getAudio_bitrate() + "\r\n");
-		sb.append("video_framerate: " + getVideo_framerate() + "\r\n");
-		sb.append("audio_samplerate: " + getAudio_samplerate() + "\r\n");
-		sb.append("audio_channel: " + getAudio_channel() + "\r\n");
-		sb.append("width: " + getWidth() + "\r\n");
-		sb.append("height: " + getHeight() + "\r\n");
-		sb.append("is_drm: " + isIs_drm() + "\r\n");
-		sb.append("reg_date: " + getReg_date() + "\r\n");
-		sb.append("mod_date: " + getMod_date() + "\r\n");
-		sb.append("active: " + isActive() + "\r\n");
-		sb.append("thumb_url: " + getThumb_url() + "\r\n");
-		sb.append("view_count: " + getView_count() + "\r\n");
-		sb.append("streaming_url: " + getStreaming_url() + "\r\n");
-		sb.append("download_url: " + getDownload_url() + "\r\n");
-		return sb.toString();
 	}
 }

@@ -59,18 +59,18 @@
 		                                    	<option value="Sports Marketing (RAW)">Sports Marketing (RAW)</option>
 		                                	</optgroup>
 		                                	<optgroup label="Products">
-		                                    	<option value="HanKook Tire">HanKook Tire</option>
-		                                    	<option value="HanKook Tire (RAW)">HanKook Tire (RAW)</option>
+		                                    	<option value="Hankook Tire">Hankook Tire</option>
+		                                    	<option value="Hankook Tire (RAW)">Hankook Tire (RAW)</option>
 		                                    	<option value="Other Brand">Other Brand</option>
 		                                    	<option value="Other Brand (RAW)">Other Brand (RAW)</option>
-		                                    	<option value="Technoloagy">Technoloagy</option>
-		                                    	<option value="Technoloagy (RAW)">Technoloagy (RAW)</option>
+		                                    	<option value="Technology">Technology</option>
+		                                    	<option value="Technology (RAW)">Technology (RAW)</option>
 		                                	</optgroup>
-		                                	<optgroup label="Motosports">
+		                                	<optgroup label="Motorsports">
 		                                    	<option value="Europe">Europe</option>
 		                                    	<option value="Europe (RAW)">Europe (RAW)</option>
-		                                    	<option value="Other Motosports">Other Motosports</option>
-		                                    	<option value="Other Motosports (RAW)">Other Motosports (RAW)</option>
+		                                    	<option value="Other Motorsports">Other Motorsports</option>
+		                                    	<option value="Other Motorsports (RAW)">Other Motorsports (RAW)</option>
 		                                	</optgroup>
 		                                	<optgroup label="Events">
 		                                    	<option value="Exhibition">Exhibition</option>
@@ -128,44 +128,45 @@
 		                    </ul>
 		                    <p class="up_btn_con"><a id="pushTheUpload"><img src="./resources/images/common/upload_btn.png" alt="upload"/></a></p>
 		                </div>
+		                <input type="hidden" id="customIdValue" name="custom_id">
 		            </form>
 		        </div>
 		    </div>
 		    <!--//Upload 팝업-->
 		    <!-- Download 팝업 -->
-		    <div class="download_popup_wrap">
+		    <div class="download_popup_wrap" id="downloadPop">
 		        <div class="download_popup_con">
 		            <div class="popup_title">
 		                <div class="mb20">
-		                    <p class="mb10">RA33_Dynapro HP2_Motion Graphic Graphic Graphic Graphic</p>
-		                    <p><span>ID :</span> 2014cvrw001800000255 </p>
+		                    <p class="mb10" id="dTitle">RA33_Dynapro HP2_Motion Graphic Graphic Graphic Graphic</p>
+		                    <p><span>ID :</span> <label id="contentID">2014cvrw001800000255</label> </p>
 		                </div>
-		                <span><a><img src="./resources/images/common/popup_close_btn.png" alt="닫기"/></a></span>
+		                <span><a id="downClose"><img src="./resources/images/common/popup_close_btn.png" alt="닫기"/></a></span>
 		            </div>
 		            <div class="download_con">
 		                <p><img src="./resources/images/common/down_title.png" alt="download"/></p>
 		                <ul>
-		                    <li><a><img src="./resources/images/common/down_mp4.png" alt="mp4"/></a></li>
-		                    <li><a><img src="./resources/images/common/down_avi.png" alt="avi"/></a></li>
-		                    <li><a><img src="./resources/images/common/down_mov.png" alt="mov"/></a></li>
-		                    <li><a><img src="./resources/images/common/down_wmv.png" alt="wmv"/></a></li>
+		                  	<li><a id="mp4dl"><img src="./resources/images/common/ndown_mp4.png" alt="mp4"/></a></li>
+							<li><a id="avidl"><img src="./resources/images/common/ndown_avi.png" alt="avi"/></a></li>
+							<li><a id="movdl"><img src="./resources/images/common/ndown_mov.png" alt="mov"/></a></li>
+							<li><a id="wmvdl"><img src="./resources/images/common/ndown_wmv.png" alt="wmv"/></a></li>
 		                </ul>
 		            </div>
 		            <div class="detail_con">
 		                <p><img src="./resources/images/common/detail_title.png" alt="detail"/></p>
 		                <ul>
 		                    <li>
-		                        <p>Size : 1280x720 HD 408MB</p>
-		                        <p>Video Format : MP4</p>
-		                        <p>Video Codec : h264</p>
-		                        <p>Video bps : 256478</p>
-		                        <p>Video fps :29</p>
+		                        <p>Size : <label id="fwidth"></label>x<label id="fheight"></label> HD <label id="fsize"></label></p>
+		                        <p>Video Format : <label id="container"></label></p>
+		                        <p>Video Codec : <label id="vCodec"></label></p>
+		                        <p>Video bps : <label id="vbps"></label></p>
+		                        <p>Video fps :<label id="vfps"></label></p>
 		                    </li>
 		                    <li>
-		                        <p>Audio Codec :aac</p>
-		                        <p>Audio bps :235478</p>
-		                        <p>Audio channel : 2</p>
-		                        <p>Audio Hz : 44100</p>
+		                        <p>Audio Codec :<label id="aCodec">aac</label></p>
+		                        <p>Audio bps :<label id="aBps">235478</label></p>
+		                        <p>Audio channel : <label id="aChannel">2</label></p>
+		                        <p>Audio Hz : <label id="aSampleRate">44100</label></p>
 		                    </li>
 		                </ul>
 		            </div>
@@ -210,15 +211,17 @@
 						<h1>
 							<a>
 								<img id="hankookHome" src="./resources/images/common/img_logo.png" alt="Hankook - driving emotion" />
-								<img id="vbHome" src="./resources/images/common/img_logo2.png" alt="Digital Library MAMs" />
+								<img id="vbHome" src="./resources/images/common/img_logo2.png" alt="Video Box" />
 							</a>
 						</h1>
+						<!-- 
 						<div class="util_navi">
 							<ul>
 								<li class="util1"><a>동영상</a></li>
 								<li class="util2"><a>홈</a></li>
 							</ul>
 						</div>
+						 -->
 						<p>This is operated by hankook tire in the digital library movie </p>
 						
 					</div>
@@ -226,107 +229,109 @@
 					<!-- header_bottom -->
 					<div class="header_bottom">
 						<div class="header_search">
-	                    	<form class="search_form" method="post" action="search">
+	                    	<form id="searchFrm" class="search_form">
 	                    		<label for="search" class="hide">아이디</label>
-								<input type="text" id="search" name="searchTitle" class="search_go" />
-	                            <button class="search_btn">search</button>
+								<input type="text" id="search" name="search" class="search_go" />
+	                            <button id="searchBtn" class="search_btn">search</button>
 	                        </form>
 	                    </div>
 						<div class="personal_menu">
 							<ul>
 								<li class="p_menu1"><a id="admin">설정</a></li>
 								<li class="p_menu2"><a id="upload">업로드</a></li>
-								<li class="p_menu3"><a id="logout">로그아웃</a></li>
 							</ul>
 						</div>
 					</div>
 					<!-- //header_bottom end -->
 					<!-- gnb -->
 					<div id="gnb">
+						<div class="gnb_bg1">
+	                        <div class="gnb_bg2"></div>
+                    	</div>
 						<ul>
 							<li class="first menu menu1">
 	                        	<a class="pad0">Corporation</a>
-	                            <div>
-	                                <div>
-		                                <ul class="depth2">
-		                                    <li id="gnb" data-gnb="1300000248"><a>Company</a></li>
-		                        			<li id="gnb" data-gnb="1300000247"><a>Company (RAW)</a></li>
-		                        			<li id="gnb" data-gnb="1300000246"><a>Culture</a></li>
-		                        			<li id="gnb" data-gnb="1300000245"><a>Culture (RAW)</a></li>
-		                        			<li id="gnb" data-gnb="1300000244"><a>TV Footages</a></li>
-		                        			<li id="gnb" data-gnb="1300000243"><a>TV Footages (RAW)</a></li>
-		                                </ul>
-	                                </div>
-	                            </div>
+	                        	<div>
+		                        	<div>
+		                        		<ul class="depth2">
+		                        			<li><a id="pls1300000253">Company</a></li>
+		                        			<li><a id="pls1300000252">Company (RAW)</a></li>
+		                        			<li><a id="pls1300000251">Culture</a></li>
+		                        			<li><a id="pls1300000245">Culture (RAW)</a></li>
+		                        			<li><a id="pls1300000244">TV Footages</a></li>
+		                        			<li><a id="pls1300000243">TV Footages (RAW)</a></li>
+		                        		</ul>
+		                        	</div>
+	                        	</div>
 	                        </li>
 							<li class="menu menu2">
 	                        	<a class="pad1">Advertisements</a>
-	                            <div>
-	                                <div>
-		                                <ul class="depth2">
-		                                    <li id="gnb" data-gnb="1300000242"><a>TVC</a></li>
-		                        			<li id="gnb" data-gnb="1300000241"><a>TVC (RAW)</a></li>
-		                        			<li id="gnb" data-gnb="1300000240"><a>Campaign</a></li>
-		                        			<li id="gnb" data-gnb="1300000239"><a>Campaign (RAW)</a></li>
-		                        			<li id="gnb" data-gnb="1300000238"><a>Sports Marketing</a></li>
-		                        			<li id="gnb" data-gnb="1300000237"><a>Sports Marketing (RAW)</a></li>
-		                                </ul>
-	                                </div>
-	                            </div>
+	                        	<div>
+		                        	<div>
+		                        		<ul class="depth2">
+		                        			<li><a id="pls1300000242">TVC</a></li>
+		                        			<li><a id="pls1300000241">TVC (RAW)</a></li>
+		                        			<li><a id="pls1300000240">Campaign</a></li>
+		                        			<li><a id="pls1300000239">Campaign (RAW)</a></li>
+		                        			<li><a id="pls1300000238">Sports Marketing</a></li>
+		                        			<li><a id="pls1300000237">Sports Marketing (RAW)</a></li>
+		                        		</ul>
+		                        	</div>
+	                        	</div>
 	                        </li>
 							<li class="menu menu3">
 	                        	<a class="pad2">Products</a>
-	                            <div>
-	                                <div>
-										<ul class="depth2">
-											<li id="gnb" data-gnb="1300000236"><a>HanKook Tire</a></li>
-		                        			<li id="gnb" data-gnb="1300000235"><a>HanKook Tire (RAW)</a></li>
-		                        			<li id="gnb" data-gnb="1300000234"><a>Other Brand</a></li>
-		                        			<li id="gnb" data-gnb="1300000233"><a>Other Brand (RAW)</a></li>
-		                        			<li id="gnb" data-gnb="1300000232"><a>Technoloagy</a></li>
-		                        			<li id="gnb" data-gnb="1300000231"><a>Technoloagy (RAW)</a></li>
-										</ul>
-	                                </div>
-	                            </div>
+	                        	<div>
+		                        	<div>
+		                        		<ul class="depth2">
+		                        			<li><a id="pls1300000236">Hankook Tire</a></li>
+		                        			<li><a id="pls1300000235">Hankook Tire (RAW)</a></li>
+		                        			<li><a id="pls1300000234">Other Brand</a></li>
+		                        			<li><a id="pls1300000233">Other Brand (RAW)</a></li>
+		                        			<li><a id="pls1300000232">Technology</a></li>
+		                        			<li><a id="pls1300000231">Technology (RAW)</a></li>
+		                        		</ul>
+		                        	</div>
+	                        	</div>
 	                        </li>
 							<li class="menu menu4">
 	                        	<a class="pad3">Motorsports</a>
-	                            <div>
-	                                <div>
-		                                <ul class="depth2">
-		                                    <li id="gnb" data-gnb="1300000230"><a>Europe</a></li>
-		                        			<li id="gnb" data-gnb="1300000229"><a>Europe (RAW)</a></li>
-		                        			<li id="gnb" data-gnb="1300000228"><a>Other Motosports</a></li>
-		                        			<li id="gnb" data-gnb="1300000227"><a>Other Motosports (RAW)</a></li>
-		                                </ul>
-	                                </div>
-	                            </div>
+	                        	<div>
+		                        	<div>
+		                        		<ul class="depth2">
+		                        			<li><a id="pls1300000230">Europe</a></li>
+		                        			<li><a id="pls1300000229">Europe (RAW)</a></li>
+		                        			<li><a id="pls1300000228">Other Motorsports</a></li>
+		                        			<li><a id="pls1300000227">Other Motorsports (RAW)</a></li>
+		                        		</ul>
+		                        	</div>
+	                        	</div>
 	                        </li>
 							<li class="menu menu5">
 	                        	<a class="pad4">Events</a>
-	                            <div>
-	                                <div>
-		                                <ul class="depth2">
-		                                    <li id="gnb" data-gnb="1300000226"><a>Exhibition</a></li>
-		                        			<li id="gnb" data-gnb="1300000225"><a>Exhibition (RAW)</a></li>
-		                        			<li id="gnb" data-gnb="1300000224"><a>Promotion</a></li>
-		                        			<li id="gnb" data-gnb="1300000223"><a>Promotion (RAW)</a></li>
-		                        			<li id="gnb" data-gnb="1300000222"><a>Other Event</a></li>
-		                        			<li id="gnb" data-gnb="1300000221"><a>Other Event (RAW)</a></li>
-		                                </ul>
-	                                </div>
-	                            </div>
+	                        	<div>
+		                        	<div>
+		                        		<ul class="depth2">
+		                        			<li><a id="pls1300000226">Exhibition</a></li>
+		                        			<li><a id="pls1300000225">Exhibition (RAW)</a></li>
+		                        			<li><a id="pls1300000224">Promotion</a></li>
+		                        			<li><a id="pls1300000223">Promotion (RAW)</a></li>
+		                        			<li><a id="pls1300000222">Other Event</a></li>
+		                        			<li><a id="pls1300000221">Other Event (RAW)</a></li>
+		                        		</ul>
+		                        	</div>
+	                        	</div>
 	                        </li>
 							<li class="last menu menu6">
 	                        	<a class="pad5">Others</a>
-	                            <div>
-	                                <div>
-										<ul class="depth2">
-											<li id="gnb" data-gnb="1300000220"><a>Other</a></li>
-											<li id="gnb" data-gnb="1300000219"><a>Other (RAW)</a></li>
-										</ul>
-	                                </div>
-	                            </div>
+	                        	<div>
+		                        	<div>
+		                        		<ul class="depth2">
+		                        			<li><a id="pls1300000220">Other</a></li>
+		                        			<li><a id="pls1300000219">Other (RAW)</a></li>
+		                        		</ul>
+		                        	</div>
+	                        	</div>
 	                        </li>
 						</ul>
 					</div>
@@ -343,26 +348,26 @@
 	            		<h2>Updated Movie</h2>
 	                	<div class="latest_movie" id="latestMovie" style="position:relative; z-index:1;"></div>
 	                    <div class="latest_info">
-	                        <h3 id="playTitle">${oneStreamPlay.title }</h3>
-	                        <p id="playTimeDate">${oneStreamPlay.duration }  /  ${oneStreamPlay.reg_date}</p>
+	                        <h3 id="playTitle"><c:out value="${list.get(0).getTitle()}"/></h3>
+	                        <p id="playTimeDate"><c:out value="${list.get(0).getDuration()}"/></p>
 	                        <ul class="latest_info_con">
-		                        <li><span>Category&nbsp;&gt;&nbsp;</span>Product Movie</li>
-	                            <li><span>ID&nbsp;:&nbsp;</span><span id="playContentId">${oneStreamPlay.content_id }</span></li>
-	                            <li id="playNation"><span>Region&nbsp;:&nbsp;</span>U.S.A</li>
-	                            <li id="playTag"><span>Tag&nbsp;:&nbsp;</span>Tire,  Dynapro HP2, RA33</li>
-	                            <li id="playVideoUrl"><span>Copy Video URL&nbsp;:&nbsp;</span>DO NOT SURPPORTED</li>
+		                        <li><span>Category&nbsp;&gt;&nbsp;</span>${list.get(0).tag.getCategory()}</li>
+	                            <li><span>ID&nbsp;:&nbsp;</span><span id="playContentId"><c:out value="${list.get(0).getCustom_id()}"/></span></li>
+	                            <li id="playNation"><span>Region&nbsp;:&nbsp;</span><label>${list.get(0).tag.getRegion()}</label></li>
+	                            <li id="playTag"><span>Tag&nbsp;:&nbsp;</span><label>${list.get(0).tag.getYear()}, ${list.get(0).tag.getType()}, ${list.get(0).tag.getOfficial()}</label></li>
+	                        	<li>&nbsp;</li>
 	                        </ul>
 	                        <hr />
 	                        <ul class="latest_thumbnail">
 	                        	<!-- thumb loop -->
-	                        	<c:forEach var="object" items="${list }" end="2" varStatus="status">
+	                        	<c:forEach var="object" items="${list}" end="2" varStatus="status">
 	                        		<c:choose>
 	                        		<c:when test="${status.count != 3 }">
 	                        	<li class="mr22">
-	                            	<a id="latestMov" data-contentId="${object.content_id}" data-streamingUrl="${object.streamingUrl}" data-thumbUrl="${object.thumb_url}" data-title="${object.title}" data-dateNReg="${object.duration} / ${object.reg_date }" data-category="" data-region="" data-tag="" data-copyUrl="">
+	                            	<a id="latestMov" data-contentId="${object.getContent_id()}" data-streamingUrl="${object.getStreaming_url()}" data-thumbUrl="${object.getThumb_url()}" data-title="${object.getTitle()}" data-dateNReg="${object.getDuration()}" data-category="" data-region="" data-tag="" data-copyUrl="">
 	                                	<span>
-	                                		<img width="153px" height="85" src="${object.thumb_url}" alt="" />
-	                                    	<span class="video-time">${object.duration}</span>
+	                                		<img width="153px" height="85" src="${object.getThumb_url()}" alt="" />
+	                                    	<span class="video-time">${object.getDuration()}</span>
 	                                    	<c:choose>
 	                                    	<c:when test="${status.count == 1 }">
 	                                    	<span class="on"></span> 
@@ -374,30 +379,30 @@
 	                                    </span>
 	                                </a>
 	                                <c:choose>
-									<c:when test="${fn:length(object.title) > 12}">
-									<h3 class="thumbTitle">${fn:substring(object.title, 0, 12)}...</h3>
+									<c:when test="${fn:length(object.getTitle()) > 12}">
+									<h3 class="thumbTitle">${fn:substring(object.getTitle(), 0, 12)}...</h3>
 									</c:when>
 									<c:otherwise>
-									<h3 class="thumbTitle">${object.title}</h3>
+									<h3 class="thumbTitle">${object.getTitle()}</h3>
 									</c:otherwise>
 									</c:choose>
 	                            </li>
 	                        		</c:when>
 	                        		<c:otherwise>
 	                            <li id="content_item">
-	                            	<a id="latestMov" data-contentId="${object.content_id}" data-streamingUrl="${object.streamingUrl}" data-thumbUrl="${object.thumb_url}" data-title="${object.title}" data-dateNReg="${object.duration} / ${object.reg_date }" data-category="" data-region="" data-tag="" data-copyUrl="">
+	                            	<a id="latestMov" data-contentId="${object.getContent_id()}" data-streamingUrl="${object.getStreaming_url()}" data-thumbUrl="${object.getThumb_url()}" data-title="${object.getTitle()}" data-dateNReg="${object.getDuration()}" data-category="" data-region="" data-tag="" data-copyUrl="">
 	                                	<span>
-	                                    	<img width="153px" height="85" src="${object.thumb_url}" alt="" />
-	                                        <span class="video-time">${object.duration}</span>
+	                                    	<img width="153px" height="85" src="${object.getThumb_url()}" alt="" />
+	                                        <span class="video-time">${object.getDuration()}</span>
 	                                        <span class="off"></span> 
 	                                    </span>
 	                                </a>
 	                                <c:choose>
-									<c:when test="${fn:length(object.title) > 12}">
-									<h3 class="thumbTitle">${fn:substring(object.title, 0, 12)}...</h3>
+									<c:when test="${fn:length(object.getTitle()) > 12}">
+									<h3 class="thumbTitle">${fn:substring(object.getTitle(), 0, 12)}...</h3>
 									</c:when>
 									<c:otherwise>
-									<h3 class="thumbTitle">${object.title}</h3>
+									<h3 class="thumbTitle">${object.getTitle()}</h3>
 									</c:otherwise>
 									</c:choose>
 	                            </li>
@@ -409,22 +414,21 @@
 	                	</div>
 	                </div>
 	                <!-- //Updated Movie -->
-	                
 	                <!-- popular movie -->
 	                <div class="popular_movie">
-	                	<h2>Popular Movie<span>Popular on Hankookrire movie</span></h2>
+	                	<h2><label id="popTitle">Popular Movie</label><span>Popular on Hankookrire movie</span></h2>
 	                    <ul class="thumbnail">
-	                    	<c:forEach var="popularObject" items="${popularList }" end="4" varStatus="status">
+	                    	<c:forEach var="popularObject" items="${popularList}" end="4" varStatus="status">
 	                    	<c:choose>
 	                    		<c:when test="${status.count < 4}">
 	                    	<li class="mr24">
-	                        	<a id="popularMov" data-contentId="${popularObject.getContent_id() }" data-thumbUrl="${popularObject.getThumb_url() }">
+	                        	<a id="popularMov" data-contentId="${popularObject.getContent_id()}">
 	                            	<span>
-	                                	<img width="196px" height="110px" src="${popularObject.getThumb_url() }" alt="" />
-	                                    <span class="video-time">${popularObject.getDuration() }</span>
+	                                	<img width="196px" height="110px" src="${popularObject.getThumb_url()}" alt="" />
+	                                    <span class="video-time">${popularObject.getDuration()}</span>
 	                                </span>
 	                            </a>
-	                            <span>Corporation</span>
+	                            <span>${popularObject.getTag().getCategory() }</span>
 	                            <c:choose>
 								<c:when test="${fn:length(popularObject.getTitle()) > 37}">
 								<h3><a>${fn:substring(popularObject.getTitle(), 0, 37)}...</a></h3>
@@ -446,7 +450,7 @@
 	                                    <span class="video-time">${popularObject.getDuration() }</span>
 	                                </span>
 	                            </a>
-	                            <span>Corporation</span>
+	                            <span><c:out value="${popularObject.getTag().getCategory()}"/></span>
 	                            <c:choose>
 								<c:when test="${fn:length(popularObject.getTitle()) > 37}">
 								<h3><a>${fn:substring(popularObject.getTitle(), 0, 37)}...</a></h3>
@@ -468,7 +472,7 @@
 	                                    <span class="video-time">${popularObject.getDuration() }</span>
 	                                </span>
 	                            </a>
-	                            <span>Corporation</span>
+	                            <span><c:out value="${popularObject.getTag().getCategory()}"/></span>
 	                            <c:choose>
 								<c:when test="${fn:length(popularObject.getTitle()) > 37}">
 								<h3><a>${fn:substring(popularObject.getTitle(), 0, 37)}...</a></h3>
@@ -501,92 +505,92 @@
 	                    <!-- //탭메뉴_대분류 End -->
 	                    <!-- 탭메뉴_소분류 -->
 	                    <ul class="tab02 on">
-	                        <li class="on" id="tabCategory"><a>Company</a></li>
+	                        <li class="on" id="tabCategory"><a id="ctg1300000253">Company</a></li>
 	                        <li class="line ml15 mr15">|</li>
-	                        <li><a>Company (RAW)</a></li>
+	                        <li><a id="ctg1300000252">Company (RAW)</a></li>
 	                        <li class="line ml15 mr15">|</li>
-	                        <li><a>Culture</a></li>
+	                        <li><a id="ctg1300000251">Culture</a></li>
 	                        <li class="line ml15 mr15">|</li>
-	                        <li><a>Culture (RAW)</a></li>
+	                        <li><a id="ctg1300000245">Culture (RAW)</a></li>
 	                        <li class="line ml15 mr15">|</li>
-	                        <li><a>TV Footages</a></li>
+	                        <li><a id="ctg1300000244">TV Footages</a></li>
 	                        <li class="line ml15 mr15">|</li>
-	                        <li><a>TV Footages (RAW)</a></li>
+	                        <li><a id="ctg1300000243">TV Footages (RAW)</a></li>
                     	</ul>
                     	<ul class="tab02">
-	                        <li class="on"><a>TVC</a></li>
+	                        <li><a id="ctg1300000242">TVC</a></li>
 	                        <li class="line ml15 mr15">|</li>
-	                        <li><a>TVC (RAW)</a></li>
+	                        <li><a id="ctg1300000241">TVC (RAW)</a></li>
 	                        <li class="line ml15 mr15">|</li>
-	                        <li><a>Campaign</a></li>
+	                        <li><a id="ctg1300000240">Campaign</a></li>
 	                        <li class="line ml15 mr15">|</li>
-	                        <li><a>Campaign (RAW)</a></li>
+	                        <li><a id="ctg1300000239">Campaign (RAW)</a></li>
 	                        <li class="line ml15 mr15">|</li>
-	                        <li><a>Sports Marketing</a></li>
+	                        <li><a id="ctg1300000238">Sports Marketing</a></li>
 	                        <li class="line ml15 mr15">|</li>
-	                        <li><a>Sports Marketing (RAW)</a></li>
+	                        <li><a id="ctg1300000237">Sports Marketing (RAW)</a></li>
                     	</ul>
 	                    <ul class="tab02">
-	                        <li class="on"><a>HanKook Tire</a></li>
+	                        <li><a id="ctg1300000236">Hankook Tire</a></li>
 	                        <li class="line ml15 mr15">|</li>
-	                        <li><a>HanKook Tire (RAW)</a></li>
+	                        <li><a id="ctg1300000235">Hankook Tire (RAW)</a></li>
 	                        <li class="line ml15 mr15">|</li>
-	                        <li><a>Other Brand</a></li>
+	                        <li><a id="ctg1300000234">Other Brand</a></li>
 	                        <li class="line ml15 mr15">|</li>
-	                        <li><a>Other Brand (RAW)</a></li>
+	                        <li><a id="ctg1300000233">Other Brand (RAW)</a></li>
 	                        <li class="line ml15 mr15">|</li>
-	                        <li><a>Technoloagy</a></li>
+	                        <li><a id="ctg1300000232">Technology</a></li>
 	                        <li class="line ml15 mr15">|</li>
-	                        <li><a>Technoloagy (RAW)</a></li>
+	                        <li><a id="ctg1300000231">Technology (RAW)</a></li>
 	                    </ul>
 	                    <ul class="tab02">
-	                        <li class="on"><a>Europe</a></li>
+	                        <li><a id="ctg1300000230">Europe</a></li>
 	                        <li class="line ml15 mr15">|</li>
-	                        <li><a>Europe (RAW)</a></li>
+	                        <li><a id="ctg1300000229">Europe (RAW)</a></li>
 	                        <li class="line ml15 mr15">|</li>
-	                        <li><a>Other Motosports</a></li>
+	                        <li><a id="ctg1300000228">Other Motorsports</a></li>
 	                        <li class="line ml15 mr15">|</li>
-	                        <li><a>Other Motosports (RAW)</a></li>
+	                        <li><a id="ctg1300000227">Other Motorsports (RAW)</a></li>
 	                    </ul>
 	                    <ul class="tab02">
-	                        <li class="on"><a>Exhibition</a></li>
+	                        <li><a id="ctg1300000226">Exhibition</a></li>
 	                        <li class="line ml15 mr15">|</li>
-	                        <li><a>Exhibition (RAW)</a></li>
+	                        <li><a id="ctg1300000225">Exhibition (RAW)</a></li>
 	                        <li class="line ml15 mr15">|</li>
-	                        <li><a>Promotion</a></li>
+	                        <li><a id="ctg1300000224">Promotion</a></li>
 	                        <li class="line ml15 mr15">|</li>
-	                        <li><a>Promotion (RAW)</a></li>
+	                        <li><a id="ctg1300000223">Promotion (RAW)</a></li>
 	                        <li class="line ml15 mr15">|</li>
-	                        <li><a>Other Event</a></li>
+	                        <li><a id="ctg1300000222">Other Event</a></li>
 	                        <li class="line ml15 mr15">|</li>
-	                        <li><a>Other Event (RAW)</a></li>
+	                        <li><a id="ctg1300000221">Other Event (RAW)</a></li>
 	                    </ul>
 	                    <ul class="tab02">
-	                        <li class="on"><a>Other</a></li>
+	                        <li><a id="ctg1300000220">Other</a></li>
 	                        <li class="line ml15 mr15">|</li>
-	                        <li><a>Other (RAW)</a></li>
+	                        <li><a id="ctg1300000219">Other (RAW)</a></li>
 	                    </ul>
                     	<!-- //탭메뉴_소분류 End -->
 	                    <ul class="category_slide">
-	                    	<c:forEach var="corporation" items="${list }" end="10" varStatus="status">
+	                    	<c:forEach var="category" items="${categoryList}" varStatus="status">
 	                        <li class="slide">
-	                            <a id="corpMov" data-contentId="${corporation.content_id }" data-thumbUrl="${corporation.thumb_url }">
+	                            <a id="corpMov" data-contentId="${category.getContent_id()}" data-playlistName="${category.tag.category}">
 	                            	<span>
-	                                	<img width="196px" height="110px" src="${corporation.thumb_url }" alt="" />
-	                                    <span class="video-time">${corporation.duration }</span>
+	                                	<img width="196px" height="110px" src="${category.getThumb_url()}" alt="" />
+	                                    <span class="video-time">${category.getDuration()}</span>
 	                                </span>
 	                            </a>
-	                            <span>Corporation</span>
+	                            <span>${category.tag.getCategory()}</span>
 	                            <c:choose>
-								<c:when test="${fn:length(corporation.title) > 37}">
-								<h3><a>${fn:substring(corporation.title, 0, 37)}...</a></h3>
+								<c:when test="${fn:length(category.getTitle()) > 37}">
+								<h3><a>${fn:substring(category.getTitle(), 0, 37)}...</a></h3>
 								</c:when>
 								<c:otherwise>
-								<h3><a>${corporation.title}</a></h3>
+								<h3><a>${category.getTitle()}</a></h3>
 								</c:otherwise>
 								</c:choose>
-	                            <span class="f_left">${corporation.reg_date }</span>
-	                            <span class="f_right mr5"><a class="download_btn" data-contentId="${corporation.content_id }"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
+	                            <span class="f_left">${category.getReg_date()}</span>
+	                            <span class="f_right mr5"><a class="download_btn" data-contentId="${category.getContent_id()}"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
 	                        </li>
 	                        </c:forEach>
 	                    </ul>
@@ -602,11 +606,6 @@
 				<div id="footer">
 					<h2><img src="./resources/images/common/img_logo_bottom.gif" alt="Hankook - driving emotion" /></h2>
 					<div class="footer_navi">
-						<ul>
-							<li><a>Digital library</a></li>
-							<li><a>Digital library lite</a></li>
-							<li><a>Hankooktire Global Site</a></li>
-						</ul>
 						<p class="copyright">
 							Copyright ⓒ Hankook Tire. All Rights Reserved.
 						</p>
@@ -616,58 +615,9 @@
 	
 			</div>
 			<!-- //footer_wrap end -->
-	        
-	        <!-- download layer -->
-	    	<div class="dow_layer">
-	        	<div class="dow_layer_con">
-	            	<ul>
-	                	<li class="mb5">ID : </li>
-	                    <li>region : korea</li>
-	                </ul>
-	                <hr />
-	                <dl class="download">
-	                	<dt id="downloadUrl">DOWNLOAD</dt>
-	                	<!-- 
-	                    <dd>
-	                    	<a>
-	                    		<img src="./resources/images/common/icon_mov.png" alt="download" />RA33_Dynapro HP2_Motion Graphic(ENG).mov
-	                    	</a>
-	                    </dd>
-	                    <dd><a><img src="./resources/images/common/icon_wmv.png" alt="download" />RA33_Dynapro HP2_Motion Graphic(ENG).wmv</a></dd>
-	                    <dd><a><img src="./resources/images/common/icon_mp4.png" alt="download" />RA33_Dynapro HP2_Motion Graphic(ENG).mp4</a></dd>
-	                    <dd><a><img src="./resources/images/common/icon_mpeg.png" alt="download" />RA33_Dynapro HP2_Motion Graphic(ENG).mpeg</a></dd>
-	                    <dd><a><img src="./resources/images/common/icon_avi.png" alt="download" />RA33_Dynapro HP2_Motion Graphic(ENG).avi</a></dd>
-	                    <dd><a><img src="./resources/images/common/icon_flv.png" alt="download" />RA33_Dynapro HP2_Motion Graphic(ENG).flv</a></dd>
-	                	 -->
-	                </dl>
-	                <hr />
-	                <dl class="file_info">
-	                	<dt>fILE INFO</dt>
-	                    <dd id="contentType">Contents Type : Video</dd>
-	                    <dd>Scale : the base rate</dd>
-	                    <dd id="size">Size : 1280x720 HD 408MB</dd>
-	                    <dd id="videoFormat">Video Format : MP4</dd>
-	                    <dd id="videoCodec">Video Codec : h264</dd>
-	                    <dd id="videoBps">Video bps : 256478</dd>
-	                    <dd id="videoFps">Video fps : 29</dd>
-	                    <dd id="audioCodec">Audio Codec : aac</dd>
-	                    <dd id="audioBps">Audio bps : 235478</dd>
-	                    <dd id="channel">Audio channel : 2</dd>
-	                    <dd id="hz">Audio Hz : 44100</dd>
-	                </dl>
-	                <a class="dow_layer_close">close</a>
-	            </div>
-	        </div>
-	        <!-- //download layer -->
-	        <!-- ####TEST#### -->
-			<div id="uploader" class="content_wrap">
-				<div class="content">
-					<!-- playlist Add -->
-					<input type="text" name="groupName" id="groupName">
-					<button id="plstAdder">콘텐트그룹추가</button>
-				</div>
+			<div id="uploading">
+				<img src="./resources/images/common/uploading.gif">
 			</div>
-	        <!-- ####TEST#### -->
 		</div>
 		<script type="text/javascript" src="./resources/common/js/jquery-1.11.1.min.js"></script>
 		<script type="text/javascript" src="./resources/common/js/jquery.ui.all.js"></script>
@@ -702,7 +652,7 @@
 	    	        $(tabList[tabIndex]).find('img').attr('src', tabImagePath + tabIndex + "_on.png");
 	    	        $(tabMenuList[tabIndex]).addClass('on');
 	    	        $(tabMenuList[tabIndex]).find("li").removeClass("on");
-	    	        $(tabMenuList[tabIndex]).find("li:first-child").addClass("on");
+	    	        //$(tabMenuList[tabIndex]).find("li:first-child").addClass("on");
 	    	        prevTabIndex = tabIndex;
 	    	    }
 	    	    
@@ -710,13 +660,11 @@
 	    			var i 			= 0;
 	    			var contentId 	= null;
 	    			var title 		= null;
-	    			var thumbUrl 	= null;
-	    			var streamingUrl= null;
 	    			var aEle		= null;
 	    			var ddEle		= null;
-	    			var mamsCook 	= $.cookies.get('mamsCookie');
-	    			var contentIdList = JSON.stringify(mamsCook.myHistory);
-		    		$.getJSON('mamsHistoryList', {'contentIdList':contentIdList}, function(data) {
+	    			var mamCook 	= $.cookies.get('mamsCookie');
+	    			var contentIdList = JSON.stringify(mamCook.myHistory);
+		    		$.getJSON('mamsHistoryList', {'historyList':contentIdList}, function(data) {
 		    			for (i; i < data.length; i = i + 1) {
 		    				contentId 	= data[i].content_id;
 		    				title 		= decodeURI(data[i].title);
@@ -726,7 +674,7 @@
 		    				if (title.length > 23) {
 		    					title = title.substring(0, 20) + '...';
 		    				}
-			    			aEle = $('<a id="hisAtag" data-contentId=' + contentId + ' data-thumbUrl=' + thumbUrl + ' data-streamingUrl=' + streamingUrl + '></a>').append('<img width="25px" height="14px" src=' + thumbUrl + '>' + title);
+			    			aEle = $('<a id="hisAtag" data-contentId="' + contentId + '" data-playlistName="' + data[i].tag.category + '"></a>').append('<img width="25px" height="14px" src=' + thumbUrl + '>' + title);
 							ddEle = $('<dd></dd>').append(aEle);
 							$('#hislst').append(ddEle);
 		    			}
@@ -741,9 +689,9 @@
 						"<param value=\"true\" name=\"allowfullscreen\">" +
 						"<param value=\"transparent\" name=\"wmode\">" +
 						"<param value=\"apiUrl=http://api.vcase.myskcdn.com" + 
-									"&mediaUrl=" + encodeURIComponent("${oneStreamPlay.streamingUrl}") +
-									"&title=${oneStreamPlay.title}" +
-									"&thumbUrl=" + encodeURIComponent("${oneStreamPlay.thumb_url}") +
+									"&mediaUrl=" + encodeURIComponent("${list.get(0).getStreaming_url()}") +
+									"&title=${list.get(0).getTitle()}" +
+									"&thumbUrl=" + encodeURIComponent("${list.get(0).getThumb_url()}") +
 									"&pid=${player_id}" +
 									"&autoPlay=true\" name=\"flashvars\">"+
 					"</object>"
@@ -787,7 +735,7 @@
 							"<param value=\"transparent\" name=\"wmode\">" +
 							"<param value=\"apiUrl=http://api.vcase.myskcdn.com" + 
 										"&mediaUrl=" + encodeURIComponent(streamingUrl) +
-										'&title=${oneStreamPlay.title}' +
+										'&title=' + title +
 										"&thumbUrl=" + encodeURIComponent(thumbUrl) +
 										"&pid=${player_id}" +
 										"&wmode=transparent" +
@@ -796,36 +744,63 @@
 					);
 				});
 
-				// popular Movie, corperation Moview thumb nail 클릭하면 detail page로 이동한다.
-				$('a[id="corpMov"], a[id="popularMov"]').click(function() {
+				// popular Movie의 thumb nail를 클릭하면 detail page로 이동한다.
+				$('a[id="popularMov"]').click(function() {
+					var idVal		= null;
 					var mamCook		= null;
 					var hiddenCon	= null;
-					var hiddenTmb	= null;
+					var hiddenCtg	= null;
 					var hiddenHis	= null;
-					var contentId 	= $(this).attr('data-contentId');
-					var thumbUrl 	= $(this).attr('data-thumbUrl');
+					idVal			= $(this).attr('id');
+					var contentId = $(this).attr('data-contentId');
 					mamCook = $.cookies.get('mamsCookie');
 					if (!validCookieContent.isExistContentId(mamCook.myHistory, contentId)) {
 						mamCook.myHistory.push(contentId);
 						$.cookies.set('mamsCookie', JSON.stringify(mamCook));
 					}
 					hiddenCon 	= $('<input>').attr({'type':'hidden','name':'content_id','value':contentId});
-					hiddenTmb 	= $('<input>').attr({'type':'hidden','name':'thumbUrl','value':thumbUrl});
+					//hiddenCtg 	= $('<input>').attr({'type':'hidden','name':'categoryName','value':contentTitle});
 					hiddenHis	= $('<input>').attr({'type':'hidden','name':'historyList','value':JSON.stringify(mamCook.myHistory)});
-					$('<form></form>').attr({'method':'POST','action':'detail'}).append(hiddenCon).append(hiddenTmb).append(hiddenHis).appendTo('body').submit();
+					$('<form></form>').attr({'method':'POST','action':'detailPopular'}).append(hiddenCon,hiddenCtg,hiddenHis).appendTo('body').submit();
+				});
+				
+				$('a[id="corpMov"]').click(function() {
+					var playlistName= null;
+					var mamCook		= null;
+					var hiddenCon	= null;
+					var hiddenPln	= null;
+					var hiddenHis	= null;
+					playlistName	= $(this).attr('data-playlistName');
+					playlistName = playlistName.toLowerCase();
+					console.log(playlistName);
+					var contentId = $(this).attr('data-contentId');
+					mamCook = $.cookies.get('mamsCookie');
+					if (!validCookieContent.isExistContentId(mamCook.myHistory, contentId)) {
+						mamCook.myHistory.push(contentId);
+						$.cookies.set('mamsCookie', JSON.stringify(mamCook));
+					}
+					hiddenCon 	= $('<input>').attr({'type':'hidden','name':'content_id','value':contentId});
+					hiddenPln 	= $('<input>').attr({'type':'hidden','name':'playlist_name','value':playlistName});
+					hiddenHis	= $('<input>').attr({'type':'hidden','name':'historyList','value':JSON.stringify(mamCook.myHistory)});
+					$('<form></form>').attr({'method':'POST','action':'detail'}).append(hiddenCon,hiddenPln,hiddenHis).appendTo('body').submit();
 				});
 				
 				// history 목록중 하나를 선택하면 detail.jsp 페이지로 이동한다.
 				$(document).on('click', '#hisAtag', function() {
 					var mamCook		= null;
 					var contentId 	= $(this).attr('data-contentId');
-					var thumbUrl 	= $(this).attr('data-thumbUrl');
+					var playlistNm 	= $(this).attr('data-playlistName');
+					var formElement	= null;
+					var hiddenCon	= null;
+					var hiddenPln	= null;
+					var hiddenHis	= null;
+					
 					mamCook = $.cookies.get('mamsCookie');
-					var formEle 	= $('<form></form>').attr({'method':'post','action':'detail'});
-					var hiddenCon 	= $('<input>').attr({'type':'hidden','name':'content_id','value':contentId});
-					var hiddenTum 	= $('<input>').attr({'type':'hidden','name':'thumbUrl','value':thumbUrl});
-					var hiddenHis 	= $('<input>').attr({'type':'hidden','name':'historyList','value':JSON.stringify(mamCook.myHistory)});
-					$(formEle).append(hiddenCon).append(hiddenTum).append(hiddenHis).appendTo('body').submit();
+					formElement = $('<form></form>').attr({'method':'post','action':'detail'});
+					hiddenCon 	= $('<input>').attr({'type':'hidden','name':'content_id','value':contentId});
+					hiddenPln 	= $('<input>').attr({'type':'hidden','name':'playlist_name','value':playlistNm});
+					hiddenHis 	= $('<input>').attr({'type':'hidden','name':'historyList','value':JSON.stringify(mamCook.myHistory)});
+					formElement.append(hiddenCon, hiddenPln, hiddenHis).appendTo('body').submit();
 				});
 				
 				$(document).on("mouseover", "#hisAtag", function(e) {
@@ -836,16 +811,39 @@
 				    $(this).css('cursor', 'default');
 				});
 
-				// Test Content Group 추가
-				$('#plstAdder').click(function() {
-					var groupName 	= null;
-					var inputTag	= null;
-					var formTag		= null;
-					groupName = $('#groupName').val();
-					inputTag = $('<input>').prop({'name':'groupName','value':groupName});
-					formTag = $('<form></form>').prop({'method':'post','action':'/videoBox/setGroup'});
-					formTag.append(inputTag).appendTo('body').submit();
+				// 하단의 메뉴 텝을 누르면 해당 playlist의 컨텐트를 가져온다. ajax
+				/*
+				$('a[id*=ctg]').click(function() {
+					var playlistId 	= null;
+					var i = 0;
+					playlistId = $(this).attr('id');
+					playlistId = playlistId.substring(3, playlistId.length);
+					$.getJSON('getTabMenu', {'playlist_id':playlistId}, function(data) {
+						$('.category_slide').empty();
+						for (i; i < data.length; i = i + 1) {
+							$('.category_slide').append(
+								'<li class="slide">' +
+								'<a id="corpMov" data-contentId="' + data[i].content_i + '" data-playlistName="' + data[i].tag.category + '">' +
+								'<span>' +
+								'<img width="196px" height="110px" src="' + data[i].thumb_url + '" alt="" />' +
+								'<span class="video-time">' + (data[i].duration/1000 * 60) % 60 + ':' + (data[i].duration/1000) % 60 + '</span>' +
+								'</span>' +
+								'</a>' +
+								'<span>' + data[i].tag.category + '</span>' +
+								'<h3><a>' + data[i].title + '</a></h3>' +
+								'<h3><a>' + data[i].view_count + '</a></h3>' +
+								'<span class="f_left">' + data[i].reg_date + '</span>' +
+								'<span class="f_right mr5">' +
+								'<a class="download_btn" data-contentId="#content_id">' +
+								'<img src="./resources/images/common/dow_icon.png" alt="download" />' +
+								'</a>' +
+								'</span>' +
+								'</li>'	
+							);
+						}
+					});
 				});
+				*/ 
 	    	});
 	    </script>
 	</body>

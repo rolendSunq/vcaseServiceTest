@@ -23,9 +23,12 @@ import com.airensoft.skovp.utils.common.UnitUtils;
 import com.airensoft.skovp.utils.ovpconnector.OMSConfig;
 import com.airensoft.skovp.utils.ovpconnector.OMSConnector;
 import com.airensoft.skovp.utils.ovpconnector.OMSConnectorResponse;
+import com.airensoft.skovp.utils.page.Paging;
 import com.airensoft.skovp.utils.time.DateHelper;
 import com.airensoft.skovp.utils.time.DateUtils;
+import com.airensoft.skovp.vo.CategoryPageVO;
 import com.airensoft.skovp.vo.FileVO;
+import com.airensoft.skovp.vo.MovieContentVO;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -50,168 +53,105 @@ public class UserController {
 	 */
 	@RequestMapping(value = "/")
 	public String videoBoxHome(Model model) {
-		
-		List<Object> result = new ArrayList<Object>();
-		Map<String, Object> oneStreamPlay = new HashMap<String, Object>();
-		int objectCount = 0;
-		
-		// RequestContentList args: String media_type, String file_type, String state, String search_type, String search, Integer search_start_date, Integer search_end_date, Integer page, Integer page_size, String sort, String order, boolean with_extra	
-		omsResponder = omsConnector.RequestContentList("video", null, null, null, null, null, null, null, null, "reg_date", null, true, true);
-		JsonElement resultElement = omsResponder.getRootDataElement();
-		
-		JsonArray contentJsonArray = resultElement.getAsJsonObject().get("content").getAsJsonArray();
-		for (int i = 0; i < contentJsonArray.size(); i++) {
-			
-			Map<String, Object> map = new HashMap<String, Object>();
-			JsonElement element = contentJsonArray.get(i);
-			// 업로드 완료된 미디어 : cmplt = complete
-			String state = element.getAsJsonObject().get("state").getAsString();
-			
-			// job 프로파일과 맞은 트랜스코딩 미디어 파일을 찾는다. 없는경우 원본사용
-			if (state.equals("cmplt")) {
-				
-				map.put("title", element.getAsJsonObject().get("title").getAsString());
-				// 업로드가 완료된 미디어만 View에 출력하도록 한다.
-				JsonArray trscdJsonArray = element.getAsJsonObject().get("extra").getAsJsonObject().get("transcodes").getAsJsonArray();
-				for (int j = 0; j < trscdJsonArray.size(); j++) {
-					JsonElement trscdElement = trscdJsonArray.get(j);
-					// 업로드가 완료된 미디어만 View에 출력하도록 한다.
-					String trscdState = trscdElement.getAsJsonObject().get("state").getAsString();
-					
-					if (trscdState.equals("cmplt")) {
-						Integer jobProfileId = trscdElement.getAsJsonObject().get("job_profile_id").getAsInt();
-						if (jobProfileId.equals(OMSConfig.getJobProfileId())) {
-
-							//재생시간
-							long duration = trscdElement.getAsJsonObject().get("duration").getAsLong();
-							map.put("duration", DateHelper.getHourString(duration) + ":" + DateHelper.getMinuteString(duration) + ":" + DateHelper.getSecondString(duration));
-
-							// 컨텐츠 파일사이즈차례
-							long file_size = trscdElement.getAsJsonObject().get("file_size").getAsLong();
-							map.put("file_size", UnitUtils.humanReadableByteCount(file_size, false));
-
-							// 미디어 등록 일자
-							int reg_date = trscdElement.getAsJsonObject().get("reg_date").getAsInt();
-							map.put("reg_date", DateUtils.TimestamptToString(reg_date));
-
-							// 미디어 ID
-							int content_id = trscdElement.getAsJsonObject().get("content_id").getAsInt();
-							map.put("content_id", content_id);
-							
-							JsonObject staticObject = trscdElement.getAsJsonObject().get("static_url").getAsJsonObject();
-							String downloadUrl = staticObject.getAsJsonObject().get("download_url").getAsString();
-							map.put("downloadUrl", downloadUrl);
-							
-							// 섬네일 url 추출
-							JsonArray thumbArry = element.getAsJsonObject().get("extra").getAsJsonObject().get("thumbnails").getAsJsonArray();
-							for (JsonElement jsonElement : thumbArry) {
-								boolean isStill = jsonElement.getAsJsonObject().get("is_still").getAsBoolean();
-								if (isStill) {
-									JsonObject staticUrl = jsonElement.getAsJsonObject().get("static_url").getAsJsonObject();
-									String thumb_url = staticUrl.getAsJsonObject().get("download_url").getAsString();
-									map.put("thumb_url", thumb_url);
-								}
-							}
-
-							// streaming Url : streaming_url에 사용됨 (with_static_url) 인자에 true값을 넣어야 데이터가 생성
-							JsonObject staticUrlObject = trscdElement.getAsJsonObject().get("static_url").getAsJsonObject();
-							JsonArray streamingArray = staticUrlObject.getAsJsonObject().get("streaming").getAsJsonArray();
-							String streamingUrl = streamingArray.get(0).getAsJsonObject().get("url").getAsString();
-							map.put("streamingUrl", streamingUrl);
-							result.add(map);
-							
-							if (objectCount == 0) {
-								oneStreamPlay.putAll(map);
-							}
-							
-							objectCount++;
-							
-							break;
-						}
-					}
-				}
-			}
-		}
-		ovpService.popularList(model, 5);
-		
-		model.addAttribute("list", result);
-		model.addAttribute("oneStreamPlay", oneStreamPlay);
-		model.addAttribute("player_id", OMSConfig.getPlayerId());
-
+		// main의 update movie 를 보여 주기 위한 컨텐츠를 가져온다. 내부에서 모델 등록
+		ovpService.getAllContentList(model);
+		// main의 popular Movie를 보여주기 위한 컨텐츠를 가져온다.
+		List<MovieContentVO> popularList = ovpService.popularList(5);
+		// 카테고리 메뉴별 컨텐츠를 보여주기 위한 컨텐츠를 가져온다.
+		List<MovieContentVO> categoryList = ovpService.getPlayListForContent("1300000253", null, null, null, null, model);
+		CategoryPageVO ctgVO = new CategoryPageVO();
+		ctgVO.setPlaylist_id("1300000253");
+		ctgVO.setPlaylist_name("Company");
+		model.addAttribute("categoryList", categoryList);
+		model.addAttribute("categoryInfo", ctgVO);
+		model.addAttribute("popularList", popularList);
 		return "main";
 	}
 
+	@RequestMapping(value = "/getTabMenu")
+	@ResponseBody
+	public String getPlaylistForTabMenu(HttpServletRequest request) {
+		String playlist_id = request.getParameter("playlist_id");
+		List<MovieContentVO> list = ovpService.serviceGetPlaylistContents(playlist_id);
+		return new Gson().toJson(list);
+	}
+	
+	@RequestMapping(value = "/categoryPlaylist")
+	public String goPlaylist(HttpServletRequest request, CategoryPageVO ctgVO, Model model) {
+		String myHistory = request.getParameter("historyList");
+		String[] historyList = new Gson().fromJson(myHistory, String[].class);
+		List<MovieContentVO> history = ovpService.getHistoryList(historyList);
+		List<MovieContentVO> list = ovpService.goPlaylistContentList(ctgVO);
+		Paging paging = new Paging(ctgVO.getPageNum(), ctgVO.getTotalCount());
+		model.addAttribute("history", history);
+		model.addAttribute("paging", paging);
+		model.addAttribute("pageInfo", ctgVO);
+		model.addAttribute("list", list);
+		return "list";
+	}
+	
 	@RequestMapping(value = "content/player/{content_id}")
 	@ResponseBody
-	public String getContentStringUrl(@PathVariable("content_id") int content_id) {
+	public String getContentStringUrl(@PathVariable("content_id") String content_id) {
 		return getStreamPlayUrl(content_id, "streaming_url");
 	}
 	
 	// download Url을 얻어온다.
 	@RequestMapping(value = "contentInfo")
 	@ResponseBody
-	public String getFileInfo(HttpServletResponse response, @RequestParam("contentId") int contentId) {
+	public String getFileInfo(HttpServletResponse response, @RequestParam("contentId") String contentId) {
 		response.setContentType("text/html; charset=utf-8");
 		JsonObject result = getInfo(contentId);
 		Map<String, String> map = getPlayContentInfo(result, true);
 		return new Gson().toJson(map);
 	}
 	
-	//
-	@RequestMapping(value = "viewsCount")
-	@ResponseBody
-	public String setTagCount(@RequestParam("content_Id") int content_Id) {
-		omsConnector.clear();
-		String[] count = {"count-1"};
-		String countTag = new Gson().toJson(count);
-		omsResponder = omsConnector.requestMetaInfoEdit(content_Id, countTag);
-		return omsResponder.toString();
-	}
-	
 	// history List를 가져온다.
 	@RequestMapping(value = "mamsHistoryList")
 	@ResponseBody
-	public String getHistoryList(@RequestParam("contentIdList") String contentIdList) {
-		String[] historyList = new Gson().fromJson(contentIdList, String[].class);
-		List<String> orignList = getOrignList(historyList);
-		List<Object> myHistory = getList(orignList, true);
-		return new Gson().toJson(myHistory);
+	public String getHistoryList(HttpServletRequest request) {
+		String myhistory = request.getParameter("historyList");
+		String[] historyList = new Gson().fromJson(myhistory, String[].class);
+		List<MovieContentVO> list = ovpService.getHistoryList(historyList);
+		return new Gson().toJson(list);
 	}
 	
 	// detail 페이지 이동
 	@RequestMapping(value = "detail") 
-	public String moveDetailView(HttpServletRequest request, @RequestParam("content_id") int content_id, @RequestParam("thumbUrl") String thumbUrl, Model model) {
-		String pageNum = request.getParameter("pageNum");
-		if (pageNum == null) {
-			pageNum = "0";
-		}
-		String historyList = (String)request.getParameter("historyList");
-		JsonObject result = getInfo(content_id);
-		// auto Streaming Play Info
-		Map<String, String> map = getPlayContentInfo(result, false);
-		String sort = request.getParameter("sort"); //정렬을 위한 변수[Upload date, View count]
-		if ( sort == null ) {
-			sort = "title";
-		}
-		// 좌측 컨텐츠 thumb nail 컨텐츠 리스트
-		List<Object> list = getThumbNailList(pageNum);
-		String[] trscdlst = new Gson().fromJson(historyList, String[].class);
-		
-		// history list
-		List<String> historylst = getOrignList(trscdlst);
-		List<Object> history = getList(historylst);
-		String streamingUrl = getStreamPlayUrl(content_id);
-		
+	public String moveDetailView(HttpServletRequest request, Model model) {
+		String myHistory = request.getParameter("historyList");
+		String playlistName = request.getParameter("playlist_name");
+		String contentId	= request.getParameter("content_id");
+		String[] historyList = new Gson().fromJson(myHistory, String[].class);
+		List<MovieContentVO> history = ovpService.getHistoryList(historyList);
+		String playlistId = ovpService.servicePlaylistFindName(playlistName);
+		CategoryPageVO ctgVO = new CategoryPageVO();
+		ctgVO.setPlaylist_id(playlistId);
+		ctgVO.setPlaylist_name(playlistName);
+		ctgVO.setContent_id(contentId);
+		System.out.println("requestPlaylistName:::" + playlistName);
+		System.out.println("playlistName:::" + ctgVO.getPlaylist_name());
+		ovpService.serviceDetailPageToListPage(ctgVO, model);
+		ovpService.serviceViewCountASC(model);
+		model.addAttribute("pageInfo", ctgVO);
 		model.addAttribute("history", history);
-		model.addAttribute("oneStreamPlay", map);
-		model.addAttribute("streamingUrl", streamingUrl);
-		model.addAttribute("thumbUrl", thumbUrl);
 		model.addAttribute("player_id", OMSConfig.getPlayerId());
-		model.addAttribute("list", list);
-		model.addAttribute("totalCount", getThumbNailListCount());
-		model.addAttribute("pageNum", pageNum);
-		
 		return "detail";
+	}
+	
+	// detail popular page 이동
+	@RequestMapping(value = "detailPopular")
+	public String goDetailPopular(HttpServletRequest request, CategoryPageVO ctgVO, Model model) {
+		String myHistory = request.getParameter("historyList");
+		String[] historyList = new Gson().fromJson(myHistory, String[].class);
+		List<MovieContentVO> history = ovpService.getHistoryList(historyList);
+		MovieContentVO movieContentVO = ovpService.serviceDetailPopular(ctgVO.getContent_id());
+		ovpService.serviceViewCountASC(model);
+		List<MovieContentVO> popularList = ovpService.popularList(20);
+		model.addAttribute("history", history);
+		model.addAttribute("oneStreamPlay", movieContentVO);
+		model.addAttribute("popularList", popularList);
+		return "detail_popular";
 	}
 	
 	// bookmark 페이지 이동
@@ -241,36 +181,49 @@ public class UserController {
 		model.addAttribute("list", list);
 		return "list_my_download";
 	}
-	
 
+	// playlist (list page) 페이지 이동
+	@RequestMapping(value = "playlist")
+	public String moveListDetailView(HttpServletRequest request, CategoryPageVO ctgVO, Model model)  {
+		String myHistory = request.getParameter("historyList");
+		String[] historyList = new Gson().fromJson(myHistory, String[].class);
+		List<MovieContentVO> history = ovpService.getHistoryList(historyList);
+		List<MovieContentVO> list = ovpService.getSortSearchPlayListForContent(ctgVO);
+		Paging paging = new Paging(ctgVO.getPageNum(), ctgVO.getTotalCount());
+		model.addAttribute("categoryPageVO", ctgVO);
+		model.addAttribute("paging", paging);
+		model.addAttribute("history", history);
+		model.addAttribute("list", list);
+		return "list";
+	}
+	
 	// list 페이지 이동
 	@RequestMapping(value = "listDetail")
-	public String moveListDetailView(@RequestParam("historyList") String historyList, Model model, HttpServletRequest request ) {
-		String[] trscdlst = new Gson().fromJson(historyList, String[].class);
-		String sort = request.getParameter("sort"); //정렬을 위한 변수[Upload date, View count]
-		if ( sort == null ) {
-			sort = "title";
-		}
-		
-		
-		//########################## 페이징 처리 추가부분 [start] ########################## 
-		String pageNum = request.getParameter("pageNum");//화면에 표시할 페이지번호
-		
-		if (pageNum == null) {//페이지번호가 없으면
-			pageNum = "0";//1페이지의 내용이 화면에 표시
-		}
-		
-		List<String> historylst = getOrignList(trscdlst);
-		List<Object> history = getList(historylst);
-		List<Object> thumbNailList = getThumbNailList(pageNum); ////썸네일 
-		model.addAttribute("pageNum", pageNum); //화면에 표시할 페이지번호
-		model.addAttribute("totalCount", getThumbNailListCount()); //총 콘텐트 갯수
-		//########################## 페이징 처리 추가부분 [end] ########################## 
-		
-		model.addAttribute("list", thumbNailList);
+	public String goListOfPlaylist(HttpServletRequest request, CategoryPageVO ctgVO, Model model)  {
+		String myHistory = request.getParameter("historyList");
+		String[] historyList = new Gson().fromJson(myHistory, String[].class);
+		List<MovieContentVO> list = ovpService.serviceAllContent(ctgVO);
+		List<MovieContentVO> history = ovpService.getHistoryList(historyList);
+		Paging paging = new Paging(ctgVO.getPageNum(), ctgVO.getTotalCount());
+		model.addAttribute("categoryPageVO", ctgVO);
+		model.addAttribute("paging", paging);
+		model.addAttribute("list", list);
 		model.addAttribute("history", history);
-		
-		return "list";
+		return "list_popular";
+	}
+	
+	
+	
+	// list page에서 detail page 이동
+	@RequestMapping(value = "playlistDetail")
+	public String detailPlaylist(CategoryPageVO ctgVO, HttpServletRequest request, Model model) {
+		String myHistory = request.getParameter("historyList");
+		String[] historyList = new Gson().fromJson(myHistory, String[].class);
+		List<MovieContentVO> history = ovpService.getHistoryList(historyList);
+		ovpService.serviceDetailPageToListPage(ctgVO, model);
+		model.addAttribute("history", history);
+		model.addAttribute("pageInfo", ctgVO);
+		return "detail";
 	}
 	
 	// list_result 페이지 이동
@@ -282,9 +235,18 @@ public class UserController {
 	// File을 업로드 한다.
 	@RequestMapping(value = "/video/fileUpload")
 	@ResponseBody
-	public String uploadFileToDefault(FileVO fileVO) throws IllegalStateException, IOException {
-		System.out.println("file info: " + fileVO);
-		return ovpService.contentFileUpload(fileVO);
+	public String uploadFileToDefault(FileVO fileVO, HttpServletResponse response, Model model) throws IllegalStateException, IOException {
+		response.setContentType("text/html;charset=UTF-8");
+		String message = ovpService.contentFileUpload(fileVO);
+		return new Gson().toJson(URLEncoder.encode(message, "UTF-8"));
+	}
+	
+	// download File List를 가져온다.
+	@RequestMapping(value = "getDownload")
+	@ResponseBody
+	public String getDownloadFileList(HttpServletRequest request) {
+		String content_id = request.getParameter("content_id");
+		return ovpService.serviceDownloadFile(content_id);
 	}
 	
 	// Content Group 생성
@@ -294,11 +256,26 @@ public class UserController {
 		return "redirect:/";
 	}
 	
-	// 해당 category list page로 이동
-	public String goCategoryPage() {
-		return null;
+	// main page category List 카테고리 컨텐트 리스트 가져옴
+	@RequestMapping("/categoryList")
+	public String getMainCategoryList(HttpServletRequest request, Model model) {
+		String myHistory = request.getParameter("historyList");
+		String playlistId = request.getParameter("playlist_id");
+		String playlistNm = request.getParameter("playlist_Nm");
+		String[] historyList = new Gson().fromJson(myHistory, String[].class);
+		List<MovieContentVO> history = ovpService.getHistoryList(historyList);
+		CategoryPageVO ctgVO = new CategoryPageVO();
+		ctgVO.setPlaylist_id(playlistId);
+		ctgVO.setPlaylist_name(playlistNm);
+		ovpService.getAllContentList(model);
+		List<MovieContentVO> categoryList = ovpService.getPlayListForContent(playlistId, null, null, null, null, model);
+		model.addAttribute("history", history);
+		model.addAttribute("categoryList", categoryList);
+		model.addAttribute("categoryInfo", ctgVO);
+		return "main";
 	}
-	private String getStreamPlayUrl(int contentId, String variableUrlName) {
+	
+	private String getStreamPlayUrl(String contentId, String variableUrlName) {
 		omsConnector.clear();
 		Map<String, String> map = new HashMap<String, String>();
 		// 재생할 미디어 정보를 가져온다.
@@ -310,16 +287,16 @@ public class UserController {
 	}
 	
 	// 스트리밍할 컨텐츠의 url을 가져온다.
-	private String getStreamPlayUrl(int contentId) {
+	private String getStreamPlayUrl(String content_id) {
 		omsConnector.clear();
 		// 재생할 미디어 정보를 가져온다.
-		omsResponder = omsConnector.RequestPulbishStreamingContent(contentId, 0, null, null, "rtmp", false);
+		omsResponder = omsConnector.RequestPulbishStreamingContent(content_id, 0, null, null, "rtmp", false);
 		String playStreamingUrl = omsResponder.getRootDataElement().getAsJsonObject().get("url").getAsString();
 		return playStreamingUrl;
 	}
 	
 	// 컨텐츠 단일 목록 조회
-	private JsonObject getInfo(int contentId) {
+	private JsonObject getInfo(String contentId) {
 		omsConnector.clear();
 		omsResponder = omsConnector.requestPlayerInfo(contentId, true, true);
 		JsonElement resultElement = omsResponder.getRootDataElement();
@@ -389,49 +366,6 @@ public class UserController {
 		return map;
 	}
 	
-	// thumb nail 과 정보 추출
-	private List<Object> getThumbNailList(String pageNum) {
-		omsConnector.clear();
-		List<Object> result = new ArrayList<Object>();
-		
-		// RequestContentList args: String media_type, String file_type, String state, String search_type, String search, Integer search_start_date, Integer search_end_date, Integer page, Integer page_size, String sort, String order, boolean with_extra	
-		omsResponder = omsConnector.RequestContentList("video", "orign", "cmplt", null, null, null, null, (pageNum == null) ? null : Integer.parseInt(pageNum), null, "reg_date", null, true, true);
-		JsonElement resultElement = omsResponder.getRootDataElement();
-		JsonArray contentJsonArray = resultElement.getAsJsonObject().get("content").getAsJsonArray();
-		for (JsonElement jsonElement : contentJsonArray) {
-			Map<String, Object> map = new HashMap<String, Object>();
-			map.put("title", jsonElement.getAsJsonObject().get("title").getAsString());
-			//재생시간
-			long duration = jsonElement.getAsJsonObject().get("duration").getAsLong();
-			map.put("duration", DateHelper.getHourString(duration) + ":" + DateHelper.getMinuteString(duration) + ":" + DateHelper.getSecondString(duration));
-
-			// 컨텐츠 파일사이즈차례
-			long file_size = jsonElement.getAsJsonObject().get("file_size").getAsLong();
-			map.put("file_size", UnitUtils.humanReadableByteCount(file_size, false));
-
-			// 미디어 등록 일자
-			int reg_date = jsonElement.getAsJsonObject().get("reg_date").getAsInt();
-			map.put("reg_date", DateUtils.TimestamptToString(reg_date));
-
-			// 미디어 ID
-			int content_id = jsonElement.getAsJsonObject().get("content_id").getAsInt();
-			map.put("content_id", content_id);
-
-			// 섬네일 url 추출
-			JsonArray thumbArry = jsonElement.getAsJsonObject().get("extra").getAsJsonObject().get("thumbnails").getAsJsonArray();
-			for (JsonElement thumbElement : thumbArry) {
-				boolean isStill = thumbElement.getAsJsonObject().get("is_still").getAsBoolean();
-				if (isStill) {
-					JsonObject staticUrl = thumbElement.getAsJsonObject().get("static_url").getAsJsonObject();
-					String thumb_url = staticUrl.getAsJsonObject().get("download_url").getAsString();
-					map.put("thumb_url", thumb_url);
-				}
-			}
-			result.add(map);
-		}
-		return result;
-	}
-	
 	// 검색 페이지 리스트 항목 추출 옵션으로 다양한 검색을 할 수 있다.
 	private List<Object> getList(List<String> trscdList) {
 		List<Object> content = new ArrayList<Object>();
@@ -445,7 +379,7 @@ public class UserController {
 			JsonArray contentJsonArray = resultElement.getAsJsonObject().get("content").getAsJsonArray();
 			for (int j = 0; j < contentJsonArray.getAsJsonArray().size(); j++) {
 				JsonObject jsonElement = contentJsonArray.get(j).getAsJsonObject();
-				int content_id = jsonElement.getAsJsonObject().get("content_id").getAsInt();
+				String content_id = jsonElement.getAsJsonObject().get("content_id").getAsString();
 				String title = jsonElement.getAsJsonObject().get("title").getAsString();
 				int reg_date = jsonElement.getAsJsonObject().get("reg_date").getAsInt();
 				long duration = jsonElement.getAsJsonObject().get("duration").getAsLong();
@@ -499,88 +433,6 @@ public class UserController {
 		return content;
 	}
 	
-	// 검색 페이지 리스트 항목 추출 옵션으로 다양한 검색을 할 수 있다.
-	private List<Object> getList(List<String> trscdList, boolean isAjaxCall) {
-		List<Object> content = new ArrayList<Object>();
-		StringBuffer sb = new StringBuffer();
-		for (int i = 0; i < trscdList.size(); i++) {
-			Map<String, Object> map = new HashMap<String, Object>();
-			omsConnector.clear();
-			// RequestContentList args: String media_type, String file_type, String state, String search_type, String search, Integer search_start_date, Integer search_end_date, Integer page, Integer page_size, String sort, String order, boolean with_extra	
-			omsResponder = omsConnector.RequestContentList("video", "orign", null, "content_id", trscdList.get(i), null, null, null, null, "reg_date", null, true, true);
-			JsonElement resultElement = omsResponder.getRootDataElement();
-			JsonArray contentJsonArray = resultElement.getAsJsonObject().get("content").getAsJsonArray();
-			for (int j = 0; j < contentJsonArray.getAsJsonArray().size(); j++) {
-				JsonObject jsonElement = contentJsonArray.get(j).getAsJsonObject();
-				int content_id = jsonElement.getAsJsonObject().get("content_id").getAsInt();
-				String title = jsonElement.getAsJsonObject().get("title").getAsString();
-				String encodeTitleName = null;
-				//한글로 된 파일 이름은 정상적으로 출력되지 않아서 인코딩을 한다.
-				if (isAjaxCall == true) {
-					try {
-						encodeTitleName = URLEncoder.encode(title, "UTF-8");
-					} catch (UnsupportedEncodingException e) {
-						e.printStackTrace();
-					}
-				}
-				int reg_date = jsonElement.getAsJsonObject().get("reg_date").getAsInt();
-				long duration = jsonElement.getAsJsonObject().get("duration").getAsLong();
-				long file_size = jsonElement.getAsJsonObject().get("file_size").getAsLong();
-				// 섬네일 url 추출
-				JsonArray thumbArry = jsonElement.getAsJsonObject().get("extra").getAsJsonObject().get("thumbnails").getAsJsonArray();
-				String thumb_url = null;
-				for (JsonElement thumbnailElement : thumbArry) {
-					boolean isStill = thumbnailElement.getAsJsonObject().get("is_still").getAsBoolean();
-					if (isStill) {
-						JsonObject staticUrl = thumbnailElement.getAsJsonObject().get("static_url").getAsJsonObject();
-						thumb_url = staticUrl.getAsJsonObject().get("download_url").getAsString();
-					}
-				}
-				String media_type = jsonElement.getAsJsonObject().get("media_type").getAsString();
-				String convertFileSize = UnitUtils.humanReadableByteCount(file_size, false);
-				String width = jsonElement.getAsJsonObject().get("width").getAsString();
-				String height = jsonElement.getAsJsonObject().get("height").getAsString();
-				sb.append(width + "x" + height);
-				sb.append("  " + convertFileSize);
-				String container = jsonElement.getAsJsonObject().get("container").getAsString();
-				String videoFormat = jsonElement.getAsJsonObject().get("container").getAsString();
-				String videoCodec = jsonElement.getAsJsonObject().get("video_codec").getAsString();
-				long videoBitrate = jsonElement.getAsJsonObject().get("video_bitrate").getAsLong();
-				String videoBps = UnitUtils.humanReadableByteCount(videoBitrate, false);
-				String videoFps = jsonElement.getAsJsonObject().get("video_framerate").getAsString();
-				String audioBps = jsonElement.getAsJsonObject().get("audio_bitrate").getAsString();
-				String audioCodec = jsonElement.getAsJsonObject().get("audio_codec").getAsString();
-				String audioChannel = jsonElement.getAsJsonObject().get("audio_channel").getAsString();
-				String audioHz = jsonElement.getAsJsonObject().get("audio_samplerate").getAsString();
-				String fileName = jsonElement.getAsJsonObject().get("file_name").getAsString();
-				JsonObject staticObject = jsonElement.getAsJsonObject().get("static_url").getAsJsonObject();
-				String downloadUrl = staticObject.getAsJsonObject().get("download_url").getAsString();
-				String streamingUrl = getStreamPlayUrl(content_id);
-				map.put("content_id", content_id);
-				map.put("title", encodeTitleName);
-				map.put("reg_date", DateUtils.TimestamptToString(reg_date));
-				map.put("thumb_url", thumb_url);
-				map.put("duration", DateHelper.getHourString(duration) + ":" + DateHelper.getMinuteString(duration) + ":" + DateHelper.getSecondString(duration));
-				map.put("size", sb.toString());
-				map.put("container", container);
-				map.put("mediaType", media_type);
-				map.put("videoFormat", videoFormat);
-				map.put("videoCodec", videoCodec);
-				map.put("videoBps", videoBps);
-				map.put("videoFps", videoFps);
-				map.put("audioBps", audioBps);
-				map.put("audioCodec", audioCodec);
-				map.put("audioChannel", audioChannel);
-				map.put("audioHz", audioHz);
-				map.put("fileName", fileName);
-				map.put("downloadUrl", downloadUrl);
-				map.put("streamingUrl", streamingUrl);
-			}
-			content.add(map);
-		}
-		return content;
-	}
-
 	private List<String> getOrignList(String[] trscdList){
 		List<String> result = new ArrayList<String>();
 		if (trscdList != null) {
@@ -600,10 +452,4 @@ public class UserController {
 		return result;
 	}
 	
-	private int getThumbNailListCount() {
-		omsConnector.clear();
-		omsResponder = omsConnector.RequestContentList("video", null, null, null, null, null, null, null, null, "reg_date", null, true, false);
-		JsonElement resultElement = omsResponder.getRootDataElement();
-		return resultElement.getAsJsonObject().get("total_count").getAsInt();
-	}
 }

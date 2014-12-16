@@ -58,18 +58,18 @@
 	                                    	<option value="Sports Marketing (RAW)">Sports Marketing (RAW)</option>
 	                                	</optgroup>
 	                                	<optgroup label="Products">
-	                                    	<option value="HanKook Tire">HanKook Tire</option>
-	                                    	<option value="HanKook Tire (RAW)">HanKook Tire (RAW)</option>
+	                                    	<option value="Hankook Tire">Hankook Tire</option>
+	                                    	<option value="Hankook Tire (RAW)">Hankook Tire (RAW)</option>
 	                                    	<option value="Other Brand">Other Brand</option>
 	                                    	<option value="Other Brand (RAW)">Other Brand (RAW)</option>
-	                                    	<option value="Technoloagy">Technoloagy</option>
-	                                    	<option value="Technoloagy (RAW)">Technoloagy (RAW)</option>
+	                                    	<option value="Technology">Technology</option>
+	                                    	<option value="Technology (RAW)">Technology (RAW)</option>
 	                                	</optgroup>
-	                                	<optgroup label="Motosports">
+	                                	<optgroup label="Motorsports">
 	                                    	<option value="Europe">Europe</option>
 	                                    	<option value="Europe (RAW)">Europe (RAW)</option>
-	                                    	<option value="Other Motosports">Other Motosports</option>
-	                                    	<option value="Other Motosports (RAW)">Other Motosports (RAW)</option>
+	                                    	<option value="Other Motorsports">Other Motorsports</option>
+	                                    	<option value="Other Motorsports (RAW)">Other Motorsports (RAW)</option>
 	                                	</optgroup>
 	                                	<optgroup label="Events">
 	                                    	<option value="Exhibition">Exhibition</option>
@@ -127,12 +127,13 @@
 	                    </ul>
 	                    <p class="up_btn_con"><a id="pushTheUpload"><img src="./resources/images/common/upload_btn.png" alt="upload"/></a></p>
 	                </div>
+	                <input type="hidden" id="customIdValue" name="custom_id">
 	            </form>
 	        </div>
 	    </div>
 	    <!--//Upload 팝업-->
 	    <!-- Download 팝업 -->
-	    <div class="download_popup_wrap">
+	    <div class="download_popup_wrap" id="downloadPop">
 	        <div class="download_popup_con">
 	            <div class="popup_title">
 	                <div class="mb20">
@@ -235,24 +236,17 @@
 							<img id="vbHome" src="./resources/images/common/img_logo2.png" alt="Digital Library MAMs" />
 						</a>
 					</h1>
-					<div class="util_navi">
-						<ul>
-							<li class="util1"><a>동영상</a></li>
-							<li class="util2"><a>홈</a></li>
-						</ul>
-					</div>
 					<p>This is operated by hankook tire in the digital library movie </p>
-
 				</div>
 				<!-- //header_top end -->
 				<!-- header_bottom -->
 				<div class="header_bottom">
 					<div class="header_search">
-						<form class="search_form">
-							<label for="search" class="hide">아이디</label>
-							<input id="search" name="mb_id" type="text" class="search_go" />
-							<button class="search_btn">search</button>
-						</form>
+						<form id="searchFrm" class="search_form">
+                    		<label for="search" class="hide">아이디</label>
+							<input type="text" id="search" name="search" class="search_go" />
+                            <button id="searchBtn" class="search_btn">search</button>
+                        </form>
 					</div>
 					<div class="personal_menu">
 						<ul>
@@ -271,12 +265,12 @@
                         	<div>
 	                        	<div>
 	                        		<ul class="depth2">
-	                        			<li><a>Company</a></li>
-	                        			<li><a>Company (RAW)</a></li>
-	                        			<li><a>Culture</a></li>
-	                        			<li><a>Culture (RAW)</a></li>
-	                        			<li><a>TV Footages</a></li>
-	                        			<li><a>TV Footages (RAW)</a></li>
+	                        			<li><a id="pls1300000253">Company</a></li>
+	                        			<li><a id="pls1300000252">Company (RAW)</a></li>
+	                        			<li><a id="pls1300000251">Culture</a></li>
+	                        			<li><a id="pls1300000245">Culture (RAW)</a></li>
+	                        			<li><a id="pls1300000244">TV Footages</a></li>
+	                        			<li><a id="pls1300000243">TV Footages (RAW)</a></li>
 	                        		</ul>
 	                        	</div>
                         	</div>
@@ -286,12 +280,12 @@
                         	<div>
 	                        	<div>
 	                        		<ul class="depth2">
-	                        			<li><a>TVC</a></li>
-	                        			<li><a>TVC (RAW)</a></li>
-	                        			<li><a>Campaign</a></li>
-	                        			<li><a>Campaign (RAW)</a></li>
-	                        			<li><a>Sports Marketing</a></li>
-	                        			<li><a>Sports Marketing (RAW)</a></li>
+	                        			<li><a id="pls1300000242">TVC</a></li>
+	                        			<li><a id="pls1300000241">TVC (RAW)</a></li>
+	                        			<li><a id="pls1300000240">Campaign</a></li>
+	                        			<li><a id="pls1300000239">Campaign (RAW)</a></li>
+	                        			<li><a id="pls1300000238">Sports Marketing</a></li>
+	                        			<li><a id="pls1300000237">Sports Marketing (RAW)</a></li>
 	                        		</ul>
 	                        	</div>
                         	</div>
@@ -301,12 +295,12 @@
                         	<div>
 	                        	<div>
 	                        		<ul class="depth2">
-	                        			<li><a>HanKook Tire</a></li>
-	                        			<li><a>HanKook Tire (RAW)</a></li>
-	                        			<li><a>Other Brand</a></li>
-	                        			<li><a>Other Brand (RAW)</a></li>
-	                        			<li><a>Technoloagy</a></li>
-	                        			<li><a>Technoloagy (RAW)</a></li>
+	                        			<li><a id="pls1300000236">Hankook Tire</a></li>
+	                        			<li><a id="pls1300000235">Hankook Tire (RAW)</a></li>
+	                        			<li><a id="pls1300000234">Other Brand</a></li>
+	                        			<li><a id="pls1300000233">Other Brand (RAW)</a></li>
+	                        			<li><a id="pls1300000232">Technology</a></li>
+	                        			<li><a id="pls1300000231">Technology (RAW)</a></li>
 	                        		</ul>
 	                        	</div>
                         	</div>
@@ -316,10 +310,10 @@
                         	<div>
 	                        	<div>
 	                        		<ul class="depth2">
-	                        			<li><a>Europe</a></li>
-	                        			<li><a>Europe (RAW)</a></li>
-	                        			<li><a>Other Motosports</a></li>
-	                        			<li><a>Other Motosports (RAW)</a></li>
+	                        			<li><a id="pls1300000230">Europe</a></li>
+	                        			<li><a id="pls1300000229">Europe (RAW)</a></li>
+	                        			<li><a id="pls1300000228">Other Motorsports</a></li>
+	                        			<li><a id="pls1300000227">Other Motorsports (RAW)</a></li>
 	                        		</ul>
 	                        	</div>
                         	</div>
@@ -329,12 +323,12 @@
                         	<div>
 	                        	<div>
 	                        		<ul class="depth2">
-	                        			<li><a>Exhibition</a></li>
-	                        			<li><a>Exhibition (RAW)</a></li>
-	                        			<li><a>Promotion</a></li>
-	                        			<li><a>Promotion (RAW)</a></li>
-	                        			<li><a>Other Event</a></li>
-	                        			<li><a>Other Event (RAW)</a></li>
+	                        			<li><a id="pls1300000226">Exhibition</a></li>
+	                        			<li><a id="pls1300000225">Exhibition (RAW)</a></li>
+	                        			<li><a id="pls1300000224">Promotion</a></li>
+	                        			<li><a id="pls1300000223">Promotion (RAW)</a></li>
+	                        			<li><a id="pls1300000222">Other Event</a></li>
+	                        			<li><a id="pls1300000221">Other Event (RAW)</a></li>
 	                        		</ul>
 	                        	</div>
                         	</div>
@@ -344,8 +338,8 @@
                         	<div>
 	                        	<div>
 	                        		<ul class="depth2">
-	                        			<li><a>Other</a></li>
-	                        			<li><a>Other (RAW)</a></li>
+	                        			<li><a id="pls1300000220">Other</a></li>
+	                        			<li><a id="pls1300000219">Other (RAW)</a></li>
 	                        		</ul>
 	                        	</div>
                         	</div>

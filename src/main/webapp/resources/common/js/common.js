@@ -41,8 +41,19 @@ if ($.cookies.get('mamsCookie') == 'undefined' || $.cookies.get('mamsCookie') ==
 }
 // -- cookie End
 
+var mp4Cls	= null;
+var mp4Cls2 = null;
+var aviCls 	= null;
+var aviCls2 = null;
+var movCls 	= null;
+var movCls2 = null;
+var wmvCls 	= null;
+var wmvCls2 = null;
+
 $(function() {
 	// ################################ DFLUX C&C publishing Start ################################
+	$('#downloadPop').hide();
+	$('#uploading').hide();
 	//search s
 	$('#search').focus(function() {
 		$(this).css("background-image","none");
@@ -66,35 +77,23 @@ $(function() {
 	header_width 	= $('#header').outerWidth();
 	gnb_offset 		= $('#gnb').offset();       
 	gnb_width 		= $('#gnb').outerWidth();  
-	
-	$(window).resize(function () {
-        $('#gnb .menu > div').css({
-            'width': $('#header_wrap').width(),
-            'left': 0
-        });
-    });
-	
-    $('#gnb .menu > div').css({
-        'width': $('#header_wrap').width(),
-        'left': 0
-    });
-    
-    //gnb mouse and tab setting
-    $('#gnb > ul').find('> li').mouseenter(function () {
+
+	//gnb mouse and tab setting
+	$('#gnb > ul').find('> li').mouseenter(function () {
+		$('#gnb .menu > div').stop().slideDown(150);
+		$('.gnb_bg1').stop().slideDown(150);
+	}).mouseleave(function () {
         $('#gnb .menu > div').stop().slideUp(150);
-        $(this).find('> div').stop().slideDown(150);
-    }).mouseleave(function () {
-            $(this).find('> div').stop().slideUp(150);
-        });
-    
-    $('#gnb > ul').find('> li > a').focusin(function () {
-        $('#gnb .menu > div').slideUp(150);
-        $(this).next('div').stop().slideDown(150);
-    });
-    
-    $('.depth2 li:last-child a').focusout(function () {
+        $('.gnb_bg1').stop().slideUp(150);
+	});
+	$('#gnb > ul').find('> li > a').focusin(function () {
+        $('#gnb .menu > div').stop().slideDown(150);
+        $('.gnb_bg1').stop().slideDown(150);
+	});
+	$('.depth2 li:last-child a').focusout(function () {
         $('#gnb .menu > div').stop().slideUp(150);
-    });
+        $('.gnb_bg1').stop().slideUp(150);
+	});
     //gnb mouse and tab setting end
 
     // gnb
@@ -261,35 +260,180 @@ $(function() {
 		$('<form></form>').attr({'method':'POST','action':'mamsDownload'}).append(hiddenHis).append(hiddenDwn).appendTo('body').submit();
 	});
 	
+	// category content Page 이동 (list.page)
+	$('a[id*="pls"]').click(function() {
+		var playlist_id		= null;
+		var playlist_name	= null;
+		var formEle			= null;
+		var hiddenPls		= null;
+		var hiddenPln		= null;
+		playlist_id = $(this).attr('id');
+		playlist_name = $(this).text();
+		playlist_id = playlist_id.substring(3, playlist_id.length);
+		formEle = $('<form></form>').prop({'method':'post','action':'categoryPlaylist'});
+		hiddenPls = $('<input>').prop({'type':'hidden','name':'playlist_id','value':playlist_id});
+		hiddenPln = $('<input>').prop({'type':'hidden','name':'playlist_name','value':playlist_name});
+		formEle.append(hiddenPls, hiddenPln).appendTo('body').submit();
+	});
+	
 	// 다운로드 아이콘 클릭
 	$('a[class="download_btn"]').click(function(){
+		$('#downloadPop').show().downPopCenter();
 		var contentId = $(this).attr('data-contentId');
 		$('.mb5').text('ID : ' + contentId);
-		$.getJSON('contentInfo', {"contentId":contentId}, function(data){
-			var decodeFileName = decodeURIComponent(data.fileName);
-			var fileName = decodeFileName.replace(/\+/g, ' ');
-			var aTag = $('<a id="fileFormat"></a>').attr({'href':data.downloadUrl,'id':'getTheFile','data-contentId':contentId}).append('<img src="./resources/images/common/icon_mp4.png" alt="download"/>' + fileName);
-			ddTag = $('<dd></dd>').append(aTag);
-			$("#downloadUrl").empty();
-			$("#downloadUrl").after(ddTag);
-			/*
-			$("#contentType").text('Contents Type : ' + data.mediaType);
-			$("#size").text('Size : ' + data.size);
-			$("#videoFormat").text('Video Format : ' + data.videoFormat);
-			$("#videoCodec").text('Video Codec : ' + data.videoCodec);
-			$("#videoBps").text('Video bps : ' + data.videoBps);
-			$("#videoFps").text('Video fps : ' + data.videoFps);
-			$("#audioCodec").text('Audio Codec : ' + data.audioCodec);
-			$("#audioBps").text('Audio bps : ' + data.audioBps);
-			$("#channel").text('Audio channel : ' + data.audioChannel);
-			$("#hz").text('Audio Hz : ' + data.audioHz);
-			*/
+		$.getJSON('getDownload', {"content_id":contentId}, function(data){
+			for(var i = 0; i < data.length; i = i + 1) {
+				if (data[i].container == 'mp4') {
+					if (mp4Cls == null) {
+						mp4Cls = data[i];
+					} else {
+						mp4Cls2 = data[i];
+					}
+				}
+				if (data[i].container == 'avi') {
+					if (aviCls == null) {
+						aviCls = data[i];
+					} else {
+						aviCls2 = data[i];
+					}
+				}
+				if (data[i].container == 'mov') {
+					if (movCls == null) {
+						movCls = data[i];
+					} else {
+						movCls2 = data[i];
+					}
+				}
+				if (data[i].container == 'wmv') {
+					if (wmvCls == null) {
+						wmvCls = data[i];
+					} else {
+						wmvCls2 = data[i];
+					}
+				}
+			}
+			$('#dTitle').text(decodeURIComponent(mp4Cls.title));
+			$('#mp4dl').prop({'href':mp4Cls.download_url});
+			$('#avidl').prop({'href':aviCls.download_url});
+			$('#movdl').prop({'href':movCls.download_url});
+			$('#wmvdl').prop({'href':wmvCls.download_url});
 		});
 	});
 	
-	$(document).on('click', '#getTheFile', function(e){
+	$('#mp4dl, #avidl, #movdl, #wmvdl').mouseover(function() {
+		var idVal = $(this).attr('id');
+		if (idVal == 'mp4dl'){
+			$('#contentID').text(mp4Cls.content_id);
+			$("#fwidth").text(mp4Cls.width);
+			$('#fheight').text(mp4Cls.height);
+			$('#fsize').text(wmvCls.file_size);
+            $('#container').text(mp4Cls.container);
+            $('#vCodec').text(mp4Cls.video_codec);
+            $('#vbps').text(mp4Cls.video_bitrate);
+            $('#vfps').text(mp4Cls.video_framerate);
+            $('#aCodec').text(mp4Cls.audio_codec);
+            $('#aBps').text(mp4Cls.audio_bitrate);
+            $('#aChannel').text(mp4Cls.audio_channel);
+            $('#aSampleRate').text(mp4Cls.audio_samplerate);
+		}
+		if (idVal == 'avidl') {
+			$('#contentID').text(aviCls.content_id);
+			$("#fwidth").text(aviCls.width);
+			$('#fheight').text(aviCls.height);
+			$('#fsize').text(wmvCls.file_size);
+            $('#container').text(aviCls.container);
+            $('#vCodec').text(aviCls.video_codec);
+            $('#vbps').text(aviCls.video_bitrate);
+            $('#vfps').text(aviCls.video_framerate);
+            $('#aCodec').text(aviCls.audio_codec);
+            $('#aBps').text(aviCls.audio_bitrate);
+            $('#aChannel').text(aviCls.audio_channel);
+            $('#aSampleRate').text(aviCls.audio_samplerate);
+		}
+		if (idVal == 'movdl') {
+			$('#contentID').text(movCls.content_id);
+			$("#fwidth").text(movCls.width);
+			$('#fheight').text(movCls.height);
+			$('#fsize').text(wmvCls.file_size);
+            $('#container').text(movCls.container);
+            $('#vCodec').text(movCls.video_codec);
+            $('#vbps').text(movCls.video_bitrate);
+            $('#vfps').text(movCls.video_framerate);
+            $('#aCodec').text(movCls.audio_codec);
+            $('#aBps').text(movCls.audio_bitrate);
+            $('#aChannel').text(movCls.audio_channel);
+            $('#aSampleRate').text(movCls.audio_samplerate);
+		}
+		if (idVal == 'wmvdl') {
+			$('#contentID').text(wmvCls.content_id);
+			$("#fwidth").text(wmvCls.width);
+			$('#fheight').text(wmvCls.height);
+			$('#fsize').text(wmvCls.file_size);
+            $('#container').text(wmvCls.container);
+            $('#vCodec').text(wmvCls.video_codec);
+            $('#vbps').text(wmvCls.video_bitrate);
+            $('#vfps').text(wmvCls.video_framerate);
+            $('#aCodec').text(wmvCls.audio_codec);
+            $('#aBps').text(wmvCls.audio_bitrate);
+            $('#aChannel').text(wmvCls.audio_channel);
+            $('#aSampleRate').text(wmvCls.audio_samplerate);
+		}
+	});
+	
+	$('#mp4dl, #avidl, #movdl, #wmvdl').mouseout(function (){
+		$('#contentID').text('');
+		$("#fwidth").text('');
+		$('#fhieght').text('');
+		$('#fsize').text('');
+        $('#container').text('');
+        $('#vCodec').text('');
+        $('#vbps').text('');
+        $('#vfps').text('');
+        $('#aCodec').text('');
+        $('#aBps').text('');
+        $('#aChannel').text('');
+        $('#aSampleRate').text('');
+	});
+	
+	// download popup button close
+	$('#downClose').click(function() {
+		mp4Cls	= null;
+		mp4Cls2 = null;
+		aviCls 	= null;
+		aviCls2 = null;
+		movCls 	= null;
+		movCls2 = null;
+		wmvCls 	= null;
+		wmvCls2 = null;
+		$('#downloadPop').hide();
+		$('#dTitle').text('');
+		$("#width").text('');
+		$('#hieght').text('');
+        $('#container').text('');
+        $('#vCodec').text('');
+        $('#vbps').text('');
+        $('#vfps').text('');
+        $('#aCodec').text('');
+        $('#aBps').text('');
+        $('#aChannel').text('');
+        $('#aSampleRate').text('');
+	});
+	
+	$('#mp4dl, #avidl, #movdl, #wmvdl').click(function() {
 		var mamCook 	= null;
 		var contentId 	= null;
+		$('#downloadPop').hide();
+		$('#dTitle').text('');
+		$("#width").text('');
+		$('#hieght').text('');
+        $('#container').text('');
+        $('#vCodec').text('');
+        $('#vbps').text('');
+        $('#vfps').text('');
+        $('#aCodec').text('');
+        $('#aBps').text('');
+        $('#aChannel').text('');
+        $('#aSampleRate').text('');
 		contentId = $(this).attr('data-contentId');
 		mamCook = $.cookies.get('mamsCookie');
 		if (!validCookieContent.isExistContentId(mamCook.myDownload, contentId)) {
@@ -316,37 +460,50 @@ $(function() {
 		$('<form></form>').attr({'method':'POST','action':'detail'}).append(hiddenCon).append(hiddenTmb).append(hiddenHis).appendTo('body').submit();
 	});
 	
-	// 검색 
+	//-- search start --
+	// 검색 input text에 엔터 입력 
 	$('#search').keypress(function(event) {
 		var mamCook 	= null;
+		var formElement	= null;
+		var searchString= null;
 		var hiddenHis 	= null;
 		var stringRegx 	= /[~!@\#$%<>^&*\()\-=+_\']/gi;
-		mamCook = $.cookies.get('mamsCookie');
-		var searchString= $(this).val();
+		mamCook 	= $.cookies.get('mamsCookie');
+		searchString= $(this).val();
 		if(stringRegx.test(searchString)) { 
 			alert('특수문자는 허용하지 않습니다.');
 			$(this).val('').focus();
 			return false;
 		}
-		
 		if (event.which == 13) {
-			hiddenHis = $('<input>').prop({'type':'hidden','name':'historyList','value':JSON.stringify(mamCook.myHistory)});
-			$('form[class="search_form"]').append(hiddenHis);
+			hiddenHis 	= $('<input>').prop({'type':'hidden','name':'historyList','value':JSON.stringify(mamCook.myHistory)});
+			formElement = $('#searchFrm').prop({'method':'post','action':'search'});
+			formElement.append(hiddenHis).submit();
 		}
 	});
 	
-	// Region click 후 해당 지역 검색
-	$('li[id="regions"]').click(function() {
-		var regionValue = null;
-		regionValue = $(this).text();
+	// search button 실행
+	$('#searchBtn').click(function() {
+		var mamCook 	= null;
+		var formElement	= null;
+		var searchString= null;
+		var hiddenHis 	= null;
+		var stringRegx 	= /[~!@\#$%<>^&*\()\-=+_\']/gi;
+		mamCook 	= $.cookies.get('mamsCookie');
+		searchString= $('#search').val();
+		if(stringRegx.test(searchString)) { 
+			alert('특수문자는 허용하지 않습니다.');
+			$(this).val('').focus();
+			return false;
+		}
+		hiddenHis 	= $('<input>').prop({'type':'hidden','name':'historyList','value':JSON.stringify(mamCook.myHistory)});
+		formElement = $('#searchFrm').prop({'method':'post','action':'search'});
+		formElement.append(hiddenHis).submit();
 	});
-	
-	$('li[id="selected"]').click(function() {
-		var selectedValue = null;
-		selectedValue = $(this).text();
-	});
+	//-- search end --
 	
 	var uploadCls = {
+		categoryList:['Company','Company (RAW)','Culture','Culture (RAW)','TV Footages','TV Footages (RAW)','TVC','TVC (RAW)','Campaign','Campaign (RAW)','Sports Marketing','Sports Marketing (RAW)','HanKook Tire','HanKook Tire (RAW)','Other Brand','Other Brand (RAW)','Technoloagy','Technoloagy (RAW)','Europe','Europe (RAW)','Other Motosports','Other Motosports (RAW)','Exhibition','Exhibition (RAW)','Promotion','Promotion (RAW)','Other Event','Other Event (RAW)','Other','Other (RAW)'],
 		myFile:null,
 		title:null,
 		category:null,
@@ -366,7 +523,6 @@ $(function() {
 			}
 		},
 		titleCheck:function(jqueryElement) {
-			console.log('title');
 			if(jqueryElement.val() == 'undefined' || jqueryElement.val() == null || jqueryElement.val() == '') {
 				alert('제목을 입력하세요!');
 				jqueryElement.val('').focus();
@@ -376,7 +532,6 @@ $(function() {
 			}
 		},
 		officialCheck:function(jqueryElement) {
-			console.log(jqueryElement.val());
 			if(jqueryElement.val() == 'undefined' || jqueryElement.val() == null || jqueryElement.val() == '') {
 				alert('송출 타입을 지정하세요!');
 				$('input[name="official"]').focus();
@@ -393,34 +548,72 @@ $(function() {
 			} else {
 				return true;
 			}
+		},
+		setCustomId:function(){
+			var customId		= null;
+			var resultOfficial 	= null;
+			var resultType		= null;
+			var resultRegion	= null;
+			var resultCategory	= null;
+			var yearTmp 		= this.year.split(' ');
+			var resultYear 		= yearTmp[0].substring(2,4);
+			
+			if (this.region != 'Asia-Pacific') {
+				resultRegion = this.region.substring(0, 1);
+			} else {
+				var regionTmp = this.region.split('-');
+				resultRegion = regionTmp[1].substring(0,1);
+			}
+			
+			if (this.type == 'Unofficial') {
+				resultType = 'B';
+			} else {
+				resultType = 'A';
+			}
+			
+			if (this.official == 'Raw Data') {
+				resultOfficial = 'B';
+			} else {
+				resultOfficial = 'A';
+			}
+			resultCategory = this.categoryList.indexOf(this.category);
+			customId = resultYear + resultType + (resultCategory + 1) + resultRegion + '-' + resultOfficial + '-';
+			return customId;
 		}
 	};
 	//--upload layer show and file uploading
 	$('#upload').click(function() {
-		//method="post" action="video/fileUpload" enctype="multipart/form-data"
 		$('.upload_popup_wrap').layerCenter();
 		$('.upload_popup_wrap').show();
-		uploadCls.myFile		= $('#videoFile').val();
-		uploadCls.title 		= $('#videoTitle').val();
-		uploadCls.category 		= $('#category').val();
-		uploadCls.year 			= $('#year').val();
-		uploadCls.type 			= $('#type option:selected').val();
-		uploadCls.region 		= $('#region option:selected').val();
-		uploadCls.official		= $('input[name="official"]:checked').val();
-		uploadCls.description	= $('#info').val();
-		//method="post" action="video/fileUpload" enctype="multipart/form-data"
-		//$('form[name="uploadFrm"]').prop({'method':'post','action':'video/fileUpload','enctype':'multipart/form-data'})
-		//$('.upload_popup_wrap').hide();
-		return false;
+		var overlay = jQuery('<div id="overlay"> </div>');
+		overlay.appendTo(document.body);
 	});
 	
 	$('#uploadClose').click(function() {
 		$('.upload_popup_wrap').hide();
-		return false;
+		$('#overlay').remove();
+		$('#videoFile').val('');                     
+		$('#videoTitle').val('');                    
+		$('#category').val('');                      
+		$('#year option:eq(0)').prop('selected", "selected');                          
+		$('#type option:eq(0)').prop('selected', 'selected');          
+		$('#region option:eq(0)').prop('selected', 'selected');        
+		$('input[name="official"]').each(function() {
+			($(this).is(':checked') == true) ? $(this).prop('checked', false) : null;
+		});
+		$('#info').val('');
 	});
 	
 	$('#pushTheUpload').click(function() {
 		var form = null;
+		uploadCls.myFile		= $('#videoFile').val();
+		uploadCls.title 		= $('#videoTitle').val();
+		uploadCls.category 		= $('#category option:selected').val();
+		uploadCls.year 			= $('#year option:selected').val();
+		uploadCls.type 			= $('#type option:selected').val();
+		uploadCls.region 		= $('#region option:selected').val();
+		uploadCls.official		= $(':radio[name="official"]:checked').val();
+		uploadCls.description	= $('#info').val();
 		if(!uploadCls.uploadFileCheck($('#videoFile'))) {
 			return false;
 		}
@@ -433,6 +626,10 @@ $(function() {
 		if(!uploadCls.infoCheck($('#info'))) {
 			return false;
 		}
+		
+		$('#customIdValue').val(uploadCls.setCustomId());
+		alert('업로드를 시작합니다.');
+		$('#uploading').somthingCenter().show();
 		form = new FormData(document.getElementById('uploadForm'));
 		$.ajax({
 			url: "video/fileUpload",
@@ -442,41 +639,53 @@ $(function() {
 			contentType: false,
 			type: 'POST',
 			success: function (response) {
-				alert(response);
+				var data = decodeURIComponent(response);
+				$('#uploading').hide();
+				alert('업로드: ' + data);
+				$('#videoFile').val('');                     
+				$('#videoTitle').val('');                    
+				$('#category').val('');                      
+				$('#year option:eq(0)').prop('selected", "selected');                          
+				$('#type option:eq(0)').prop('selected', 'selected');          
+				$('#region option:eq(0)').prop('selected', 'selected');        
+				$('input[name="official"]').each(function() {
+					($(this).is(':checked') == true) ? $(this).prop('checked', false) : null;
+				});
+				$('#info').val('');
+				$('#overlay').remove();
+				$('.upload_popup_wrap').hide();
 			},
 			error: function (jqXHR) {
-				alert(jqXHR);
+				$('#uploading').hide();
+				alert('업로드 실패!');
+				$('#videoFile').val('');                     
+				$('#videoTitle').val('');                    
+				$('#category').val('');                      
+				$('#year option:eq(0)').prop('selected", "selected');                          
+				$('#type option:eq(0)').prop('selected', 'selected');          
+				$('#region option:eq(0)').prop('selected', 'selected');        
+				$('input[name="official"]').each(function() {
+					($(this).is(':checked') == true) ? $(this).prop('checked', false) : null;
+				});
+				$('#info').val('');
 			}
 		});
+		
 	});
 	//--upload layer show and file uploading end
 	
 	//--admin enter start
 	$('#admin').click(function() {
-		location.replace('/videoBox/adminUploaders');
+		var mamCook		= null;
+		var formElement = null;
+		var hiddenHis	= null;
+		mamCook = $.cookies.get('mamsCookie');
+		console.log('history', mamCook.myHistory);
+		formElement = $('<form></form>').prop({'method':'post','action':'adminUploaders'});
+		hiddenHis 	= $('<input>').prop({'type':'hidden','name':'historyList','value':JSON.stringify(mamCook.myHistory)});
+		formElement.append(hiddenHis).appendTo('body').submit();
 	});
 	//--admin enter end
-	
-	//--category 항목 클릭후 해당 카테고리로 이동 start
-	$('li[id="gnb"]').click(function() {
-		var playlistId  = null;
-		var formElement = null;
-		var hiddenPid	= null;
-		var mamCook		= null;
-		var hiddenHis	= null;
-		mamCook 	= $.cookies.get('mamsCookie');
-		playlistId 	= $(this).attr('data-gnb');
-		hiddenHis 	= $('<input>').prop({'type':'hidden','name':'historyList','value':JSON.stringify(mamCook.myHistory)});
-		/*
-		formElement = $('<form></form>').prop({'method':'post','action':'categorySection'});
-		hiddenPid	= $('<input>').prop({'type':'hidden','name':'playlist_id','value':playlistId});
-		formElement.append(hiddenPid).append(hiddenHis).appendTo('body').submit();
-		*/
-	});
-	//--category 항목 클릭후 해당 카테고리로 이동 end
-	
-	//--
-	//--
 	// ################################ Web Programmer surpport End ################################
 });
 
@@ -517,6 +726,22 @@ jQuery.fn.layerCenter = function () {
                                                 $(window).scrollTop()) + "px");
     this.css("left", Math.max(5, (($(window).width() - $(this).outerWidth()) / 2) + 
                                                 $(window).scrollLeft()) + "px");
+    return this;
+};
+
+jQuery.fn.downPopCenter = function () {
+	this.css("position","absolute");
+	this.css("top", Math.max(165, (($(window).height() - $(this).outerHeight()) / 2) + 
+			$(window).scrollTop()) + "px");
+	this.css("left", Math.max(5, (($(window).width() - $(this).outerWidth()) / 2) + 
+			$(window).scrollLeft()) + "px");
+	return this;
+};
+
+jQuery.fn.somthingCenter = function (){
+    this.css("position","fixed");
+    this.css("top", ($(window).height() / 2) - (this.outerHeight() / 2));
+    this.css("left", ($(window).width() / 2) - (this.outerWidth() / 2));
     return this;
 };
 //--center position screen end
