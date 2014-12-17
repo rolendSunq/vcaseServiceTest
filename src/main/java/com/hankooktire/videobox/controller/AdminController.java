@@ -54,6 +54,7 @@ public class AdminController {
 		List<MovieContentVO> contentList = ovpService.getSortSearchPlayListForContent(ctgVO);
 		// paging
 		Paging paging = new Paging(ctgVO.getPageNum(), ctgVO.getTotalCount());
+		System.out.println("+++paging+++" + paging);
 		// sort type 지정
 		ctgVO.setSort("reg_date");
 		model.addAttribute("listCount", playlistCount);

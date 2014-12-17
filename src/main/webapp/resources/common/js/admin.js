@@ -40,7 +40,8 @@ $(function() {
 	$('#gnb > ul').find('> li > a').focusin(function () {
         $('#gnb .menu > div').stop().slideDown(150);
         $('.gnb_bg1').stop().slideDown(150);
-	})
+	});
+	
 	$('.depth2 li:last-child a').focusout(function () {
         $('#gnb .menu > div').stop().slideUp(150);
         $('.gnb_bg1').stop().slideUp(150);
@@ -236,11 +237,6 @@ $(function() {
     // tab mouse leave
     $('#tabUplo, #tabDoc, #tabLog').mouseleave(function() {
     	$(this).css('cursor', 'default');
-    });
-    
-    $('li[id="category"]').click(function() {
-    	var playlistId = null;
-    	playlistId = $(this).attr('data-category');
     });
     
     var uploadCls = {

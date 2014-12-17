@@ -21,7 +21,7 @@ public class Paging {
 	private void calulratorPaging() {
 		// vcase OVP는 현재 페이지 값을 0 부터 시작한다.
 		currentPage 	= (currentPage == 0) ? 1 : currentPage + 1;
-		totalPage 		= (totalCount % PAGE_COUNT < PAGE_COUNT) ? (totalCount / PAGE_COUNT) + 1 : totalCount / PAGE_COUNT;
+		totalPage 		= (totalCount % PAGE_COUNT == 0) ? totalCount / PAGE_COUNT : (totalCount / PAGE_COUNT) + 1;
 		pageOfBlock 	= (totalPage % PAGE_BLOCK < PAGE_BLOCK) ? totalPage / PAGE_BLOCK + 1 : totalPage / PAGE_BLOCK;
 		startRow 		= (currentPage % PAGE_BLOCK == 0) ? ((currentPage / PAGE_BLOCK - 1) * PAGE_BLOCK + 1) : ((currentPage / PAGE_BLOCK) * PAGE_BLOCK + 1);
 		currentBlock	= startRow/5 + 1;

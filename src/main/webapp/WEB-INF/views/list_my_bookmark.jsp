@@ -252,13 +252,15 @@
 						<ul>
 							<li class="p_menu1"><a id="admin">설정</a></li>
 							<li class="p_menu2"><a id="upload">업로드</a></li>
-							<li class="p_menu3"><a id="logout">로그아웃</a></li>
 						</ul>
 					</div>
 				</div>
 				<!-- //header_bottom end -->
 				<!-- gnb -->
 				<div id="gnb">
+					<div class="gnb_bg1">
+                        <div class="gnb_bg2"></div>
+                   	</div>
 					<ul>
 						<li class="first menu menu1">
                         	<a class="pad0">Corporation</a>
@@ -368,16 +370,18 @@
 					<div class="list_top">
 						<ul class="sort_count">
 							<li class="list20"><a>20개씩 보기</a></li>
+							<!-- 
 							<li class="list15"><a>15개씩 보기</a></li>
 							<li class="list10"><a>10개씩 보기</a></li>
+							 -->
 						</ul>
 						<div class="list_top_right">
+							<!-- 
 							<div class="by first">
 								<span>Filter by</span>
 								<div class="drop_menu">
 									<a>Region</a>
 									<input class="hide" type="text" value="" />
-									<!-- li 안의 a 태그를 클릭하면 input 태그 안의 value에 해당 값이 들어가도록 개발해주시면 됩니다. -->
 									<ul>
 										<li id="regions"><a>Europe</a></li>
 										<li id="regions"><a>America</a></li>
@@ -400,6 +404,7 @@
 									</ul>
 								</div>
 							</div>
+							 -->
 						</div>
 					</div>
 					<ul class="thumbnail">
@@ -458,6 +463,7 @@
 						<div class="count">
 							<span class="now">1 - 15</span> of 35
 						</div>
+						<!-- 
 						<div class="page_control">
 							<div class="control"><a class="btn_prev">previous</a></div>
 							<div class="pages">
@@ -468,6 +474,7 @@
 							</div>
 							<div class="control"><a class="btn_next">next</a></div>
 						</div>
+						 -->
 					</div>
 					<div class="list_btns txt_left">
 						<input type="checkbox" id="allClear" value="" class="mr20" />
@@ -475,7 +482,6 @@
 					</div>
 				</div>
 				<!-- //popular movie -->
-
 			</div>
 		</div>
 		<!-- //content_wrap end -->
@@ -486,11 +492,6 @@
 			<div id="footer">
 				<h2><img src="./resources/images/common/img_logo_bottom.gif" alt="Hankook - driving emotion" /></h2>
 				<div class="footer_navi">
-					<ul>
-						<li><a>Digital library</a></li>
-						<li><a>Digital library lite</a></li>
-						<li><a>Hankooktire Global Site</a></li>
-					</ul>
 					<p class="copyright">
 						Copyright ⓒ Hankook Tire. All Rights Reserved.
 					</p>
@@ -500,42 +501,6 @@
 
 		</div>
 		<!-- //footer_wrap end -->
-		<!-- download layer -->
-		<div class="dow_layer">
-			<div class="dow_layer_con">
-				<ul>
-					<li class="mb5">ID : 2014cvrw001800000255</li>
-					<li>region : korea</li>
-				</ul>
-				<hr />
-				<dl class="download">
-					<dt>DOWNLOAD</dt>
-					<dd><a><img src="./resources/images/common/icon_mov.png" alt="download" />RA33_Dynapro HP2_Motion Graphic(ENG).mov</a></dd>
-					<dd><a><img src="./resources/images/common/icon_wmv.png" alt="download" />RA33_Dynapro HP2_Motion Graphic(ENG).wmv</a></dd>
-					<dd><a><img src="./resources/images/common/icon_mp4.png" alt="download" />RA33_Dynapro HP2_Motion Graphic(ENG).mp4</a></dd>
-					<dd><a><img src="./resources/images/common/icon_mpeg.png" alt="download" />RA33_Dynapro HP2_Motion Graphic(ENG).mpeg</a></dd>
-					<dd><a><img src="./resources/images/common/icon_avi.png" alt="download" />RA33_Dynapro HP2_Motion Graphic(ENG).avi</a></dd>
-					<dd><a><img src="./resources/images/common/icon_flv.png" alt="download" />RA33_Dynapro HP2_Motion Graphic(ENG).flv</a></dd>
-				</dl>
-				<hr />
-				<dl class="file_info">
-					<dt>fILE INFO</dt>
-					<dd>Contents Type : Video</dd>
-					<dd>Scale : the base rate</dd>
-					<dd>Size : 1280x720 HD 408MB</dd>
-					<dd>Video Format : MP4</dd>
-					<dd>Video Codec : h264</dd>
-					<dd>Video bps : 256478</dd>
-					<dd>Video fps : 29</dd>
-					<dd>Audio Codec : aac</dd>
-					<dd>Audio bps :235478</dd>
-					<dd>Audio channel : 2</dd>
-					<dd>Audio Hz : 44100</dd>
-				</dl>
-				<a class="dow_layer_close">close</a>
-			</div>
-		</div>
-		<!-- //download layer -->
 	</div>
 	<script type="text/javascript" src="./resources/common/js/jquery-1.11.1.min.js"></script>
 	<script type="text/javascript" src="./resources/common/js/jquery.ui.all.js"></script>

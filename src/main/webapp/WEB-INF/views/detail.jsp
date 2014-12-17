@@ -366,7 +366,7 @@
 	                                <li><span>ID&nbsp;:&nbsp;</span>${oneStreamPlay.getCustom_id()}</li>
 	                                <li><span>Region&nbsp;:&nbsp;</span>${oneStreamPlay.tag.region}</li>
 	                                <li><span>Tag&nbsp;:&nbsp;</span>${oneStreamPlay.tag.category}, ${oneStreamPlay.tag.region}, ${oneStreamPlay.tag.year}, ${oneStreamPlay.tag.type}, ${oneStreamPlay.tag.official}</li>
-	                                <hr/>
+	                                <hr>
 	                                <p>${oneStreamPlay.description}</p>
 	                            </ul>
 	                        </div>

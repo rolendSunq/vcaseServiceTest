@@ -69,10 +69,12 @@ $(function() {
 	//search e
 	
 	//header
+	/*
 	var header_offset 	= null;
 	var header_width 	= null;
 	var gnb_offset 		= null;
 	var gnb_width 		= null;
+	*/
 	header_offset 	= $('#header').offset();    
 	header_width 	= $('#header').outerWidth();
 	gnb_offset 		= $('#gnb').offset();       
