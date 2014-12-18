@@ -131,6 +131,9 @@
 		                <input type="hidden" id="customIdValue" name="custom_id">
 		            </form>
 		        </div>
+		        <div id="uploading">
+					<img src="./resources/images/common/uploading.gif">
+				</div>
 		    </div>
 		    <!--//Upload 팝업-->
 		    <!-- Download 팝업 -->
@@ -615,9 +618,6 @@
 	
 			</div>
 			<!-- //footer_wrap end -->
-			<div id="uploading">
-				<img src="./resources/images/common/uploading.gif">
-			</div>
 		</div>
 		<script type="text/javascript" src="./resources/common/js/jquery-1.11.1.min.js"></script>
 		<script type="text/javascript" src="./resources/common/js/jquery.ui.all.js"></script>

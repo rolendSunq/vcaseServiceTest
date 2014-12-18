@@ -54,7 +54,7 @@ var wmvCls2 = null;
 $(function() {
 	// ################################ DFLUX C&C publishing Start ################################
 	$('#downloadPop').hide();
-	$('#uploading').hide();
+	$('#uploading').somthingCenter().hide();
 	//search s
 	$('#search').focus(function() {
 		$(this).css("background-image","none");
