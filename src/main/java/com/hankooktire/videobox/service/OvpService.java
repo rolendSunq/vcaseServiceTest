@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.ui.Model;
 
 import com.airensoft.skovp.vo.CategoryPageVO;
+import com.airensoft.skovp.vo.DownloadFileVO;
 import com.airensoft.skovp.vo.FileVO;
 import com.airensoft.skovp.vo.MovieContentVO;
 import com.airensoft.skovp.vo.PlayListCountVO;
@@ -42,4 +43,5 @@ public interface OvpService {
 	public List<MovieContentVO> serviceRegionSort(CategoryPageVO ctgVO);
 	public List<MovieContentVO> serviceRegionFullSearch(CategoryPageVO ctgVO);
 	public List<MovieContentVO> getSortSearchPlayListForContent(CategoryPageVO ctgVO);
+	public List<DownloadFileVO> serviceFileFormat(String playlist_id, String content_id);
 }

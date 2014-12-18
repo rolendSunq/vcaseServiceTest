@@ -375,8 +375,7 @@ $(function() {
 			type: 'POST',
 			success: function (response) {
 				var data = decodeURIComponent(response);
-				var jsonData = JSON.parse(data);
-				alert('업로드: ' + jsonData);
+				alert('업로드: ' + data);
 				$('#videoFile').val('');                     
 				$('#videoTitle').val('');                    
 				$('#category').val('');                      

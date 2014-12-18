@@ -483,7 +483,7 @@
 								</c:choose>
 	                            <span>${popularObject.getView_count() } views</span>
 	                            <span class="f_left">${popularObject.getReg_date() }</span>
-	                            <span class="f_right mr5"><a class="download_btn" data-contentId="${popularObject.getContent_id() }"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
+	                            <span class="f_right mr5"><a class="download_btn" data-contentId="${popularObject.getContent_id()}"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
 	                        </li>
 	                    		</c:otherwise>
 	                    	</c:choose>

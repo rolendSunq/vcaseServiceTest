@@ -137,37 +137,35 @@
 	        <div class="download_popup_con">
 	            <div class="popup_title">
 	                <div class="mb20">
-	                    <p class="mb10">RA33_Dynapro HP2_Motion Graphic Graphic Graphic Graphic</p>
-	                    <p><span>ID :</span> 2014cvrw001800000255 </p>
+	                    <p class="mb10" id="dTitle">RA33_Dynapro HP2_Motion Graphic Graphic Graphic Graphic</p>
+	                    <p><span>ID :</span> <label id="contentID">2014cvrw001800000255</label> </p>
 	                </div>
-	                <span><a><img src="./resources/images/common/popup_close_btn.png" alt="닫기"/></a></span>
+	                <span><a id="downClose"><img src="./resources/images/common/popup_close_btn.png" alt="닫기"/></a></span>
 	            </div>
 	            <div class="download_con">
 	                <p><img src="./resources/images/common/down_title.png" alt="download"/></p>
 	                <ul>
-	                    <li><a><img src="./resources/images/common/down_mp4.png" alt="mp4"/></a></li>
-	                    <li><a><img src="./resources/images/common/down_avi.png" alt="avi"/></a></li>
-	                    <li><a><img src="./resources/images/common/down_mov.png" alt="mov"/></a></li>
-	                    <li><a><img src="./resources/images/common/down_flv.png" alt="flv"/></a></li>
-	                    <li><a><img src="./resources/images/common/down_mpeg.png" alt="mpeg"/></a></li>
-	                    <li><a><img src="./resources/images/common/down_wmv.png" alt="wmv"/></a></li>
+	                  	<li><a id="mp4dl"><img src="./resources/images/common/ndown_mp4.png" alt="mp4"/></a></li>
+						<li><a id="avidl"><img src="./resources/images/common/ndown_avi.png" alt="avi"/></a></li>
+						<li><a id="movdl"><img src="./resources/images/common/ndown_mov.png" alt="mov"/></a></li>
+						<li><a id="wmvdl"><img src="./resources/images/common/ndown_wmv.png" alt="wmv"/></a></li>
 	                </ul>
 	            </div>
 	            <div class="detail_con">
 	                <p><img src="./resources/images/common/detail_title.png" alt="detail"/></p>
 	                <ul>
 	                    <li>
-	                        <p>Size : 1280x720 HD 408MB</p>
-	                        <p>Video Format : MP4</p>
-	                        <p>Video Codec : h264</p>
-	                        <p>Video bps : 256478</p>
-	                        <p>Video fps :29</p>
+	                        <p>Size : <label id="fwidth"></label>x<label id="fheight"></label> HD <label id="fsize"></label></p>
+	                        <p>Video Format : <label id="container"></label></p>
+	                        <p>Video Codec : <label id="vCodec"></label></p>
+	                        <p>Video bps : <label id="vbps"></label></p>
+	                        <p>Video fps :<label id="vfps"></label></p>
 	                    </li>
 	                    <li>
-	                        <p>Audio Codec :aac</p>
-	                        <p>Audio bps :235478</p>
-	                        <p>Audio channel : 2</p>
-	                        <p>Audio Hz : 44100</p>
+	                        <p>Audio Codec :<label id="aCodec">aac</label></p>
+	                        <p>Audio bps :<label id="aBps">235478</label></p>
+	                        <p>Audio channel : <label id="aChannel">2</label></p>
+	                        <p>Audio Hz : <label id="aSampleRate">44100</label></p>
 	                    </li>
 	                </ul>
 	            </div>
@@ -191,19 +189,19 @@
                         <div class="my_movie_wh">
                         	<dl>
                             	<dt>Watch History</dt>
-                                <c:forEach var="his" items="${history }" varStatus="status">
+                                <c:forEach var="his" items="${history}" varStatus="status">
                             	<c:choose>
 								<c:when test="${fn:length(his.title) > 21}">
 								<dd>
-									<a id="his" data-streamingUrl="${his.streamingUrl }" data-thumbUrl="${his.thumb_url }" data-contentId="${his.content_id }">
-										<img width="25px" height="14px" src="${his.thumb_url }" alt="" />${fn:substring(his.title, 0, 21)}...
+									<a id="his" data-contentId="${his.content_id}" data-playlistName="${his.getTag().getCategory() == null ? '' : his.getTag().getCategory()}">
+										<img width="25px" height="14px" src="${his.thumb_url}" alt="" />${fn:substring(his.title, 0, 21)}...
 									</a>
 								</dd>
 								</c:when>
 								<c:otherwise>
                                 <dd>
-                                	<a id="his" data-contentId="${his.content_id }" data-streamingUrl="${his.streamingUrl }" data-thumbUrl="${his.thumb_url }">
-                                		<img width="25px" height="14px" src="${his.thumb_url }" alt="" />${his.title }
+                                	<a id="his" data-contentId="${his.content_id}" data-playlistName="${his.getTag().getCategory()}">
+                                		<img width="25px" height="14px" src="${his.thumb_url}" alt="" />${his.title }
                                 	</a>
                                 </dd>
 								</c:otherwise>
@@ -408,52 +406,51 @@
 						</div>
 					</div>
 					<ul class="thumbnail">
-						<c:forEach var="info" items="${item }" varStatus="status">
+						<c:forEach var="info" items="${item}" varStatus="status">
 						<c:choose>
 						<c:when test="${status.count % 5 == 1 || status.count % 5 == 2 || status.count % 5 == 3 }">
-						<li class="mr24" id="myContent">
-							<a>
+						<li class="mr24">
+							<a id="thumbContent" data-contentId="${info.getContent_id()}" data-playlistName="${info.getTag().getCategory()}">
 								<span>
-									<img width="196px" height="110px" src="${info.thumb_url }" alt="" />
-									<span class="video-time">${info.duration }</span>
-									<span class="admin_icon"><img src="./resources/images/common/icon_admin.png" alt="admin" /></span>
+									<img width="196px" height="110px" src="${info.thumb_url}" alt="" />
+									<span class="video-time">${info.duration}</span>
 								</span>
 							</a>
-							<span>Corporation</span>
+							<span>${info.getTag().getCategory()}</span>
 							<h3><a>${info.title }</a></h3>
-							<span>2,384,880 views</span>
-							<span class="f_left"><input type="checkbox" id="chkbox"/>${info.reg_date }</span>
-							<span class="f_right mr5"><a class="download_btn"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
+							<span>${info.getView_count()} views</span>
+							<span class="f_left"><input type="checkbox" id="chkbox" name="content_id" value="${info.getContent_id()}"/>${info.getReg_date()}</span>
+							<span class="f_right mr5"><a class="download_btn" data-contentId="${info.getContent_id()}"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
 						</li>
 						</c:when>
-						<c:when test="${status.count % 5 == 4 }">
-						<li class="mr23" id="myContent">
-							<a>
+						<c:when test="${status.count % 5 == 4}">
+						<li class="mr23">
+							<a id="thumbContent" data-contentId="${info.getContent_id()}" data-playlistName="${info.getTag().getCategory()}">
 								<span>
-									<img width="196px" height="110px" src="${info.thumb_url }" alt="" />
-									<span class="video-time">${info.duration }</span>
+									<img width="196px" height="110px" src="${info.thumb_url}" alt="" />
+									<span class="video-time">${info.getDuration()}</span>
 								</span>
 							</a>
-							<span>Corporation</span>
-							<h3><a>${info.title }</a></h3>
-							<span>2,384,880 views</span>
-							<span class="f_left"><input type="checkbox" id="chkbox"/>${info.reg_date }</span>
-							<span class="f_right mr5"><a class="download_btn"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
+							<span>${info.getTag().getCategory()}</span>
+							<h3><a>${info.title}</a></h3>
+							<span>${info.getView_count()} views</span>
+							<span class="f_left"><input type="checkbox" id="chkbox" name="content_id" value="${info.getContent_id()}"/>${info.getReg_date()}</span>
+							<span class="f_right mr5"><a class="download_btn" data-contentId="${info.getContent_id()}"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
 						</li>
 						</c:when>
 						<c:when test="${status.count % 5 == 0 }">
-						<li id="myContent">
-							<a>
+						<li>
+							<a id="thumbContent" data-contentId="${info.getContent_id()}" data-playlistName="${info.getTag().getCategory()}">
 								<span>
-									<img width="196px" height="110px" src="${info.thumb_url }" alt="" />
-									<span class="video-time">${info.duration }</span>
+									<img width="196px" height="110px" src="${info.thumb_url}" alt="" />
+									<span class="video-time">${info.getDuration()}</span>
 								</span>
 							</a>
-							<span>Corporation</span>
-							<h3><a>${info.title }</a></h3>
-							<span>2,384,880 views</span>
-							<span class="f_left"><input type="checkbox" id="chkbox"/>${info.reg_date }</span>
-							<span class="f_right mr5"><a class="download_btn"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
+							<span>${info.getTag().getCategory()}</span>
+							<h3><a>${info.title}</a></h3>
+							<span>${info.getView_count()} views</span>
+							<span class="f_left"><input type="checkbox" id="chkbox" name="content_id" value="${info.getContent_id()}"/>${info.getReg_date()}</span>
+							<span class="f_right mr5"><a class="download_btn" data-contentId="${info.getContent_id()}"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
 						</li>
 						</c:when>
 						</c:choose>
@@ -461,7 +458,7 @@
 					</ul>
 					<div class="list_bottom">
 						<div class="count">
-							<span class="now">1 - 15</span> of 35
+							<span class="now">total:${fn:length(item)}</span>
 						</div>
 						<!-- 
 						<div class="page_control">
@@ -509,6 +506,7 @@
 	<script type="text/javascript" src="./resources/common/js/common.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function() {
+			
 			$('input[id="allClear"]').click(function() {
 				if ($(this).prop('checked') == true) {
 					$('input[id="chkbox"]').each(function() {
@@ -519,6 +517,48 @@
 						$(this).prop('checked', false);	
 					});
 				}
+			});
+
+			// Delete 버튼 클릭 북마크 삭제
+			$('.btn_delete').click(function() {
+				var searchIndex 	= null;
+				var modifyMamCook 	= null;
+				var formElement		= null;
+				var hiddenHis		= null;
+				var hiddenBok		= null;
+				var mamCook = $.cookies.get('mamsCookie');
+				$('input[id="chkbox"]').each(function() {
+					if ($(this).prop('checked') == true) {
+						searchIndex = $.inArray($(this).val(), mamCook.myBookmark);
+						if (searchIndex >= 0) {
+							mamCook.myBookmark.splice(searchIndex, 1);
+						}
+					}
+				});
+				$.cookies.set('mamsCookie', mamCook);
+				modifyMamCook 	= $.cookies.get('mamsCookie');
+				formElement 	= $('<form></form>').prop({'method':'post','action':'moveMyBookmark'});
+				hiddenHis		= $('<input>').prop({'type':'hidden','name':'historyList','value':JSON.stringify(modifyMamCook.myHistory)});
+				hiddenBok		= $('<input>').prop({'type':'hidden','name':'bookmarkInfo','value':JSON.stringify(modifyMamCook.myBookmark)});
+				formElement.append(hiddenHis, hiddenBok).appendTo('body').submit();
+			});
+
+			$('a[id="thumbContent"]').click(function() {
+				var contentId 	= null;
+				var playlistName= null;
+				var mamCook		= null;
+				var formElement	= null;
+				var hiddenHis	= null;
+				var hiddenCon	= null;
+				var hiddenPln	= null;
+				mamCook		= $.cookies.get('mamsCookie');
+				contentId	= $(this).attr('data-contentId');
+				playlistName= $(this).attr('data-playlistName');
+				formElement 	= $('<form></form>').prop({'method':'post','action':'detail'});
+				hiddenHis		= $('<input>').prop({'type':'hidden','name':'historyList','value':JSON.stringify(mamCook.myHistory)});
+				hiddenCon		= $('<input>').prop({'type':'hidden','name':'content_id','value':contentId});
+				hiddenPln		= $('<input>').prop({'type':'hidden','name':'playlist_name','value':playlistName});
+				formElement.append(hiddenHis, hiddenCon, hiddenPln).appendTo('body').submit();
 			});
 		});
 	</script>

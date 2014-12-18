@@ -153,7 +153,7 @@ public class OvpServiceImpl implements OvpService {
 		List<MovieContentVO> list = new ArrayList<MovieContentVO>();
 		for (int i = historyList.length - 1; -1 < i; i--) {
 			MovieContentVO movieContentVO = null;
-			omsResponder = omsConnector.RequestContentList("video", "orign", "cmplt", "content_id", historyList[i], null, null, 0, 1, "reg_date", "desc", true, true);
+			omsResponder = omsConnector.RequestContentList("video", "orign", "cmplt", "content_id", historyList[i], null, null, 0, 1, "content_id", "desc", true, true);
 			JsonElement resultElement = omsResponder.getRootDataElement();
 			JsonArray contentJsonArray = resultElement.getAsJsonObject().get("content").getAsJsonArray();
 			for (JsonElement jsonElement : contentJsonArray) {
@@ -1119,6 +1119,42 @@ public class OvpServiceImpl implements OvpService {
 			}
 		}
 		return regionSelectList;
+	}
+	
+	// file format info를 가져온다.
+	@Override
+	public List<DownloadFileVO> serviceFileFormat(String playlist_id, String content_id) {
+		List<DownloadFileVO> fileList = new ArrayList<DownloadFileVO>();
+		omsResponder = omsConnector.requestGetPlayListToContent(playlist_id, "video", "cmplt", "content_id", content_id, null, null, 0, 1, "reg_date", "desc", true, true);
+		JsonElement rootElement = omsResponder.getRootDataElement();
+		JsonArray contentArray = rootElement.getAsJsonObject().get("content").getAsJsonArray();
+		for (JsonElement contentElement: contentArray) {
+			JsonArray transcodesListArray = contentElement.getAsJsonObject().get("extra").getAsJsonObject().get("transcodes").getAsJsonArray();
+			for (JsonElement transcodesElement : transcodesListArray) {
+				String state = transcodesElement.getAsJsonObject().get("state").getAsString();
+				if (!state.equals("cmplt")) {
+					continue;
+				}
+				DownloadFileVO downloadFileVO = new Gson().fromJson(transcodesElement, DownloadFileVO.class);
+				downloadFileVO.setReg_date(downloadFileVO.getReg_date());
+				downloadFileVO.setMod_date(downloadFileVO.getMod_date());
+				JsonElement downStaticElement = transcodesElement.getAsJsonObject().get("static_url").getAsJsonObject();
+				String transDownloadUrl = downStaticElement.getAsJsonObject().get("download_url").getAsString();
+				if (transDownloadUrl != null) {
+					downloadFileVO.setDownload_url(transDownloadUrl);
+				}
+				JsonArray streamingArr = downStaticElement.getAsJsonObject().get("streaming").getAsJsonArray();
+				for (JsonElement streamElement : streamingArr) {
+					String protocol = streamElement.getAsJsonObject().get("protocol").getAsString();
+					if (protocol.equals("rtmp")) {
+						String streamingUrl = streamElement.getAsJsonObject().get("url").getAsString();
+						downloadFileVO.setStreaming_url(streamingUrl);
+					}
+				}
+				fileList.add(downloadFileVO);
+			}
+		}
+		return fileList;
 	}
 	
 	// admin document page의 정렬과 검색을 위한 서비스 

@@ -9,7 +9,6 @@
 	<meta http-equiv="Expires" content="0" />
 	<meta http-equiv="Pragma" content="no-cache" />
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-
 	<title>한국타이어</title>
 	<link rel="Stylesheet" type="text/css" href="./resources/common/css/common.css" />
 </head>
@@ -145,29 +144,27 @@
 	            <div class="download_con">
 	                <p><img src="./resources/images/common/down_title.png" alt="download"/></p>
 	                <ul>
-	                    <li><a><img src="./resources/images/common/down_mp4.png" alt="mp4"/></a></li>
-	                    <li><a><img src="./resources/images/common/down_avi.png" alt="avi"/></a></li>
-	                    <li><a><img src="./resources/images/common/down_mov.png" alt="mov"/></a></li>
-	                    <li><a><img src="./resources/images/common/down_flv.png" alt="flv"/></a></li>
-	                    <li><a><img src="./resources/images/common/down_mpeg.png" alt="mpeg"/></a></li>
-	                    <li><a><img src="./resources/images/common/down_wmv.png" alt="wmv"/></a></li>
+	                    <li><a id="mp4dl"><img src="./resources/images/common/ndown_mp4.png" alt="mp4"/></a></li>
+						<li><a id="avidl"><img src="./resources/images/common/ndown_avi.png" alt="avi"/></a></li>
+						<li><a id="movdl"><img src="./resources/images/common/ndown_mov.png" alt="mov"/></a></li>
+						<li><a id="wmvdl"><img src="./resources/images/common/ndown_wmv.png" alt="wmv"/></a></li>
 	                </ul>
 	            </div>
 	            <div class="detail_con">
 	                <p><img src="./resources/images/common/detail_title.png" alt="detail"/></p>
 	                <ul>
 	                    <li>
-	                        <p>Size : 1280x720 HD 408MB</p>
-	                        <p>Video Format : MP4</p>
-	                        <p>Video Codec : h264</p>
-	                        <p>Video bps : 256478</p>
-	                        <p>Video fps :29</p>
+	                        <p>Size : <label id="fwidth"></label>x<label id="fheight"></label> HD <label id="fsize"></label></p>
+	                        <p>Video Format : <label id="container"></label></p>
+	                        <p>Video Codec : <label id="vCodec"></label></p>
+	                        <p>Video bps : <label id="vbps"></label></p>
+	                        <p>Video fps :<label id="vfps"></label></p>
 	                    </li>
 	                    <li>
-	                        <p>Audio Codec :aac</p>
-	                        <p>Audio bps :235478</p>
-	                        <p>Audio channel : 2</p>
-	                        <p>Audio Hz : 44100</p>
+	                        <p>Audio Codec :<label id="aCodec">aac</label></p>
+	                        <p>Audio bps :<label id="aBps">235478</label></p>
+	                        <p>Audio channel : <label id="aChannel">2</label></p>
+	                        <p>Audio Hz : <label id="aSampleRate">44100</label></p>
 	                    </li>
 	                </ul>
 	            </div>
@@ -191,19 +188,19 @@
                         <div class="my_movie_wh">
                         	<dl>
                             	<dt>Watch History</dt>
-                                <c:forEach var="hisLis" items="${history }" varStatus="status">
+                                <c:forEach var="hisLis" items="${history}" varStatus="status">
                             	<c:choose>
 								<c:when test="${fn:length(hisLis.title) > 21}">
 								<dd>
-									<a id="his" data-streamingUrl="${hisLis.streamingUrl }" data-thumbUrl="${hisLis.thumb_url }" data-title="${hisLis.title }">
-										<img width="25px" height="14px" src="${hisLis.thumb_url }" alt="" />${fn:substring(hisLis.title, 0, 21)}...
+									<a id="his" data-contentId="${his.content_id}" data-playlistName="${his.getTag().getCategory()}">
+										<img width="25px" height="14px" src="${hisLis.thumb_url}" alt="" />${fn:substring(hisLis.title, 0, 21)}...
 									</a>
 								</dd>
 								</c:when>
 								<c:otherwise>
                                 <dd>
-                                	<a id="his" data-streamingUrl="${hisLis.streamingUrl }" data-thumbUrl="${hisLis.thumb_url }" data-title="${hisLis.title }">
-                                		<img width="25px" height="14px" src="${hisLis.thumb_url }" alt="" />${hisLis.title }
+                                	<a id="his" data-contentId="${his.content_id}" data-playlistName="${his.getTag().getCategory()}">
+                                		<img width="25px" height="14px" src="${hisLis.thumb_url}" alt="" />${hisLis.title}
                                 	</a>
                                 </dd>
 								</c:otherwise>
@@ -221,13 +218,10 @@
             </div>
         </div>
         <!-- //my movie -->
-    
 		<!-- header_wrap -->
 		<div class="header_wrap">
-
 			<!-- header -->
 			<div id="header">
-
 				<!-- header_top -->
 				<div class="header_top">
 					<h1>
@@ -370,16 +364,18 @@
 					<div class="list_top">
 						<ul class="sort_count">
 							<li class="list20"><a >20개씩 보기</a></li>
+							<!-- 
 							<li class="list15"><a >15개씩 보기</a></li>
 							<li class="list10"><a >10개씩 보기</a></li>
+							 -->
 						</ul>
 						<div class="list_top_right">
 							<div class="by first">
+								<!-- 
 								<span>Filter by</span>
 								<div class="drop_menu">
 									<a >Region</a>
 									<input class="hide" type="text" value="" />
-									<!-- li 안의 a 태그를 클릭하면 input 태그 안의 value에 해당 값이 들어가도록 개발해주시면 됩니다. -->
 									<ul>
 										<li id="regions"><a>Europe</a></li>
 										<li id="regions"><a>America</a></li>
@@ -389,8 +385,10 @@
                                         <li id="regions"><a>Korea</a></li>
 									</ul>
 								</div>
+								 -->
 							</div>
 							<div class="by">
+								<!-- 
 								<span>Sort by</span>
 								<div class="drop_menu">
 									<a >Select</a>
@@ -401,22 +399,22 @@
 										<li><a >View count </a></li>
 									</ul>
 								</div>
+								 -->
 							</div>
 						</div>
 					</div>
 					<ul class="thumbnail">
-						<c:forEach var="content" items="${list }" varStatus="status">
+						<c:forEach var="content" items="${list}" varStatus="status">
 						<c:choose>
 						<c:when test="${status.count % 5 == 1 || status.count % 5 == 2 || status.count % 5 == 3 }">
 						<li class="mr24">
-							<a data-contentId="${content.content_id }" data-thumbUrl="${content.thumb_url }">
+							<a id="thumbContent" data-contentId="${content.content_id}" data-playlistName="${content.getTag().getCategory()}">
 								<span>
-									<img width="196px" height="110px" src="${content.thumb_url }" alt="" />
-									<span class="video-time">${content.duration }</span>
-									<span class="admin_icon"><img src="./resources/images/common/icon_admin.png" alt="admin" /></span>
+									<img width="196px" height="110px" src="${content.thumb_url}" alt="" />
+									<span class="video-time">${content.duration}</span>
 								</span>
 							</a>
-							<span>Corporation</span>
+							<span>${list.getTag().getCategory()}</span>
 							<c:choose>
 							<c:when test="${fn:length(content.title) > 37}">
 							<h3><a>${fn:substring(content.title, 0, 37)}...</a></h3>
@@ -425,20 +423,20 @@
 							<h3><a>${content.title}</a></h3>
 							</c:otherwise>
 							</c:choose>
-							<span>2,384,880 views</span>
-							<span class="f_left"><input type="checkbox" id="chkbox" data-contentId="${content.content_id }"/>${content.reg_date }</span>
-							<span class="f_right mr5"><a class="download_btn" data-contentId="${content.content_id }" data-fileName="${content.fileName }" data-downloadUrl="${content.downloadUrl }" data-mediaType="${content.mediaType }" data-size="${content.size }" data-videoFormat="${content.videoFormat }" data-videoCodec="${content.videoCodec }" data-videoBps="${content.videoBps }" data-videoFps="${content.videoFps }" data-audioCodec="${content.audioCodec }" data-audioBps="${content.audioBps }" data-channel="${content.audioChannel }" data-hz="${content.audioHz }"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
+							<span>${content.getView_count()} views</span>
+							<span class="f_left"><input type="checkbox" id="chkbox" value="${content.content_id }"/>${content.getReg_date()}</span>
+							<span class="f_right mr5"><a class="download_btn" data-contentId="${content.content_id}"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
 						</li>
 						</c:when>
 						<c:when test="${status.count % 5 == 4 }">
 						<li class="mr23">
-							<a data-contentId="${content.content_id }" data-thumbUrl="${content.thumb_url }">
+							<a id="thumbContent" data-contentId="${content.content_id}" data-playlistName="${content.getTag().getCategory()}">
 								<span>
-									<img width="196px" height="110px" src="${content.thumb_url }" alt="" />
-									<span class="video-time">${content.duration }</span>
+									<img width="196px" height="110px" src="${content.thumb_url}" alt="" />
+									<span class="video-time">${content.duration}</span>
 								</span>
 							</a>
-							<span>Corporation</span>
+							<span>${content.getTag().getCategory()}</span>
 							<c:choose>
 							<c:when test="${fn:length(content.title) > 37}">
 							<h3><a>${fn:substring(content.title, 0, 37)}...</a></h3>
@@ -447,20 +445,20 @@
 							<h3><a>${content.title}</a></h3>
 							</c:otherwise>
 							</c:choose>
-							<span>2,384,880 views</span>
-							<span class="f_left"><input type="checkbox" id="chkbox" data-contentId="${content.content_id }"/>${content.reg_date }</span>
-							<span class="f_right mr5"><a class="download_btn" data-contentId="${content.content_id }" data-fileName="${content.fileName }" data-downloadUrl="${content.downloadUrl }" data-mediaType="${content.mediaType }" data-size="${content.size }" data-videoFormat="${content.videoFormat }" data-videoCodec="${content.videoCodec }" data-videoBps="${content.videoBps }" data-videoFps="${content.videoFps }" data-audioCodec="${content.audioCodec }" data-audioBps="${content.audioBps }" data-channel="${content.audioChannel }" data-hz="${content.audioHz }"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
+							<span>${content.getView_count()} views</span>
+							<span class="f_left"><input type="checkbox" id="chkbox" value="${content.content_id }"/>${content.reg_date }</span>
+							<span class="f_right mr5"><a class="download_btn" data-contentId="${content.content_id }"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
 						</li>
 						</c:when>
 						<c:when test="${status.count % 5 == 0 }">
 						<li>
-							<a data-contentId="${content.content_id }" data-thumbUrl="${content.thumb_url }">
+							<a id="thumbContent" data-contentId="${content.content_id}" data-playlistName="${content.getTag().getCategory()}">
 								<span>
 									<img width="196px" height="110px" src="${content.thumb_url }" alt="" />
 									<span class="video-time">${content.duration }</span>
 								</span>
 							</a>
-							<span>Corporation</span>
+							<span>${content.getTag().getCategory()}</span>
 							<c:choose>
 							<c:when test="${fn:length(content.title) > 37}">
 							<h3><a>${fn:substring(content.title, 0, 37)}...</a></h3>
@@ -469,10 +467,10 @@
 							<h3><a>${content.title}</a></h3>
 							</c:otherwise>
 							</c:choose>
-							<span>2,384,880 views</span>
-							<span class="f_left"><input type="checkbox" id="chkbox" data-contentId="${content.content_id }"/>${content.reg_date }</span>
+							<span>${content.getView_count()} views</span>
+							<span class="f_left"><input type="checkbox" id="chkbox" value="${content.content_id }"/>${content.reg_date }</span>
 							<span class="f_right mr5">
-								<a class="download_btn" data-contentId="${content.content_id }" data-fileName="${content.fileName }" data-downloadUrl="${content.downloadUrl }" data-mediaType="${content.mediaType }" data-size="${content.size }" data-videoFormat="${content.videoFormat }" data-videoCodec="${content.videoCodec }" data-videoBps="${content.videoBps }" data-videoFps="${content.videoFps }" data-audioCodec="${content.audioCodec }" data-audioBps="${content.audioBps }" data-channel="${content.audioChannel }" data-hz="${content.audioHz }">
+								<a class="download_btn" data-contentId="${content.content_id }">
 									<img src="./resources/images/common/dow_icon.png" alt="download" />
 								</a>
 							</span>
@@ -483,8 +481,9 @@
 					</ul>
 					<div class="list_bottom">
 						<div class="count">
-							<span class="now">1 - 15</span> of 35
+							<span class="now">total: ${fn:length(list)}</span>
 						</div>
+						<!-- 
 						<div class="page_control">
 							<div class="control"><a  class="btn_prev">previous</a></div>
 							<div class="pages">
@@ -495,6 +494,7 @@
 							</div>
 							<div class="control"><a  class="btn_next">next</a></div>
 						</div>
+						 -->
 					</div>
 					<div class="list_btns txt_left">
 						<input type="checkbox" id="allClear" value="" class="mr20" />
@@ -502,67 +502,23 @@
 					</div>
 				</div>
 				<!-- //popular movie -->
-
 			</div>
 		</div>
 		<!-- //content_wrap end -->
 		<!-- footer_wrap -->
 		<div class="footer_wrap">
-
 			<!-- footer -->
 			<div id="footer">
 				<h2><img src="./resources/images/common/img_logo_bottom.gif" alt="Hankook - driving emotion" /></h2>
 				<div class="footer_navi">
-					<ul>
-						<li><a >Digital library</a></li>
-						<li><a >Digital library lite</a></li>
-						<li><a >Hankooktire Global Site</a></li>
-					</ul>
 					<p class="copyright">
 						Copyright ⓒ Hankook Tire. All Rights Reserved.
 					</p>
 				</div>
 			</div>
 			<!-- //footer end -->
-
 		</div>
 		<!-- //footer_wrap end -->
-		<!-- download layer -->
-		<div class="dow_layer">
-			<div class="dow_layer_con">
-				<ul>
-					<li class="mb5" id="myId">ID : </li>
-					<li>region : korea</li>
-				</ul>
-				<hr />
-				<dl class="download">
-					<dt>DOWNLOAD</dt>
-					<dd><a id="formatType"><img src="./resources/images/common/icon_mov.png" alt="download" /><label id="exten"></label>.mov</a></dd>
-					<dd><a id="formatType"><img src="./resources/images/common/icon_wmv.png" alt="download" /><label id="exten"></label>.wmv</a></dd>
-					<dd><a id="formatType"><img src="./resources/images/common/icon_mp4.png" alt="download" /><label id="exten"></label>.mp4</a></dd>
-					<dd><a id="formatType"><img src="./resources/images/common/icon_mpeg.png" alt="download"/><label id="exten"></label>.mpeg</a></dd>
-					<dd><a id="formatType"><img src="./resources/images/common/icon_avi.png" alt="download" /><label id="exten"></label>.avi</a></dd>
-					<dd><a id="formatType"><img src="./resources/images/common/icon_flv.png" alt="download" /><label id="exten"></label>.flv</a></dd>
-				</dl>
-				<hr />
-				<dl class="file_info">
-					<dt>fILE INFO</dt>
-                    <dd id="meidaType">Contents Type :</dd>
-                    <dd>Scale : the base rate</dd>
-                    <dd id="size">Size : </dd>
-                    <dd id="videoFormat">Video Format : </dd>
-                    <dd id="videoCodec">Video Codec : </dd>
-                    <dd id="videoBps">Video bps : </dd>
-                    <dd id="videoFps">Video fps : </dd>
-                    <dd id="audioCodec">Audio Codec : </dd>
-                    <dd id="audioBps">Audio bps : </dd>
-                    <dd id="channel">Audio channel : </dd>
-                    <dd id="hz">Audio Hz : </dd>
-				</dl>
-				<a class="dow_layer_close">close</a>
-			</div>
-		</div>
-		<!-- //download layer -->
 	</div>
 	<script type="text/javascript" src="./resources/common/js/jquery-1.11.1.min.js"></script>
 	<script type="text/javascript" src="./resources/common/js/jquery.ui.all.js"></script>
@@ -571,71 +527,6 @@
 	<script type="text/javascript" src="./resources/common/js/common.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function() {
-			var myStorage = {
-				myDownload:[],
-				myFavorite:[],
-				myBookmark:[]
-			};
-			var downloadUrl = null;
-			var contentType = null;
-			var size = null;
-			var videoFormat = null;
-			var videoCodec = null;
-			var videoBps = null;
-			var videoFps = null;
-			var audioCodec = null;
-			var audioBps = null;
-			var channel = null;
-			var hz = null;
-			$('#myMovies').click(function() {
-				
-			});
-			
-			$('a[class="download_btn"]').click(function() {
-				var fileName = $(this).attr('data-fileName');
-				var contentId = $(this).attr('data-contentId');
-				var name = null;
-				$('#myId').text('ID : ' + contentId);
-				tempArr = fileName.split('.');
-				name = tempArr[0].substring(0, 30);
-				$('label[id="exten"]').text(name);
-				downloadUrl = $(this).attr('data-downloadUrl');
-				contentType = $(this).attr('data-mediaType');
-				size = $(this).attr('data-size');
-				videoFormat = $(this).attr('data-videoFormat');
-				videoCodec = $(this).attr('data-videoCodec');
-				videoBps = $(this).attr('data-videoBps');
-				videoFps = $(this).attr('data-videoFps');
-				audioCodec = $(this).attr('data-audioCodec');
-				audioBps = $(this).attr('data-audioBps');
-				channel = $(this).attr('data-channel');
-				hz = $(this).attr('data-hz');
-				$('#contentType').text('Contents Type : '); 
-				$('#size').text('Size : ');
-				$('#videoFormat').text('Video Format : '); 
-				$('#videoCodec').text('Video Codec : ');
-				$('#videoBps').text('Video bps : ');
-				$('#videoFps').text('Video fps : ');
-				$('#audioCodec').text('Audio Codec : ');
-				$('#audioBps').text('Audio bps : ');
-				$('#channel').text('Audio channel : ');
-				$('#hz').text('Audio Hz : ');
-			});
-			
-			$('a[id="formatType"]').click(function() {
-				$('#contentType').text('Contents Type : ' + contentType); 
-				$('#size').text('Size : ' + size);
-				$('#videoFormat').text('Video Format : ' + videoFormat); 
-				$('#videoCodec').text('Video Codec : ' + videoCodec);
-				$('#videoBps').text('Video bps : ' + videoBps);
-				$('#videoFps').text('Video fps : ' + videoFps);
-				$('#audioCodec').text('Audio Codec : ' + audioCodec);
-				$('#audioBps').text('Audio bps : ' + audioBps);
-				$('#channel').text('Audio channel : ' + channel);
-				$('#hz').text('Audio Hz : ' + hz);
-				$(this).attr('href', downloadUrl);
-			});
-			
 			$('input[id="allClear"]').click(function() {
 				if ($(this).prop('checked') == true) {
 					$('input[id="chkbox"]').each(function() {
@@ -647,8 +538,47 @@
 					});
 				}
 			});
-			$('a[class="btn_delete"]').click(function() {
-				
+			
+			// Delete 버튼 클릭 myDownload 삭제
+			$('.btn_delete').click(function() {
+				var searchIndex 	= null;
+				var modifyMamCook 	= null;
+				var formElement		= null;
+				var hiddenHis		= null;
+				var hiddenDon		= null;
+				var mamCook = $.cookies.get('mamsCookie');
+				$('input[id="chkbox"]').each(function() {
+					if ($(this).prop('checked') == true) {
+						searchIndex = $.inArray($(this).val(), mamCook.myBookmark);
+						if (searchIndex >= 0) {
+							mamCook.myDownload.splice(searchIndex, 1);
+						}
+					}
+				});
+				$.cookies.set('mamsCookie', mamCook);
+				modifyMamCook 	= $.cookies.get('mamsCookie');
+				formElement 	= $('<form></form>').prop({'method':'post','action':'mamsDownload'});
+				hiddenHis		= $('<input>').prop({'type':'hidden','name':'historyList','value':JSON.stringify(modifyMamCook.myHistory)});
+				hiddenDon		= $('<input>').prop({'type':'hidden','name':'downloadList','value':JSON.stringify(modifyMamCook.myDownload)});
+				formElement.append(hiddenHis, hiddenDon).appendTo('body').submit();
+			});
+			
+			$('a[id="thumbContent"]').click(function() {
+				var contentId 	= null;
+				var playlistName= null;
+				var mamCook		= null;
+				var formElement	= null;
+				var hiddenHis	= null;
+				var hiddenCon	= null;
+				var hiddenPln	= null;
+				mamCook		= $.cookies.get('mamsCookie');
+				contentId	= $(this).attr('data-contentId');
+				playlistName= $(this).attr('data-playlistName');
+				formElement 	= $('<form></form>').prop({'method':'post','action':'detail'});
+				hiddenHis		= $('<input>').prop({'type':'hidden','name':'historyList','value':JSON.stringify(mamCook.myHistory)});
+				hiddenCon		= $('<input>').prop({'type':'hidden','name':'content_id','value':contentId});
+				hiddenPln		= $('<input>').prop({'type':'hidden','name':'playlist_name','value':playlistName});
+				formElement.append(hiddenHis, hiddenCon, hiddenPln).appendTo('body').submit();
 			});
 		});
 	</script>

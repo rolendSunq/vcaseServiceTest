@@ -33,6 +33,7 @@ var validCookieContent = {
 			return true;
 		}
 	}
+
 };
 
 if ($.cookies.get('mamsCookie') == 'undefined' || $.cookies.get('mamsCookie') == null) {
@@ -243,12 +244,12 @@ $(function() {
 	// list_my_bookmark.jsp 페이지로 이동
 	$('a[id="mamsBookmark"]').click(function() {
 		var mamCook 	= null;
-		var hiddenInp 	= null;
+		var hiddenBok 	= null;
 		var hiddenHis	= null;
 		mamCook = $.cookies.get('mamsCookie');
 		hiddenHis = $('<input>').attr({'type':'hidden', 'name':'historyList', 'value':JSON.stringify(mamCook.myHistory)});
-		hiddenInp = $('<input>').attr({'type':'hidden', 'name':'bookmarkInfo', 'value':JSON.stringify(mamCook.myBookmark)});
-		$('<form></form>').attr({'method':'POST','action':'moveMyBookmark'}).append(hiddenInp).append(hiddenHis).appendTo('body').submit();
+		hiddenBok = $('<input>').attr({'type':'hidden', 'name':'bookmarkInfo', 'value':JSON.stringify(mamCook.myBookmark)});
+		$('<form></form>').attr({'method':'POST','action':'moveMyBookmark'}).append(hiddenBok, hiddenHis).appendTo('body').submit();
 	});
 	
 	// list_my_download.jsp 페이지로 이동
@@ -257,9 +258,9 @@ $(function() {
 		var hiddenDwn 	= null;
 		var hiddenHis	= null;
 		mamCook = $.cookies.get('mamsCookie');
-		hiddenDwn = $('<input>').attr({'type':'hidden','name':'historyList','value':JSON.stringify(mamCook.myHistory)});
-		hiddenHis = $('<input>').attr({'type':'hidden','name':'downloadList','value':JSON.stringify(mamCook.myDownload)});
-		$('<form></form>').attr({'method':'POST','action':'mamsDownload'}).append(hiddenHis).append(hiddenDwn).appendTo('body').submit();
+		hiddenHis = $('<input>').attr({'type':'hidden','name':'historyList','value':JSON.stringify(mamCook.myHistory)});
+		hiddenDwn = $('<input>').attr({'type':'hidden','name':'downloadList','value':JSON.stringify(mamCook.myDownload)});
+		$('<form></form>').attr({'method':'POST','action':'mamsDownload'}).append(hiddenHis, hiddenDwn).appendTo('body').submit();
 	});
 	
 	// category content Page 이동 (list.page)
@@ -424,6 +425,7 @@ $(function() {
 	$('#mp4dl, #avidl, #movdl, #wmvdl').click(function() {
 		var mamCook 	= null;
 		var contentId 	= null;
+		var formatId	= null;
 		$('#downloadPop').hide();
 		$('#dTitle').text('');
 		$("#width").text('');
@@ -436,11 +438,23 @@ $(function() {
         $('#aBps').text('');
         $('#aChannel').text('');
         $('#aSampleRate').text('');
-		contentId = $(this).attr('data-contentId');
+		formatId = $(this).attr('id');
+		if (formatId == 'mp4dl') {
+			contentId = mp4Cls.content_id;
+		}
+		if (formatId == 'avidl') {
+			contentId = aviCls.content_id;
+		}
+		if (formatId == 'movdl') {
+			contentId = movCls.content_id;
+		}
+		if (formatId == 'wmvdl') {
+			contentId = wmvCls.content_id;
+		}
 		mamCook = $.cookies.get('mamsCookie');
 		if (!validCookieContent.isExistContentId(mamCook.myDownload, contentId)) {
 			mamCook.myDownload.push(contentId);
-			$.cookies.set('mamsCookie', JSON.stringify(mamCook));
+			$.cookies.set('mamsCookie', mamCook);
 		}
 		$('#downloadCnt').text(mamCook.myDownload.length);
 	});
@@ -449,17 +463,17 @@ $(function() {
 	$('a[id="his"]').click(function(){
 		var mamCook 	= null;
 		var contentId 	= null;
-		var thumbUrl	= null;
+		var playlistName= null;
 		var hiddenCon	= null;
-		var hiddenTmb	= null;
+		var hiddenPln	= null;
 		var hiddenHis	= null;
 		mamCook		= $.cookies.get('mamsCookie');
 		contentId 	= $(this).attr('data-contentId');
-		thumbUrl	= $(this).attr('data-thumbUrl');
-		hiddenCon	= $('<input>').attr({'type':'hidden','name':'content_id','value':contentId});
-		hiddenTmb	= $('<input>').attr({'type':'hidden','name':'thumbUrl','value':thumbUrl});
-		hiddenHis	= $('<input>').attr({'type':'hidden','name':'historyList','value':JSON.stringify(mamCook.myHistory)});
-		$('<form></form>').attr({'method':'POST','action':'detail'}).append(hiddenCon).append(hiddenTmb).append(hiddenHis).appendTo('body').submit();
+		playlistName= $(this).attr('data-playlistName');
+		hiddenCon	= $('<input>').prop({'type':'hidden','name':'content_id','value':contentId});
+		hiddenPln	= $('<input>').prop({'type':'hidden','name':'playlist_name','value':playlistName});
+		hiddenHis	= $('<input>').prop({'type':'hidden','name':'historyList','value':JSON.stringify(mamCook.myHistory)});
+		$('<form></form>').prop({'method':'POST','action':'detail'}).append(hiddenCon, hiddenPln, hiddenHis).appendTo('body').submit();
 	});
 	
 	//-- search start --

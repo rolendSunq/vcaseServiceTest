@@ -536,7 +536,7 @@
 	                                    <div class="list_check">
 	                                    	<input type="checkbox" name="chkCon" data-contentID="<c:out value='${content.getContent_id() }' />"/>
 	                                    </div>
-	                                    <div class="list_menu">
+	                                    <div class="list_menu" data-idIndex="${vsts.count}">
 	                                        <div class="list_img">
 	                                            <a><img width="101px" height="59" src="<c:out value="${content.getThumb_url() }" />" alt="썸네일이미지"/></a>
 	                                        </div>
@@ -574,32 +574,30 @@
 	                                            </ul>
 	                                            <p class="extension">
 	                                                확장자 정보
-	                                                <select name="fileFormat" id="selFmt${vsts.count}">
+	                                                <select name="fileFormat" id="selFmt${vsts.count}" data-contentID="${content.getContent_id()}" data-playlistID="${cagegoryPageVO.getPlaylist_id() == null ? '1300000203' : cagegoryPageVO.getPlaylist_id()}">
 	                                                    <option value="none">선택</option>
-	                                                    <option value="1">mp4</option>
-	                                                    <option value="2">wmv</option>
-	                                                    <option value="3">avi</option>
-	                                                    <option value="4">mov</option>
+	                                                    <option value="mp4">mp4</option>
+	                                                    <option value="wmv">wmv</option>
+	                                                    <option value="avi">avi</option>
+	                                                    <option value="mov">mov</option>
 	                                                </select>
 	                                            </p>
-	                                            <c:forEach var="downInfo" items="${content.getDownloadFile()}" begin="1" end="4" varStatus="sts">
-	                                            <div class="extension_info" id="fomatfile${vsts.count}${sts.count}" data-download="${downInfo.getDownload_url()}" data-stream="${downInfo.getStreaming_url()}">
+	                                            <div class="extension_info" id="fomatfile${vsts.count}" data-download="${downInfo.getDownload_url()}" data-stream="${downInfo.getStreaming_url()}">
 	                                                <ul>
-	                                                    <li>컨테이너:  <label id="container"><c:out value="${downInfo.getContainer()}"/></label></li>
-	                                                    <li>비디오 코덱:  <label id="codec"><c:out value="${downInfo.getVideo_codec()}"/></label></li>
-	                                                    <li>비디오 비트레이트(bps):  <label id="bps"><c:out value="${downInfo.getVideo_bitrate()}"/></label></li>
-	                                                    <li>비디오 프레임레이트(fps):  <label id="fps"><c:out value="${downInfo.getVideo_framerate()}"/></label></li>
-	                                                    <li>해상도:  <label id="resolution"><c:out value="${content.getWidth()}"/>X<c:out value="${content.getHeight()}"/></label></li>
+	                                                    <li>컨테이너:  <label id="container${vsts.count}"></label></li>
+	                                                    <li>비디오 코덱:  <label id="codec${vsts.count}"></label></li>
+	                                                    <li>비디오 비트레이트(bps):  <label id="bps${vsts.count}"></label></li>
+	                                                    <li>비디오 프레임레이트(fps):  <label id="fps${vsts.count}"></label></li>
+	                                                    <li>해상도:  <label id="resolution">${content.getWidth()}x${content.getHeight()}</label></li>
 	                                                </ul>
 	                                                <ul>
-	                                                    <li>오디오 코덱:  <label id="aCodec"><c:out value="${downInfo.getAudio_codec()}"/></label></li>
-	                                                    <li>오디오 비트레이트(bps):  <label id="aBps"><c:out value="${downInfo.getAudio_bitrate()}"/></label></li>
-	                                                    <li>오디오 채널(ch):  <label id="aCh"><c:out value="${downInfo.getAudio_channel()}"/></label></li>
-	                                                    <li>등록 시간:  <label id="regDate"><c:out value="${downInfo.getReg_date()}"/></label></li>
-	                                                    <li>수정 시간:  <label id="modDate"><c:out value="${content.getMod_date()}"/></label></li>
+	                                                    <li>오디오 코덱:  <label id="aCodec${vsts.count}"></label></li>
+	                                                    <li>오디오 비트레이트(bps):  <label id="aBps${vsts.count}"></label></li>
+	                                                    <li>오디오 채널(ch):  <label id="aCh${vsts.count}"></label></li>
+	                                                    <li>등록 시간:  <label id="regDate${vsts.count}"></label></li>
+	                                                    <li>수정 시간:  <label id="modDate${vsts.count}"></label></li>
 	                                                </ul>
 	                                            </div>
-	                                            </c:forEach>
 	                                        </div>
 	                                        <!-- 업로드 정보 -->
 	                                        <div class="view_up_info">
@@ -811,8 +809,6 @@
 				    	}
 				   	});
 			    }
-
-			    $('div[id*=fomatfile]').hide();
 			    
 		        // 좌측 컨텐트 리스트의 수를 표시한다.
 		        $('a[id*=categoryNum]').each(function(index, element) {
@@ -826,8 +822,8 @@
 	            var activeList = [];
 	            for (var i = 0, len = menuList.length; i < len; i++) {
 	                activeList.push(false);
-	            // 초기 셋팅
-	            contentList.hide();
+		            // 초기 셋팅
+		            contentList.hide();
 	            }
 	            var prevIndex = -1;
 	            var index = 0;
@@ -891,7 +887,93 @@
 	            }
 	            
 	            $('.category_popup').hide();
+	            
+	            var clMp4 = null;
+				var clMov = null;
+				var clWmv = null;
+				var clAvi = null;
+				
+				var textWrite = function (formatCls, index) {
+					$('#' + 'container' + index).text(formatCls.container);
+					$('#' + 'codec' + index).text(formatCls.video_codec);
+					$('#' + 'bps' + index).text(formatCls.video_bitrate);
+					$('#' + 'fps' + index).text(formatCls.video_framerate);
+					$('#' + 'aCodec' + index).text(formatCls.audio_codec);
+					$('#' + 'aBps' + index).text(formatCls.audio_bitrate);
+					$('#' + 'aCh' + index).text(formatCls.audio_channel);
+					$('#' + 'regDate' + index).text(formatCls.reg_date);
+					$('#' + 'modDate' + index).text(formatCls.mod_date);
+					$('#' + 'downloadUrl' + index).text(formatCls.download_url);
+					$('#' + 'streamingUrl' + index).text(formatCls.streaming_url);
+				};
 
+				var textClear = function (index) {
+					$('#' + 'container' + index).text('');
+					$('#' + 'codec' + index).text('');
+					$('#' + 'bps' + index).text('');
+					$('#' + 'fps' + index).text('');
+					$('#' + 'aCodec' + index).text('');
+					$('#' + 'aBps' + index).text('');
+					$('#' + 'aCh' + index).text('');
+					$('#' + 'regDate' + index).text('');
+					$('#' + 'modDate' + index).text('');
+					$('#' + 'downloadUrl' + index).text('');
+					$('#' + 'streamingUrl' + index).text('');
+				};
+				
+				// 리스트를 클릭하면 확장자 정보를 위해 데이터를 가져온다.
+				$('div[class="list_menu"]').click(function() {
+					var i		   = 0;
+					var contentID  = null;
+					var playlistID = null;
+					var sendData   = null;
+					var thisIndex  = null;
+					thisIndex = $(this).attr('data-idIndex');
+					contentID  = $('#selFmt' + thisIndex).attr('data-contentID');
+					playlistID = $('#selFmt' + thisIndex).attr('data-playlistID');
+					sendData = {"content_id":contentID,"playlist_id":playlistID};
+					$.getJSON('videoBox/adminFormatInfo', sendData, function(data){
+						for(i; i < data.length; i = i + 1) {
+							if(data[i].container == 'mp4') {
+								clMp4 = data[i];
+							}
+							if(data[i].container == 'wmv') {
+								clWmv = data[i];
+							}
+							if(data[i].container == 'avi') {
+								clAvi = data[i];
+							}
+							if(data[i].container == 'mov') {
+								clMov = data[i];
+							}
+						}
+					});
+				});
+				
+				// 확장자 정보의 셀렉트 박스 선택시 가저온 정보를 보여준다.
+				$('select[id*=selFmt]').change(function() {
+					var selectedVal= null;
+					var indexVal  = null;
+					selectedVal= $(this).val();
+					indexVal  = $(this).attr('id');
+					indexVal  = indexVal.substring(indexVal.length - 1, indexVal.length);
+					if(selectedVal == 'mp4') {
+						textWrite(clMp4, indexVal);
+					}
+					if(selectedVal == 'wmv') {
+						textWrite(clWmv, indexVal);
+					}
+					if(selectedVal == 'avi') {
+						textWrite(clAvi, indexVal);
+					}
+					if(selectedVal == 'mov') {
+						textWrite(clMov, indexVal);
+					}
+					if(selectedVal == 'none') {
+						textClear(indexVal);
+					}
+				});
+				
 	            // 플레이리스트(그룹)를 클릭하면 해당 콘텐츠 썸네일 리스트 표시
 	            $('li[id="category"]').click(function() {
 					var hiddenPid 	= null;
@@ -933,7 +1015,7 @@
 					$('#delCategory').val('');
 					$('#cateDel').hide();
 				});
-				
+
 				// category Popup 저장 버튼 클릭 category 생성
 				$('#saveCtg').click(function (){
 					var hiddenCtn 	= null;
@@ -951,8 +1033,6 @@
 						alert('특수문자를 허용하지 않습니다.');
 						return false;
 					}
-					
-					
 					$('#cateAdd').hide();
 				});
 				
@@ -1113,29 +1193,6 @@
 					hiddenSec	= $('<input>').prop({'type':'hidden','name':'search','value':searchValue});
 					hiddenPld	= $('<input>').prop({'type':'hidden','name':'playlist_id','value':playlistID});
 					formElement.append(hiddenHis, hiddenSot, hiddenPgn, hiddenSec, hiddenPld).appendTo('body').submit();
-				});
-
-				$('select[id*=selFmt]').change(function() {
-					$('div[id*=fomatfile]').hide();
-					var firstId  = null;
-					var secondId = null;
-					var callId	 = null;
-					var downId	 = null;
-					var streamId = null;
-					var downVal  = null;
-					var streamVal= null;
-					firstId  = $(this).attr('id');
-					firstId  = firstId.substring(firstId.length - 1, firstId.length);
-					secondId = $(this).val();
-					secondId = secondId.substring(secondId.length - 1, secondId.length);
-					callId 	 = ('#' + 'fomatfile' + firstId) + secondId;
-					downId 	 = '#downloadUrl' + firstId;
-					streamId = '#streamingUrl' + firstId;
-					downVal	 = $(callId).attr('data-download');
-					streamVal= $(callId).attr('data-stream');
-					$(downId).val(downVal);
-					$(streamId).val(streamVal);
-					$(callId).show();					
 				});
 	        });
 	    </script>

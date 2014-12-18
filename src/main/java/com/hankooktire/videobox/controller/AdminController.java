@@ -17,6 +17,7 @@ import com.airensoft.skovp.utils.ovpconnector.OMSConfig;
 import com.airensoft.skovp.utils.page.Paging;
 import com.airensoft.skovp.utils.time.DateUtils;
 import com.airensoft.skovp.vo.CategoryPageVO;
+import com.airensoft.skovp.vo.DownloadFileVO;
 import com.airensoft.skovp.vo.MovieContentVO;
 import com.airensoft.skovp.vo.PlayListCountVO;
 import com.airensoft.skovp.vo.TagInfoVO;
@@ -156,5 +157,15 @@ public class AdminController {
 		model.addAttribute("categoryPageVO", ctgVO);
 		model.addAttribute("player_id", OMSConfig.getPlayerId());
 		return "admin_document";
+	}
+	
+	// 슈퍼 관리자에서 컨텐츠의 포멧 정보를 보여 준다.
+	@RequestMapping("videoBox/adminFormatInfo")
+	@ResponseBody
+	public String getFileInfo(HttpServletRequest request) {
+		String content_id = request.getParameter("content_id");
+		String playlist_id = request.getParameter("playlist_id");
+		List<DownloadFileVO> fileInfo  = ovpService.serviceFileFormat(playlist_id, content_id);
+		return new Gson().toJson(fileInfo);
 	}
 }

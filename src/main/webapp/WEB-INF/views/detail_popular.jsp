@@ -191,14 +191,14 @@
 	                            	<c:choose>
 									<c:when test="${fn:length(his.title) > 21}">
 									<dd>
-										<a id="his" data-contentId="${his.content_id}" data-streamingUrl="${his.streaming_url}">
+										<a id="his" data-contentId="${his.content_id}" data-playlistName="${his.getTag().getCategory()}">
 											<img width="25px" height="14px" src="${his.thumb_url}" alt="" />${fn:substring(his.title, 0, 21)}...
 										</a>
 									</dd>
 									</c:when>
 									<c:otherwise>
 	                                <dd>
-	                                	<a id="his" data-contentId="${his.content_id}" data-streamingUrl="${his.streaming_url}">
+	                                	<a id="his" data-contentId="${his.content_id}" data-playlistName="${his.getTag().getCategory()}">
 	                                		<img width="25px" height="14px" src="${his.thumb_url}" alt="" />${his.title}
 	                                	</a>
 	                                </dd>
@@ -600,10 +600,9 @@
 				// 우측 사이드 thumb nail 을 클릭하면 해당 컨텐츠 실행
 				$('a[id="corpSlide"]').click(function() {
 					var contentId 	= null;
-					var thumbUrl 	= null;
 					var mamCook		= null;
+					var hiddenHis	= null;
 					var hiddenCon 	= null;
-					var hiddenThumb = null;
 					mamCook 	= $.cookies.get('mamsCookie');
 					contentId 	= $(this).attr('data-contentId');
 					if (!validCookieContent.isExistContentId(mamCook.myHistory, contentId)) {
@@ -611,8 +610,8 @@
 						$.cookies.set('mamsCookie', JSON.stringify(mamCook));
 					}
 					hiddenCon = $('<input>').attr({'type':'hidden', 'name':'content_id', 'value':contentId});
-					hiddenHisli = $('<input>').attr({'type':'hidden','name':'historyList','value':JSON.stringify(mamCook.myHistory)});
-					$('<form></form>').attr({'method':'POST', 'action':'detailPopular'}).append(hiddenCon).append(hiddenThumb).append(hiddenHisli).submit();
+					hiddenHis = $('<input>').attr({'type':'hidden','name':'historyList','value':JSON.stringify(mamCook.myHistory)});
+					$('<form></form>').attr({'method':'POST', 'action':'detailPopular'}).append(hiddenCon, hiddenHis).submit();
 				});
 
 				// 우측 하단 5개 썸네일 클릭
