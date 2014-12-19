@@ -346,6 +346,7 @@
 			<!-- content_wrap -->
 			<div class="content_wrap">
 				<div id="content">
+				
 	            	<!-- Updated Movie -->
 	            	<div class="latest mlr56">
 	            		<h2>Updated Movie</h2>
@@ -494,6 +495,9 @@
 	                    </ul>
 	                </div>
 	                <!-- //popular movie -->
+	                
+	                 
+			       
 	                <!-- category -->
 	                <div class="category">
 	                    <!-- 탭메뉴_대분류 -->
@@ -574,11 +578,27 @@
 	                        <li><a id="ctg1300000219">Other (RAW)</a></li>
 	                    </ul>
                     	<!-- //탭메뉴_소분류 End -->
-                    	<ul class="category_slide" id="categorySlide">
-						  
-						</ul>
-	                    
-	                </div>
+                    	<div class="slider" style="margin:0 auto; width:1074px; height:100px;">
+				      		<div class="row">
+				      			<div class="span12">
+				          			<div id="owl-demo" class="owl-carousel">
+										<div class="item">
+							            	<ul class="category_slide" id="item1"></ul>
+							            </div>
+				            			<div class="item">
+							            	<ul class="category_slide" id="item2"></ul>
+							            </div>
+							            <div class="item">
+							            	<ul class="category_slide" id="item3"></ul>
+							            </div>
+							            <div class="item">
+							            	<ul class="category_slide" id="item4"></ul>
+							            </div>
+				          			</div>
+				        		</div>
+				      		</div>
+			        	</div>
+	               </div>
 	                <!-- //category -->
 				</div>
 			</div>
@@ -602,6 +622,7 @@
 		</div>
 		<script type="text/javascript" src="./resources/common/js/jquery-1.11.1.min.js"></script>
 		<script type="text/javascript" src="./resources/common/js/jquery.ui.all.js"></script>
+	    <script type="text/javascript" src="./resources/common/js/owl.carousel.js"></script>
 	    <script type="text/javascript" src="./resources/common/js/jquery.bxslider.min.js"></script>
 	    <script type="text/javascript" src="./resources/common/js/jquery.cookies.2.2.0.min.js"></script>
 	    <script type="text/javascript" src="./resources/common/js/common.js"></script>
@@ -724,7 +745,21 @@
 						"</object>"
 					);
 				});
+				 $("#owl-demo").owlCarousel({
 
+				      navigation : true,
+				      slideSpeed : 300,
+				      paginationSpeed : 400,
+				      singleItem : true
+
+				      // "singleItem:true" is a shortcut for:
+				      // items : 1, 
+				      // itemsDesktop : false,
+				      // itemsDesktopSmall : false,
+				      // itemsTablet: false,
+				      // itemsMobile : false
+
+				      });
 				// popular Movie의 thumb nail를 클릭하면 detail page로 이동한다.
 				$('a[id="popularMov"]').click(function() {
 					var idVal		= null;
@@ -791,22 +826,31 @@
 				    $(this).css('cursor', 'default');
 				});
 
-				
 				// 하단의 메뉴 텝을 누르면 해당 playlist의 컨텐트를 가져온다. ajax
 				$('a[id*=ctg]').click(function() {
-					var i = 0;
-					var playlistId 	= null;
-					playlistId = $(this).attr('id');
-					playlistId = playlistId.substring(3, playlistId.length);
+					var i 		 	 = 0;
+					var idElement	 = null;
+					var playlistId 	 = null;
+					playlistId 		 = $(this).attr('id');
+					playlistId 		 = playlistId.substring(3, playlistId.length);
 					$.getJSON('getTabMenu', {'playlist_id':playlistId}, function(data) {
-						$('#categorySlide').empty();
+						$('.category_slide').empty();
 						for (i; i < data.length; i = i + 1) {
-							$('#categorySlide').append(
+							if (i >= 0 && i <= 4) {
+								idElement = '#item1';
+							} else if (i >= 5 && i <= 9) {
+								idElement = '#item2';
+							} else if (i >= 10 && i <= 14) {
+								idElement = '#item3';
+							} else if (i >= 15 && i <= 19) {
+								idElement = '#item4';
+							}
+							$(idElement).append(
 									'<li>' +
 									'<a id="corpMov" data-contentId="' + data[i].content_i + '" data-playlistName="' + data[i].tag.category + '">' +
 									'<span>' +
 									'<img width="196px" height="110px" src="' + data[i].thumb_url + '" alt="" />' +
-									'<span class="video-time">' + (data[i].duration/1000 * 60) % 60 + ':' + (data[i].duration/1000) % 60 + '</span>' +
+									'<span class="video-time">' + (data[i].duration) + ':' + (data[i].duration) + '</span>' +
 									'</span>' +
 									'</a>' +
 									'<span>' + data[i].tag.category + '</span>' +
@@ -818,9 +862,8 @@
 									'<img src="./resources/images/common/dow_icon.png" alt="download" />' +
 									'</a>' +
 									'</span>' +
-									'</li>'	
+									'</li>'
 							);
-							 
 						}
 					});
 				});

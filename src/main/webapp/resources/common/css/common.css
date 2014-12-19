@@ -9,7 +9,7 @@
 /*@import url(http://fonts.googleapis.com/earlyaccess/nanumgothiccoding.css); 나눔 고딕 코딩*/
 /*@import url(http://fonts.googleapis.com/earlyaccess/nanummyeongjo.css); 나눔 명조*/
 /*@import url(http://fonts.googleapis.com/earlyaccess/nanumpenscript.css); 나눔 펜 스크립트*/
-
+@import url(owl.carousel.css);
 
 .hanna { font-family: 'Hanna', serif; }
 .jejugothic { font-family: 'Jeju Gothic', serif; }
@@ -629,4 +629,28 @@ body { font-family: Arial,'Nanum Gothic','돋움', sans-serif; }
 
 
 .bx-wrapper .bx-viewport .category_slide li {float:left; margin-right:20px;}
-.bx-wrapper {padding-left:52px !important; padding-right:54px !important; }
+
+.bx-wrapper .bx-controls { display:none;}
+.owl-buttons .owl-prev {
+  background: url("../../images/common/prev_icon.gif") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    display: block;
+    height: 21px;
+    left: 11px;
+    position: absolute;
+    text-indent: -9999px;
+    top: 80px;
+    width: 16px;
+    margin-left: -42px;
+}
+.owl-buttons .owl-next {
+	background: url("../../images/common/next_icon.gif") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    display: block;
+    height: 21px;
+    position: absolute;
+    right: 11px;
+    text-indent: -9999px;
+    top: 80px;
+    width: 16px;
+     margin-right: -45px;
+
+}
