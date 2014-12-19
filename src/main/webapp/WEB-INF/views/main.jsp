@@ -574,28 +574,8 @@
 	                        <li><a id="ctg1300000219">Other (RAW)</a></li>
 	                    </ul>
                     	<!-- //탭메뉴_소분류 End -->
-	                    <ul class="category_slide">
-	                    	<c:forEach var="category" items="${categoryList}" varStatus="status">
-	                        <li class="slide">
-	                            <a id="corpMov" data-contentId="${category.getContent_id()}" data-playlistName="${category.tag.category}">
-	                            	<span>
-	                                	<img width="196px" height="110px" src="${category.getThumb_url()}" alt="" />
-	                                    <span class="video-time">${category.getDuration()}</span>
-	                                </span>
-	                            </a>
-	                            <span>${category.tag.getCategory()}</span>
-	                            <c:choose>
-								<c:when test="${fn:length(category.getTitle()) > 37}">
-								<h3><a>${fn:substring(category.getTitle(), 0, 37)}...</a></h3>
-								</c:when>
-								<c:otherwise>
-								<h3><a>${category.getTitle()}</a></h3>
-								</c:otherwise>
-								</c:choose>
-	                            <span class="f_left">${category.getReg_date()}</span>
-	                            <span class="f_right mr5"><a class="download_btn" data-contentId="${category.getContent_id()}"><img src="./resources/images/common/dow_icon.png" alt="download" /></a></span>
-	                        </li>
-	                        </c:forEach>
+	                    <ul class="category_slide" id="categorySlide">
+	                    	
 	                    </ul>
 	                </div>
 	                <!-- //category -->
@@ -772,7 +752,6 @@
 					var hiddenHis	= null;
 					playlistName	= $(this).attr('data-playlistName');
 					playlistName = playlistName.toLowerCase();
-					console.log(playlistName);
 					var contentId = $(this).attr('data-contentId');
 					mamCook = $.cookies.get('mamsCookie');
 					if (!validCookieContent.isExistContentId(mamCook.myHistory, contentId)) {
@@ -812,38 +791,37 @@
 				});
 
 				// 하단의 메뉴 텝을 누르면 해당 playlist의 컨텐트를 가져온다. ajax
-				/*
 				$('a[id*=ctg]').click(function() {
-					var playlistId 	= null;
 					var i = 0;
+					var playlistId 	= null;
 					playlistId = $(this).attr('id');
 					playlistId = playlistId.substring(3, playlistId.length);
 					$.getJSON('getTabMenu', {'playlist_id':playlistId}, function(data) {
-						$('.category_slide').empty();
+						$('#categorySlide').empty();
 						for (i; i < data.length; i = i + 1) {
-							$('.category_slide').append(
-								'<li class="slide">' +
-								'<a id="corpMov" data-contentId="' + data[i].content_i + '" data-playlistName="' + data[i].tag.category + '">' +
-								'<span>' +
-								'<img width="196px" height="110px" src="' + data[i].thumb_url + '" alt="" />' +
-								'<span class="video-time">' + (data[i].duration/1000 * 60) % 60 + ':' + (data[i].duration/1000) % 60 + '</span>' +
-								'</span>' +
-								'</a>' +
-								'<span>' + data[i].tag.category + '</span>' +
-								'<h3><a>' + data[i].title + '</a></h3>' +
-								'<h3><a>' + data[i].view_count + '</a></h3>' +
-								'<span class="f_left">' + data[i].reg_date + '</span>' +
-								'<span class="f_right mr5">' +
-								'<a class="download_btn" data-contentId="#content_id">' +
-								'<img src="./resources/images/common/dow_icon.png" alt="download" />' +
-								'</a>' +
-								'</span>' +
-								'</li>'	
-							);
+							$('#categorySlide').append(
+									'<li class="slide">' +
+									'<a id="corpMov" data-contentId="' + data[i].content_i + '" data-playlistName="' + data[i].tag.category + '">' +
+									'<span>' +
+									'<img width="196px" height="110px" src="' + data[i].thumb_url + '" alt="" />' +
+									'<span class="video-time">' + (data[i].duration/1000 * 60) % 60 + ':' + (data[i].duration/1000) % 60 + '</span>' +
+									'</span>' +
+									'</a>' +
+									'<span>' + data[i].tag.category + '</span>' +
+									'<h3><a>' + data[i].title + '</a></h3>' +
+									'<h3><a>' + data[i].view_count + '</a></h3>' +
+									'<span class="f_left">' + data[i].reg_date + '</span>' +
+									'<span class="f_right mr5">' +
+									'<a class="download_btn" data-contentId="#content_id">' +
+									'<img src="./resources/images/common/dow_icon.png" alt="download" />' +
+									'</a>' +
+									'</span>' +
+									'</li>'	
+							).trigger('create');
+							 
 						}
 					});
 				});
-				*/ 
 	    	});
 	    </script>
 	</body>

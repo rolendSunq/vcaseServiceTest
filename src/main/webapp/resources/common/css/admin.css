@@ -636,3 +636,17 @@ body { font-family: Arial,'Nanum Gothic','돋움', sans-serif; background:url(..
     opacity: 0.5;
     z-index: 100;
 }
+
+#uploading {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 112px;
+    height: 137px;
+    background-color: rgba(0,0,0,0);
+    filter:alpha(opacity=0);
+    -moz-opacity:0.5;
+    -khtml-opacity: 0.5;
+    opacity: 0.5;
+    z-index: 2000;
+}

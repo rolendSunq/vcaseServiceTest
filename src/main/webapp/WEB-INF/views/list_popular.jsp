@@ -193,14 +193,14 @@
                             	<c:choose>
 								<c:when test="${fn:length(his.title) > 21}">
 								<dd>
-									<a id="his" data-contentId="${his.content_id }" data-streamingUrl="${his.streaming_url}" data-thumbUrl="${his.thumb_url }" data-title="${his.title }">
+									<a id="his" data-contentId="${his.content_id}">
 										<img width="25px" height="14px" src="${his.thumb_url }" alt="" />${fn:substring(his.title, 0, 21)}...
 									</a>
 								</dd>
 								</c:when>
 								<c:otherwise>
                                 <dd>
-                                	<a id="his" data-contentId="${his.content_id }" data-streamingUrl="${his.streaming_url}" data-thumbUrl="${his.thumb_url }" data-title="${his.title }">
+                                	<a id="his" data-contentId="${his.content_id}">
                                 		<img width="25px" height="14px" src="${his.thumb_url }" alt="" />${his.title }
                                 	</a>
                                 </dd>

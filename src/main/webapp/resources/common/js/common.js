@@ -51,8 +51,8 @@ var movCls2 = null;
 var wmvCls 	= null;
 var wmvCls2 = null;
 
+// ################################ DFLUX C&C publishing Start ################################
 $(function() {
-	// ################################ DFLUX C&C publishing Start ################################
 	$('#downloadPop').hide();
 	$('#uploading').somthingCenter().hide();
 	//search s
@@ -229,7 +229,7 @@ $(function() {
 	
 	// videoBox 이미지 클릭
 	$('#vbHome').click(function() {
-		$(location).attr('href', '/videoBox');
+		$(location).attr('href', '/videoBox.do');
 	});
 	
 	// 좌측 사이드의 'MY MOVIE'이미지 클릭
@@ -702,8 +702,8 @@ $(function() {
 		formElement.append(hiddenHis).appendTo('body').submit();
 	});
 	//--admin enter end
-	// ################################ Web Programmer surpport End ################################
 });
+// ################################ Web Programmer surpport End ################################
 
 //################################ DFLUX C&C publishing start ################################
 $.fn.set_my_movie = function () {

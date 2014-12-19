@@ -199,7 +199,17 @@ public class UserController {
 	@ResponseBody
 	public String uploadFileToDefault(FileVO fileVO, HttpServletResponse response, Model model) throws IllegalStateException, IOException {
 		response.setContentType("text/html;charset=UTF-8");
+		System.out.println("videoFileUpload.do");
+		System.out.println(fileVO.toString());
+		System.out.println(fileVO.getFile().getContentType());
+		System.out.println(fileVO.getFile().getName());
+		System.out.println(fileVO.getFile().getOriginalFilename());
+		System.out.println(fileVO.getFile().getSize());
+		System.out.println(fileVO.getFile().getBytes());
+		System.out.println(fileVO.getFile().getClass());
 		String message = ovpService.contentFileUpload(fileVO);
+		
+		System.out.println("message ===>>> " + message);
 		return new Gson().toJson(URLEncoder.encode(message, "UTF-8"));
 	}
 	

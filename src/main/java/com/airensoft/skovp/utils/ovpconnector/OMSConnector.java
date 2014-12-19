@@ -149,7 +149,7 @@ public class OMSConnector extends HttpConnectable {
 	// 콘텐트 파일 업로드
 	public OMSConnectorResponse requestFileUpload(File file, String fileName, String fileDescription, String title, String playListIds, String tagList) {
 		clear();
-		setHost("http://upload.vcase.myskcdn.com/v1");
+		setHost("http://dev.airensoft.com/~dimiden/test/index.php");
 		setProtocol("http");
 		setMethod("POST");
 		setUploadFile(file, fileName, fileDescription);

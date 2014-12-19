@@ -206,7 +206,9 @@ public class OvpServiceImpl implements OvpService {
 		omsResponder = omsConnector.requestFileUpload(multipartToFile(fileVO.getFile()), 
 				null, fileVO.getDescription(), fileVO.getTitle(), "1300000203", sb.toString());
 		String message = omsResponder.getRootObject().getAsJsonObject().get("message").getAsString();
+		System.out.println("result+++++++++> " + message);
 		String content_id = omsResponder.getRootDataElement().getAsJsonObject().get("content_id").getAsString();
+		System.out.println("content_id+++++++++> " + content_id);
 		fileVO.setContent_id(content_id);
 		if (message.equals("성공")) {
 			List<String> tags = new ArrayList<String>();
@@ -1241,8 +1243,22 @@ public class OvpServiceImpl implements OvpService {
 	
 	// multipart file을 file type 으로 변환
 	private File multipartToFile(MultipartFile multipart) throws IllegalStateException, IOException {
+		
+		System.out.println("file info");
+		System.out.println(multipart.getOriginalFilename());
+		System.out.println(multipart.getSize());
         File convFile = new File(multipart.getOriginalFilename());
+        System.out.println("convFile info");
+		System.out.println(convFile.getAbsolutePath());
+		System.out.println(convFile.getCanonicalPath());
+		System.out.println(convFile.getName());
+		System.out.println(convFile.getAbsoluteFile());
         multipart.transferTo(convFile);
+        System.out.println("convFile info");
+		System.out.println(convFile.getAbsolutePath());
+		System.out.println(convFile.getCanonicalPath());
+		System.out.println(convFile.getName());
+		System.out.println(convFile.getAbsoluteFile());
         return convFile;
 	}
 
