@@ -574,9 +574,10 @@
 	                        <li><a id="ctg1300000219">Other (RAW)</a></li>
 	                    </ul>
                     	<!-- //탭메뉴_소분류 End -->
-	                    <ul class="category_slide" id="categorySlide">
-	                    	
-	                    </ul>
+                    	<ul class="category_slide" id="categorySlide">
+						  
+						</ul>
+	                    
 	                </div>
 	                <!-- //category -->
 				</div>
@@ -790,6 +791,7 @@
 				    $(this).css('cursor', 'default');
 				});
 
+				
 				// 하단의 메뉴 텝을 누르면 해당 playlist의 컨텐트를 가져온다. ajax
 				$('a[id*=ctg]').click(function() {
 					var i = 0;
@@ -800,7 +802,7 @@
 						$('#categorySlide').empty();
 						for (i; i < data.length; i = i + 1) {
 							$('#categorySlide').append(
-									'<li class="slide">' +
+									'<li>' +
 									'<a id="corpMov" data-contentId="' + data[i].content_i + '" data-playlistName="' + data[i].tag.category + '">' +
 									'<span>' +
 									'<img width="196px" height="110px" src="' + data[i].thumb_url + '" alt="" />' +
@@ -817,11 +819,12 @@
 									'</a>' +
 									'</span>' +
 									'</li>'	
-							).trigger('create');
+							);
 							 
 						}
 					});
 				});
+
 	    	});
 	    </script>
 	</body>

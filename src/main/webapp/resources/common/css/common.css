@@ -626,3 +626,7 @@ body { font-family: Arial,'Nanum Gothic','돋움', sans-serif; }
     opacity: 0.5;
     z-index: 2000;
 }
+
+
+.bx-wrapper .bx-viewport .category_slide li {float:left; margin-right:20px;}
+.bx-wrapper {padding-left:52px !important; padding-right:54px !important; }
