@@ -193,7 +193,7 @@ public class OMSConnector extends HttpConnectable {
 		setProtocol("http");
 		setMethod("GET");
 		addURIParam(OMSConfig.OVP_PLAYLIST);
-		addParam("search_Type", search_Type);
+		addParam("search_type", search_Type);
 		addParam("search", search);
 		addParam("search_start_date", search_start_date);
 		addParam("search_end_date", search_end_date);
@@ -272,7 +272,7 @@ public class OMSConnector extends HttpConnectable {
 		setProtocol("http");
 		setMethod("GET");
 		addURIParam("/playlist");
-		addParam("search_Type", "name");
+		addParam("search_type", "name");
 		addParam("search", playlistName);
 		addParam("search_start_date", 0);
 		addParam("search_end_date", 0);
