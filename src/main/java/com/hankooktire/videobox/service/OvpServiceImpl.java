@@ -205,12 +205,10 @@ public class OvpServiceImpl implements OvpService {
 		fileVO.setCustom_id(sb.toString());
 		omsResponder = omsConnector.requestFileUpload(multipartToFile(fileVO.getFile()), 
 				null, fileVO.getDescription(), fileVO.getTitle(), "1300000203", sb.toString());
-		String message = omsResponder.getRootObject().getAsJsonObject().get("message").getAsString();
-		System.out.println("result+++++++++> " + message);
+		String message = omsResponder.getRootObject().getAsJsonObject().get("result_code").getAsString();
 		String content_id = omsResponder.getRootDataElement().getAsJsonObject().get("content_id").getAsString();
-		System.out.println("content_id+++++++++> " + content_id);
 		fileVO.setContent_id(content_id);
-		if (message.equals("성공")) {
+		if (message.equals("S000")) {
 			List<String> tags = new ArrayList<String>();
 			tags.add(fileVO.getCategory());
 			tags.add(fileVO.getYear());
@@ -1174,6 +1172,7 @@ public class OvpServiceImpl implements OvpService {
 				List<ThumbUrlVO> thumbUrl = new ArrayList<ThumbUrlVO>();
 				MovieContentVO movieContentVO = new Gson().fromJson(contentElement, MovieContentVO.class);
 				JsonArray tagsArray = contentElement.getAsJsonObject().get("tags").getAsJsonArray();
+				System.out.println("contentElement:::::" + contentElement.toString());
 				String[] tagsArr = new Gson().fromJson(tagsArray, String[].class);
 				TagInfoVO tags = new TagInfoVO();
 				for (int i = 0; i < tagsArr.length; i++) {
@@ -1195,7 +1194,6 @@ public class OvpServiceImpl implements OvpService {
 						movieContentVO.setStreaming_url(streamingUrl);
 					}
 				}
-				
 				JsonArray transcodesListArray = contentElement.getAsJsonObject().get("extra").getAsJsonObject().get("transcodes").getAsJsonArray();
 				for (JsonElement transcodesElement : transcodesListArray) {
 					String state = transcodesElement.getAsJsonObject().get("state").getAsString();

@@ -578,7 +578,7 @@
 	                        <li><a id="ctg1300000219">Other (RAW)</a></li>
 	                    </ul>
                     	<!-- //탭메뉴_소분류 End -->
-                    	<div class="slider" style="margin:0 auto; width:1074px; height:100px;">
+	                    <div class="slider" style="margin:0 auto; width:1074px; height:100px;">
 				      		<div class="row">
 				      			<div class="span12">
 				          			<div id="owl-demo" class="owl-carousel">
@@ -628,6 +628,40 @@
 	    <script type="text/javascript" src="./resources/common/js/common.js"></script>
 	    <script type="text/javascript">
 	    	$(document).ready(function(){
+	    		// 하단 텝 메뉴의 Category 중 Company 사이트를 동적으로 로딩한다.
+	    		$.getJSON('getTabMenu.do', {'playlist_id':'1300000253'}, function(data) {
+						$('.category_slide').empty();
+						for (i; i < data.length; i = i + 1) {
+							if (i >= 0 && i <= 4) {
+								idElement = '#item1';
+							} else if (i >= 5 && i <= 9) {
+								idElement = '#item2';
+							} else if (i >= 10 && i <= 14) {
+								idElement = '#item3';
+							} else if (i >= 15 && i <= 19) {
+								idElement = '#item4';
+							}
+							$(idElement).append(
+									'<li>' +
+									'<a id="corpMov" data-contentId="' + data[i].content_id + '" data-playlistName="' + data[i].tag.category + '">' +
+									'<span>' +
+									'<img width="196px" height="110px" src="' + data[i].thumb_url + '" alt="" />' +
+									'<span class="video-time">' + data[i].duration + '</span>' +
+									'</span>' +
+									'</a>' +
+									'<span>' + data[i].tag.category + '</span>' +
+									'<h3><a>' + data[i].title + '</a></h3>' +
+									'<h3><a>' + data[i].view_count + '</a></h3>' +
+									'<span class="f_left">' + data[i].reg_date + '</span>' +
+									'<span class="f_right mr5">' +
+									'<a class="download_btn" href="#url" data-contentid="' + data[i].content_id + '">' +
+									'<img src="./resources/images/common/dow_icon.png" alt="download" />' +
+									'</a>' +
+									'</span>' +
+									'</li>'
+							);
+						}
+				});
 	    		// 수정된 sub menu 
 	    		var tabList = $('.tab01 li');
 	    	    var smallTabList = $('.tab02 li');
@@ -847,10 +881,10 @@
 							}
 							$(idElement).append(
 									'<li>' +
-									'<a id="corpMov" data-contentId="' + data[i].content_i + '" data-playlistName="' + data[i].tag.category + '">' +
+									'<a id="corpMov" data-contentId="' + data[i].content_id + '" data-playlistName="' + data[i].tag.category + '">' +
 									'<span>' +
 									'<img width="196px" height="110px" src="' + data[i].thumb_url + '" alt="" />' +
-									'<span class="video-time">' + (data[i].duration) + ':' + (data[i].duration) + '</span>' +
+									'<span class="video-time">' + data[i].duration + '</span>' +
 									'</span>' +
 									'</a>' +
 									'<span>' + data[i].tag.category + '</span>' +
@@ -858,7 +892,7 @@
 									'<h3><a>' + data[i].view_count + '</a></h3>' +
 									'<span class="f_left">' + data[i].reg_date + '</span>' +
 									'<span class="f_right mr5">' +
-									'<a class="download_btn" data-contentId="#content_id">' +
+									'<a class="download_btn" href="#url" data-contentid="' + data[i].content_id + '">' +
 									'<img src="./resources/images/common/dow_icon.png" alt="download" />' +
 									'</a>' +
 									'</span>' +

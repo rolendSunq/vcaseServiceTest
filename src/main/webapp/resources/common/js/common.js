@@ -229,7 +229,7 @@ $(function() {
 	
 	// videoBox 이미지 클릭
 	$('#vbHome').click(function() {
-		$(location).attr('href', '/videoBox.do');
+		$(location).attr('href', '/videoBox');
 	});
 	
 	// 좌측 사이드의 'MY MOVIE'이미지 클릭
@@ -648,7 +648,7 @@ $(function() {
 		$('#uploading').somthingCenter().show();
 		form = new FormData(document.getElementById('uploadForm'));
 		$.ajax({
-			url: "video/fileUpload",
+			url: "videoFileUpload",
 			data: form,
 			dataType: 'text',
 			processData: false,

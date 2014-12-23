@@ -149,7 +149,7 @@ public class OMSConnector extends HttpConnectable {
 	// 콘텐트 파일 업로드
 	public OMSConnectorResponse requestFileUpload(File file, String fileName, String fileDescription, String title, String playListIds, String tagList) {
 		clear();
-		setHost("http://dev.airensoft.com/~dimiden/test/index.php");
+		setHost("http://upload.vcase.myskcdn.com/v1");
 		setProtocol("http");
 		setMethod("POST");
 		setUploadFile(file, fileName, fileDescription);
@@ -210,7 +210,7 @@ public class OMSConnector extends HttpConnectable {
 		setProtocol("http");
 		setMethod("GET");
 		addURIParam(OMSConfig.OVP_PLAYLIST + "/" + playlist_id + "/content");
-		addParam("mediaType", mediaType);
+		addParam("media_type", mediaType);
 		addParam("state", state);
 		addParam("search_type", searchType);
 		addParam("search", search);

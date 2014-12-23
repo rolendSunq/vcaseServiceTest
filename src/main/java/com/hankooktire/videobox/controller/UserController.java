@@ -195,7 +195,7 @@ public class UserController {
 	}
 	
 	// File을 업로드 한다.
-	@RequestMapping(value = "/video/fileUpload")
+	@RequestMapping(value = "/videoFileUpload")
 	@ResponseBody
 	public String uploadFileToDefault(FileVO fileVO, HttpServletResponse response, Model model) throws IllegalStateException, IOException {
 		response.setContentType("text/html;charset=UTF-8");

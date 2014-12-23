@@ -367,7 +367,7 @@ $(function() {
 		alert('업로드를 시작합니다.');
 		form = new FormData(document.getElementById('uploadForm'));
 		$.ajax({
-			url: "video/fileUpload",
+			url: "videoFileUpload",
 			data: form,
 			dataType: 'text',
 			processData: false,
